@@ -41,9 +41,6 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="cdt.managedbuild.config.gnu.mingw.exe.debug.1881742250.497751980" name="initialize.cpp" rcbsApplicability="disable" resourcePath="src/initialize.cpp" toolsToInvoke="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.423333245.2098036540">
-						<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.423333245.2098036540" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.debug.423333245"/>
-					</fileInfo>
 					<sourceEntries>
 						<entry excluding="src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
@@ -75,6 +72,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.release.1025536431" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.exe.release">
 								<option id="gnu.cpp.compiler.mingw.exe.release.option.optimization.level.1894265041" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.mingw.exe.release.option.debugging.level.1809321254" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.dialect.std.1451164458" superClass="gnu.cpp.compiler.option.dialect.std" value="gnu.cpp.compiler.dialect.c++11" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1312711248" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release.290016832" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.exe.release">
