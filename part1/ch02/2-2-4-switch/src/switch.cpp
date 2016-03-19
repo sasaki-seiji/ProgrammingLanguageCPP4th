@@ -28,5 +28,6 @@ bool accept2()
 
 int main()
 {
-	accept2();
+	bool ans = accept2();
+	cout << "accept2() returns " << ans << endl;
 }
