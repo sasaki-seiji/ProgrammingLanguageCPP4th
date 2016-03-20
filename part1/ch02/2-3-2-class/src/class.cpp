@@ -15,8 +15,8 @@ public:
 	double& operator[](int i) { return elem[i]; }
 	int size() { return sz; }
 private:
-	int sz;
 	double* elem;
+	int sz;
 };
 
 double read_and_sum(int s)
