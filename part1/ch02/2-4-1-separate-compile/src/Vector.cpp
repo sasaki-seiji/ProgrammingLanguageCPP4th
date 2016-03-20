@@ -4,7 +4,6 @@
  *  Created on: 2016/03/20
  *      Author: sasaki
  */
-
 #include "Vector.h"
 
 Vector::Vector(int s)
