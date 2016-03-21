@@ -30,7 +30,7 @@ void print()
 	for( auto x : v )
 		cout << x << '\n';
 
-	for( auto x : {10,21,43,43,54,65} )
+	for( auto x : {10, 21, 43, 43, 54, 65} )
 		cout << x << '\n';
 }
 
