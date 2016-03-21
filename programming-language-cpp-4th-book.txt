@@ -2,11 +2,26 @@
 
 第2章　C++を探索しよう：基本
 
-	2016.03.15、2016.03.18　2.1:初めに、2.2:基本
+	2016.03.15、2016.03.18、201603.19　2.2:基本
+	2016.03.20	2.3:ユーザ定義型、2.4:モジュール性
+
+第3章　C++を探索しよう：抽象化のメカニズム
+
+	2016.03.20	3.2:クラス
 
 ＠＠　Usage　＠＠
 
 
 ＠＠　問題、コメント　＠＠
 
- 
+【2.4.3.2.不変条件ーlength_errorの初期化処理がコンパイルエラー】
+
+日付：　2016.03.20
+コメント：
+	length_errorのデフォルトコンストラクタ呼び出しでコンパイルエラーが発生
+	文字列引数をとるコンストラクタ呼び出しに変更
+	
+	if( s < 0 ) throw length_error{"Vector::Vector"};
+	// no matching function for call to 'std::length_error::length_error(<brace-enclosed initializer list>)'
+		↓
+	if( s < 0 ) throw length_error{"Vector::Vector"};
