@@ -35,7 +35,10 @@ void print_vector(ostream&os, Vector& v)
 
 int main()
 {
-	Vector v;
+	Vector v {1, 2, 3.4};
+	print_vector(cout, v);
+
+	cout << "enter double values:\n";
 	v = read(cin);
 	print_vector(cout, v);
 }

@@ -6,16 +6,13 @@
  */
 
 #include <initializer_list>
-//#include <algorithm>
+#include <algorithm>
 #include "Vector.h"
 
 Vector::Vector(std::initializer_list<double> lst)
 	:elem{ new double[lst.size()] }, sz{ static_cast<int>(lst.size()) }, space{ 0 }
 {
-//	std::copy(lst.begin(), lst.end(), elem);
-	double *p = elem;
-	for (auto it = lst.begin(); it != lst.end(); ++it, ++p)
-		*p = *it;
+	std::copy(lst.begin(), lst.end(), elem);
 }
 
 // 2016.03.21 add copy constructor
@@ -39,14 +36,15 @@ Vector& Vector::operator=(const Vector& src)
 	for (int i = 0; i < sz; ++i) {
 		elem[i] = src.elem[i];
 	}
+	return *this;
 }
 
 void Vector::push_back(double x)
 {
 	if (space == 0) {
 		int newsize = (sz == 0) ? 8 : sz * 2;
-		space = newsize - sz;
 		double *newalloc = new double[newsize];
+		space = newsize - sz;
 		for (int i = 0; i < sz; ++i) {
 			newalloc[i] = elem[i];
 		}
