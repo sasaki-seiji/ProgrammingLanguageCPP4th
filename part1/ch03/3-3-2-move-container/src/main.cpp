@@ -41,6 +41,18 @@ void f(const Vector& x, const Vector& y, const Vector& z)
 	print_vector(r);
 }
 
+Vector f()
+{
+	Vector x(1000);
+	Vector y(1000);
+	Vector z(1000);
+
+	z = x;
+	y = std::move(x);
+
+	return z;
+}
+
 int main()
 {
 	Vector x(10), y(10), z(10);
@@ -54,5 +66,7 @@ int main()
 	print_vector(y);
 	print_vector(z);
 	f(x, y, z);
+
+	Vector r = f();
 }
 
