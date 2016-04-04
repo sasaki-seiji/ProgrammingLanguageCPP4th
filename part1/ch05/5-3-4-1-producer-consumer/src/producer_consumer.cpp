@@ -52,6 +52,8 @@ void consumer()
 		lck.unlock();
 
 		cout << "consumer() gets " << m.message() << '\n';
+		cout.flush();
+
 		if( m.message() == "quit" ) break;
 	}
 }
@@ -68,7 +70,7 @@ void producer()
 
 		Message m { mes };
 
-		sleep_for(milliseconds{20});
+		sleep_for(milliseconds{100});
 
 		unique_lock<mutex> lck {mmutex};
 		mqueue.push(m);
