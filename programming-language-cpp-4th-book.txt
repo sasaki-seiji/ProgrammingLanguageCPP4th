@@ -21,7 +21,7 @@
 第5章　C++を探索しよう：並列処理とユーティリティ
 
 	2016.04.03	5.2:資源管理
-	2016.04.03、2016.04.04	5.3:並行処理
+	2016.04.03、2016.04.04、2016.04.05	5.3:並行処理
 	
 ＠＠　セットアップ　＠＠
 
@@ -84,5 +84,24 @@
 コメント：
 	コンテナの初期化の例題では、コピーコンストラクタとコピー代入演算子を
 	定義しないと、動作しない
-
 	
+【5.3.5.2　package_taskの例で異常終了する】
+
+日付：　2016.04.05
+現象：
+
+以下のエラーメッセージが出力され、異常終了する。
+	This application has requested the Runtime to terminate it in an unusual way.
+	Please contact the application's support team for more information.
+
+対策：
+	スレッドを作成したcomp2関数から戻る前に、スレッドの終了を待つ
+	処理を入れた
+
+	// 2016.04.05 add
+	t1.join(); t2.join();
+	
+	return f0.get() + f1.get();
+	
+	つまり、futureに対して、get()を呼び出すだけでは、スレッドの終了が
+	保証できない模様
