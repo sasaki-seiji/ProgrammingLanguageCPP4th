@@ -109,3 +109,24 @@
 	
 	つまり、futureに対して、get()を呼び出すだけでは、スレッドの終了が
 	保証できない模様
+
+【5.6.2　complexの型変換のエラー】
+
+日付：　2016.04.07
+現象：
+	スカラー型の異なるcomplex間の型変換と、complexとスカラー型の混合演算で
+	エラーが出る
+	
+
+	complex<long double> ld {fl+sqrt(db)};
+		↓
+	no match for 'operator+' (operand types are 'std::complex<float>' and 'std::complex<double>')
+	
+	db += fl*3;
+		↓
+	no match for 'operator*' (operand types are 'std::complex<float>' and 'int')
+
+	fl = pow(1/fl, 2);
+		↓
+	no match for 'operator/' (operand types are 'int' and 'std::complex<float>')
+
