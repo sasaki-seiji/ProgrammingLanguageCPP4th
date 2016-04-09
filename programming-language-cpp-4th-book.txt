@@ -142,3 +142,36 @@
 	整数からboolへの縮小変換がエラーとならない（ワーニングも出力されない）
 
 		bool b2 {7};
+
+【6.3.5　初期化：　初期化並びによる初期化】
+
+日付：　2016.04.10
+コメント：
+	変数を使った初期化並びによる初期化において、縮小変換の場合もエラーとならず、
+	ワーニングとなる
+	
+	int x3 {val};
+	// narrowing conversion of 'val' from 'double' to 'int' inside { } [-Wnarrowing]
+
+	char c3 {val2};
+	// narrowing conversion of 'val2' from 'int' to 'char' inside { } [-Wnarrowing]
+
+	但し、常数を使った初期化並びの初期化では、縮小変換の場合はエラーとなる
+	
+	//char c5 {264};
+	// narrowing conversion of '264' from 'int' to 'char' inside { } [-Wnarrowing]
+
+	//int x4 {2.0};
+	// narrowing conversion of '2.0e+0' from 'double' to 'int' inside { } [-Wnarrowing]
+
+
+【6.3.5　初期化：　初期化並びによる型推定】
+
+日付：　2016.04.10
+コメント：
+	単一要素の初期化並びによる型推定では、initilizer_listとならずに、
+	その要素の値で初期化される。
+	以下の例では、z1は整数値９９に初期化される
+
+	auto z1 {99};
+	
