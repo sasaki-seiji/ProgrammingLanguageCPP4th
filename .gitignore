@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -50,6 +52,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 =======
+>>>>>>> 3d0850f039c5f2927401fc69049966aad55f07d4
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -104,4 +107,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
->>>>>>> 0e64bc73c7f7b998d907a11bcd5a17fc75ee1dc4

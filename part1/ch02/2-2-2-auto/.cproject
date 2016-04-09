@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
@@ -120,6 +122,7 @@
 	<storageModule moduleId="refreshScope"/>
 </cproject>
 =======
+>>>>>>> 3d0850f039c5f2927401fc69049966aad55f07d4
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
@@ -240,4 +243,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope"/>
 </cproject>
+<<<<<<< HEAD
+=======
 >>>>>>> 0e64bc73c7f7b998d907a11bcd5a17fc75ee1dc4
+>>>>>>> 3d0850f039c5f2927401fc69049966aad55f07d4
