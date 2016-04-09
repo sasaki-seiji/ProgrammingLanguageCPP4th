@@ -1,0 +1,2 @@
+f(shared_ptr<fstream> called
+g(shared_ptr<fstream> called

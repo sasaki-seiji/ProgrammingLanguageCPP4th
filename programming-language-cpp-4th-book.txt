@@ -1,0 +1,144 @@
+【履歴】
+
+第2章　C++を探索しよう：基本
+
+	2016.03.15、2016.03.18、2016.03.19　2.2:基本
+	2016.03.20	2.3:ユーザ定義型、2.4:モジュール性
+
+第3章　C++を探索しよう：抽象化のメカニズム
+
+	2016.03.20、2016.03.22、2016.03.24、2016.03.26	3.2:クラス
+	2016.03.27	3.3:コピーとムーブ
+	2016.03.27、2016.03.28、2016.03.30、2016.04.02	3.4:テンプレート
+
+第4章　C++を探索しよう：コンテナとアルゴリズム
+
+	2016.04.02	4.2:文字列
+	2016.04.02	4.3:ストリーム入出力
+	2016.04.02	4.4:コンテナ
+	2016.04.03	4.5:アルゴリズム
+	
+第5章　C++を探索しよう：並列処理とユーティリティ
+
+	2016.04.03	5.2:資源管理
+	2016.04.03、2016.04.04、2016.04.05	5.3:並行処理
+	2016.04.05、2016.04.06、2016.04.07	5.4:小規模ユーティリティ
+	2016.04.07	5.5:正規表現
+	2016.04.07、2016.04.08	5.6:数学ライブラリ
+	
+第6章　型と宣言
+
+	2016.04.09	6.2:型
+	2016.04.09	6.3:宣言
+	
+
+＠＠　セットアップ　＠＠
+
+【Pleiadesのアップデート】
+日付：　2016.03.23
+コメント：
+
+	Pleiadesを、pleiades-e4.5-cpp-jre_20160312.zip　にアップデート
+	今回は、C/C++　FullEditionを導入したため、MinGWも更新
+	MinGWのバージョンは、
+		g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+
+	バージョンをアップしても、
+		「Ohter　dialect　flag」に　-std=c++11　を入力
+		「プリプロセッサ」に　__cplusplus=201103L　を入力
+	しないとうまく動作しない（コンパイル時のエラーが表示される）
+
+
+＠＠　Usage　＠＠
+
+
+＠＠　問題、コメント　＠＠
+
+【2.4.3.2.不変条件ーlength_errorの初期化処理がコンパイルエラー】
+
+日付：　2016.03.20
+コメント：
+	length_errorのデフォルトコンストラクタ呼び出しでコンパイルエラーが発生
+	文字列引数をとるコンストラクタ呼び出しに変更
+	
+	if( s < 0 ) throw length_error{"Vector::Vector"};
+	// no matching function for call to 'std::length_error::length_error(<brace-enclosed initializer list>)'
+		↓
+	if( s < 0 ) throw length_error{"Vector::Vector"};
+
+【3.2.1.3.　initializer_listでコンパイルエラー】
+
+日付：　2016.03.22
+バージョン：
+	eclipse：　Version:Mars.2 Release(4.5.2)
+	MinGW：　gcc(GCC)4.9.3
+現象：
+	initializer_listでコンパイルエラーが出る
+対策：
+	eclipse/CDT上で以下を行う
+	
+	１）プロジェクトを選択し、右クリックで「プロパティー」を選択
+	１．１）「C/C++ビルド」「設定」を選択
+	１．１．１）「GCC　C++　Compiler」「Dialect」を選択し
+		「Ohter　dialect　flag」に　-std=c++11　を入力
+	１．１．２）「GCC　C++　Compiler」「プリプロセッサ」を選択し
+		「__cplusplus=201103L」を入力
+	２）「プロジェクト」「C/C++索引」「再ビルド」メニューを実行
+	
+	この後、ビルド、実行すると、うまくいった
+
+【3.2.1.3.　コンテナの初期化】
+
+日付：　2016.03.24
+コメント：
+	コンテナの初期化の例題では、コピーコンストラクタとコピー代入演算子を
+	定義しないと、動作しない
+	
+【5.3.5.2　package_taskの例で異常終了する】
+
+日付：　2016.04.05
+現象：
+
+以下のエラーメッセージが出力され、異常終了する。
+	This application has requested the Runtime to terminate it in an unusual way.
+	Please contact the application's support team for more information.
+
+対策：
+	スレッドを作成したcomp2関数から戻る前に、スレッドの終了を待つ
+	処理を入れた
+
+	// 2016.04.05 add
+	t1.join(); t2.join();
+	
+	return f0.get() + f1.get();
+	
+	つまり、futureに対して、get()を呼び出すだけでは、スレッドの終了が
+	保証できない模様
+
+【5.6.2　complexの型変換のエラー】
+
+日付：　2016.04.07
+現象：
+	スカラー型の異なるcomplex間の型変換と、complexとスカラー型の混合演算で
+	エラーが出る
+	
+
+	complex<long double> ld {fl+sqrt(db)};
+		↓
+	no match for 'operator+' (operand types are 'std::complex<float>' and 'std::complex<double>')
+	
+	db += fl*3;
+		↓
+	no match for 'operator*' (operand types are 'std::complex<float>' and 'int')
+
+	fl = pow(1/fl, 2);
+		↓
+	no match for 'operator/' (operand types are 'int' and 'std::complex<float>')
+
+【6.2.2　論理型：　整数からboolへの縮小変換】
+
+日付：　2016.04.09
+コメント：
+	整数からboolへの縮小変換がエラーとならない（ワーニングも出力されない）
+
+		bool b2 {7};
