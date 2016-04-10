@@ -191,3 +191,17 @@
 	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
 	// unable to deduce 'std::initializer_list<_Tp>' from '{1.0e+0, 2}'
 
+【6.3.6.2　autoと｛｝並び】
+
+日付：　2016.04.10
+バージョン：
+コメント：
+	テキストと異なり、単一要素を持つ｛｝並びに対して、autoで型推定すると、
+	並びの値の型に型推定される
+	
+	auto v1ai {12345};
+	auto v2ai {'c'};
+	auto v3ai {f()};
+	
+	では、それぞれ、int、char、char型となる
+
