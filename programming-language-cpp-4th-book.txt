@@ -174,4 +174,20 @@
 	以下の例では、z1は整数値９９に初期化される
 
 	auto z1 {99};
-	
+
+【6.3.5.2　初期化子並び：　autoによる型推定】
+
+日付：　2016.04.10
+バージョン：g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述とは異なり、初期化子リストを伴ったautoによる型推定では、
+	以下のエラーが出る
+
+	auto x1 {1, 2, 3, 4};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	auto x2 {1.0, 2.25, 3.5};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	auto x3 {1.0, 2};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	// unable to deduce 'std::initializer_list<_Tp>' from '{1.0e+0, 2}'
+
