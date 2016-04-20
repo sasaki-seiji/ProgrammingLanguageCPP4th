@@ -77,17 +77,25 @@ Address::Address(const string& n, int nu, const string& s, const string&t,
 {
 	if (st.size()!=2)
 		error("State abbreviation should be two characters");
+	// 2016.04.20 change:
 	//state = {st[0], st[1]};
+		// assigning to an array from an initializer list
+	state[0] = st[0]; state[1] = st[1];
+
 	ostringstream ost;
 	ost << z;
 	string zi {ost.str()};
 	switch (zi.size()) {
 	case 5:
+		// 2016.04.20
 		//zip = {zi[0], zi[1], zi[2], zi[3], zi[4]};
+			// 	assigning to an array from an initializer list
 		for (int i = 0; i < 5; ++i) zip[i] = zi[i];
 		break;
 	case 4:
+		// 2016.04.20
 		//zip = {'0', zi[0], zi[1], zi[2], zi[3]};
+			// assigning to an array from an initializer list
 		zip[0] = '0';
 		for (int i = 0; i < 4; ++i) zip[i+1] = zi[i];
 		break;
