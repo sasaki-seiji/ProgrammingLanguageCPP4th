@@ -59,16 +59,19 @@ int* cheat2(int i)
 
 int main()
 {
+	char name[] = "name";
+	char value[] = "something\n";
+
 	Entry e;
-	e.name = "Entry";
+	e.name = name;
 	e.t = str;
-	e.s = "some string\n";
+	e.s = value;
 	f(&e);
 
 	Entry2 e2;
-	e2.name = "Entry2";
+	e2.name = name;
 	e2.t = str;
-	e2.v.s = "other string\n";
+	e2.v.s = value;
 	f(&e2);
 
 	cout << "cheat(10) returns " << cheat(10) << '\n';
