@@ -354,3 +354,41 @@
 	U2 x1;
 	U2 x2 {7};
 		// no matching function for call to 'U2::U2(<brace-enclosed initializer list>)'
+
+
+【8.3.2　無名共用体】
+
+日付：　2016.04.22
+コメント：
+
+	テキストの例に以下の問題がある
+	
+	①文法エラー
+	
+	Entry2& Entry2::operator=(const Entry2& e)　関数内で、以下の行でエラー
+	
+		new(&s)(e.s);
+
+	正しくは、
+
+		new(&s) string{e.s};
+
+	としなければならない
+	
+	②typeメンバへの設定ミス
+	
+		switch (e.type) {
+		case Tag::number:
+			i = e.i;
+			break;
+		case Tag::text:
+			// new(&s)(e.s);
+			new(&s) string{e.s};
+			type = e.type;
+			break;
+		}
+
+		return *this;
+		
+	において、this->typeがTag::textで、e.typeがTag::numberの時、
+	this->typeが、Tag::textのままとなる
