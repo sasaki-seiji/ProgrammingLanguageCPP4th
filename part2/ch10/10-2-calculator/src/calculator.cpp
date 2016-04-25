@@ -38,7 +38,7 @@ public:
 	~Token_stream() { close(); }
 
 	Token get();
-	const Token&current() { return ct; }
+	const Token& current() { return ct; }
 
 	void set_input(istream& s) { close(); ip = &s; owns = false; }
 	void set_input(istream* p) { close(); ip = p; owns = true; }
