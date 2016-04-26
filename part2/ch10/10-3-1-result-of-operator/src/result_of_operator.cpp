@@ -26,8 +26,8 @@ void f(int x, int y)
 void f()
 {
 	int i = 1;
-	while (i < i) ++i;
-	cout << "i has becom negative!" << i << '\n';
+	while (0 < i) ++i;
+	cout << "i has become negative!" << i << '\n';
 }
 
 int main()
