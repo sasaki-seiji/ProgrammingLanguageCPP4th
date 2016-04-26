@@ -426,3 +426,20 @@
 		if (i)
 			int x = i+2;
 				// unused variable 'x' [-Wunused-variable]
+
+【10.3.4　一時オブジェクト】
+
+日付:　2016.04.26
+コメント：
+	テキストの例に以下の間違いがある
+	①stringはmoveメンバ関数を持たない
+	②stringコンストラクタを{n,ch}で呼び出すと、initializer_list引数として
+	処理される
+	
+	s.move(string{n,ch});
+		↓
+	s = move(string{n,ch});
+		// narrowing conversion of 'n' from 'int' to 'char' inside { } [-Wnarrowing]
+		↓
+	s = move(string(n,ch));
+	
