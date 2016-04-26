@@ -443,4 +443,14 @@
 		// narrowing conversion of 'n' from 'int' to 'char' inside { } [-Wnarrowing]
 		↓
 	s = move(string(n,ch));
+
+【10.4.2　定数式中のconst：sqrtを用いたconstexprがエラーとならない】
+
+日付：　2016.04.26
+コメント：
+	テキストの記述と異なり、sqrtを用いたconstexprがエラーとならない
+
+	const int y = sqrt(x);
+	constexpr int yy = y;
 	
+	ここで、ｙとｙｙは、値2を持つ
