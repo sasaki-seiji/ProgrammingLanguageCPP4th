@@ -454,3 +454,20 @@
 	constexpr int yy = y;
 	
 	ここで、ｙとｙｙは、値2を持つ
+
+
+【5.4.3　リテラル型：constexprメンバ関数にconst関数指定が必要】
+
+日付：　2016.04.27
+コメント：
+	テキストの記述と異なり、constexprメンバ関数にもconst関数指定がが必要である
+	
+	struct Point {
+		...
+		//constexpr Point up(int d) { return {x, y, z+d}; }
+		constexpr Point up(int d) const { return {x, y, z+d}; }
+			// Invalid arguments 'Candidates are: Point up(int)	'
+		...
+	};
+	
+	constexpr Point p2 {p1.up(20)};
