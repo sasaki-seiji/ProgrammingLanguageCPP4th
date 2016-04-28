@@ -471,3 +471,16 @@
 	};
 	
 	constexpr Point p2 {p1.up(20)};
+
+【10.4.5　アドレス定数式：p1+2がコンパイルエラーとならない】
+
+日付：　2016.04.29
+コメント：
+	テキストの記述と異なり、定数式　p1+2がコンパイルエラーとならない
+	
+	constexpr const char* p1 = "asdf";
+	constexpr const char* p2 = p1;
+	constexpr const char* p3 = p1+2;	// OK
+	constexpr char c = p1[2];
+
+	
