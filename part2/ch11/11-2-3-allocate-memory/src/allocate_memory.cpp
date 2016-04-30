@@ -13,6 +13,7 @@ void f()
 {
 	vector<char*> v;
 	try {
+		// this crash PC!!!
 		for (;;) {
 			char* p = new char[10000];
 			v.push_back(p);
