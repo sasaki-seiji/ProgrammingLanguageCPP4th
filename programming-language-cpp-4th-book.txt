@@ -63,7 +63,7 @@
 
 	2016.04.29	11.1:いろいろな演算子
 	2016.04.29、2016.04.30	11.2:空き領域
-	2016.05.01	11.3:並び
+	2016.05.01、2016.05.02	11.3:並び
 	
 ＠＠　セットアップ　＠＠
 【Pleiadesのアップデート】
@@ -498,3 +498,14 @@
 		char c {d};
 			// narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
 	・縮小変換のワーニングは、-Wconversionオプションを付けた場合のみ出力される
+
+【11.3.3　非修飾並び】
+
+日付：　2016.05.01
+コメント：
+	テキストの記述と異なり、+=　の右辺に非修飾｛｝並びを指定するとエラーとなる
+	v = v + {88} の意味に解釈され、+演算でエラーとなる模様
+	
+	int v {7};
+	v += {88};
+		// invalid operands of types 'int' and '<brace-enclosed initializer list>' to binary 'operator+'
