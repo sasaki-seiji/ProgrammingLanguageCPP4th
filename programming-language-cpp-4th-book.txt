@@ -511,3 +511,22 @@
 	int v {7};
 	v += {88};
 		// invalid operands of types 'int' and '<brace-enclosed initializer list>' to binary 'operator+'
+
+
+【11.4.3.1　ラムダ式と生存期間】
+
+日付：　2016.05.02
+コメント：
+	クラスオブジェクトへの非constな参照を値でキャプチャするとエラーが出る
+	
+		void setup2(Menu& m)
+		{
+			Point p1{1,2}, p2{3,4}, p3{5,6};
+
+			m.add("draw triagle", [=]{ m.draw(p1, p2, p3); });
+				// passing 'const Menu' as 'this' argument discards qualifiers [-fpermissive]
+		}
+
+	以下のように、参照としてキャプチャする必要がある
+	
+		m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
