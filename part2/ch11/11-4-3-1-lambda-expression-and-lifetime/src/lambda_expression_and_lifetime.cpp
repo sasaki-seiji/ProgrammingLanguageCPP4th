@@ -6,6 +6,7 @@
  */
 
 #include <functional>
+#include <map>
 #include <iostream>
 using namespace std;
 
@@ -20,13 +21,12 @@ ostream& operator<<(ostream& os, Point pt)
 
 class Menu {
 private:
-	function<void()> fn;
-	string label;
+	map<string, function<void()>> actions;
 public:
-	void operator()() { fn(); }
-	void add(const string& lb, function<void()> f) { fn = f; label = lb; }
+	void operator()(const string& label) { actions[label](); }
+	void add(const string& lb, function<void()> f) { actions[lb] = f; }
 	void draw(Point p1, Point p2, Point p3)
-	{ cout << label << ": " << p1 << ',' << p2 << ',' << p3 << '\n'; }
+	{ cout << p1 << ',' << p2 << ',' << p3 << '\n'; }
 };
 
 void setup(Menu& m)
@@ -49,10 +49,10 @@ int main()
 {
 	Menu m;
 	setup(m);
-	m();
+	m("draw triagle");
 
 	setup2(m);
-	m();
+	m("draw triagle");
 }
 
 
