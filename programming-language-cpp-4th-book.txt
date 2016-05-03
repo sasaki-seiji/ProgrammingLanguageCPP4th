@@ -530,3 +530,13 @@
 	以下のように、参照としてキャプチャする必要がある
 	
 		m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
+
+【11.4.4　呼び出しとリターン】
+
+日付：　2016.05.03
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述と異なり、複数のreturn文を持つラムダ式のリターン型が推定されている
+	
+	auto z2 = [y]{ if (y) return 1; else return 2; };
+	z2();
