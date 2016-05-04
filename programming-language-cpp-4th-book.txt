@@ -553,4 +553,14 @@
 		
 	この場合、実際には何もキャプチャしていないのでコンパイルできるものと思われる
 	
+【11.5.4　関数形式キャスト】
+
+日付：　2016.05.04
+コメント：
+	テキストの記述と異なり、関数形式(および、C言語形式も）でのchar*から
+	intへのキャストがエラーとなる
 	
+		int b = int(p);
+			// cast from 'char*' to 'int' loses precision [-fpermissive]
+		int c = (int)p;
+			// cast from 'char*' to 'int' loses precision [-fpermissive]
