@@ -568,3 +568,19 @@
 			// cast from 'char*' to 'int' loses precision [-fpermissive]
 		int c = (int)p;
 			// cast from 'char*' to 'int' loses precision [-fpermissive]
+
+【12.1.6　constexpr関数】
+
+日付：　2016.05.05
+コメント：
+	テキストの記述と異なり、定数でない配列サイズがエラーとならない
+	
+	void f(int n)
+	{
+		・・・
+		char a[fac(4)];
+		char a2[fac(n)];
+		・・・
+	}
+	
+
