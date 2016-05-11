@@ -20,7 +20,8 @@ int (*pf2)(char) = &f;
 int main()
 {
 	pf1(12);
-	pf2('x');
+	int ret = pf2('x');
+	cout << "pf2('x') returns " << ret << '\n';
 }
 
 // undefs
@@ -31,4 +32,5 @@ void f(int i)
 int f(char c)
 {
 	cout << "f(char: " << c << ")\n";
+	return int{c};
 }
