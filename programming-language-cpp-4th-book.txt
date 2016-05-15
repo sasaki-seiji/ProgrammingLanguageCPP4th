@@ -78,7 +78,7 @@
 第13章　例外処理
 
 	2016.05.13、2016.05.14	13.1:エラー処理
-	2016.05.14	13.3:資源管理
+	2016.05.14、2016.05.15	13.3:資源管理
 	
 	
 ＠＠　セットアップ　＠＠
@@ -616,5 +616,32 @@
 		f3({1,2,3,4});
 			// Invalid arguments 'Candidates are: void f3(const #0 (&)[3 #1 0])	'
 		・・・
+	}
+
+【13.3.1:finally　Final_actionクラスのコピーコンストラクタの削除に関するエラー】
+
+日付：　2016.05.15
+コメント：
+	テキストの例では、Final_actionクラスのコピーコンストラクタを削除しているが、
+	これを使っている箇所があり、エラーとなる
+
+①finallyテンプレート関数
+
+	template<typename F>
+	Final_action<F> finally(F f)
+	{
+		return Final_action<F>(f);
+			// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+	}
+	
+		// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+
+②test関数内のブロックの中
+		
+	{
+		var = 1;
+		auto act2 = finally([&]{ cout << "finally!\n"; var = 7; });
+			// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+		cout << "var = " << var << '\n';
 	}
 
