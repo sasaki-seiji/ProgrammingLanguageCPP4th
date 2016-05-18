@@ -34,7 +34,7 @@ ostream& operator<<(ostream& os, const vector<T>& v)
 }
 
 template<typename T>
-void f(T& x)
+void f(T& x) noexcept(Is_pod<T>())
 {
 	cout << "f(" << x << ")\n";
 }
