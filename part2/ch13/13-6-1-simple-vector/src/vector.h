@@ -57,7 +57,7 @@ vector<T,A>::~vector()
 {
 	for (T* p = elem; p!=space; ++p)
 		alloc.destroy(p);
-	alloc.destroy(elem);
+	alloc.deallocate(elem, last-elem);
 }
 
 #endif /* VECTOR_H_ */

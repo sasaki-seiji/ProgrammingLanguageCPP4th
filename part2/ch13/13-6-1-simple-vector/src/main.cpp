@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-	const int	sz = 100*1000;
+	const int	sz = 100*1000*1000;
 	string str;
 	for (int i; i < 100; ++i) str += 'z';
 
