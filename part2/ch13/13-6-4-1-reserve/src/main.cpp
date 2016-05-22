@@ -31,11 +31,11 @@ int main()
 {
 	vector<int> vi(10, 123);
 	vector<string> vs(10, "abc");
-	cout << "vi: " << vi << ", capacity = " << vi.capacity() << '\n'<< flush;
-	cout << "vs: " << vs << ", capacity = " << vs.capacity() << '\n'<< flush;
+	cout << "vi(original): " << vi << ", capacity = " << vi.capacity() << '\n'<< flush;
+	cout << "vs(original): " << vs << ", capacity = " << vs.capacity() << '\n'<< flush;
 
 	vi.reserve(100);
 	vs.reserve(100);
-	cout << "vi: " << vi << ", capacity = " << vi.capacity() << '\n'<< flush;
-	cout << "vs: " << vs << ", capacity = " << vs.capacity() << '\n'<< flush;
+	cout << "vi(reserved): " << vi << ", capacity = " << vi.capacity() << '\n'<< flush;
+	cout << "vs(reserved): " << vs << ", capacity = " << vs.capacity() << '\n'<< flush;
 }
