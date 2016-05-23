@@ -36,5 +36,38 @@ int main()
 	cout << v << '\n';
 }
 
+namespace Graph_lib {
+	class Shape { };
+	class Line : public Shape { };
+	class Poly_line : public Shape { };
+	class Text : public Shape { };
 
+	Shape operator+(const Shape&, const Shape&);
+
+	class Graph_reader { };
+	Graph_reader open(const char*);
+}
+
+namespace Text_lib {
+	class Glyph { };
+	class Word { };
+	class Line { };
+	class Text { };
+
+	class File { };
+	File* open(const char*);
+
+	Word operator+(const Line&, const Line&);
+}
+
+using namespace Graph_lib;
+using namespace Text_lib;
+
+Glyph gl;
+vector<Shape*> vs;
+
+//Text txt;
+	// reference to 'Text' is ambiguous
+//File* fp = open("my_precious_data");
+	// call of overloaded 'open(const char [17])' is ambiguous
 
