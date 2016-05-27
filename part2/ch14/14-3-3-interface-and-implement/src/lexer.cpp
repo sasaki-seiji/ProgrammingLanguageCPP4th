@@ -12,7 +12,6 @@ using Error::error;
 
 Lexer::Token_stream Lexer::ts{std::cin};
 
-
 Lexer::Token Lexer::Token_stream::get()
 {
 	char ch;
