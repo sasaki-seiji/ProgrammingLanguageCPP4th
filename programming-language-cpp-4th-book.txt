@@ -87,7 +87,7 @@
 
 	2016.05.23	14.2:名前空間
 	2016.05.24	14.3:モジュール化とインタフェース
-	2016.05.26、2016.05.27	14.4:名前空間を用いた構成
+	2016.05.26、2016.05.27、2016.05.28	14.4:名前空間を用いた構成
 	
 	
 ＠＠　セットアップ　＠＠
@@ -701,4 +701,23 @@
 
 		return *this;
 	}
+
+
+【14.4.6　namespace内のテンプレートクラスの特殊化】
+
+日付：　2016.05.28
+コメント：
+
+	テキストの例題で、Popularネームスペースのテンプレートクラスclass　Cの
+	特殊化でコンパイルエラーが出る
 	
+	template<typename T>
+	class Popular::C<T*> { };
+		// specialization of 'template<class T> class Popular::V3_2::C' in different namespace [-fpermissive]
+
+	ネームスペースに入って、特殊化を行うとコンパイルできる
+	
+	namespace Popular {
+		template<typename T>
+		class C<T*> { };
+	}
