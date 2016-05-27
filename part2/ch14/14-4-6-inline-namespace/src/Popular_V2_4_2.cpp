@@ -15,6 +15,7 @@ using namespace std;
 double Popular::V2_4_2::f(double d)
 {
 	cout << "Popular::V2_4_2::f(double: " << d << ")\n";
+	return 1.2;
 }
 
 
