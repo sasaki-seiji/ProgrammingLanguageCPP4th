@@ -721,3 +721,44 @@
 		template<typename T>
 		class C<T*> { };
 	}
+
+【14.4.6　#include の繰り返し】
+
+日付：2016.05.28
+コメント：
+
+	double Popular::V3_0::f(double d) がコンパイルエラー
+	
+	V3_0.hのインクルード中で再度V3_common.hをインクルードするところが
+	うまくいっていない模様
+	
+	// Popular.h
+	namespace Popular {
+		inline
+		#include "V3_2.h"
+		#include "V3_0.h"
+		#include "V2_4_2.h"
+	}
+	
+	// V3_2.h
+	namespace V3_2 {
+		int f(int);
+		#include "V3_common.h"
+	}
+
+	// V3_common.h
+	double f(double);
+	template<typename T>
+		class C { };
+
+	// V3_0.h
+	namespace V3_0 {
+		#include "V3_common.h"
+	}
+
+	// Popular_V3_0.cpp
+	double Popular::V3_0::f(double d)
+	{
+		cout << "Popular::V3_0::f(double: " << d << ")\n";
+	}
+		// Member declaration not found
