@@ -23,6 +23,7 @@ $RECYCLE.BIN/
 # object file
 *.o
 *.exe
+Debug/
 
 # =========================
 # Operating System Files
