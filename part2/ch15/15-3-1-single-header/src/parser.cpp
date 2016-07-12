@@ -7,8 +7,8 @@
 
 #include "dc.h"
 using namespace Lexer;
-using namespace Table;
-using namespace Error;
+using Table::table;
+using Error::error;
 
 double Parser::expr(bool get)
 {
@@ -79,6 +79,4 @@ double Parser::prim(bool get)
 		return error("primary expected");
 	}
 }
-
-
 

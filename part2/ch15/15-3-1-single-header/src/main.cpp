@@ -10,8 +10,9 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
+
 using namespace Lexer;
-using namespace Table;
+using Table::table;
 using namespace Error;
 
 void Driver::calculate()
@@ -24,8 +25,19 @@ void Driver::calculate()
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+	switch (argc){
+	case 1:
+		break;
+	case 2:
+		ts.set_input(new istringstream{argv[1]});
+		break;
+	default:
+		error("too many arguments");
+		return 1;
+	}
+
 	table["pi"] = 3.14159;
 	table["e"] = 2.71828;
 
