@@ -30,8 +30,19 @@ namespace Driver {
 	}
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+	switch (argc){
+	case 1:
+		break;
+	case 2:
+		ts.set_input(new istringstream{argv[1]});
+		break;
+	default:
+		error("too many arguments");
+		return 1;
+	}
+
 	table["pi"] = 3.14159;
 	table["e"] = 2.71828;
 
