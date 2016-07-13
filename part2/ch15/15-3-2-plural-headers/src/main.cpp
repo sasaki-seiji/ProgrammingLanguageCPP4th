@@ -10,13 +10,13 @@
 #include "lexer.h"
 #include "error.h"
 #include "table.h"
-#include <sstream>
-#include <iostream>
-
-using namespace std;
 using namespace Lexer;
 using Table::table;
 using namespace Error;
+
+#include <sstream>
+#include <iostream>
+using namespace std;
 
 namespace Driver {
 	void calculate()
