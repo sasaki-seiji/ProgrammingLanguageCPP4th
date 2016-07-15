@@ -7,12 +7,13 @@
 
 #include "Date1.h"
 #include "Date2.h"
+#include "Date3.h"
 #include <iostream>
 using namespace std;
 
 void f()
 {
-	cout << "Date1 constructor: ( ) form\n";
+	cout << "( ) form\n";
 
 	Date1 today = Date1(23, 6, 1983);
 	Date1 xmas(25, 12, 1990);
@@ -26,7 +27,7 @@ void f()
 
 void g()
 {
-	cout << "Date1 constructor : { } form\n";
+	cout << "{ } form\n";
 
 	Date1 today = Date1 {23,6,1983};
 	Date1 xmas {25,12,1990};
@@ -38,7 +39,7 @@ void g()
 
 void h()
 {
-	cout << "Date2 constructor\n";
+	cout << "constructor overload\n";
 
 	Date2 today {4};
 	Date2 july4 { "July 4, 1983" };
@@ -53,6 +54,20 @@ void h()
 	start.print();
 }
 
+void i()
+{
+	cout << "constructor with default arguments\n";
+
+	Date3 today {4};
+	Date3 guy {5,11};
+	Date3 now;
+	Date3 start { };
+
+	today.print();
+	guy.print();
+	now.print();
+	start.print();
+}
 
 // add main
 int main()
@@ -60,4 +75,5 @@ int main()
 	f();
 	g();
 	h();
+	i();
 }

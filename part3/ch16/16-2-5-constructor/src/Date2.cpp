@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-Date2 today {16, 7, 2016};
+static Date2 today {16, 7, 2016};
 
 Date2::Date2(int dd, int mm, int yy) {
 	d = dd;
