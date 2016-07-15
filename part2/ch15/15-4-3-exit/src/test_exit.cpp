@@ -27,9 +27,26 @@ void my_cleanup()
 	cout << "my_cleanup()\n";
 }
 
+class X
+{
+public:
+	X(const char* mes) : message{mes}
+	{ cout << "construct X(\"" << mes << "\")\n"; }
+
+	~X()
+	{ cout << "destruct X(\"" << message << "\")\n"; }
+
+private:
+	string message;
+};
+
+X global("global variable");
+
 // add main
 int main()
 {
+	X local("local variable");
+
 	somewhere();
 	exit(0);
 }
