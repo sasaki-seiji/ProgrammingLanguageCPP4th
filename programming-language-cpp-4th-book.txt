@@ -787,3 +787,25 @@
 	'at_quick_exit' was not declared in this scope
 	'quick_exit' was not declared in this scope
 
+
+【12.2.6　静的クラス変数の初期化】
+
+日付：2016.07.16
+コメント：
+	大域のDateインスタンスを初期化するとき、Dateのコンストラクタが参照する
+	static変数との初期化順により、正しく初期化されない
+	
+	//　利用者のcppファイル
+	Date2 d1 {15};
+	Date2 d2 = Date2{15};
+	
+	//　Dateの実装
+	static Date2 today {16, 7, 2016};
+
+	Date2::Date2(int dd, int mm, int yy)
+	{
+		d = dd ? dd : today.d;
+		m = mm ? mm : today.m;
+		y = yy ? yy : today.y;
+	}
+
