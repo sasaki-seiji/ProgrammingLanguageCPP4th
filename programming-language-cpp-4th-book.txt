@@ -100,7 +100,7 @@
 
 第16章　クラス
 
-	2016.07.15、2016.07.16	16.2:クラスの基礎
+	2016.07.15、2016.07.16、2016.07.18	16.2:クラスの基礎
 	
 	
 ＠＠　セットアップ　＠＠
@@ -815,4 +815,38 @@
 コメント：
 	初期値を持つ変数date_initializerをヘッダに記載すると、
 	それをインクルードする全てのcppファイルに変数が複製されてしまう
+
+【16.2.12　多重定義解決】
+
+日付：　2016.07.18
+コメント：
+	テキストの記述とは異なり、Dateとintの多重定義解決では
+	エラーとならず、int引数バージョンがコールされる
+	
+	void f1(Date);
+	void f2(Date);
+	void f2(int);
+
+	void h()
+	{
+		f1({});
+		f2({});		// f2(int)に解決
+		f2(Date{});
+	}
+
+【16.2.13　privateのメンバクラス】
+
+日付：2016.07.18
+コメント：
+	TreeクラスのNodeクラスメンバがprivateなので、Node*を引数とする、
+	Treeクラスの公開関数gを呼び出す手段がない
+	
+	template<typename T>
+	void Tree<T>::g(Node* p)
+	{
+		//value_type val = right->value;
+			//  'right' was not declared in this scope
+		value_type v = p->right->value;
+		p->f(this);
+	}
 
