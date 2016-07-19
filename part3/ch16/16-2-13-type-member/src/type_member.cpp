@@ -10,7 +10,6 @@ using namespace std;
 
 template<typename T>
 class Tree {
-public: // 2016.07.18 change to public from private
 	using value_type = T;
 	enum Policy {rb, splay, treeps };
 	class Node {
@@ -20,19 +19,25 @@ public: // 2016.07.18 change to public from private
 	public:
 		void f(Tree*);
 
+		// 2016.07.19 add
+		void add_node(value_type val);
+
 		// 2016.07.18 add
 		Node(value_type v, Node* r=nullptr, Node* l=nullptr)
 		: right{r}, left{l}, value{v} { }
 	};
 
-private:
 	Node* top;
 
 public:
 	void g(Node*);
+	void g() { g(top); }
+
+	// 2016.07.19 add
+	void add_node(value_type val);
 
 	// 2016.07.18 add
-	Tree(Node* t = nullptr) : top{t} { }
+	Tree() : top{nullptr} { }
 };
 
 template<typename T>
@@ -56,16 +61,45 @@ void Tree<T>::g(Node* p)
 	p->f(this);
 }
 
+// 2016.07.19 add
+template<typename T>
+void Tree<T>::add_node(value_type val)
+{
+	if (top) {
+		top->add_node(val);
+	}
+	else {
+		top = new Node{val} ;
+	}
+}
+
+// 2016.07.19 add
+template<typename T>
+void Tree<T>::Node::add_node(value_type val)
+{
+	if (val < value) {
+		if (left)
+			left->add_node(val);
+		else
+			left = new Node{val};
+	}
+	else {
+		if (right)
+			right->add_node(val);
+		else
+			right = new Node{val};
+	}
+}
+
 
 // add main
 int main()
 {
-	Tree<int>::Node node_r {10};
-	Tree<int>::Node node_l {20};
-	Tree<int>::Node node_top {30, &node_r, &node_l};
-	Tree<int> tree {&node_top};
+	Tree<int> tree;
 
-	tree.g(&node_top);
+	tree.add_node(20);
+	tree.add_node(10);
+	tree.add_node(30);
+
+	tree.g();
 }
-
-
