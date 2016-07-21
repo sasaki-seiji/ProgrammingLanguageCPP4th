@@ -16,5 +16,10 @@ void test_add_year();
 void test_add_month();
 void test_add_day();
 
+// test_operator.cpp
+void test_operator_equal();
+void test_operator_not_equal();
+void test_operator_less_than();
+void test_operator_greater_than();
 
 #endif /* TEST_H_ */

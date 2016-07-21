@@ -46,6 +46,7 @@ void fill(vector<Date>& aa)
 		//catch (Date::Bad_date) {
 		catch (Date::Bad_date&) {
 			// Catching by reference is recommended
+			cout << "Bad_date: illegal date\n";
 			continue;
 		}
 		aa.push_back(d);

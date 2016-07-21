@@ -34,6 +34,7 @@ const Date& default_date()
 Date& Date::add_year(int n)
 {
 	y += n;
+	if (y < 1) throw Bad_date{};
 
 	bool leap = is_leapyear(y);
 	int mm = static_cast<int>(m);
@@ -79,6 +80,7 @@ Date& Date::add_month(int n)
 			mm += 12;
 		}
 		y -= delta_y;
+		if (y < 1) throw Bad_date{};
 
 		bool leap = is_leapyear(y);
 		int ndays = ndays_tbl[leap][mm];
@@ -131,6 +133,7 @@ Date& Date::add_day(int n)
 		m = static_cast<Month>(mm);
 	}
 
+	if (y < 1) throw Bad_date{};
 	return *this;
 }
 
@@ -141,7 +144,14 @@ bool Date::is_valid()
 
 bool is_date(int d, Month m, int y)
 {
-	return true; // tempolary
+	int mm = static_cast<int>(m);
+	if (d < 1 || mm < 1 || y < 1) return false;
+
+	bool leap = is_leapyear(y);
+	int ndays = Date::ndays_tbl[leap][mm];
+	if (d > ndays) return false;
+
+	return true;
 }
 
 bool is_leapyear(int y)

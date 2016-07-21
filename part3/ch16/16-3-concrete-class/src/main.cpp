@@ -31,6 +31,11 @@ int main()
 	test_add_year();
 	test_add_month();
 	test_add_day();
+
+	test_operator_equal();
+	test_operator_not_equal();
+	test_operator_less_than();
+	test_operator_greater_than();
 }
 
 

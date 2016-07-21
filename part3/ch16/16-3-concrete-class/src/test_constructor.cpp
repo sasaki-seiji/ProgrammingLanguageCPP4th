@@ -24,5 +24,12 @@ void test_constructor()
 	cout << "d1: " << d1 << '\n';
 	cout << "d2: " << d2 << '\n';
 	cout << "d3: " << d3 << '\n';
+
+	try {
+		Date d4{-1, Month::jan, 1970};
+		cout << "d4: " << d4 << '\n';
+	} catch (Date::Bad_date&) {
+		cout << "Bad_date: Date{-1, Month::jan, 1970}\n";
+	}
 }
 

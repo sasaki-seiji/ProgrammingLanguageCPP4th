@@ -40,6 +40,7 @@ namespace Chrono {
 		Month m;
 		int y;
 
+	public:
 		static const int ndays_tbl[][13];
 	};
 
@@ -49,6 +50,8 @@ namespace Chrono {
 
 	// helper functions
 
+	int diff(Date a, Date b);	// have to implement later
+
 	bool is_date(int d, Month m, int y);
 	bool is_leapyear(int y);
 
@@ -56,9 +59,27 @@ namespace Chrono {
 	{
 		return a.day()==b.day() && a.month()==b.month() && a.year()==b.year();
 	}
-	bool operator!=(Date a, Date b);
+	inline bool operator!=(Date a, Date b)
+	{
+		return !operator==(a,b);
+	}
+	inline bool operator<(Date a, Date b)
+	{
+		return a.year() < b.year() ||
+				a.month() < b.month() ||
+				a.day() < b.day();
+	}
+	inline bool operator>(Date a, Date b)
+	{
+		return a.year() > b.year() ||
+				a.month() > b.month() ||
+				a.day() > b.day();
+	}
 
 	const Date& default_date();
+
+	Date next_weekdy(Date d);	// have to implement later
+	Date next_saturday(Date d);	// have to implement later
 
 	inline Date& operator+=(Date& d, int n) { return d.add_day(n); }
 	inline Date operator+(Date d, int n) { return d+=n; }
