@@ -36,6 +36,12 @@ int main()
 	test_operator_not_equal();
 	test_operator_less_than();
 	test_operator_greater_than();
+	test_operator_increment();
+	test_operator_decrement();
+	test_operator_add_assign();
+	test_operator_sub_assign();
+	test_operator_add_int();
+	test_operator_sub_int();
 }
 
 

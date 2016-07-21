@@ -81,8 +81,14 @@ namespace Chrono {
 	Date next_weekdy(Date d);	// have to implement later
 	Date next_saturday(Date d);	// have to implement later
 
+	inline Date& operator++(Date& d) { return d.add_day(1); }
+	inline Date& operator--(Date& d) { return d.add_day(-1); }
+
 	inline Date& operator+=(Date& d, int n) { return d.add_day(n); }
+	inline Date& operator-=(Date& d, int n) { return d.add_day(-n); }
+
 	inline Date operator+(Date d, int n) { return d+=n; }
+	inline Date operator-(Date d, int n) { return d-=n; }
 
 	ostream& operator<<(ostream& os, const Date& d);
 	istream& operator>>(istream& is, Date&d);

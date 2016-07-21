@@ -21,5 +21,11 @@ void test_operator_equal();
 void test_operator_not_equal();
 void test_operator_less_than();
 void test_operator_greater_than();
+void test_operator_increment();
+void test_operator_decrement();
+void test_operator_add_assign();
+void test_operator_sub_assign();
+void test_operator_add_int();
+void test_operator_sub_int();
 
 #endif /* TEST_H_ */
