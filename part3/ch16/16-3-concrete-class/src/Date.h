@@ -63,18 +63,8 @@ namespace Chrono {
 	{
 		return !operator==(a,b);
 	}
-	inline bool operator<(Date a, Date b)
-	{
-		return a.year() < b.year() ||
-				a.month() < b.month() ||
-				a.day() < b.day();
-	}
-	inline bool operator>(Date a, Date b)
-	{
-		return a.year() > b.year() ||
-				a.month() > b.month() ||
-				a.day() > b.day();
-	}
+	bool operator<(Date a, Date b);
+	bool operator>(Date a, Date b);
 
 	const Date& default_date();
 

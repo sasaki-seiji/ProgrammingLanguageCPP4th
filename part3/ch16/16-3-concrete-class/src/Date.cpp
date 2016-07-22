@@ -159,6 +159,54 @@ bool is_leapyear(int y)
 	return y%400 == 0 || ( y%100 != 0 && y%4 == 0);
 }
 
+bool operator<(Date a, Date b)
+{
+	if (a.year() < b.year()) {
+		return true;
+	}
+	else if (a.year() > b.year()) {
+		return false;
+	}
+
+	if (a.month() < b.month()) {
+		return true;
+	}
+	else if (a.month() > b.month()) {
+		return false ;
+	}
+
+	if (a.day() < b.day()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool operator>(Date a, Date b)
+{
+	if (a.year() > b.year()) {
+		return true;
+	}
+	else if (a.year() < b.year()) {
+		return false;
+	}
+
+	if (a.month() > b.month()) {
+		return true;
+	}
+	else if (a.month() < b.month()) {
+		return false ;
+	}
+
+	if (a.day() > b.day()) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 ostream& operator<<(ostream& os, const Date& d)
 {
 	os << d.year() << '.' << static_cast<int>(d.month()) << '.' << d.day();
