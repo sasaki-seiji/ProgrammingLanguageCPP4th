@@ -55,6 +55,22 @@ struct Handle {
 
 Handle<int> px;
 
+
+int glob {9};
+
+struct X {
+	const int a1 {7};
+	//const int a2;
+		// error: uninitialized const member in 'struct X'
+	const int& r {9};
+	int& r1 {glob};
+	//int& r2;
+		// error: uninitialized reference member in 'struct X'
+};
+
+X x;
+
+
 struct S1 { S1(); };
 struct S2 {
 	S2(string);
@@ -116,6 +132,17 @@ S2::S2(string s)
 int main()
 {
 	f();
+
 	cout << "*px.p: " << *px.p << '\n';
+
+	cout << "x.a1: " << x.a1 << '\n';
+	cout << "x.r: " << x.r << '\n';
+	cout << "x.r1: " << x.r1 << '\n';
+
+	X y;
+	cout << "y.a1: " << y.a1 << '\n';
+	cout << "y.r: " << y.r << '\n';
+	cout << "y.r1: " << y.r1 << '\n';
+
 	g();
 }
