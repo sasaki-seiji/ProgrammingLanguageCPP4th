@@ -47,16 +47,17 @@ template<typename E>
 class Vector {
 public:
 	Vector(initializer_list<E> s);
-	~Vector() { allocator<E>().deallocate(elem, sz); }
+	~Vector() { allocator<E>().deallocate(elem, sz+space); }
 	void print(ostream& os);
 private:
 	void reserve(int n) { elem = allocator<E>().allocate(n); }
 	int sz;
+	int space;
 	E* elem;
 };
 
 template<typename E>
-Vector<E>::Vector(initializer_list<E> s) :sz{s.size()}
+Vector<E>::Vector(initializer_list<E> s) :sz{s.size()}, space{0}
 {
 	reserve(sz);
 	uninitialized_copy(s.begin(), s.end(), elem);
@@ -79,6 +80,9 @@ int main()
 	f3({11,22,33});
 	g();
 
-	Vector<int> v = {1,2,3,4};
-	v.print(cout);
+	Vector<int> vi = {1,2,3,4};
+	vi.print(cout);
+
+	Vector<string> vs = {"abc", "XYZ", "123"};
+	vs.print(cout);
 }
