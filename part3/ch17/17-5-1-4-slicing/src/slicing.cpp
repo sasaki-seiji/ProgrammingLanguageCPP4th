@@ -51,7 +51,7 @@ Derived::Derived()
 	cout << "Derived::Derived(const Derived&)\n";
 }
 Derived::Derived(const Derived& x)
-	:Base{x}, d{x.d}
+	:Base(x), d{x.d}
 {
 	cout << "Derived::Derived(const Derived&)\n";
 }
