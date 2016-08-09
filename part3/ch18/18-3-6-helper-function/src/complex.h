@@ -1,0 +1,187 @@
+/*
+ * complex.h
+ *
+ *  Created on: 2016/08/06
+ *      Author: sasaki
+ */
+
+#ifndef COMPLEX_H_
+#define COMPLEX_H_
+
+#include <ostream>
+#include <stdexcept>
+
+class complex {
+	double re, im;
+public:
+	constexpr complex(double r=0, double i=0) : re{r}, im{i} { }
+
+	constexpr double real() const { return re; }
+	constexpr double imag() const { return im; }
+
+	void real(double r) { re = r; }
+	void imag(double i) { im = i; }
+
+	complex& operator+=(complex a)
+	{
+		re += a.re;
+		im += a.im;
+		return *this;
+	}
+
+	complex& operator+=(double a)
+	{
+		re += a;
+		return *this;
+	}
+
+	complex& operator-=(complex a)
+	{
+		re -= a.re;
+		im -= a.im;
+		return *this;
+	}
+
+	complex& operator-=(double a)
+	{
+		re -= a;
+		return *this;
+	}
+
+	complex& operator*=(complex a);
+	complex& operator*=(double a);
+
+	complex& operator/=(complex a);
+	complex& operator/=(double a);
+};
+
+// binary +
+inline complex operator+(complex a, complex b)
+{
+	return a += b;
+}
+
+inline complex operator+(complex a, double b)
+{
+	return a += b;
+}
+
+inline complex operator+(double a, complex b)
+{
+	return {a+b.real(), b.imag()};
+}
+
+// binary -
+inline complex operator-(complex a, complex b)
+{
+	return a -= b;
+}
+
+inline complex operator-(complex a, double b)
+{
+	return a -= b;
+}
+
+inline complex operator-(double a, complex b)
+{
+	return {a-b.real(), -b.imag()};
+}
+
+// binary *
+inline complex operator*(complex a, complex b)
+{
+	return a *= b;
+}
+
+inline complex operator*(complex a, double b)
+{
+	return a *= b;
+}
+
+inline complex operator*(double a, complex b)
+{
+	return {a*b.real(), a*b.imag()};
+}
+
+// binary /
+inline complex operator/(complex a, complex b)
+{
+	return a /= b;
+}
+
+inline complex operator/(complex a, double b)
+{
+	return a /= b;
+}
+
+inline complex operator/(double a, complex b)
+{
+	complex z {a};
+	z /= b;
+	return z;
+}
+
+// unary +, -
+
+inline complex operator+(complex a)
+{
+	return a;
+}
+
+inline complex operator-(complex a)
+{
+	return {-a.real(), -a.imag()};
+}
+
+// ==, !=
+
+inline bool operator==(complex a, complex b)
+{
+	return a.real() == b.real() && a.imag() == b.imag();
+}
+
+inline bool operator!=(complex a, complex b)
+{
+	return !(a==b);
+}
+
+// <<, >>
+
+std::ostream& operator<<(std::ostream& os, complex a);
+std::istream& operator>>(std::istream& is, complex& a);
+
+
+// 18.3.3.1
+complex sqrt(complex);
+
+complex polar(double rho, double theta);
+inline complex conj(complex a)
+{
+	return {a.real(), -a.imag()};
+}
+
+double abs(complex);
+double arg(complex);
+double norm(complex);
+
+inline double real(complex a)
+{
+	return a.real();
+}
+inline double imag(complex a)
+{
+	return a.imag();
+}
+
+complex acos(complex);
+complex asin(complex);
+complex atan(complex);
+
+// user defined literal
+
+constexpr complex operator "" i(long double d)
+{
+	return {0, d};
+}
+
+#endif /* COMPLEX_H_ */
