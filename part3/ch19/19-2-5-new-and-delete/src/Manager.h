@@ -9,11 +9,13 @@
 #define MANAGER_H_
 
 #include "Employee.h"
+#include <string>
+using std::string;
 
 class Manager: public Employee {
-	int rank;
+	string dep;
 public:
-	Manager(int r, int id) : Employee{id}, rank{r} { }
+	Manager(const string& d, int id) : Employee{id}, dep{d} { }
 	~Manager();
 };
 

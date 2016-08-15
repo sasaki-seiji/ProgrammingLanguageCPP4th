@@ -13,7 +13,7 @@ int main()
 	Employee* emp = new Employee{101};
 	delete emp;
 
-	Employee* man = new Manager{3, 1002};
+	Employee* man = new Manager{"software engineer dep.", 1002};
 	delete man;
 }
 
