@@ -123,7 +123,7 @@
 
 第19章　特殊な演算子
 
-	2016.08.11、2016.08.15	19.2:特殊な演算子
+	2016.08.11、2016.08.15、2016.08.16	19.2:特殊な演算子
 	
 	
 ＠＠　セットアップ　＠＠
@@ -981,3 +981,19 @@
 	::operator delete(p, s);
 		↓
 　　error: invalid conversion from 'std::size_t {aka long long unsigned int}' to 'void*' [-fpermissive]
+
+【19.2.6 complexのリテラル】
+
+日付：　2016.08.16
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストの記述と異なり、2+1iでは、ユーザ定義リテラルiを認識しない
+
+		error: unable to find numeric literal operator 'operator""i'
+	
+	さらに、2+1.0iとすると、整数とcomplexの混合演算が解決できない
+	
+		no match for 'operator+' (operand types are 'int' and 'std::complex<double>')
+
+
