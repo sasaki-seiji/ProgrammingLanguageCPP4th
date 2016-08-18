@@ -124,6 +124,7 @@
 第19章　特殊な演算子
 
 	2016.08.11、2016.08.15、2016.08.16	19.2:特殊な演算子
+	2016.08.17、2016.08.18	19.3:文字列クラスString
 	
 	
 ＠＠　セットアップ　＠＠
@@ -997,3 +998,19 @@
 		no match for 'operator+' (operand types are 'int' and 'std::complex<double>')
 
 
+【19.3.4:　ムーブコンストラクタ、ムーブ代入のコンパイルエラー】
+
+日付：　2016.08.18
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストのムーブコンストラクタとムーブ代入では、引数で渡された
+	右辺値参照参照引数をmove_fromにそのまま渡すとコンパイルエラーとなる
+	（再度、move()関数を適用する必要がある）
+	
+	String::String(String&& x)
+	{
+		//move_from(x);
+		move_from(move(x));
+			// error: cannot bind 'String' lvalue to 'String&&'
+	}
