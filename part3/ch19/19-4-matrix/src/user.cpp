@@ -23,4 +23,37 @@ int main()
 
 	Vector r = m * v;
 	cout << "r: " << r << '\n';
+
+	try {
+		Vector v1 = {-2, -1, 0, 1, 2};
+		cout << "successful construction v1: " << v1 << '\n';
+	}
+	catch (std::exception& e) {
+		cout << e.what() << '\n';
+	}
+
+	try {
+		Matrix m1 = {
+				{1,2,3,4},
+				{5,6,7,8},
+				{9,10,11,12}
+		};
+		cout << "successful contiruction m1: " << m1 << "\n";
+	}
+	catch (exception& e) {
+		cout << e.what() << '\n';
+	}
+
+	try {
+		Matrix m2 = {
+				{1,2,3,4},
+				{5,6,7,8},
+				{9,10,11,12},
+				{13,14,15,16,17}
+		};
+		cout << "successful construction m2: " << m2 << '\n';
+	}
+	catch (exception& e) {
+		cout << e.what() << '\n';
+	}
 }

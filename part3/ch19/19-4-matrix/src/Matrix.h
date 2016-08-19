@@ -22,6 +22,7 @@ class Vector {
 public:
 	Vector();
 	Vector(initializer_list<float>);
+	Vector& operator=(initializer_list<float>);
 
 	friend Vector operator*(const Matrix&, const Vector&);
 	friend ostream& operator<<(ostream&, const Vector&);
@@ -31,7 +32,9 @@ class Matrix {
 	Vector v[rc_max];
 public:
 	Matrix(initializer_list<initializer_list<float>>);
+
 	friend Vector operator*(const Matrix&, const Vector&);
+	friend ostream& operator<<(ostream&, const Matrix&);
 };
 
 #endif /* MATRIX_H_ */
