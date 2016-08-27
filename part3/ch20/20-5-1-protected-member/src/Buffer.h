@@ -15,11 +15,13 @@ public:
 	char& operator[](int i);
 protected:
 	char& access(int i) { return buf[i]; }
-public:
-	Buffer(int s);
-	int	size() const { return sz; }
 	void set_buf(char* p, int s);
+public:
+	Buffer(int s=default_size);
+	~Buffer() { delete[] buf; }
+	int	size() const { return sz; }
 private:
+	static const int default_size = 16;
 	int	sz;
 	char* buf;
 };

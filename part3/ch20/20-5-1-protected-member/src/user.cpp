@@ -14,18 +14,27 @@ using namespace std;
 
 int main()
 {
-	Circular_buffer buf(10);
+	Circular_buffer buf;
 
-	for (int i = 0 ; i < 10; ++i)
-		buf[i] = 'a' + i;
+	for (char c = 'a'; c <= 'z'; ++c)
+		buf.push_back(c);
+	for (char c = 'A'; c <= 'Z'; ++c)
+		buf.push_back(c);
+	for (char c = '0'; c <= '9'; ++c)
+		buf.push_back(c);
+	buf.push_back('+');
+	buf.push_back('-');
+	buf.push_back('*');
+	buf.push_back('/');
+	buf.push_back('=');
+	buf.push_back('^');
+	buf.push_back('~');
+	buf.push_back('&');
+	buf.push_back('|');
+	buf.push_back('(');
+	buf.push_back(')');
 
-	char *new_buf = new char[20];
-	buf.reallocate(new_buf, 20);
-
-	for (int i = 10; i < 20; ++i)
-		buf[i] = '0' + (i-10);
-
-	for (int i = 0; i < 20; ++i)
+	for (int i = 0; i < buf.length(); ++i)
 		cout << buf[i] << ' ';
 	cout << '\n';
 
