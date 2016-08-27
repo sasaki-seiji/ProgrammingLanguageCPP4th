@@ -22,6 +22,7 @@ public:
 	virtual void set_value(int i) { changed = true; val = i; }
 	virtual void reset_value(int i) { changed = false; val = i; }
 	virtual void prompt() { }
+	virtual bool was_changed() const { return changed; }
 
 	virtual ~Ival_box() { }
 };
