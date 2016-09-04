@@ -140,6 +140,11 @@
 	2016.08.27、2016.08.28	21.2:クラス階層の設計
 	2016.08.29、2016.08.30、2016.09.01、2016.09.02	21.3:多重継承
 	
+第22章　実行時型情報
+
+	2016.09.03、2016.09.04	22.2:クラス階層の移動
+	
+	
 	
 ＠＠　セットアップ　＠＠
 【Pleiadesのアップデート】
@@ -1028,3 +1033,71 @@
 		move_from(move(x));
 			// error: cannot bind 'String' lvalue to 'String&&'
 	}
+
+【22.2.4:　関数ポインタの型別名のコンパイルエラー】
+
+日付：　2016.09.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストの記載の、Io_objを返す関数ポインタ別名の定義が意図通り認識されない
+
+	ヘッダー
+	using Pf = Io_obj*(istream&);
+	extern map<string, Pf> io_map;
+
+	利用箇所
+	io_map[string("Io_circle")] = &Io_circle::new_circle;
+		↓
+cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<char>&)}' to 'std::map<std::__cxx11::basic_string<char>, Io_obj*(std::basic_istream<char>&)>::mapped_type {aka Io_obj*(std::basic_istream<char>&)}' in assignment
+	関数ポインタ別名定義を以下のように変更：
+	using Pf = Io_obj*(*)(istream&);
+
+
+【22.2.4:　Ioテンプレートクラスの静的関数の戻り値】
+
+日付：　2016.09.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	Ioテンプレートクラスのnew_io関数の戻り値を、Io_obj*としないと、
+	関数ポインタマップio_mapと型が合わなくなる
+	
+
+	// 2016.09.04 bug-fix
+	//static Io* new_io(istream& is) { return new Io{is}; }
+	static Io_obj* new_io(istream& is) { return new Io{is}; }
+
+
+【22.2.4:　テンプレート関数の宣言】
+
+日付：　2016.09.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	get_va<T>テンプレート関数定義時に関数名にテンプレート修飾子をつけている
+	部分がコンパイルエラーとなる
+	
+	// 2016.09.04 bug-fix
+	template<typename T>
+	//T* get_val<T>(Io_obj* p)
+		// expected initializer before '<' token
+	T* get_val(Io_obj* p)
+	{
+		・・・
+
+【22.2.4:　テンプレート型引数をデータメンバとしたバージョン】
+
+日付：　2016.09.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テンプレート仮引数TをデータメンバとしたIoクラスでは、
+	データメンバに対してポリモーフィックなふるまいはしない。
+	たとえば、Io<Circle>とIo<Triangle>は無関係なクラスとなり、
+	Io<Shape>は、Shapeが抽象クラスのため導出することができない
+	特に、get_val<Shape>はコンパイルエラーとなる
+	
+	この例では、Io<Circle>、Io<Triangle>、Io<int>に個別に動的キャスト
+	できるかを確認する、非ポリモーフィックなコードとした
+	
