@@ -1,0 +1,1 @@
+Io_triangle 0 10 3 2 20 1
