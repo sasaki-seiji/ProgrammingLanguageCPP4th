@@ -5,12 +5,15 @@
  *      Author: sasaki
  */
 
-void test_for_char();
-void test_for_uchar();
+void test_19_3_6_for_char();
+void word_count();
+void test_19_3_6_for_wchar_t();
 
 int main()
 {
-	//test_for_char();
-	test_for_uchar();
+	test_19_3_6_for_char();
+	word_count();
+
+	test_19_3_6_for_wchar_t();
 }
 

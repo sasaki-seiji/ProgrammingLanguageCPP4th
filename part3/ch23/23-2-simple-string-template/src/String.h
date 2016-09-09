@@ -104,33 +104,62 @@ bool operator==(const String<C>& a, const String<C>& b)
 	return true;
 }
 
+// 2016.09.09 add
+template<typename C>
+bool operator==(const String<C>& a, const C* b)
+{
+	return a == String<C>(b);
+}
+
+// 2016.09.09 add
+template<typename C>
+bool operator==(const C* a, const String<C>& b)
+{
+	return String<C>(a) == b;
+}
+
+
 template<typename C>
 bool operator!=(const String<C>& a, const String<C>& b)
 {
 	return !(a==b);
 }
 
+// 2016.09.09 add
+template<typename C>
+bool operator!=(const String<C>& a, const C* b)
+{
+	return !(a==b);
+}
+
+//2016.09.09 add
+template<typename C>
+bool operator!=(const C* a, const String<C>& b)
+{
+	return !(a==b);
+}
+
 
 template<typename C>
-char* begin(String<C>& x)
+C* begin(String<C>& x)
 {
 	return x.c_str();
 }
 
 template<typename C>
-char* end(String<C>& x)
+C* end(String<C>& x)
 {
 	return x.c_str() + x.size();
 }
 
 template<typename C>
-const char* begin(const String<C>& x)
+const C* begin(const String<C>& x)
 {
 	return x.c_str();
 }
 
 template<typename C>
-const char* end(const String<C>& x)
+const C* end(const String<C>& x)
 {
 	return x.c_str() + x.size();
 }
@@ -144,12 +173,33 @@ String<C>& operator+=(String<C>& a, const String<C>& b)
 	return a;
 }
 
+// 2016.09.09 add
+template<typename C>
+String<C>& operator+=(String<C>& s, const C* p)
+{
+	return s += String<C>(p);
+}
+
 template<typename C>
 String<C> operator+(const String<C>& a, const String<C>& b)
 {
 	String<C> res {a};
 	res += b;
 	return res;
+}
+
+// 2016.09.09 add
+template<typename C>
+String<C> operator+(const String<C>& a, const C* b)
+{
+	return a + String<C>(b);
+}
+
+// 2016.09.09 add
+template<typename C>
+String<C> operator+(const C* a, const String<C>& b)
+{
+	return String<C>(a) + b;
 }
 
 template<typename C>
@@ -216,7 +266,7 @@ template<typename C>
 String<C>::String(String&& x)
 {
 	//move_from(x);
-	move_from(move(x));
+	move_from(std::move(x));
 		// error: cannot bind 'String' lvalue to 'String&&'
 }
 
@@ -224,7 +274,7 @@ template<typename C>
 String<C>& String<C>::operator=(const String& x)
 {
 	if (this==&x) return *this;
-	char* p = (short_max<sz) ? ptr : 0;
+	C* p = (short_max<sz) ? ptr : 0;
 	copy_from(x);
 	delete[] p;
 	return *this;
