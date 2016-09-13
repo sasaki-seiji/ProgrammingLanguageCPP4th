@@ -151,6 +151,7 @@
 
 	2016.09.08、2016.09.09、2016.09.10	23.2:単純な文字列テンプレート
 	2016.09.10	23.3:型チェック
+	2016.09.11、2016.09.12、2016.09.13	13.4:クラステンプレートのメンバ
 	
 	
 ＠＠　セットアップ　＠＠
@@ -1167,4 +1168,84 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 		return String<C>(a) + b;
 	}
 
+【23.4.6.3:　テンプレート関数の引数導出】
+
+日付：　2016.09.09
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	ネストされたテンプレート型メンバに関して（？）、テンプレート引数が導出されない
+
+	テンプレート関数の定義：
 	
+	template<typename T, typename A>
+	typename List<T,A>::Iterator
+	find(typename List<T,A>::Iterator b, typename List<T,A>::Iterator e, T v)
+	{
+		・・・
+	}
+
+	利用者コード：
+	
+	void fct(List<int, My_allocator>::Iterator b, List<int, My_allocator>::Iterator e)
+	{
+		auto p = find(b,e,17);
+		//ここで、以下のエラーが出る
+		// error: no matching function for call to 'find(List<int, My_allocator>::Iterator&, List<int, My_allocator>::Iterator&, int)'
+		// note:   couldn't deduce template parameter 'A'
+		・・・
+	}
+	
+	findテンプレート関数呼び出しにおいて、テンプレート引数を明示的に指示すると
+	うまくいく
+	
+	auto p = find<int,My_allocator>(b,e,17);
+
+【23.4.7:　テンプレート関数のフレンド宣言】
+
+日付：　2016.09.13
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+参考：https://docs.oracle.com/cd/E19205-01/820-1213/bkafz/index.html
+コメント：
+	テンプレートクラス内で、テンプレート関数をフレンド宣言をするとき、
+	それに先立ってテンプレート宣言を行う必要がある
+	
+	template<typename T>
+	class Matrix;
+
+	template<typename T>
+	class Vector {
+		T v[rc_max];
+	public:
+		Vector();
+		Vector(initializer_list<T>);
+		Vector& operator=(initializer_list<T>);
+
+		friend Vector operator* <>(const Matrix<T>&, const Vector&);
+			// error: declaration of 'operator*' as non-function
+	};
+
+	↓
+	
+	template<typename T>
+	class Matrix;
+
+	template<typename T>
+	class Vector;
+
+	//　テンプレート関数の宣言をあらかじめ与えておく
+	template<typename T>
+	Vector<T> operator*(const Matrix<T>&, const Vector<T>&);
+
+	template<typename T>
+	class Vector {
+		T v[rc_max];
+	public:
+		Vector();
+		Vector(initializer_list<T>);
+		Vector& operator=(initializer_list<T>);
+
+		friend Vector operator* <>(const Matrix<T>&, const Vector&);
+			// error: declaration of 'operator*' as non-function
+	};
+
