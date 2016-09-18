@@ -36,6 +36,8 @@ bool insensitive(const string& a, const string& b)
 //map<string, int, [](const string& x, const string& y) const { return x<y; }> c3;
 	// error: lambda-expression in template-argument
 
+//auto cmp = [](const string& x, const string& y) const { return x<y; };
+	// error: expected '{' before 'const'
 auto cmp = [](const string& x, const string& y) { return x<y; };
 map<string,int,decltype(cmp)> c4 {cmp};
 
