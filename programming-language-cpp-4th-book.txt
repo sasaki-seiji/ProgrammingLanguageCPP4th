@@ -159,7 +159,7 @@
 第25章　特殊化
 
 	2016.09.17、2016.09.18、2016.09.19	25.2:テンプレートの仮引数と実引数	
-	2016.09.19	25.3:特殊化
+	2016.09.19、2016.09.20、2016.09.21	25.3:特殊化
 	
 	
 ＠＠　セットアップ　＠＠
@@ -1287,14 +1287,89 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 【25.2.5.:　完全特殊化されたテンプレートのメンバ関数を外部で定義】
 
 
-日付：　2016.09.19
+日付：　2016.09.19、2016.09.22
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
 コメント：
 	完全特殊化されたテンプレートのメンバ関数を外部で定義するとき、
 	宣言の先頭に　template<> をつけるとコンパイルエラーとなる
 	template<> を外すと正しくコンパイルできる
-		
+	但し、この場合テンプレート関数扱いされないため、明示的にinlineを
+	つける必要がある	
+	
 	template<>
 	Vector<void*>::Vector() : v{nullptr}, sz{0} { ...
 		// error: template-id 'Vector<>' for 'Vector<void*>::Vector()' does not match any template declaration
+		↓
+	inline Vector<void*>::Vector() : v{nullptr}, sz{0} { ...
+
+
+【25.3.4.1:　テンプレート関数の特殊化がコンパイルエラーとなる】
+
+日付：　2016.09.22
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テンプレート関数の特殊化がコンパイルエラーとなる
+	lessの後に、<>をつけた場合も同様
+	lessの後の<>を省略した場合は、別のエラーメッセージ
+
+	template<>
+	bool less<const char*>(const char* a, const char* b)
+	{
+		return strcmp(a,b)<0;
+	}
+	//error: expected initializer before '<' token
 	
+	template<>
+	bool less(const char* a, const char* b)
+	{
+		return strcmp(a,b)<0;
+	}
+	//error: 'less' is not a template function
+
+
+【25.3.4.1:　sort関数内のless関数のバインド】
+
+日付：　2016.09.22
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	sortテンプレート関数のヘッダを読み込む前に、lessオーバーロード関数を
+	宣言しないと、一次lessテンプレート関数にバインドされてしまう
+	
+	#include "sort.h"
+		// この中で、一般のlessテンプレート関数とsortテンプレート関数を定義
+	
+	bool less(const char* a, const char* b)
+	{
+		return strcmp(a,b)<0;
+	}
+	
+	void overload()
+	{
+		Vector<int> vi{10,2,20,5,2,2,4};
+		Vector<const char*> vcc{"this", "is", "a", "const", "char*", "Vector"};
+		
+		sort(vi);
+		std::cout << "vi: " << vi << '\n';
+		sort(vcc);	// ここで、一般のlessテンプレート関数がバインドされている
+					//　文字列のソートが正しくできない。
+		std::cout << "vcc: " << vcc << '\n';
+	}
+
+	lessオーバーロード関数定義と、sort.hのインクルードの順番を
+	逆にすると問題が解決される
+	
+	つまり、sort内のless呼び出し箇所が、テンプレート引数への
+	依存名と解釈されていない？
+	
+	template<typename T>
+	void sort(Vector<T>& v)
+	{
+		const size_t n = v.size();
+
+		for (int gap=n/2; 0<gap; gap/=2)
+			for (int i=gap; i!=n; ++i)
+				for (int j=i-gap; 0<=j; j-=gap)
+					if (less(v[j+gap],v[j]))	//　ここがTに依存しない？
+						swap(v[j],v[j+gap]);
+	}
+
