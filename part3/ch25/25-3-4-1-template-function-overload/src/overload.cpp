@@ -18,7 +18,7 @@ bool less(const char* a, const char* b)
 }
 
 #include "sort.h"
-void overload()
+int main()
 {
 	Vector<int> vi{10,2,20,5,2,2,4};
 	Vector<const char*> vcc{"this", "is", "a", "const", "char*", "Vector"};
