@@ -8,12 +8,12 @@
 #include <iostream>
 using namespace std;
 
-void f(int i) { cout << "f(int: " << i << ")\n"; }
+void f(int i) { cout << "::f(int: " << i << ")\n"; }
 
 namespace N {
 	class X { };
 	char g(X x,int i)
-	{ cout << "g(X,int:" << i << ")\n"; return i; }
+	{ cout << "N::g(X,int:" << i << ")\n"; return i; }
 }
 
 template<typename T>
@@ -27,7 +27,7 @@ auto x1 = ff(N::X{}, 1.1);
 
 namespace N {
 	double g(X x,double d)
-	{ cout << "g(X,double:" << d << ")\n"; return d; }
+	{ cout << "N::g(X,double:" << d << ")\n"; return d; }
 }
 
 auto x2 = ff(N::X{}, 2.2);
