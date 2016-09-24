@@ -11,6 +11,7 @@
 #include <iostream>
 //using namespace std;
 
+// 2016.09.24: ADL does not work
 bool less(const char* a, const char* b)
 {
 	//std::cout << "less(" << a << "," << b << ")\n";
