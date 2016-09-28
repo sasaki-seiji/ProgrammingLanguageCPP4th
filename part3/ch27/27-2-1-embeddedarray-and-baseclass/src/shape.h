@@ -11,7 +11,7 @@
 #include <iostream>
 
 struct Point {
-	int x,y,z;
+	int x,y;
 };
 
 class Shape {
