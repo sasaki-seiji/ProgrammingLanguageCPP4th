@@ -9,7 +9,7 @@
 #define SHAPE_H_
 
 struct Point {
-	int x,y,z;
+	int x,y;
 };
 
 class Shape {
