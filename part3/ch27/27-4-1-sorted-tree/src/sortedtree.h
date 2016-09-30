@@ -39,16 +39,6 @@ struct Node_base {
 		else
 			right_child->add_right(n);
 	}
-
-	void print_left(std::ostream& os)
-	{
-		if (left_child) left_child->print_tree(os);
-	}
-
-	void print_right(std::ostream& os)
-	{
-		if (right_child) right_child->print_tree(os);
-	}
 };
 
 template<typename Val>
@@ -67,9 +57,9 @@ struct Node : Node_base<Node<Val>> {
 
 	void print_tree(std::ostream& os)
 	{
-		this->print_left(os);
+		if (this->left_child) this->left_child->print_tree(os);
 		os << ' ' << v;
-		this->print_right(os);
+		if (this->right_child) this->right_child->print_tree(os);
 	}
 };
 
