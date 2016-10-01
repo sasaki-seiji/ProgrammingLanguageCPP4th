@@ -12,8 +12,8 @@
 using namespace std;
 
 struct Red_black_balance {
-	template<typename Val, typename Balance>
-	bool compare(const Search_node<Val, Balance>& a, const Search_node<Val, Balance>& b)
+	template<typename Val>
+	bool compare(const Search_node<Val, Red_black_balance>& a, const Search_node<Val, Red_black_balance>& b)
 	{
 		return a.v < b.v;
 	}
