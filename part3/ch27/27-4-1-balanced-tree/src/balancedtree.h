@@ -46,7 +46,7 @@ struct Search_node : Node_base<Search_node<Val,Balance>, Balance> {
 
 	void insert(Search_node& n)
 	{
-		if (n.v < v)
+		if (this->compare(n,*this))
 			this->add_left(n);
 		else
 			this->add_right(n);
