@@ -170,6 +170,7 @@
 
 	2016.09.27、2016.09.28	27.2:パラメータ化と階層
 	2016.09.30	27.3:クラステンプレートの階層
+	2016.10.01	27.4:基底クラスとしてのテンプレート
 	
 
 ＠＠　セットアップ　＠＠
@@ -1296,7 +1297,6 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 
 【25.2.5.:　完全特殊化されたテンプレートのメンバ関数を外部で定義】
 
-
 日付：　2016.09.19、2016.09.22
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
 コメント：
@@ -1368,3 +1368,16 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 						swap(v[j],v[j+gap]);
 	}
 
+
+【27.4.1:　基底クラスの基底クラスとして派生クラスの関連型を指定できない】
+
+日付：　2016.10.01
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	基底クラス（Node_base）の基底クラスとして派生クラス（Node_search）の
+	関連型（balance_type）を指定すると、コンパイルエラーとなる
+
+	template<typename N>
+	struct Node_base : N::balance_type {
+		↓
+	error: no type named 'balance_type' in 'struct Search_node<double, Red_black_balance>'
