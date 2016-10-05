@@ -171,8 +171,13 @@
 	2016.09.27、2016.09.28	27.2:パラメータ化と階層
 	2016.09.30	27.3:クラステンプレートの階層
 	2016.10.01	27.4:基底クラスとしてのテンプレート
-	
+		（27.4.2:「クラス階層の線形化」はスキップ）
 
+第28章　メタプログラミング
+
+	2016.10.03、2016.10.05	28.2:型関数
+	
+	
 ＠＠　セットアップ　＠＠
 【Pleiadesのアップデート】
 日付：　2016.03.23
@@ -1381,3 +1386,62 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 	struct Node_base : N::balance_type {
 		↓
 	error: no type named 'balance_type' in 'struct Search_node<double, Red_black_balance>'
+
+
+【27.2.1.1:　テンプレート別名が全てのパターンでエラーとなる】
+
+日付：　2016.10.05、2016.10.05
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストの記述と異なり、conditional内のテンプレート別名が全てのパターンで
+	エラーとなる
+	
+	struct Error { };
+
+	// (1)original
+	template<typename T>
+	using Make_unsigned_for_integral = typename conditional<
+			is_integral<T>::value,
+			typename make_unsigned<T>::type,
+			Error
+		>::type;
+
+	Make_unsigned_for_integral<int> u1;
+	//Make_unsigned_for_integral<string> s1;
+		// required by substitution of 'template<class T> using Make_unsigned_for_integral = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, void>::type [with T = std::__cxx11::basic_string<char>]'
+
+	// (2)template alias
+	template<typename T>
+	using Make_unsigned = typename make_unsigned<T>::type;
+
+	template<typename T>
+	using Make_unsigned_for_integral2 = typename conditional<
+			is_integral<T>::value,
+			Make_unsigned<T>,
+			Error
+		>::type;
+
+	Make_unsigned_for_integral2<int> u2;
+	//Make_unsigned_for_integral2<string> s2;
+		// required by substitution of 'template<class T> using Make_unsigned_for_integral2 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
+
+
+	template<typename T>
+	using Make_unsigned = typename make_unsigned<T>::type;
+
+	template<template<typename...> class F, typename... Args>
+	using Delay = F<Args...>;
+
+	// (3)Delay evaluation
+	template<typename T>
+	using Make_unsigned_for_integral3 = typename conditional<
+			is_integral<T>::value,
+			Delay<Make_unsigned,T>,
+			Error
+		>::type;
+
+	Make_unsigned_for_integral3<int> u3;
+	//Make_unsigned_for_integral3<string> s3;
+		// required by substitution of 'template<class T> using Make_unsigned_for_integral3 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
+
