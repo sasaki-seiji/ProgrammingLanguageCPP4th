@@ -1390,7 +1390,7 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 
 【27.2.1.1:　テンプレート別名が全てのパターンでエラーとなる】
 
-日付：　2016.10.05、2016.10.05
+日付：　2016.10.04、2016.10.05
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
 コメント：
 
@@ -1445,3 +1445,19 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 	//Make_unsigned_for_integral3<string> s3;
 		// required by substitution of 'template<class T> using Make_unsigned_for_integral3 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
 
+
+【27.2.2.2:　is_pod<T>()をテンプレート引数に使用してもエラーとならない】
+
+日付：　2016.10.05
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキスト記述と異なり、is_pod<T>()をテンプレート引数に使用しても
+	エラーとならない
+
+	template<typename T>
+	void do_something()
+	{
+		Conditional<(is_pod<T>()),On_heap<T>,Scoped<T>> x;
+		cout << "typeid(x).name(): " << typeid(x).name() << '\n';
+	}
