@@ -11,8 +11,9 @@
 #include <string>
 using namespace std;
 
-using Error = void;
+struct Error { };
 
+// (1)original
 template<typename T>
 using Make_unsigned_for_integral = typename conditional<
 		is_integral<T>::value,
@@ -27,6 +28,7 @@ Make_unsigned_for_integral<int> u1;
 template<typename T>
 using Make_unsigned = typename make_unsigned<T>::type;
 
+// (2)template alias
 template<typename T>
 using Make_unsigned_for_integral2 = typename conditional<
 		is_integral<T>::value,
@@ -35,6 +37,8 @@ using Make_unsigned_for_integral2 = typename conditional<
 	>::type;
 
 Make_unsigned_for_integral2<int> u2;
+//Make_unsigned_for_integral2<string> s2;
+	// required by substitution of 'template<class T> using Make_unsigned_for_integral2 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
 
 
 template<typename T>
@@ -43,6 +47,7 @@ using Make_unsigned = typename make_unsigned<T>::type;
 template<template<typename...> class F, typename... Args>
 using Delay = F<Args...>;
 
+// (3)Delay evaluation
 template<typename T>
 using Make_unsigned_for_integral3 = typename conditional<
 		is_integral<T>::value,
@@ -51,7 +56,8 @@ using Make_unsigned_for_integral3 = typename conditional<
 	>::type;
 
 Make_unsigned_for_integral3<int> u3;
-
+//Make_unsigned_for_integral3<string> s3;
+	// required by substitution of 'template<class T> using Make_unsigned_for_integral3 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
 
 // add main
 
