@@ -26,7 +26,9 @@ public:
 	Smart_pointer(T* pp) : p{pp} { }
 	T& operator*() { return *p; }
 	template<typename U=T>
+		//Enable_if<Is_class<T>(),T>* operator->() { return p; }
 		Enable_if<Is_class<U>(),U>* operator->() { return p; }
+			//error: no type named 'type' in 'struct std::enable_if<false, double>'
 };
 
 void f(Smart_pointer<double> p, Smart_pointer<complex<double>> q)
