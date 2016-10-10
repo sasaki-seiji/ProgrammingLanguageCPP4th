@@ -19,23 +19,13 @@ public:
 	Vector_iter() : cur{nullptr} { } // 2016.10.10 add
 	T& operator*() { return *cur; }
 	T* operator->() { return cur; }
-#if 0
-	bool operator==(Vector_iter other) { return cur == other.cur; }
-	bool operator!=(Vector_iter other) { return !(*this==other); }
-#else
-	template<typename X>
-	friend bool operator==(Vector_iter<X> a, Vector_iter<X> b);
-#endif
+
+	// 2016.10.10 add const
+	bool operator==(Vector_iter other) const { return cur == other.cur; }
+	bool operator!=(Vector_iter other) const { return !(*this==other); }
+
 	Vector_iter& operator++() { ++cur; return *this; }
 };
-
-template<typename T>
-bool operator==(Vector_iter<T> a, Vector_iter<T> b)
-{ return a.cur == b.cur; }
-
-template<typename T>
-bool operator!=(Vector_iter<T> a, Vector_iter<T> b)
-{ return !(a==b); }
 
 template<typename T>
 class Vector {
