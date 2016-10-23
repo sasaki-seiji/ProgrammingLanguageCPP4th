@@ -44,7 +44,7 @@ struct substitution_succeeded<substitution_failure> : std::false_type
 
 // Has_equal<>
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_equal_result {
 private:
 	template<typename T, typename U>
@@ -54,14 +54,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X,typename Y=X>
 using Equal_result = typename get_equal_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_equal : substitution_succeeded<typename get_equal_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_equal()
 {
 	return has_equal<X,Y>::value;
@@ -69,7 +69,7 @@ constexpr bool Has_equal()
 
 // Has_not_equal<>
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_not_equal_result {
 private:
 	template<typename T, typename U>
@@ -79,14 +79,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X,typename Y=X>
 using Not_equal_result = typename get_not_equal_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_not_equal : substitution_succeeded<typename get_not_equal_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_not_equal()
 {
 	return has_not_equal<X,Y>::value;
@@ -94,7 +94,7 @@ constexpr bool Has_not_equal()
 
 // Has_less<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_less_result {
 private:
 	template<typename T, typename U>
@@ -104,14 +104,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X,typename Y=X>
 using Less_result = typename get_less_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_less : substitution_succeeded<typename get_less_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_less()
 {
 	return has_less<X,Y>::value;
@@ -119,7 +119,7 @@ constexpr bool Has_less()
 
 // Has_less_equal<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_less_equal_result {
 private:
 	template<typename T, typename U>
@@ -129,14 +129,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X, typename Y=X>
 using Less_equal_result = typename get_less_equal_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_less_equal : substitution_succeeded<typename get_less_equal_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_less_equal()
 {
 	return has_less_equal<X,Y>::value;
@@ -144,7 +144,7 @@ constexpr bool Has_less_equal()
 
 // Has_greater<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_greater_result {
 private:
 	template<typename T, typename U>
@@ -154,14 +154,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X,typename Y=X>
 using Greater_result = typename get_greater_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_greater : substitution_succeeded<typename get_greater_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_greater()
 {
 	return has_greater<X,Y>::value;
@@ -169,7 +169,7 @@ constexpr bool Has_greater()
 
 // Has_greater_equal<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct get_greater_equal_result {
 private:
 	template<typename T, typename U>
@@ -179,14 +179,14 @@ public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
 };
 
-template<typename X,typename Y>
+template<typename X,typename Y=X>
 using Greater_equal_result = typename get_greater_equal_result<X,Y>::type;
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 struct has_greater_equal : substitution_succeeded<typename get_greater_equal_result<X,Y>::type>
 { };
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Has_greater_equal()
 {
 	return has_greater_equal<X,Y>::value;
@@ -254,11 +254,13 @@ constexpr bool Boolean()
 
 // Equality_comparable<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Equality_comparable()
 {
 	return Has_equal<X,Y>() && Boolean<Equal_result<X,Y>>()
-			&& Has_not_equal<X,Y>() && Boolean<Not_equal_result<X,Y>>();
+			&& Has_not_equal<X,Y>() && Boolean<Not_equal_result<X,Y>>()
+			&& Has_equal<Y,X>() && Boolean<Equal_result<Y,X>>()
+			&& Has_not_equal<Y,X>() && Boolean<Not_equal_result<Y,X>>();
 }
 
 // Semiregular<>()
@@ -274,19 +276,24 @@ constexpr bool Semiregular()
 template<typename X>
 constexpr bool Regular()
 {
-	return Semiregular<X>() && Equality_comparable<X,X>();
+	return Semiregular<X>() && Equality_comparable<X>();
 }
 
 // Totally_ordered<>()
 
-template<typename X, typename Y>
+template<typename X, typename Y=X>
 constexpr bool Totally_ordered()
 {
 	return Equality_comparable<X,Y>()
 			&& Has_less<X,Y>() && Boolean<Less_result<X,Y>>()
 			&& Has_less_equal<X,Y>() && Boolean<Less_equal_result<X,Y>>()
 			&& Has_greater<X,Y>() && Boolean<Greater_result<X,Y>>()
-			&& Has_greater_equal<X,Y>() && Boolean<Greater_equal_result<X,Y>>();
+			&& Has_greater_equal<X,Y>() && Boolean<Greater_equal_result<X,Y>>()
+			&& Equality_comparable<Y,X>()
+			&& Has_less<Y,X>() && Boolean<Less_result<Y,X>>()
+			&& Has_less_equal<Y,X>() && Boolean<Less_equal_result<Y,X>>()
+			&& Has_greater<Y,X>() && Boolean<Greater_result<Y,X>>()
+			&& Has_greater_equal<Y,X>() && Boolean<Greater_equal_result<Y,X>>();
 }
 
 // Ordered<>()
@@ -294,7 +301,7 @@ constexpr bool Totally_ordered()
 template<typename X>
 constexpr bool Ordered()
 {
-	return Regular<X>() && Totally_ordered<X,X>();
+	return Regular<X>() && Totally_ordered<X>();
 }
 
 // Streamable<>()
