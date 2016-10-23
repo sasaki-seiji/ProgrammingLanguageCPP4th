@@ -54,6 +54,11 @@ constexpr bool Copy_assignable()
 	return std::is_copy_assignable<X>::value;
 }
 
+template<typename X, typename Y>
+constexpr bool Assignable()
+{
+	return std::is_assignable<X,Y>::value;
+}
 
 // type relation
 
@@ -465,7 +470,7 @@ constexpr bool Input_iterator()
 {
 	return Common_iterator<Iter>()
 		&& Has_equal<Iter>() && Has_not_equal<Iter>()
-		&& Convertible<Dereference_operator_result<Iter>,Value_type<Iter>>();
+		&& Assignable<Value_type_result<Iter>&,Dereference_operator_result<Iter>>();
 }
 
 }
