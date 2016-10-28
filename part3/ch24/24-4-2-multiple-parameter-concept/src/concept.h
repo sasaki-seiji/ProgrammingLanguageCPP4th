@@ -121,7 +121,7 @@ template<typename X, typename Y=X>
 struct get_equal_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t==u);
+		static auto check(T t,U u) -> decltype(t==u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -146,7 +146,7 @@ template<typename X, typename Y=X>
 struct get_not_equal_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t!=u);
+		static auto check(T t, U u) -> decltype(t!=u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -171,7 +171,7 @@ template<typename X, typename Y=X>
 struct get_less_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t<u);
+		static auto check(T t, U u) -> decltype(t<u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -196,7 +196,7 @@ template<typename X, typename Y=X>
 struct get_less_equal_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t<=u);
+		static auto check(T t, U u) -> decltype(t<=u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -221,7 +221,7 @@ template<typename X, typename Y=X>
 struct get_greater_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t>u);
+		static auto check(T t, U u) -> decltype(t>u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -246,7 +246,7 @@ template<typename X, typename Y=X>
 struct get_greater_equal_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t>=u);
+		static auto check(T t, U u) -> decltype(t>=u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -271,7 +271,7 @@ template<typename X, typename Y=X>
 struct get_plus_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t+u);
+		static auto check(T t, U u) -> decltype(t+u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
@@ -296,7 +296,7 @@ template<typename X, typename Y=X>
 struct get_minus_result {
 private:
 	template<typename T, typename U>
-		static auto check(const T& t,const U& u) -> decltype(t-u);
+		static auto check(T t, U u) -> decltype(t-u);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>(),std::declval<Y>()));
