@@ -14,12 +14,6 @@ using namespace Estd;
 template<typename Iter, typename Val>
 Iter find(Iter b, Iter e, Val x)
 {
-	static_assert(Common_iterator<Iter>(), "!Common_iterator");
-	static_assert(Convertible<Iterator_category_result<Iter>, std::input_iterator_tag>(),
-			"!Convertible to input_iterator");
-	static_assert(Has_equal<Iter>() && Has_not_equal<Iter>(),
-			"!has_equal || !has_not_equal");
-
 	static_assert(Input_iterator<Iter>(), "find() requires an input iterator");
 	static_assert(Equality_comparable<Value_type<Iter>,Val>(),
 			"find()'s iterator and value arguments must match");
