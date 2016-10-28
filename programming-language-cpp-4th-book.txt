@@ -159,7 +159,8 @@
 第24章　ジェネリックプログラミング
 
 	2016.10.18	24.2:アルゴリズムとリフティング
-	2016.10.22、2016.10.23	24.4:コンセプトの具現化
+	2016.10.22、2016.10.23、2016.10.24、2016.10.25、2016.10.26、2016.10.27
+	2016.10.28、2016.10.29	24.4:コンセプトの具現化
 	
 	
 第25章　特殊化
@@ -1294,6 +1295,36 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 	Equality_comparableとTotally_orderedの説明内容が逆となっている
 	テキストのコードでそれらを入れ替えるべき
 
+
+【24.4.5.:　テンプレート別名を特殊化することはできない】
+
+日付：　2016.10.29
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	Forwardに対するValue_type型を宣言するため、テンプレート別名の特殊化を
+	利用しているが、言語上、許されていない。
+	
+		// cannot specialize alias-template
+		template<typename Val>
+		using Value_type<Forward<Val>> = Val;
+			// error: expected '=' before '<' token
+
+	ここでは、Forwardをiteratorから発生させることで対応
+	（iterator内で、value_typeなどのメンバ型が定義される）
+	
+		template<typename Val>
+		//struct Forward {
+		struct Forward : public std::iterator<std::forward_iterator_tag, Val> {
+			Val v;
+			Forward() = default;
+			Forward(const Forward&) = default;
+			Forward& operator=(const Forward&) = default;
+			bool operator==(const Forward& o) { return true; }
+			bool operator!=(const Forward& o) { return false; }
+			void operator++() { }
+			Val& operator*() { return v; }
+		};
 
 【25.2.2.:　値実引数にstringオブジェクトを指定できない】
 
