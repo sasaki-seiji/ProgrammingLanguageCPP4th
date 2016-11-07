@@ -1,38 +1,13 @@
 /*
- * Matrix_etc.h
+ * Matrix_util.h
  *
  *  Created on: 2016/11/03
  *      Author: sasaki
  */
 
-#ifndef MATRIX_ETC_H_
-#define MATRIX_ETC_H_
+#ifndef MATRIX_UTIL_H_
+#define MATRIX_UTIL_H_
 
-#include "concept.h"
-using namespace Estd;
-
-#include <cstdlib>
-using std::size_t;
-#include <initializer_list>
-#include <array>
-#include <numeric>
-#include <cassert>
-
-constexpr bool All() { return true; }
-
-template<typename... Args>
-constexpr bool All(bool b, Args... args)
-{
-	return b && All(args...);
-}
-
-constexpr bool Some() { return false; }
-
-template<typename... Args>
-constexpr bool Some(bool b, Args... args)
-{
-	return b || Some(args...);
-}
 
 struct slice {
 	slice() :start(-1), length(-1), stride(1) { }
@@ -225,4 +200,4 @@ struct Matrix_slice<2> {
 	std::array<size_t,2> strides;
 };
 
-#endif /* MATRIX_ETC_H_ */
+#endif /* MATRIX_UTIL_H_ */

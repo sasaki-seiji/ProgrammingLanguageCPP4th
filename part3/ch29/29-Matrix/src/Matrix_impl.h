@@ -8,9 +8,57 @@
 #ifndef MATRIX_IMPL_H_
 #define MATRIX_IMPL_H_
 
-#include <initializer_list>
-#include <array>
-#include <cassert>
+// declare of Matrix_impl
+namespace Matrix_impl {
+
+	template<typename T, size_t N> struct Matrix_init;
+
+	template<size_t N, typename List>
+	std::array<size_t,N> derive_extents(const List& list);
+
+	template<size_t N, typename I, typename List>
+	Enable_if<(N>1),void> add_extents(I& first, const List& list);
+
+	template<size_t N, typename I, typename List>
+	Enable_if<(N==1),void> add_extents(I& first, const List& list);
+
+	template<size_t N, typename List> bool check_non_jagged(const List& list);
+
+	template<size_t N> void compute_strides(Matrix_slice<N>& ms) ;
+
+	template<typename T, typename Vec>
+	void add_list(const std::initializer_list<T>* first,
+			const std::initializer_list<T>* last, Vec& vec);
+
+	template<typename T, typename Vec>
+	void add_list(const T* first, const T* last, Vec& vec);
+
+	template<size_t I, size_t N>
+	void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns);
+
+	template<size_t N, typename... Dims>
+	bool check_bounds(const Matrix_slice<N>& slice, Dims... dims);
+
+	template<typename... Args> constexpr bool Request_element();
+
+	template<typename... Args> constexpr bool Request_slice();
+
+	template<size_t I, size_t N>
+	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			size_t n) ;
+
+	template<size_t I, size_t N>
+	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			const slice& s);
+
+	template<size_t N, typename T, typename... Args>
+	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			const T& s, const Args&... args);
+
+	template<size_t N>
+	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
+
+}
 
 namespace Matrix_impl {
 
@@ -35,21 +83,7 @@ struct Matrix_init<T,0>
 };
 #endif
 
-#if 0
-template<typename T, size_t N>
-using Matrix_initializer = typename Matrix_init<T,N>::type;
-#endif
-
 #if 1
-template<size_t N, typename I, typename List>
-Enable_if<(N>1),void> add_extents(I& first, const List& list);
-
-template<size_t N, typename I, typename List>
-Enable_if<(N==1),void> add_extents(I& first, const List& list);
-
-template<size_t N, typename List>
-bool check_non_jagged(const List& list);
-
 template<size_t N, typename List>
 std::array<size_t,N> derive_extents(const List& list)
 {
@@ -134,13 +168,6 @@ void compute_strides(Matrix_slice<N>& ms)
 	}
 	ms.size = st;
 }
-
-template<typename T, typename Vec>
-void add_list(const std::initializer_list<T>* first,
-		const std::initializer_list<T>* last, Vec& vec);
-
-template<typename T, typename Vec>
-void add_list(const T* first, const T* last, Vec& vec);
 
 template<typename T, typename Vec>
 void insert_flat(std::initializer_list<T> list, Vec& vec)
