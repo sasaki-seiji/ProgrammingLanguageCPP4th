@@ -79,6 +79,14 @@ constexpr bool Convertible()
 	return std::is_convertible<X,Y>::value;
 }
 
+// 2016.11.05 add
+template<typename X, typename Y>
+constexpr bool Same()
+{
+	return std::is_same<X,Y>::value;
+}
+
+
 // type generator
 
 template<typename X>
