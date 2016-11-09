@@ -131,7 +131,6 @@ void test_order_extent()
 	cout << "s2: " << s2 << endl;
 }
 
-#if 0
 void test_index_access()
 {
 	cout << "--- test_index_access() --\n";
@@ -146,6 +145,12 @@ void test_index_access()
 	double d2 = m[1][2];
 	Matrix<double,1> m1 = m[1];
 	double d3 = m1[2];
+
+	cout << "m.desc: " << m.descriptor() << endl;
+	cout << "d1: " << d1 << endl;
+	cout << "m[1].desc: " << m[1].descriptor() << endl;
+	cout << "d2: " << d2 << endl;
+	cout << "d3: " << d3 << endl;
 }
 
 template<typename M>
@@ -153,11 +158,23 @@ template<typename M>
 operator<<(ostream& os, const M& m)
 {
 	os << '{';
-	for (size_t i = 0; i!=rows(m); ++i) {
+	for (size_t i = 0; i!=m.rows(); ++i) {
 		os << m[i];
-		if (i+1!=rows(m)) os << ',';
+		if (i+1!=m.rows()) os << ',';
 	}
 	return os << '}';
 }
 
-#endif
+void test_stream_output()
+{
+	cout << "--- test_stream_output() --\n";
+
+	Matrix<double,2> m {
+		{00,01,02,03},
+		{10,11,12,13},
+		{20,21,22,23}
+	};
+
+	cout << m << '\n';
+}
+

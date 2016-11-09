@@ -14,6 +14,7 @@ void test_element_type();
 void test_dimension();
 void test_order_extent();
 void test_index_access();
+void test_stream_output();
 
 
 #endif /* TEST_H_ */

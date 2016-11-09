@@ -13,6 +13,7 @@ int main()
 	test_element_type();
 	test_dimension();
 	test_order_extent();
-	//test_index_access();
+	test_index_access();
+	test_stream_output();
 }
 

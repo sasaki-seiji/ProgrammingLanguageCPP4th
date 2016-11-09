@@ -8,6 +8,22 @@
 #ifndef MATRIX_UTIL_H_
 #define MATRIX_UTIL_H_
 
+constexpr bool All() { return true; }
+
+template<typename... Args>
+constexpr bool All(bool b, Args... args)
+{
+	return b && All(args...);
+}
+
+constexpr bool Some() { return false; }
+
+template<typename... Args>
+constexpr bool Some(bool b, Args... args)
+{
+	return b || Some(args...);
+}
+
 
 struct slice {
 	slice() :start(-1), length(-1), stride(1) { }
@@ -40,6 +56,11 @@ struct Matrix_slice {
 	template<typename... Dims,
 			typename = Enable_if<All(Convertible<Dims,size_t>()...)>>
 		size_t operator()(Dims... dims) const;
+
+	// 2016.11.09 add
+
+	size_t at(std::array<size_t,N>& i) const
+	{ return start + std::inner_product(i.begin(), i.end(), strides.begin(), size_t{0}); }
 
 	size_t size;
 	size_t start;
@@ -145,8 +166,12 @@ struct Matrix_slice<1> {
 
 	size_t operator()(size_t i) const
 	{
-		return start+i;
+		return start+i*strides[0];
 	}
+
+	// 2016.11.09 add
+	size_t at(std::array<size_t,1>& i) const
+		{ return start + i[0]*strides[0]; }
 
 	size_t size;
 	size_t start;
@@ -191,8 +216,12 @@ struct Matrix_slice<2> {
 
 	size_t operator()(size_t i, size_t j) const
 	{
-		return start+i*strides[0]+j;
+		return start+i*strides[0]+j*strides[1];
 	}
+
+	// 2016.11.09 add
+	size_t at(std::array<size_t,2>& i) const
+		{ return start + i[0]*strides[0] + i[1]*strides[1]; }
 
 	size_t size;
 	size_t start;

@@ -14,6 +14,7 @@
 #include <vector>
 #include <initializer_list>
 #include <numeric>
+#include <iostream>
 using std::size_t;
 
 #include "concept.h"
@@ -25,5 +26,7 @@ using namespace Estd;
 #include "Matrix_impl.h"
 #include "Matrix_body.h"
 #include "Matrix_ref.h"
+#include "Matrix_body_impl.h"
+#include "Matrix_ref_impl.h"
 
 #endif /* MATRIX_H_ */

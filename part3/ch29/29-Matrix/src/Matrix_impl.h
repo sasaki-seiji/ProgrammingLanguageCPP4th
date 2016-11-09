@@ -8,58 +8,6 @@
 #ifndef MATRIX_IMPL_H_
 #define MATRIX_IMPL_H_
 
-// declare of Matrix_impl
-namespace Matrix_impl {
-
-	template<typename T, size_t N> struct Matrix_init;
-
-	template<size_t N, typename List>
-	std::array<size_t,N> derive_extents(const List& list);
-
-	template<size_t N, typename I, typename List>
-	Enable_if<(N>1),void> add_extents(I& first, const List& list);
-
-	template<size_t N, typename I, typename List>
-	Enable_if<(N==1),void> add_extents(I& first, const List& list);
-
-	template<size_t N, typename List> bool check_non_jagged(const List& list);
-
-	template<size_t N> void compute_strides(Matrix_slice<N>& ms) ;
-
-	template<typename T, typename Vec>
-	void add_list(const std::initializer_list<T>* first,
-			const std::initializer_list<T>* last, Vec& vec);
-
-	template<typename T, typename Vec>
-	void add_list(const T* first, const T* last, Vec& vec);
-
-	template<size_t I, size_t N>
-	void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns);
-
-	template<size_t N, typename... Dims>
-	bool check_bounds(const Matrix_slice<N>& slice, Dims... dims);
-
-	template<typename... Args> constexpr bool Request_element();
-
-	template<typename... Args> constexpr bool Request_slice();
-
-	template<size_t I, size_t N>
-	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			size_t n) ;
-
-	template<size_t I, size_t N>
-	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			const slice& s);
-
-	template<size_t N, typename T, typename... Args>
-	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			const T& s, const Args&... args);
-
-	template<size_t N>
-	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
-
-}
-
 namespace Matrix_impl {
 
 template<typename T, size_t N>
@@ -195,8 +143,8 @@ void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 {
 	size_t size = 1;
 	int i = N-1, j = N-2;
-	while (j>=0) {
-		if (i==n) {
+	while (i>=0) {
+		if (i==I) {
 			ns.start = n*os.strides[i];
 			--i;
 		}
@@ -217,13 +165,16 @@ bool check_bounds(const Matrix_slice<N>& slice, Dims... dims)
 	// 2016.11.05 add
 	static_assert(sizeof...(Dims)==N, "check_bounds(): dimension mismatch");
 
-	size_t indexes[N] {sizeof(dims)...};
+	size_t indexes[N] {size_t(dims)...};
 #if 0	// 2016.11.06 change
 	return std::equal(indexes. indexes+N, slice.extents.begin(), std::less<size_t>{});
 		// error: request for member 'indexes' in 'indexes', which is of non-class type 'std::size_t [2] {aka long long unsigned int [2]}'
 #else
 	for (int i = 0; i < N; ++i)
-		if (indexes[i] >= slice.extents[i]) return false;
+		if (indexes[i] >= slice.extents[i]){
+			std::cerr << "Matrix_impl::check_bounds : out of range - indexes[" << i << "]=" << indexes[i] << std::endl << std::flush;
+			return false;
+		}
 	return true;
 #endif
 }
