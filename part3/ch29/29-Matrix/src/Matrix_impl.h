@@ -170,7 +170,7 @@ bool check_bounds(const Matrix_slice<N>& slice, Dims... dims)
 	return std::equal(indexes. indexes+N, slice.extents.begin(), std::less<size_t>{});
 		// error: request for member 'indexes' in 'indexes', which is of non-class type 'std::size_t [2] {aka long long unsigned int [2]}'
 #else
-	for (int i = 0; i < N; ++i)
+	for (size_t i = 0; i < N; ++i)
 		if (indexes[i] >= slice.extents[i]){
 			std::cerr << "Matrix_impl::check_bounds : out of range - indexes[" << i << "]=" << indexes[i] << std::endl << std::flush;
 			return false;

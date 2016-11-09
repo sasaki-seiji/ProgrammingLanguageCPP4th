@@ -39,6 +39,30 @@ T& Matrix_ref_iterator<T,N>::operator*()
 	return ref->at(cur);
 }
 
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N>
+Matrix_ref_iterator<T,N>::begin(Matrix_ref<T,N>* ref)
+{
+	Matrix_ref_iterator iter(ref);
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N>
+Matrix_ref_iterator<T,N>::end(Matrix_ref<T,N>* ref)
+{
+	Matrix_ref_iterator iter(ref);
+	iter.cur[0] = ref->extent(0);
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N>::Matrix_ref_iterator(Matrix_ref<T,N>* ref)
+	: ref(ref)
+{
+	for (auto& x : cur) x = 0;
+}
+
 
 // 2016.11.09 add: Matrix_ref_const_iterator method
 
@@ -69,6 +93,31 @@ const T& Matrix_ref_const_iterator<T,N>::operator*()
 {
 	return ref->at(cur);
 }
+
+template<typename T, size_t N>
+Matrix_ref_const_iterator<T,N>
+Matrix_ref_const_iterator<T,N>::begin(const Matrix_ref<T,N>* ref)
+{
+	Matrix_ref_const_iterator iter(ref);
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_const_iterator<T,N>
+Matrix_ref_const_iterator<T,N>::end(const Matrix_ref<T,N>* ref)
+{
+	Matrix_ref_const_iterator iter(ref);
+	iter.cur[0] = ref->extent(0);
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_const_iterator<T,N>::Matrix_ref_const_iterator(const Matrix_ref<T,N>* ref)
+	: ref(ref)
+{
+	for (auto& x : cur) x = 0;
+}
+
 
 // 2016.11.08 add: row()
 

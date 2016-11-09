@@ -57,10 +57,8 @@ struct Matrix_slice {
 			typename = Enable_if<All(Convertible<Dims,size_t>()...)>>
 		size_t operator()(Dims... dims) const;
 
-	// 2016.11.09 add
-
-	size_t at(std::array<size_t,N>& i) const
-	{ return start + std::inner_product(i.begin(), i.end(), strides.begin(), size_t{0}); }
+	// 2016.11.09 add: for index array access
+	size_t at(std::array<size_t,N>& i) const;
 
 	size_t size;
 	size_t start;
@@ -117,7 +115,7 @@ template<size_t N>
 				"Matrix_slice<N>::operator(): dimension mismatch");
 		start = 0;
 		size_t args[N] = { size_t(dims)... };
-		for (int i=0; i<N; ++i)
+		for (size_t i=0; i<N; ++i)
 			extents[i] = args[i];
 		size = 1;
 		for (int i = N-1; i>=0; --i) {
@@ -136,9 +134,24 @@ template<size_t N>
 		return start+std::inner_product(args,args+N,strides.begin(), size_t{0});
 	};
 
+template<size_t N>
+size_t Matrix_slice<N>::at(std::array<size_t,N>& i) const
+{
+	return start + std::inner_product(i.begin(), i.end(), strides.begin(), size_t{0});
+}
+
+
+// specialize Matrix_slice to N=1
+
 template<>
 struct Matrix_slice<1> {
-	Matrix_slice() = default;
+
+	Matrix_slice()
+		: size(0), start(0)
+	{
+		extents[0] = strides[0] = 0;
+	}
+
 
 	Matrix_slice(size_t offset,
 			std::initializer_list<size_t> exts)
@@ -169,9 +182,11 @@ struct Matrix_slice<1> {
 		return start+i*strides[0];
 	}
 
-	// 2016.11.09 add
+	// 2016.11.09 add: for index array access
 	size_t at(std::array<size_t,1>& i) const
-		{ return start + i[0]*strides[0]; }
+	{
+		return start + i[0]*strides[0];
+	}
 
 	size_t size;
 	size_t start;
@@ -179,9 +194,17 @@ struct Matrix_slice<1> {
 	std::array<size_t,1> strides;
 };
 
+// specialize Matrix_slice to N=2
+
 template<>
 struct Matrix_slice<2> {
-	Matrix_slice() = default;
+
+	Matrix_slice()
+		: size(0), start(0)
+	{
+		extents[0] = extents[1] = 0;
+		strides[0] = strides[1] = 0;
+	}
 
 	Matrix_slice(size_t offset,
 			std::initializer_list<size_t> exts)
@@ -219,9 +242,11 @@ struct Matrix_slice<2> {
 		return start+i*strides[0]+j*strides[1];
 	}
 
-	// 2016.11.09 add
+	// 2016.11.09 add: for index array access
 	size_t at(std::array<size_t,2>& i) const
-		{ return start + i[0]*strides[0] + i[1]*strides[1]; }
+	{
+		return start + i[0]*strides[0] + i[1]*strides[1];
+	}
 
 	size_t size;
 	size_t start;

@@ -20,15 +20,11 @@ public:
 	Matrix_ref_iterator& operator++();
 	T& operator*();
 
-	static Matrix_ref_iterator begin(Matrix_ref<T,N>* ref)
-		{ Matrix_ref_iterator iter(ref); return iter; }
-
-	static Matrix_ref_iterator end(Matrix_ref<T,N>* ref)
-		{ Matrix_ref_iterator iter(ref); iter.cur[0] = ref->extent(0); return iter; }
+	static Matrix_ref_iterator begin(Matrix_ref<T,N>* ref);
+	static Matrix_ref_iterator end(Matrix_ref<T,N>* ref);
 
 private:
-	Matrix_ref_iterator(Matrix_ref<T,N>* ref) : ref(ref)
-		{ for (auto& x : cur) x = 0; }
+	Matrix_ref_iterator(Matrix_ref<T,N>* ref);
 
 	Matrix_ref<T,N> *ref;
 	std::array<size_t, N> cur;
@@ -46,15 +42,11 @@ public:
 	Matrix_ref_const_iterator& operator++();
 	const T& operator*();
 
-	static Matrix_ref_const_iterator begin(const Matrix_ref<T,N>* ref)
-		{ Matrix_ref_const_iterator iter(ref); return iter; }
-
-	static Matrix_ref_const_iterator end(const Matrix_ref<T,N>* ref)
-		{ Matrix_ref_const_iterator iter(ref); iter.cur[0] = ref->extent(0); return iter; }
+	static Matrix_ref_const_iterator begin(const Matrix_ref<T,N>* ref);
+	static Matrix_ref_const_iterator end(const Matrix_ref<T,N>* ref);
 
 private:
-	Matrix_ref_const_iterator(const Matrix_ref<T,N>* ref) : ref(ref)
-		{ for (auto& x : cur) x = 0; }
+	Matrix_ref_const_iterator(const Matrix_ref<T,N>* ref);
 
 	const Matrix_ref<T,N> *ref;
 	std::array<size_t, N> cur;
@@ -116,10 +108,8 @@ public:
 
 	// 2016.11.09 add: access element
 
-	T& at(std::array<size_t,N>& i)
-		{ return *(ptr + desc.at(i)); }
-	const T& at(std::array<size_t,N>& i) const
-		{ return *(ptr + desc.at(i)); }
+	T& at(std::array<size_t,N>& i) { return *(ptr + desc.at(i)); }
+	const T& at(std::array<size_t,N>& i) const 	{ return *(ptr + desc.at(i)); }
 
 private:
 	Matrix_slice<N> desc;
