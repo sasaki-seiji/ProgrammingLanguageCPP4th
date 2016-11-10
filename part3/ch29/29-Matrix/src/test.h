@@ -16,5 +16,9 @@ void test_order_extent();
 void test_index_access();
 void test_stream_output();
 
+// construct_and_assign.cpp
+void test_nonnumeric_matrix();
+void test_explicit_extents();
+
 
 #endif /* TEST_H_ */
