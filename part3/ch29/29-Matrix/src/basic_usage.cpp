@@ -14,23 +14,6 @@
 using namespace std;
 
 
-template<size_t N>
-ostream& operator<<(ostream& os, const array<size_t,N>& arr)
-{
-	for (size_t sz : arr)
-		os << sz << ',';
-	return os;
-}
-
-template<size_t N>
-ostream& operator<<(ostream& os, const Matrix_slice<N>& ms)
-{
-	os << "size: " << ms.size << ", start: " << ms.start
-			<< ", extents: " << ms.extents
-			<< " strides: " << ms.strides;
-	return os;
-}
-
 void test_define_matrix()
 {
 	cout << "--- test_define_matrix() --\n";
@@ -153,6 +136,7 @@ void test_index_access()
 	cout << "d3: " << d3 << endl;
 }
 
+#if 0 // 2016.11.10 move to Matrix_util.h
 template<typename M>
 	Enable_if<Matrix_type<M>(),ostream&>
 operator<<(ostream& os, const M& m)
@@ -164,6 +148,7 @@ operator<<(ostream& os, const M& m)
 	}
 	return os << '}';
 }
+#endif
 
 void test_stream_output()
 {

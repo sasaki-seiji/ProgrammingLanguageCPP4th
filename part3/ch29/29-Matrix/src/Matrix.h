@@ -20,8 +20,8 @@ using std::size_t;
 #include "concept.h"
 using namespace Estd;
 
-#include "Matrix_decl.h"
 #include "Matrix_concept.h"
+#include "Matrix_decl.h"
 #include "Matrix_util.h"
 #include "Matrix_impl.h"
 #include "Matrix_body.h"

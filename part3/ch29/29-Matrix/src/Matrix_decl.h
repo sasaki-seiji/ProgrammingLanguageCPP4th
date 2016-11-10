@@ -8,13 +8,14 @@
 #ifndef MATRIX_DECL_H_
 #define MATRIX_DECL_H_
 
+// Matrix_body.h, Matrix_ref.h
 
 template<typename T, size_t N> class Matrix ;
-
 template<typename T, size_t N> class Matrix_ref;
-
 template<typename T, size_t N> class Matrix_ref_iterator;
 template<typename T, size_t N> class Matrix_ref_const_iterator;
+
+// Matrix_util.h
 
 struct slice ;
 template<size_t N> struct Matrix_slice ;
@@ -25,8 +26,16 @@ constexpr bool All(bool b, Args... args);
 template<typename... Args>
 constexpr bool Some(bool b, Args... args);
 
+template<size_t N>
+std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms);
+
+template<typename M>
+Enable_if<Matrix_type<M>(),std::ostream&>
+operator<<(std::ostream& os, const M& m);
+
 
 // declare of Matrix_impl
+
 namespace Matrix_impl {
 
 	template<typename T, size_t N> struct Matrix_init;

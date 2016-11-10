@@ -254,4 +254,37 @@ struct Matrix_slice<2> {
 	std::array<size_t,2> strides;
 };
 
+// 2016.11.10 add: for debug
+
+template<size_t N>
+std::ostream& operator<<(std::ostream& os, const std::array<size_t,N>& arr)
+{
+	for (size_t sz : arr)
+		os << sz << ',';
+	return os;
+}
+
+template<size_t N>
+std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms)
+{
+	os << "size: " << ms.size << ", start: " << ms.start
+			<< ", extents: " << ms.extents
+			<< " strides: " << ms.strides;
+	return os;
+}
+
+// 2016.11.10 add:
+
+template<typename M>
+	Enable_if<Matrix_type<M>(),std::ostream&>
+operator<<(std::ostream& os, const M& m)
+{
+	os << '{';
+	for (size_t i = 0; i!=m.rows(); ++i) {
+		os << m[i];
+		if (i+1!=m.rows()) os << ',';
+	}
+	return os << '}';
+}
+
 #endif /* MATRIX_UTIL_H_ */
