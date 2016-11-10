@@ -21,5 +21,10 @@ int main()
 	test_nonnumeric_matrix();
 	test_explicit_extents();
 
+	// index_and_slicing.cpp
+	test_fortran_index();
+	test_slice_index();
+	test_slice_and_int_index();
+
 }
 

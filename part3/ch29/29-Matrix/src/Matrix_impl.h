@@ -145,7 +145,7 @@ void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 	int i = N-1, j = N-2;
 	while (i>=0) {
 		if (i==I) {
-			ns.start = n*os.strides[i];
+			ns.start = os.start + n*os.strides[i];
 			--i;
 		}
 		else {
@@ -218,6 +218,8 @@ size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 	if (length == -1) length = os.extents[i] - start;
 
 	ns.extents[i] = length;
+	ns.size *= ns.extents[i];
+
 	return start*os.strides[i];
 }
 
@@ -225,6 +227,9 @@ template<size_t N, typename T, typename... Args>
 size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 		const T& s, const Args&... args)
 {
+	// 2016.11.10 add
+	ns.size = 1;
+
 	size_t m = do_slice_dim<sizeof...(Args)+1>(os,ns,s);
 	size_t n = do_slice(os,ns,args...);
 	return m+n;
@@ -236,6 +241,21 @@ size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns)
 	return 0;
 }
 
+// 2016.11.10 add
+
+template<typename T, typename Iter>
+void copy_flat(std::initializer_list<T> init, Iter& it)
+{
+	for (auto& elem : init)
+		copy_flat(elem, it);
+}
+
+template<typename T, typename Iter>
+void copy_flat(const T& v, Iter& it)
+{
+	*it = v;
+	++it;
+}
 
 }
 

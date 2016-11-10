@@ -20,5 +20,9 @@ void test_stream_output();
 void test_nonnumeric_matrix();
 void test_explicit_extents();
 
+// index_and_slicing.cpp
+void test_fortran_index();
+void test_slice_index();
+void test_slice_and_int_index();
 
 #endif /* TEST_H_ */

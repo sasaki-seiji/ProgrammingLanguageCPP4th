@@ -119,6 +119,20 @@ Matrix_ref_const_iterator<T,N>::Matrix_ref_const_iterator(const Matrix_ref<T,N>*
 }
 
 
+//2016.11.10 add: assign Matrix_initializer
+
+template<typename T, size_t N>
+Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
+{
+	std::array<size_t, N> extents = Matrix_impl::derive_extents<N>(init);
+	assert(extents == desc.extents);
+
+	iterator it = begin();
+	Matrix_impl::copy_flat(init, it);
+
+	return *this;
+}
+
 // 2016.11.08 add: row()
 
 template<typename T, size_t N>

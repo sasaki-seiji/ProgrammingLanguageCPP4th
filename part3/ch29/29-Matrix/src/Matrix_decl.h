@@ -85,6 +85,14 @@ namespace Matrix_impl {
 	template<size_t N>
 	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
 
+	// 2016.11.10 add
+
+	template<typename Val, typename Iter>
+	void copy_flat(const Val& v, Iter& it);
+
+	template<typename T, typename Iter>
+	void copy_flat(std::initializer_list<T> init, Iter& it);
+
 }
 
 

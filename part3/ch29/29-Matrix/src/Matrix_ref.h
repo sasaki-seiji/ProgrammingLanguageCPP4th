@@ -67,6 +67,10 @@ public:
 
 	Matrix_ref(const Matrix_slice<N>& s, T* p) :desc{s}, ptr{p} { }
 
+	// 2016.11.10 add
+	Matrix_ref& operator=(Matrix_initializer<T,N>);
+
+
 	// 2016.11.08 add: index, row, col
 
 	template<size_t M=N>
