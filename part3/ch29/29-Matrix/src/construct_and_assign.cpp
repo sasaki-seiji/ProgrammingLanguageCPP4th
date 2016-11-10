@@ -41,5 +41,5 @@ void test_explicit_extents()
 		// error: use of deleted function 'Matrix<T, N>::Matrix(std::initializer_list<U>) [with U = int; T = Piece; long long unsigned int N = 2ull]'
 
 	cout << "board2.desc: " << board2.descriptor() << endl;
-	cout << "board23.desc: " << board3.descriptor() << endl;
+	cout << "board3.desc: " << board3.descriptor() << endl;
 }
