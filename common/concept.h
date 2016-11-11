@@ -13,6 +13,10 @@
 
 namespace Estd {
 
+// 2016.11.11 add:
+template<typename X>
+using Value_type = typename X::value_type;
+
 template<bool B, typename X=void>
 using Enable_if = typename std::enable_if<B,X>::type;
 
@@ -96,19 +100,19 @@ using Add_lvalue_reference = typename std::add_lvalue_reference<X>::type;
 // iterator traits
 
 template<typename Iter>
-using Value_type = typename std::iterator_traits<Iter>::value_type;
+using Iterator_value_type = typename std::iterator_traits<Iter>::value_type;
 
 template<typename Iter>
-using Difference_type = typename std::iterator_traits<Iter>::difference_type;
+using Iterator_difference_type = typename std::iterator_traits<Iter>::difference_type;
 
 template<typename Iter>
-using Pointer_type = typename std::iterator_traits<Iter>::pointer_type;
+using Iterator_pointer_type = typename std::iterator_traits<Iter>::pointer_type;
 
 template<typename Iter>
-using Reference_type = typename std::iterator_traits<Iter>::reference_type;
+using Iterator_reference_type = typename std::iterator_traits<Iter>::reference_type;
 
 template<typename Iter>
-using Category = typename std::iterator_traits<Iter>::iterator_category;
+using Iterator_category = typename std::iterator_traits<Iter>::iterator_category;
 
 
 // Has_xxxx<>
@@ -729,26 +733,26 @@ constexpr bool Has_end_function()
 // Has_value_type<>()
 
 template<typename X>
-struct get_value_type_result {
+struct get_iterator_value_type_result {
 private:
 	template<typename T>
-		static Value_type<T> check(T t);
+		static Iterator_value_type<T> check(T t);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>()));
 };
 
 template<typename X>
-using Value_type_result = typename get_value_type_result<X>::type;
+using Iterator_value_type_result = typename get_iterator_value_type_result<X>::type;
 
 template<typename X>
-struct has_value_type : substitution_succeeded<typename get_value_type_result<X>::type>
+struct has_iterator_value_type : substitution_succeeded<typename get_iterator_value_type_result<X>::type>
 { };
 
 template<typename X>
-constexpr bool Has_value_type()
+constexpr bool Has_iterator_value_type()
 {
-	return has_value_type<X>::value;
+	return has_iterator_value_type<X>::value;
 }
 
 // Has_iterator_category<>()
@@ -757,7 +761,7 @@ template<typename X>
 struct get_iterator_category_result {
 private:
 	template<typename T>
-		static Category<T> check(T t);
+		static Iterator_category<T> check(T t);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<X>()));
@@ -898,7 +902,7 @@ constexpr bool Copyable()
 template<typename Iter>
 constexpr bool Common_iterator()
 {
-	return Has_value_type<Iter>()
+	return Has_iterator_value_type<Iter>()
 		&& Has_iterator_category<Iter>()
 		&& Copy_constructible<Iter>() && Copy_assignable<Iter>()
 		&& Has_dereference<Iter>()
@@ -913,7 +917,7 @@ constexpr bool Input_iterator()
 	return Common_iterator<Iter>()
 		&& Convertible<Iterator_category_result<Iter>, std::input_iterator_tag>()
 		&& Has_equal<Iter>() && Has_not_equal<Iter>()
-		&& Convertible<Dereference_result<Iter>,Value_type_result<Iter>>();
+		&& Convertible<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Output_iterator<Iter>()
@@ -933,7 +937,7 @@ template<typename Iter>
 constexpr bool Forward_const_iterator()
 {
 	return Input_iterator<Iter>()
-		&& (!Is_class<Value_type_result<Iter>>() || Has_arrow<Iter>())
+		&& (!Is_class<Iterator_value_type_result<Iter>>() || Has_arrow<Iter>())
 		&& Convertible<Iterator_category_result<Iter>, std::forward_iterator_tag>();
 }
 
@@ -941,7 +945,7 @@ template<typename Iter>
 constexpr bool Forward_iterator()
 {
 	return Forward_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Value_type_result<Iter>>();
+		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Bidirectional_iterator<Iter>()
@@ -958,7 +962,7 @@ template<typename Iter>
 constexpr bool Bidirectional_iterator()
 {
 	return Bidirectional_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Value_type_result<Iter>>();
+		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Random_access_iterator<Iter>()
@@ -979,8 +983,8 @@ template<typename Iter>
 constexpr bool Random_access_iterator()
 {
 	return Random_access_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Value_type_result<Iter>>()
-		&& Assignable<Index_result<Iter,int>,Value_type_result<Iter>>();
+		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>()
+		&& Assignable<Index_result<Iter,int>,Iterator_value_type_result<Iter>>();
 }
 
 
