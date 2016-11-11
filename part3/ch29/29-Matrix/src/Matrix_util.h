@@ -287,4 +287,13 @@ operator<<(std::ostream& os, const M& m)
 	return os << '}';
 }
 
+// 2016.11.11 add:
+
+template<size_t N>
+bool same_extents(const Matrix_slice<N>& a, const Matrix_slice<N>& b)
+{
+	return a.extents == b.extents;
+}
+
+
 #endif /* MATRIX_UTIL_H_ */

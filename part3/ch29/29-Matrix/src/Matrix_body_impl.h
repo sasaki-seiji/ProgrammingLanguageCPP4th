@@ -61,6 +61,13 @@ Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
 	return apply([&](T& a){ a+=val; });
 }
 
+// 2016.11.11 add
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator*=(const T& val)
+{
+	return apply([&](T& a){ a*=val; });
+}
+
 template<typename T, size_t N>
 	template<typename F>
 	Matrix<T,N>& Matrix<T,N>::apply(F f)
@@ -156,8 +163,9 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 }
 #endif
 
+
 template<typename T>
-T dot_product(const Matrix<T,1>& a, const Matrix<T,1>& b)
+T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 {
 	return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
 }

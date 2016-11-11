@@ -26,5 +26,7 @@ int main()
 	test_slice_index();
 	test_slice_and_int_index();
 
+	// arithmetic_calculation.cpp
+	test_arithmetic_calculation();
 }
 

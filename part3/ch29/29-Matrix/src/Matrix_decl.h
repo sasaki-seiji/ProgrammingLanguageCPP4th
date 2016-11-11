@@ -33,6 +33,9 @@ template<typename M>
 Enable_if<Matrix_type<M>(),std::ostream&>
 operator<<(std::ostream& os, const M& m);
 
+template<size_t N>
+bool same_extents(const Matrix_slice<N>&, const Matrix_slice<N>&);
+
 
 // declare of Matrix_impl
 

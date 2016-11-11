@@ -25,4 +25,7 @@ void test_fortran_index();
 void test_slice_index();
 void test_slice_and_int_index();
 
+// arithmetic_calculation.cpp
+void test_arithmetic_calculation();
+
 #endif /* TEST_H_ */

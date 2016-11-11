@@ -128,10 +128,10 @@ public:
 
 	// 2016.11.05 add: get iterator
 
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
+	iterator begin() { return elems.begin(); }
+	const_iterator begin() const { return elems.begin(); }
+	iterator end() { return elems.end(); }
+	const_iterator end() const { return elems.end(); }
 
 private:
 	Matrix_slice<N> desc;
