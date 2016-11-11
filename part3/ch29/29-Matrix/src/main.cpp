@@ -28,5 +28,8 @@ int main()
 
 	// arithmetic_calculation.cpp
 	test_arithmetic_calculation();
+
+	// scalar_calculation.cpp
+	test_apply_chain();
 }
 

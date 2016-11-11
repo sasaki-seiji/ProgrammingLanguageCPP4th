@@ -28,4 +28,7 @@ void test_slice_and_int_index();
 // arithmetic_calculation.cpp
 void test_arithmetic_calculation();
 
+// scalar_calculation.cpp
+void test_apply_chain();
+
 #endif /* TEST_H_ */
