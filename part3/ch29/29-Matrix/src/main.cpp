@@ -35,5 +35,7 @@ int main()
 	// matrix_addition.cpp
 	test_mixed_add();
 
+	// matrix_ref.cpp
+	test_missing_ref();
 }
 

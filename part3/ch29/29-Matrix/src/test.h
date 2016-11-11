@@ -34,4 +34,7 @@ void test_apply_chain();
 // matrix_addition.cpp
 void test_mixed_add();
 
+// matrix_ref.cpp
+void test_missing_ref();
+
 #endif /* TEST_H_ */
