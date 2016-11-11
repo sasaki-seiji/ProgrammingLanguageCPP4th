@@ -31,4 +31,7 @@ void test_arithmetic_calculation();
 // scalar_calculation.cpp
 void test_apply_chain();
 
+// matrix_addition.cpp
+void test_mixed_add();
+
 #endif /* TEST_H_ */

@@ -36,6 +36,12 @@ public:
 	template<typename U>
 		Matrix& operator=(const Matrix_ref<U,N>&);
 
+	// 2016.11.11 add
+	template<typename U>
+		Matrix(const Matrix<U,N>&);
+	template<typename U>
+		Matrix& operator=(const Matrix<U,N>&);
+
 	template<typename... Exts>
 		explicit Matrix(Exts... exts);
 

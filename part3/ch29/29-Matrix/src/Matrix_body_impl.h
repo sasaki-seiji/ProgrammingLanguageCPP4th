@@ -55,6 +55,16 @@ template<typename T, size_t N>
 		return *this;
 	}
 
+// 2016.11.11 add
+template<typename T, size_t N>
+	template<typename U>
+	Matrix<T,N>::Matrix(const Matrix<U,N>& x)
+		:desc{x.descriptor()}, elems(x.begin(),x.end())
+	{
+		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+	}
+
+
 template<typename T, size_t N>
 Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
 {
@@ -112,8 +122,10 @@ Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
 	return res;
 }
 
+// 2016.11.11 change :
 template<typename T, typename T2, size_t N,
-	typename RT = Matrix<Common_type<Value_type<T>,Value_type<T2>>,N>>
+	//typename RT = Matrix<Common_type<Value_type<T>,Value_type<T2>>,N>>
+	typename RT = Common_type<T,T2>>
 Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b)
 {
 	Matrix<RT,N> res = a;

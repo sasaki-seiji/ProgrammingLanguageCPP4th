@@ -31,5 +31,9 @@ int main()
 
 	// scalar_calculation.cpp
 	test_apply_chain();
+
+	// matrix_addition.cpp
+	test_mixed_add();
+
 }
 
