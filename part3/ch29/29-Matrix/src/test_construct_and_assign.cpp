@@ -7,6 +7,7 @@
 
 #include "Matrix.h"
 #include <iostream>
+#include <complex>
 using namespace std;
 
 enum class Piece { none, cross, naught };
@@ -145,4 +146,17 @@ void test_Matrix_from_different_Matrix()
 
 	Matrix<int,2> mi {md};
 	cout << "mi: " << mi << endl;
+}
+
+void test_Matrix_assign_different_Matrix()
+{
+	cout << "--- test_Matrix_assign_different_Matrix() --\n";
+
+	Matrix<complex<double>,2> mc(2,2);
+	mc = {
+		{1.1, 2.2, 3.3},
+		{4.4, 5.5, 6.6},
+		{7.7, 8.8, 9.9}
+	};
+	cout << "mc: " << mc << endl;
 }

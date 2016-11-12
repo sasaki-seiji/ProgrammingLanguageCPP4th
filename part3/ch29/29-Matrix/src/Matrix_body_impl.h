@@ -25,11 +25,9 @@ Matrix<T,N>::Matrix(Matrix_initializer<T,N> init)
 	desc.start = 0;
 
 	// 2016.11.06 change
-#if 0
-	desc.extents = Matrix_impl::derive_extents(init);
-#else
+	//desc.extents = Matrix_impl::derive_extents(init);
 	desc.extents = Matrix_impl::derive_extents<N>(init);
-#endif
+
 	Matrix_impl::compute_strides(desc);
 	elems.reserve(desc.size);
 	Matrix_impl::insert_flat(init,elems);
@@ -52,7 +50,7 @@ Matrix<T,N>& Matrix<T,N>::operator=(Matrix_initializer<T,N> init)
 	return *this;
 }
 
-// Matrix constructor from Matrix_ref
+// Matrix construct from Matrix_ref
 template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
@@ -68,6 +66,7 @@ template<typename T, size_t N>
 		Matrix_impl::compute_strides(desc);
 	}
 
+// Matrix: assign Matrix_ref
 template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
@@ -85,12 +84,26 @@ template<typename T, size_t N>
 	}
 
 // 2016.11.11 add
+// Matrix construct from other type Matrix
 template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>::Matrix(const Matrix<U,N>& x)
 		:desc{x.descriptor()}, elems(x.begin(),x.end())
 	{
 		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+	}
+
+// 2016.11.13 add
+// Matrix: assign other type Matrix
+template<typename T, size_t N>
+	template<typename U>
+	Matrix<T,N>& Matrix<T,N>::operator=(const Matrix<U,N>& x)
+	{
+		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+
+		std::vector<T> nv{x.begin(),x.end()};
+		desc = x.descriptor();
+		elems = nv;
 	}
 
 
