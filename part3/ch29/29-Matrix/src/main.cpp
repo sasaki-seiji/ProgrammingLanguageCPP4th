@@ -18,8 +18,11 @@ int main()
 	test_stream_output();
 
 	// test_construct_and_assign.cpp
-	test_nonnumeric_matrix();
-	test_explicit_extents();
+	test_Matrix_from_Matrix_initializer();
+	test_explicit_Matrix_from_extents();
+	test_Matrix_from_Matrix_ref();
+	test_Matrix_assign_Matrix_ref();
+
 
 	// test_index_and_slicing.cpp
 	test_fortran_index();

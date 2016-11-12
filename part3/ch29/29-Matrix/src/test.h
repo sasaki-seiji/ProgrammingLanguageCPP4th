@@ -17,8 +17,10 @@ void test_index_access();
 void test_stream_output();
 
 // test_construct_and_assign.cpp
-void test_nonnumeric_matrix();
-void test_explicit_extents();
+void test_Matrix_from_Matrix_initializer();
+void test_explicit_Matrix_from_extents();
+void test_Matrix_from_Matrix_ref();
+void test_Matrix_assign_Matrix_ref();
 
 // test_index_and_slicing.cpp
 void test_fortran_index();

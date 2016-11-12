@@ -9,6 +9,7 @@
 #define MATRIX_BODY_IMPL_H_
 
 
+// Matrix constructor from extents
 template<typename T, size_t N>
 	template<typename... Exts>
 	Matrix<T,N>::Matrix(Exts... exts)
@@ -16,6 +17,7 @@ template<typename T, size_t N>
 		:desc(exts...), elems(desc.size)
 	{ }
 
+// Matrix construct from Matrix_initializer
 template<typename T, size_t N>
 Matrix<T,N>::Matrix(Matrix_initializer<T,N> init)
 {
@@ -34,14 +36,20 @@ Matrix<T,N>::Matrix(Matrix_initializer<T,N> init)
 	assert(elems.size() == desc.size);
 }
 
+// Matrix constructor from Matrix_ref
 template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
-// 2016.11.08 change
+// 2016.11.08, 2016.11.12 change
 		//:desc{x.desc}, elems{x.begin(),x.end()}
-		:desc{x.descriptor()}, elems(x.begin(),x.end())
+		: elems(x.begin(),x.end())
 	{
 		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+
+		// 2016.11.12 add
+		desc.start = 0;
+		desc.extents = x.descriptor().extents;
+		Matrix_impl::compute_strides(desc);
 	}
 
 template<typename T, size_t N>
@@ -50,7 +58,12 @@ template<typename T, size_t N>
 	{
 		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
 
-		desc = x.desc;
+		// 2016.11.12 change
+		//desc = x.desc;
+		desc.start = 0;
+		desc.extents = x.descriptor().extents;
+		Matrix_impl::compute_strides(desc);
+
 		elems.assign(x.begin(),x.end());
 		return *this;
 	}
@@ -229,7 +242,7 @@ template<typename T, size_t N>
 	template<size_t M>
 	Enable_if<(M==1),T&> Matrix<T,N>::row(size_t i)
 	{
-		return elems[i];
+		return elems[desc.start+i*desc.strides[0]];
 	}
 
 #endif
@@ -269,7 +282,7 @@ template<typename T, size_t N>
 	Enable_if<(M==1),const T&>
 	Matrix<T,N>::row(size_t i) const
 {
-	return elems[i];
+	return elems[desc.start+i*desc.strides[0]];
 }
 
 #endif

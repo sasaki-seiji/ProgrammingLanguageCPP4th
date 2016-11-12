@@ -141,22 +141,20 @@ void add_list(const T* first, const T* last, Vec& vec)
 template<size_t I, size_t N>
 void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 {
-	size_t size = 1;
 	int i = N-1, j = N-2;
 	while (i>=0) {
 		if (i==I) {
 			ns.start = os.start + n*os.strides[i];
+			ns.size = os.size / os.extents[i];
 			--i;
 		}
 		else {
 			ns.extents[j] = os.extents[i];
 			ns.strides[j] = os.strides[i];
-			size *= ns.extents[j];
 			--i;
 			--j;
 		}
 	}
-	ns.size = size;
 }
 
 template<size_t N, typename... Dims>
