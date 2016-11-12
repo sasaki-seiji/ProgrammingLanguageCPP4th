@@ -46,6 +46,16 @@ void test_Matrix_from_Matrix_initializer()
 #endif
 }
 
+void test_Matrix_assign_Matrix_initializer()
+{
+	cout << "--- test_Matrix_assign_Matrix_initializer() --\n";
+
+	Matrix<int,2> m(2,3);
+	m = {{1,2,3},{4,5,6}};
+	cout << "m.descriptor(): " << m.descriptor() << endl;
+	cout << "m: " << m << endl;
+}
+
 void test_explicit_Matrix_from_extents()
 {
 	cout << "--- test_explicit_Matrix_from_extents() --\n";
@@ -106,7 +116,7 @@ void test_Matrix_assign_Matrix_ref()
 	Matrix_ref<int,1> r1 = m.row(1);
 	cout << "m.row(1): " << r1 << endl;
 
-	Matrix<int,1> mr1 {0,0,0};
+	Matrix<int,1> mr1(3);
 	mr1 = r1;
 	cout << "mr1.desc: " << mr1.descriptor()<< endl;
 	cout << "mr1: " << mr1 << endl;
@@ -115,9 +125,24 @@ void test_Matrix_assign_Matrix_ref()
 	Matrix_ref<int,1> c1 = m.col(1);
 	cout << "m.col(1): " << c1 << endl;
 
-	Matrix<int,1> mc1 {0,0,0};
+	Matrix<int,1> mc1(3);
 	mc1 = c1;
 	cout << "mc1.desc: " << mc1.descriptor()<< endl;
 	cout << "mc1: " << mc1 << endl;
 	cout << "mc1(1): " << mc1(1) << endl;
+}
+
+void test_Matrix_from_different_Matrix()
+{
+	cout << "--- test_Matrix_from_different_Matrix() --\n";
+
+	Matrix<double,2> md {
+		{1.1, 2.2, 3.3},
+		{4.4, 5.5, 6.6},
+		{7.7, 8.8, 9.9}
+	};
+	cout << "md: " << md << endl;
+
+	Matrix<int,2> mi {md};
+	cout << "mi: " << mi << endl;
 }
