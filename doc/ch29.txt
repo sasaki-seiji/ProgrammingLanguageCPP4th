@@ -1,0 +1,70 @@
+【29.2.1:　Matrix_refからMatrixを構築および代入するコードのバグ】
+
+日付：　2016.11.12
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+・テキストのMatrix_refからMatrixを構築するコードには、以下の問題がある
+	
+	template<typename T, size_t N>
+		template<typename U>
+		Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
+			:desc{x.desc}, elems{x.begin(),x.end()}
+		{
+			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+		}
+
+	①x.descはMatrix_refのpurivateメンバのため、Matrixからアクセスできない
+	②Matrix_refは要素が連続配置されていないため、desc(Matrix_slice)を
+	　単純にコピーできない（新規に作成されるMatrixは要素を連続的に配置する）
+	　
+	この問題を対策するため、以下のように変更した
+	
+	template<typename T, size_t N>
+		template<typename U>
+		Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
+		// 2016.11.08, 2016.11.12 change
+			//:desc{x.desc}, elems{x.begin(),x.end()}
+			:desc{x.descriptor()}, elems(x.begin(),x.end())
+		{
+			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+
+			// 2016.11.12 add
+			desc.start = 0;
+			desc.extents = x.descriptor().extents;
+			Matrix_impl::compute_strides(desc);
+		}
+
+・Matrix_refをMatrixに代入シュル処理にも同様な問題がある
+	以下のように変更
+	
+	template<typename T, size_t N>
+		template<typename U>
+		Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
+		{
+			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+
+			desc = x.desc;
+			elems.assign(x.begin(),x.end());
+			return *this;
+		}
+
+		↓
+		
+	template<typename T, size_t N>
+		template<typename U>
+		Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
+		{
+			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+
+			// 2016.11.12 change
+			//desc = x.desc;
+			desc.start = 0;
+			desc.extents = x.descriptor().extents;
+			Matrix_impl::compute_strides(desc);
+
+			elems.assign(x.begin(),x.end());
+			return *this;
+		}
+
+
