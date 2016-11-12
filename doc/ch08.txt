@@ -1,0 +1,125 @@
+
+【8.2.3　構造体とクラス：初期化リストから配列に代入できない】
+
+日付：　2016.04.18、2016.04.20
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの例で、配列を初期化リストから代入する箇所でエラーとなる
+	
+	state = {st[0], st[1]};
+	zip = {zi[0], zi[1], zi[2], zi[3], zi[4]};
+	zip = {'0', zi[0], zi[1], zi[2], zi[3]};
+
+【8.2.4　構造体と配列：配列を内包する構造体では、処理化リストによる初期化ができない】
+
+日付：　2016.04.18、2016.04.20、2016.04.21
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの例では、Arrayの初期化に失敗する
+	
+		struct Array {
+			Point elem[3];
+		};
+
+		Array points2 {{1,2},{3,4},{5,6}};
+			// initializers for 'Array'
+対策：
+	①Arrayのインスタンスを初期化するイニシャライザリストの括弧をもう一つ付ける
+	
+		Array points2 {{{1,2},{3,4},{5,6}}};
+		
+	②Arrayにinitailizer_listを引数とするコンストラクタを追加する
+
+		struct Array {
+			Point elem[3];
+			// ...
+			Point3Array(const initializer_list<Point>& args)
+			{ assert(args.size() == 3);
+			  copy(args.begin(), args.end(), elem); }
+			// ...
+		};
+		
+		Array points2 {{1,2},{3,4},{5,6}};
+			// initializers for 'Array'
+
+
+【8.2.4　構造体と配列：arrayテンプレートの値引数の型が異なる】
+	
+日付：　2016.04.21
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキスト例では、arrayテンプレートを使用している箇所で、
+		no matching function for call to 'print(PointArray&)'
+	のエラーが出る
+
+原因：
+	arrayテンプレートクラスの定義では、値引数の型がsize_tで、
+	printテンプレート関数の値引数が型がintであり、同一の型として認識されない
+	printテンプレート関数のテンプレート引数型をsize_tに変更することで対策
+	
+【8.3.1　共用体とクラス：unionの初期化エラー】
+
+日付：　2016.04.22
+コメント：
+	テキストの記述とは異なり、クラス内初期化子が指定されていないメンバ
+	に対して、unionオブジェクトの初期化子を指定しようとすると、エラーとなる
+	
+	union U2 {
+		int a;
+		const char* p {""};
+	};
+
+	U2 x1;
+	U2 x2 {7};
+		// no matching function for call to 'U2::U2(<brace-enclosed initializer list>)'
+
+
+【8.3.2　無名共用体】
+
+日付：　2016.04.22
+コメント：
+
+	テキストの例に以下の問題がある
+	
+	①文法エラー
+	
+	Entry2& Entry2::operator=(const Entry2& e)　関数内で、以下の行でエラー
+	
+		new(&s)(e.s);
+
+	正しくは、
+
+		new(&s) string{e.s};
+
+	としなければならない
+	
+	②typeメンバへの設定ミス
+	
+		switch (e.type) {
+		case Tag::number:
+			i = e.i;
+			break;
+		case Tag::text:
+			// new(&s)(e.s);
+			new(&s) string{e.s};
+			type = e.type;
+			break;
+		}
+
+		return *this;
+		
+	において、this->typeがTag::textで、e.typeがTag::numberの時、
+	this->typeが、Tag::textのままとなる
+
+
+【8.4.1　enum class: 根底型に収まらない値の初期化】
+
+日付：　2016.04.23
+コメント：
+	根底型に収まらない enum class 変数の初期化時に、エラーやワーニング
+	が出力されない
+
+	enum class Flag : char { x=1, y=2, z=4, e=8 };
+	Flag f4 = static_cast<Flag>(999);
+
+

@@ -1,0 +1,76 @@
+【13.3.1:finally　Final_actionクラスのコピーコンストラクタの削除に関するエラー】
+
+日付：　2016.05.15
+コメント：
+	テキストの例では、Final_actionクラスのコピーコンストラクタを削除しているが、
+	これを使っている箇所があり、エラーとなる
+
+①finallyテンプレート関数
+
+	template<typename F>
+	Final_action<F> finally(F f)
+	{
+		return Final_action<F>(f);
+			// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+	}
+	
+		// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+
+②test関数内のブロックの中
+		
+	{
+		var = 1;
+		auto act2 = finally([&]{ cout << "finally!\n"; var = 7; });
+			// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
+		cout << "var = " << var << '\n';
+	}
+
+【13.6.3　vector_baseのムーブ代入が無限再帰】
+
+日付：　2016.05.22
+コメント：
+	テキストの例題を実行すると、vector_baseのムーブ代入とswapが無限再帰となる
+	
+①vectorの代入演算子を以下のように定義
+
+	template<typename T, typename A>
+	vector<T,A>& vector<T,A>::operator=(const vector& a)
+	{
+		vector_base<T,A> b {a.vb.alloc, a.size()};
+		uninitialized_copy(a.vb.elem, a.vb.space, b.elem);
+		destroy_elements();
+		swap(vb, b);
+		return *this;
+	}
+
+	ここで、std::swapは、内部的に、vector_baseのムーブコンストラクタと、
+	ムーブ代入を呼び出す
+
+②vector_baseのムーブ代入は以下のように定義されている
+
+	template<typename T, typename A>
+	vector_base<T,A>& vector_base<T,A>::operator=(vector_base&& a)
+	{
+		swap(*this, a);
+		return *this;
+	}
+
+	ここで、vector_baseに対するswapが呼ばれているため、無限再帰となる
+	
+③vector_baseのムーブ代入を以下のように修正
+
+	template<typename T, typename A>
+	vector_base<T,A>& vector_base<T,A>::operator=(vector_base&& a)
+	{
+		// 2016.05.22 stack overflow
+		//swap(*this, a);
+		this->alloc = a.alloc;
+		this->elem = a.elem;
+		this->space = a.space;
+		this->last = a.last;
+		a.elem = a.space = a.last = nullptr;
+
+		return *this;
+	}
+
+

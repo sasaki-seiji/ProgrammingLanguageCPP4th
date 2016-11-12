@@ -1,0 +1,12 @@
+
+【15.4.3　at_quick_exit, quick_exit】
+
+日付：2016.07.15
+コメント：
+
+	at_quick_exit, quick_exit が以下のメッセージでコンパイルエラーとなる
+	
+	'at_quick_exit' was not declared in this scope
+	'quick_exit' was not declared in this scope
+
+

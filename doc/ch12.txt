@@ -1,0 +1,40 @@
+【12.1.6　constexpr関数】
+
+日付：　2016.05.05
+コメント：
+	テキストの記述と異なり、定数でない配列サイズがエラーとならない
+	
+	void f(int n)
+	{
+		・・・
+		char a[fac(4)];
+		char a2[fac(n)];
+		・・・
+	}
+	
+
+【12.2.3　並び引数】
+
+日付：　2016.05.06
+コメント：
+	配列への参照引数の初期化でエラーが出る
+
+	・テキストの記載に従うと、int[4]の右辺値から、非定数のint(&)[4]を
+	初期化できないとのメッセージ
+
+	f3({1,2,3,4});
+		// invalid initialization of non-const reference of type 'int (&)[4]' from an rvalue of type 'int [4]'
+
+	・関数宣言をconst参照に変更しても、以下のエラーが出る
+
+	template<typename T, int N>
+	void f3(const T (&r)[N]) { cout << "f3()\n"; }
+
+	void g()
+	{
+		・・・
+		f3({1,2,3,4});
+			// Invalid arguments 'Candidates are: void f3(const #0 (&)[3 #1 0])	'
+		・・・
+	}
+

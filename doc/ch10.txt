@@ -1,0 +1,50 @@
+【10.3.4　一時オブジェクト】
+
+日付:　2016.04.26
+コメント：
+	テキストの例に以下の間違いがある
+	①stringはmoveメンバ関数を持たない
+	②stringコンストラクタを{n,ch}で呼び出すと、initializer_list引数として
+	処理される
+	
+	s.move(string{n,ch});
+		↓
+	s = move(string{n,ch});
+		// narrowing conversion of 'n' from 'int' to 'char' inside { } [-Wnarrowing]
+		↓
+	s = move(string(n,ch));
+
+【10.4.2　定数式中のconst：sqrtを用いたconstexprがエラーとならない】
+
+日付：　2016.04.26
+コメント：
+	テキストの記述と異なり、sqrtを用いたconstexprがエラーとならない
+
+	const int y = sqrt(x);
+	constexpr int yy = y;
+	
+	ここで、ｙとｙｙは、値2を持つ
+
+
+
+【10.4.5　アドレス定数式：p1+2がコンパイルエラーとならない】
+
+日付：　2016.04.29
+コメント：
+	テキストの記述と異なり、定数式　p1+2がコンパイルエラーとならない
+	
+	constexpr const char* p1 = "asdf";
+	constexpr const char* p2 = p1;
+	constexpr const char* p3 = p1+2;	// OK
+	constexpr char c = p1[2];
+
+【10.5.2　変換】
+
+日付：　2016.04.29
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	・テキストの記述と異なり、｛｝形式の初期化はエラーでなく、ワーニングとなる
+		char c {d};
+			// narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
+	・縮小変換のワーニングは、-Wconversionオプションを付けた場合のみ出力される
+

@@ -1,0 +1,63 @@
+【7.3　配列：変数を要素数とする配列がエラーとならない】
+
+日付：　2016.04.10
+コメント：
+	変数を要素数とする配列の定義がエラーとならない。
+	以下の例で、v1[0]は10と表示される
+	
+	
+	void f(int n)
+	{
+		int v1[n];
+		vector<int> v2(n);
+
+		cout << "v1[0] = " << v1[0] << '\n';
+		cout << "v2[0] = " << v2[0] << '\n';
+	}
+	int main()
+	{
+		f(10);
+	}
+
+【7.3.2　文字列リテラル：　char*へのリテラルの代入】
+
+日付：　2016.04.14
+コメント：
+	テキストの記述と異なり、char*への文字列リテラルの代入はエラーとならず、
+	warningとなる。
+	そのあとで、char*を通した代入により、システムがダウンする
+	
+	char* p = "Plato";
+		// ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+	p[4] = 'e';
+	
+【7.3.2.2　大規模文字セット：　unicode文字が出力されない】
+
+日付：　2016.04.14
+コメント：
+	windows上で、unicode文字、utf8、utf16、utf32が正しく出力されない
+	
+	以下のプログラムを実行すると、
+
+	cout << "folder\\file" << '\n';
+	cout << R"(folder\file)" << '\n';
+	cout << u8"folder\\file" << '\n';
+	cout << u8R"(folder\file)" << '\n';
+	cout << u"folder\\file" << '\n';
+	cout << uR"(folder\file)" << '\n';
+	cout << U"folder\\file" << '\n';
+	cout << UR"(folder\file)" << '\n';
+	cout << u8"The official vowels in Danish are: a, e, i, o, u, \u00E6, \u00F8, \u00E5 and y." << '\n';
+
+	下記の出力が得られる
+
+	folder\file
+	folder\file
+	folder\file
+	folder\file
+	0x40403e
+	0x40403e
+	0x404058
+	0x404058
+	The official vowels in Danish are: a, e, i, o, u, ﾃｦ, ﾃｸ, ﾃ･ and y.
+

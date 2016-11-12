@@ -1,0 +1,21 @@
+【28.4:　Enable_if呼び出しでテンプレート引数を使用】
+
+日付：　2016.10.05
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストのEnable_ifの利用例はコンパイルエラーとなる
+	Enable_if呼び出し時にテンプレート引数を使用する必要がある
+	
+	template<typename T>
+	class Smart_pointer {
+		T *p;
+	public:
+		Smart_pointer(T* pp) : p{pp} { }
+		T& operator*() { return *p; }
+		template<typename U=T>
+			//Enable_if<Is_class<T>(),T>* operator->() { return p; }
+			Enable_if<Is_class<U>(),U>* operator->() { return p; }
+				//error: no type named 'type' in 'struct std::enable_if<false, double>'
+	};
+

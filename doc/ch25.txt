@@ -1,0 +1,97 @@
+【25.2.2.:　値実引数にstringオブジェクトを指定できない】
+
+日付：　2016.09.13
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	値実引数にstringをオブジェクトを指定できない
+
+	Vec<string,""> c2;
+	// error: 'class std::__cxx11::basic_string<char>' is not a valid type for a template non-type parameter
+
+
+
+【25.2.3.:　lambda関数にconstを指定できない】
+
+日付：　2016.09.18
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	lambda関数にconstを指定するとコンパイルエラーとなる
+
+	auto cmp = [](const string& x, const string& y) const { return x<y; };
+		// error: expected '{' before 'const'
+		↓
+	auto cmp = [](const string& x, const string& y) { return x<y; };
+
+
+【25.2.5.:　完全特殊化されたテンプレートのメンバ関数を外部で定義】
+
+日付：　2016.09.19、2016.09.22
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	完全特殊化されたテンプレートのメンバ関数を外部で定義するとき、
+	宣言の先頭に　template<> をつけるとコンパイルエラーとなる
+	template<> を外すと正しくコンパイルできる
+	但し、この場合テンプレート関数扱いされないため、明示的にinlineを
+	つける必要がある	
+	
+	template<>
+	Vector<void*>::Vector() : v{nullptr}, sz{0} { ...
+		// error: template-id 'Vector<>' for 'Vector<void*>::Vector()' does not match any template declaration
+		↓
+	inline Vector<void*>::Vector() : v{nullptr}, sz{0} { ...
+
+
+【25.3.4.1:　sort関数内のless関数のバインド】
+
+日付：　2016.09.22、2016.09.24
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+（2016.09.24:追記）
+
+	下記の現象は、lessオーバーロード関数が、組み込み型引数のみをとるために
+	ADL（実引数依存探索）が効かないため、テンプレート定義内の依存名が
+	テンプレート定義時点のスコープに従って解決されることによる
+	（「26.3.5:テンプレートと名前空間」を参照）
+	
+(2016.09.22の元々のコメント）
+
+	sortテンプレート関数のヘッダを読み込む前に、lessオーバーロード関数を
+	宣言しないと、一次lessテンプレート関数にバインドされてしまう
+	
+	#include "sort.h"
+		// この中で、一般のlessテンプレート関数とsortテンプレート関数を定義
+	
+	bool less(const char* a, const char* b)
+	{
+		return strcmp(a,b)<0;
+	}
+	
+	void overload()
+	{
+		Vector<int> vi{10,2,20,5,2,2,4};
+		Vector<const char*> vcc{"this", "is", "a", "const", "char*", "Vector"};
+		
+		sort(vi);
+		std::cout << "vi: " << vi << '\n';
+		sort(vcc);	// ここで、一般のlessテンプレート関数がバインドされている
+					//　文字列のソートが正しくできない。
+		std::cout << "vcc: " << vcc << '\n';
+	}
+
+	lessオーバーロード関数定義と、sort.hのインクルードの順番を
+	逆にすると問題が解決される
+	
+	つまり、sort内のless呼び出し箇所が、テンプレート引数への
+	依存名と解釈されていない？
+	
+	template<typename T>
+	void sort(Vector<T>& v)
+	{
+		const size_t n = v.size();
+
+		for (int gap=n/2; 0<gap; gap/=2)
+			for (int i=gap; i!=n; ++i)
+				for (int j=i-gap; 0<=j; j-=gap)
+					if (less(v[j+gap],v[j]))	//　ここがTに依存しない？
+						swap(v[j],v[j+gap]);
+	}

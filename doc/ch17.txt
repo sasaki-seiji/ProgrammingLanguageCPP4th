@@ -1,0 +1,58 @@
+
+【17.3.3　定数参照のクラス内初期化ができていない】
+
+日付：　2016.07.26
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	定数参照のクラス内初期化で、9に初期化したメンバが0となっている
+	
+	int glob {9};
+
+	struct X {
+		const int a1 {7};
+		const int& r {9};
+		int& r1 {glob};
+	};
+
+	X x;
+	
+	ここで、x.rが0となる
+
+
+【17.3.3　並び初期化子による初期化が動作しない】
+
+日付：　2016.07.26
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述と異なり、S2クラス（string引数のコンストラクタを持つ）の
+	配列とvectorを、文字列定数の並び初期化子で初期化することができない
+	
+	S2 a3[] { "alpha", "beta" };
+		→ error: conversion from 'const char [6]' to non-scalar type 'S2' requested
+
+	vector<S2> v3 { "alpha", "beta" };
+		→ no matching function for call to 'S2::S2(const char&)'
+
+	vector<S2> v22(10, "");
+		→ error: no matching function for call to 'std::vector<S2>::vector(int, const char [1])'
+
+【17.3.4　mapp::insertがコンパイルエラー】
+
+日付：　2016.07.26
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの例の以下の記述がコンパイルエラーとなる
+
+	years.insert({{"Bjane", "Stroustrup"}, {1950, 1975, 1985}});
+		// Invalid arguments '
+
+
+【17.6,3,3　デフォルトコピーコンストラクタ生成がワーニングとならない】
+
+日付：　2016.08.01
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述と異なり、デストラクタを明示的に定義した際の、
+	デフォルトコピーコンストラクタ生成がワーニングとならない
+

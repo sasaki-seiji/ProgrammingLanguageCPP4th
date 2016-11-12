@@ -1,0 +1,71 @@
+
+【6.2.2　論理型：　整数からboolへの縮小変換】
+
+日付：　2016.04.09
+コメント：
+	整数からboolへの縮小変換がエラーとならない（ワーニングも出力されない）
+
+		bool b2 {7};
+
+【6.3.5　初期化：　初期化並びによる初期化】
+
+日付：　2016.04.10
+コメント：
+	変数を使った初期化並びによる初期化において、縮小変換の場合もエラーとならず、
+	ワーニングとなる
+	
+	int x3 {val};
+	// narrowing conversion of 'val' from 'double' to 'int' inside { } [-Wnarrowing]
+
+	char c3 {val2};
+	// narrowing conversion of 'val2' from 'int' to 'char' inside { } [-Wnarrowing]
+
+	但し、常数を使った初期化並びの初期化では、縮小変換の場合はエラーとなる
+	
+	//char c5 {264};
+	// narrowing conversion of '264' from 'int' to 'char' inside { } [-Wnarrowing]
+
+	//int x4 {2.0};
+	// narrowing conversion of '2.0e+0' from 'double' to 'int' inside { } [-Wnarrowing]
+
+
+【6.3.5　初期化：　初期化並びによる型推定】
+
+日付：　2016.04.10
+コメント：
+	単一要素の初期化並びによる型推定では、initilizer_listとならずに、
+	その要素の値で初期化される。
+	以下の例では、z1は整数値９９に初期化される
+
+	auto z1 {99};
+
+【6.3.5.2　初期化子並び：　autoによる型推定】
+
+日付：　2016.04.10
+バージョン：g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述とは異なり、初期化子リストを伴ったautoによる型推定では、
+	以下のエラーが出る
+
+	auto x1 {1, 2, 3, 4};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	auto x2 {1.0, 2.25, 3.5};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	auto x3 {1.0, 2};
+	// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+	// unable to deduce 'std::initializer_list<_Tp>' from '{1.0e+0, 2}'
+
+【6.3.6.2　autoと｛｝並び】
+
+日付：　2016.04.10
+バージョン：
+コメント：
+	テキストと異なり、単一要素を持つ｛｝並びに対して、autoで型推定すると、
+	並びの値の型に型推定される
+	
+	auto v1ai {12345};
+	auto v2ai {'c'};
+	auto v3ai {f()};
+	
+	では、それぞれ、int、char、char型となる
+

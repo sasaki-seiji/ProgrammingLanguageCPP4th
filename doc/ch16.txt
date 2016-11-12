@@ -1,0 +1,64 @@
+
+【16.2.6　静的クラス変数の初期化】
+
+日付：2016.07.16
+コメント：
+	大域のDateインスタンスを初期化するとき、Dateのコンストラクタが参照する
+	static変数との初期化順により、正しく初期化されない
+	
+	//　利用者のcppファイル
+	Date2 d1 {15};
+	Date2 d2 = Date2{15};
+	
+	//　Dateの実装
+	static Date2 today {16, 7, 2016};
+
+	Date2::Date2(int dd, int mm, int yy)
+	{
+		d = dd ? dd : today.d;
+		m = mm ? mm : today.m;
+		y = yy ? yy : today.y;
+	}
+
+【16.2.7　静的データの複製】
+
+日付：2016.07.16
+コメント：
+	初期値を持つ変数date_initializerをヘッダに記載すると、
+	それをインクルードする全てのcppファイルに変数が複製されてしまう
+
+【16.2.12　多重定義解決】
+
+日付：　2016.07.18
+コメント：
+	テキストの記述とは異なり、Dateとintの多重定義解決では
+	エラーとならず、int引数バージョンがコールされる
+	
+	void f1(Date);
+	void f2(Date);
+	void f2(int);
+
+	void h()
+	{
+		f1({});
+		f2({});		// f2(int)に解決
+		f2(Date{});
+	}
+
+【16.2.13　privateのメンバクラス】
+
+日付：2016.07.18
+コメント：
+	TreeクラスのNodeクラスメンバがprivateなので、Node*を引数とする、
+	Treeクラスの公開関数gを呼び出す手段がない
+	
+	template<typename T>
+	void Tree<T>::g(Node* p)
+	{
+		//value_type val = right->value;
+			//  'right' was not declared in this scope
+		value_type v = p->right->value;
+		p->f(this);
+	}
+
+

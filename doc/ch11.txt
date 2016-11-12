@@ -1,0 +1,64 @@
+
+【11.3.3　非修飾並び】
+
+日付：　2016.05.01
+コメント：
+	テキストの記述と異なり、+=　の右辺に非修飾｛｝並びを指定するとエラーとなる
+	v = v + {88} の意味に解釈され、+演算でエラーとなる模様
+	
+	int v {7};
+	v += {88};
+		// invalid operands of types 'int' and '<brace-enclosed initializer list>' to binary 'operator+'
+
+
+【11.4.3.1　ラムダ式と生存期間】
+
+日付：　2016.05.02
+コメント：
+	クラスオブジェクトへの非constな参照を値でキャプチャするとエラーが出る
+	
+		void setup2(Menu& m)
+		{
+			Point p1{1,2}, p2{3,4}, p3{5,6};
+
+			m.add("draw triagle", [=]{ m.draw(p1, p2, p3); });
+				// passing 'const Menu' as 'this' argument discards qualifiers [-fpermissive]
+		}
+
+	以下のように、参照としてキャプチャする必要がある
+	
+		m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
+
+【11.4.4　呼び出しとリターン】
+
+日付：　2016.05.03
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+	テキストの記述と異なり、複数のreturn文を持つラムダ式のリターン型が推定されている
+	
+	auto z2 = [y]{ if (y) return 1; else return 2; };
+	z2();
+
+【11.4.5　ラムダ式の型】
+
+日付：　2016.05.03
+コメント：
+	テキストの記述と異なり、キャプチャを含むラムダ式から
+	関数ポインタ変数を初期化することができる
+	
+		double (*p2)(double) = [&](double a) { return sqrt(a); };
+		
+	この場合、実際には何もキャプチャしていないのでコンパイルできるものと思われる
+	
+【11.5.4　関数形式キャスト】
+
+日付：　2016.05.04
+コメント：
+	テキストの記述と異なり、関数形式(および、C言語形式も）でのchar*から
+	intへのキャストがエラーとなる
+	
+		int b = int(p);
+			// cast from 'char*' to 'int' loses precision [-fpermissive]
+		int c = (int)p;
+			// cast from 'char*' to 'int' loses precision [-fpermissive]
+
