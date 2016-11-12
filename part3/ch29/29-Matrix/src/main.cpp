@@ -9,7 +9,7 @@
 
 int main()
 {
-	// basic_usage.cpp
+	// test_basic_usage.cpp
 	test_define_matrix();
 	test_element_type();
 	test_dimension();
@@ -17,25 +17,25 @@ int main()
 	test_index_access();
 	test_stream_output();
 
-	// construct_and_assign.cpp
+	// test_construct_and_assign.cpp
 	test_nonnumeric_matrix();
 	test_explicit_extents();
 
-	// index_and_slicing.cpp
+	// test_index_and_slicing.cpp
 	test_fortran_index();
 	test_slice_index();
 	test_slice_and_int_index();
 
-	// arithmetic_calculation.cpp
+	// test_arithmetic_calculation.cpp
 	test_arithmetic_calculation();
 
-	// scalar_calculation.cpp
+	// test_scalar_calculation.cpp
 	test_apply_chain();
 
-	// matrix_addition.cpp
+	// test_matrix_addition.cpp
 	test_mixed_add();
 
-	// matrix_ref.cpp
+	// test_matrix_ref.cpp
 	test_missing_ref();
 }
 
