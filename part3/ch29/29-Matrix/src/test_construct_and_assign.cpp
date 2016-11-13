@@ -105,7 +105,7 @@ void test_Matrix_from_Matrix_ref()
 
 void test_Matrix_assign_Matrix_ref()
 {
-	cout << "--- test_Matrix_assing_Matrix_ref() --\n";
+	cout << "--- test_Matrix_assign_Matrix_ref() --\n";
 
 	Matrix<int,2> m {
 		{1, 2, 3},
@@ -119,7 +119,7 @@ void test_Matrix_assign_Matrix_ref()
 
 	Matrix<int,1> mr1(3);
 	mr1 = r1;
-	cout << "mr1.desc: " << mr1.descriptor()<< endl;
+	cout << "mr1.descriptor(): " << mr1.descriptor()<< endl;
 	cout << "mr1: " << mr1 << endl;
 	cout << "mr1(1): " << mr1(1) << endl;
 
@@ -128,7 +128,7 @@ void test_Matrix_assign_Matrix_ref()
 
 	Matrix<int,1> mc1(3);
 	mc1 = c1;
-	cout << "mc1.desc: " << mc1.descriptor()<< endl;
+	cout << "mc1.descriptor(): " << mc1.descriptor()<< endl;
 	cout << "mc1: " << mc1 << endl;
 	cout << "mc1(1): " << mc1(1) << endl;
 }

@@ -9,7 +9,7 @@
 #define MATRIX_REF_H_
 
 // 2016.11.09 add
-
+// iterator for Matrix_ref
 template<typename T, size_t N>
 class Matrix_ref_iterator : public std::iterator<std::input_iterator_tag, T>
 {
@@ -31,7 +31,7 @@ private:
 };
 
 // 2016.11.09 add
-
+// const iterator for Matrix_ref
 template<typename T, size_t N>
 class Matrix_ref_const_iterator : public std::iterator<std::input_iterator_tag, T>
 {
@@ -52,6 +52,7 @@ private:
 	std::array<size_t, N> cur;
 };
 
+// Matrix_ref class: refer part of Matrix
 
 template<typename T, size_t N>
 class Matrix_ref {

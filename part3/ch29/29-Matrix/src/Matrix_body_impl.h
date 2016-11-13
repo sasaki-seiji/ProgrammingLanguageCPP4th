@@ -73,13 +73,12 @@ template<typename T, size_t N>
 	{
 		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
 
-		// 2016.11.12 change
-		//desc = x.desc;
+		std::vector<T> nv{x.begin(), x.end()};	// exception safe
+
 		desc.start = 0;
 		desc.extents = x.descriptor().extents;
 		Matrix_impl::compute_strides(desc);
-
-		elems.assign(x.begin(),x.end());
+		elems = nv;
 		return *this;
 	}
 
