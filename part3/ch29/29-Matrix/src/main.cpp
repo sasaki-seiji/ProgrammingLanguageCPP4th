@@ -36,6 +36,10 @@ int main()
 	test_fortran_index();
 	test_slice_index();
 	test_slice_and_int_index();
+	test_Matrix_cstyle_ndex();
+	test_Matrix_row2();
+	test_Matrix_row1();
+	test_Matrix_col2();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

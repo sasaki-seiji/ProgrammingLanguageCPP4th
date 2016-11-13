@@ -69,3 +69,74 @@ void test_slice_and_int_index()
 	cout << "x: " << x << endl;
 }
 
+void test_Matrix_cstyle_ndex()
+{
+	cout << "--- test_Matrix_cstyle_ndex() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto r1 = m[1];
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+	r1 = {111,112,113};
+	cout << "m: " << m << endl;
+}
+
+void test_Matrix_row2()
+{
+	cout << "--- test_Matrix_row2() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto r1 = m.row(1);
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+	r1 = {111,112,113};
+	cout << "m: " << m << endl;
+}
+
+void test_Matrix_row1()
+{
+	cout << "--- test_Matrix_row1() --\n";
+
+	Matrix<int,1> m { 11,12,13 };
+	cout << "m: " << m << endl;
+
+	auto& r1 = m.row(1);
+	cout << "r1: " << r1 << endl;
+
+	r1 = 100;
+	cout << "m: " << m << endl;
+}
+
+void test_Matrix_col2()
+{
+	cout << "--- test_Matrix_col2() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto c1 = m.col(1);
+	cout << "c1.desc: " << c1.descriptor() << endl;
+	cout << "c1: " << c1 << endl;
+
+	c1 = {101,102,103};
+	cout << "m: " << m << endl;
+}
+

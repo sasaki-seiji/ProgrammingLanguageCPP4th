@@ -29,6 +29,10 @@ void test_Matrix_assign_different_Matrix();
 void test_fortran_index();
 void test_slice_index();
 void test_slice_and_int_index();
+void test_Matrix_cstyle_ndex();
+void test_Matrix_row2();
+void test_Matrix_row1();
+void test_Matrix_col2();
 
 // test_arithmetic_calculation.cpp
 void test_arithmetic_calculation();
