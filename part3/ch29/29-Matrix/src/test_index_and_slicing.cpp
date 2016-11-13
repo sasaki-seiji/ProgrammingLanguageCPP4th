@@ -181,3 +181,109 @@ void test_const_Matrix_slice_index()
 #endif
 }
 
+void test_const_Matrix_slice_and_int_index()
+{
+	cout << "--- test_const_Matrix_slice_and_int_index() --\n";
+
+	const Matrix<int,2> m3 {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m3: " << m3 << endl;
+
+	auto m31 = m3(slice{1,2},1);
+	cout << "m31.desc: " << m31.descriptor() << endl;
+	cout << "m31: " << m31 << endl;
+
+	auto m32 = m3(slice{1,2},0);
+	cout << "m32.desc: " << m32.descriptor() << endl;
+	cout << "m32: " << m32 << endl;
+
+	auto x = m3(1,2);
+	cout << "x: " << x << endl;
+}
+
+void test_const_Matrix_cstyle_index()
+{
+	cout << "--- test_const_Matrix_cstyle_index() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto r1 = m[1];
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+#if 0
+	r1 = {111,112,113};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 1ull>()'
+	cout << "m: " << m << endl;
+#endif
+}
+
+void test_const_Matrix_row2()
+{
+	cout << "--- test_const_Matrix_row2() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto r1 = m.row(1);
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+#if 0
+	r1 = {111,112,113};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 1ull>()'  *it = v;
+	cout << "m: " << m << endl;
+#endif
+}
+
+void test_const_Matrix_row1()
+{
+	cout << "--- test_const_Matrix_row1() --\n";
+
+	const Matrix<int,1> m { 11,12,13 };
+	cout << "m: " << m << endl;
+
+	auto& r1 = m.row(1);
+	cout << "r1: " << r1 << endl;
+
+#if 0
+	r1 = 100;
+		// error: assignment of read-only reference 'r1'
+	cout << "m: " << m << endl;
+#endif
+}
+
+void test_const_Matrix_col2()
+{
+	cout << "--- test_const_Matrix_col2() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	auto c1 = m.col(1);
+	cout << "c1.desc: " << c1.descriptor() << endl;
+	cout << "c1: " << c1 << endl;
+
+#if 0
+	c1 = {101,102,103};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 1ull>()'
+	cout << "m: " << m << endl;
+#endif
+}
+

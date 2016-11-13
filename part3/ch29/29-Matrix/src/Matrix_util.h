@@ -260,7 +260,7 @@ template<size_t N>
 std::ostream& operator<<(std::ostream& os, const std::array<size_t,N>& arr)
 {
 	for (size_t sz : arr)
-		os << sz << ',';
+		os << sz << ' ';
 	return os;
 }
 
@@ -268,8 +268,8 @@ template<size_t N>
 std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms)
 {
 	os << "size: " << ms.size << ", start: " << ms.start
-			<< ", extents: " << ms.extents
-			<< " strides: " << ms.strides;
+			<< " ,extents: " << ms.extents
+			<< ",strides: " << ms.strides;
 	return os;
 }
 

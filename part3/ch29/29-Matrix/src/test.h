@@ -35,6 +35,11 @@ void test_Matrix_row1();
 void test_Matrix_col2();
 void test_const_Matrix_fortran_index();
 void test_const_Matrix_slice_index();
+void test_const_Matrix_slice_and_int_index();
+void test_const_Matrix_cstyle_index();
+void test_const_Matrix_row2();
+void test_const_Matrix_row1();
+void test_const_Matrix_col2();
 
 // test_arithmetic_calculation.cpp
 void test_arithmetic_calculation();
