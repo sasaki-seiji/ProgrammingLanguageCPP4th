@@ -17,6 +17,8 @@ bool Matrix_ref_iterator<T,N>::operator==(const Matrix_ref_iterator<T,N>& other)
 	return this->ref == other.ref && this->cur == other.cur;
 }
 
+// increment indexes of Matrix_ref_iterator :
+// 	- from lowest(N-1) to highest(0)
 template<typename T, size_t N>
 Matrix_ref_iterator<T,N>& Matrix_ref_iterator<T,N>::operator++()
 {
