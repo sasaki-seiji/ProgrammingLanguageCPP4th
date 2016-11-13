@@ -40,6 +40,8 @@ int main()
 	test_Matrix_row2();
 	test_Matrix_row1();
 	test_Matrix_col2();
+	test_const_Matrix_fortran_index();
+	test_const_Matrix_slice_index();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

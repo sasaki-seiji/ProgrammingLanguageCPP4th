@@ -140,3 +140,44 @@ void test_Matrix_col2()
 	cout << "m: " << m << endl;
 }
 
+void test_const_Matrix_fortran_index()
+{
+	cout << "--- test_const_Matrix_fortran_index() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13}
+	};
+	cout << "m: " << m << endl;
+
+	cout << "m(1,2): " << m(1,2) << endl;
+
+	//m(1,2) = 99;
+		// error: assignment of read-only location 'm.Matrix<T, N>::operator()<{int, int}>(1, 2)'
+}
+
+void test_const_Matrix_slice_index()
+{
+	cout << "--- test_const_Matrix_slice_index() --\n";
+
+	const Matrix<int,2> m2 {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m2: " << m2 << endl;
+
+	auto m22 = m2(slice{1,2},slice{0,3});
+	cout << "m22.desc: " << m22.descriptor() << endl;
+	cout << "m22: " << m22 << endl;
+
+#if 0
+	m2(slice{1,2},slice{0,3}) = {
+			{111,112,113},
+			{121,122,123}
+	};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 2ull>()' *it = v;
+	cout << "m2: " << m2 << endl;
+#endif
+}
+

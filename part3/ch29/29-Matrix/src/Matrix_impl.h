@@ -225,9 +225,6 @@ template<size_t N, typename T, typename... Args>
 size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 		const T& s, const Args&... args)
 {
-	// 2016.11.10 add
-	ns.size = 1;
-
 	size_t m = do_slice_dim<sizeof...(Args)+1>(os,ns,s);
 	size_t n = do_slice(os,ns,args...);
 	return m+n;

@@ -357,6 +357,7 @@ template<typename T,size_t N>
 	Matrix<T,N>::operator()(const Args&... args)
 	{
 		Matrix_slice<N> d;
+		d.size = 1; // 2016.11.13 add
 		d.start = Matrix_impl::do_slice(desc,d,args...);
 		return {d,data()};
 	}
@@ -367,6 +368,7 @@ template<typename T, size_t N>
 	Matrix<T,N>::operator()(const Args&... args) const
 	{
 		Matrix_slice<N> d;
+		d.size = 1; // 2016.11.13 add
 		d.start = Matrix_impl::do_slice(desc,d,args...);
 		return {d,data()};
 	}
