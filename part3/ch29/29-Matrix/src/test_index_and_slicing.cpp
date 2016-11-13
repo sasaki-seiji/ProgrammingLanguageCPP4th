@@ -9,9 +9,9 @@
 #include <iostream>
 using namespace std;
 
-void test_fortran_index()
+void test_Matrix_fortran_index()
 {
-	cout << "--- test_fortran_index() --\n";
+	cout << "--- test_Matrix_fortran_index() --\n";
 
 	Matrix<int,2> m {
 		{01,02,03},
@@ -27,9 +27,9 @@ void test_fortran_index()
 	cout << "m: " << m << endl;
 }
 
-void test_slice_index()
+void test_Matrix_slice_index()
 {
-	cout << "--- test_slice_index() --\n";
+	cout << "--- test_Matrix_slice_index() --\n";
 
 	Matrix<int,2> m2 {
 		{01,02,03},
@@ -49,9 +49,9 @@ void test_slice_index()
 	cout << "m2: " << m2 << endl;
 }
 
-void test_slice_and_int_index()
+void test_Matrix_slice_and_int_index()
 {
-	cout << "--- test_slice_and_int_index() --\n";
+	cout << "--- test_Matrix_slice_and_int_index() --\n";
 
 	Matrix<int,2> m3 {
 		{01,02,03},
@@ -69,9 +69,9 @@ void test_slice_and_int_index()
 	cout << "x: " << x << endl;
 }
 
-void test_Matrix_cstyle_ndex()
+void test_Matrix_cstyle_index()
 {
-	cout << "--- test_Matrix_cstyle_ndex() --\n";
+	cout << "--- test_Matrix_cstyle_index() --\n";
 
 	Matrix<int,2> m {
 		{01,02,03},

@@ -33,10 +33,10 @@ int main()
 
 	// test_index_and_slicing.cpp
 	cout << "\n@@@ test_index_and_slicing.cpp @@@" << endl;
-	test_fortran_index();
-	test_slice_index();
-	test_slice_and_int_index();
-	test_Matrix_cstyle_ndex();
+	test_Matrix_fortran_index();
+	test_Matrix_slice_index();
+	test_Matrix_slice_and_int_index();
+	test_Matrix_cstyle_index();
 	test_Matrix_row2();
 	test_Matrix_row1();
 	test_Matrix_col2();
