@@ -44,6 +44,8 @@ void test_Matrix_ref_fortran_index();
 void test_const_Matrix_ref_fortran_index();
 void test_Matrix_ref_slice_index();
 void test_const_Matrix_ref_slice_index();
+void test_Matrix_ref_slice_and_int_index();
+void test_const_Matrix_ref_slice_and_int_index();
 
 // test_arithmetic_calculation.cpp
 void test_arithmetic_calculation();

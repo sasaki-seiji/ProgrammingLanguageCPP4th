@@ -51,6 +51,8 @@ int main()
 	test_const_Matrix_ref_fortran_index();
 	test_Matrix_ref_slice_index();
 	test_const_Matrix_ref_slice_index();
+	test_Matrix_ref_slice_and_int_index();
+	test_const_Matrix_ref_slice_and_int_index();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

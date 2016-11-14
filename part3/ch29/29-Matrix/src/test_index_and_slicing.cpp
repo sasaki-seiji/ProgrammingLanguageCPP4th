@@ -383,3 +383,66 @@ void test_const_Matrix_ref_slice_index()
 #endif
 }
 
+void test_Matrix_ref_slice_and_int_index()
+{
+	cout << "--- test_Matrix_ref_slice_and_int_index() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,2> mr = m(slice(0), slice(1,2));
+	cout << "mr: " << mr << endl;
+
+	auto mr1 = mr(slice{1,2},1);
+	cout << "mr1.desc: " << mr1.descriptor() << endl;
+	cout << "mr1: " << mr1 << endl;
+
+	auto mr0 = mr(slice{1,2},0);
+	cout << "mr0.desc: " << mr0.descriptor() << endl;
+	cout << "mr0: " << mr0 << endl;
+
+	auto x = mr(1,1);
+	cout << "x: " << x << endl;
+
+	mr1 = {{100},{200}};
+	cout << "mr1: " << mr1 << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_slice_and_int_index()
+{
+	cout << "--- test_const_Matrix_ref_slice_and_int_index() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,2> mr = m(slice(0), slice(1,2));
+	cout << "mr: " << mr << endl;
+
+	auto mr1 = mr(slice{1,2},1);
+	cout << "mr1.desc: " << mr1.descriptor() << endl;
+	cout << "mr1: " << mr1 << endl;
+
+	auto mr0 = mr(slice{1,2},0);
+	cout << "mr0.desc: " << mr0.descriptor() << endl;
+	cout << "mr0: " << mr0 << endl;
+
+	auto x = mr(1,1);
+	cout << "x: " << x << endl;
+
+#if 0
+	mr1 = {{100},{200}};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 2ull>()'
+	cout << "mr1: " << mr1 << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+
