@@ -71,13 +71,21 @@ public:
 	// 2016.11.10 add
 	Matrix_ref& operator=(Matrix_initializer<T,N>);
 
-
+	// fortran style index access
 	template<typename... Args>
 		Enable_if<Matrix_impl::Request_element<Args...>(), T&>
 		operator()(Args... args);
 	template<typename... Args>
 		Enable_if<Matrix_impl::Request_element<Args...>(), const T&>
 		operator()(Args... args) const;
+
+	// slice access
+	template<typename... Args>
+		Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<T,N>>
+		operator()(const Args&... args);
+	template<typename... Args>
+		Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<const T,N>>
+		operator()(const Args&... args) const;
 
 
 	// 2016.11.08 add: index, row, col

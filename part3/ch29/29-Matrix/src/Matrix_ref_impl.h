@@ -136,7 +136,6 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 }
 
 // Matrix_ref: fortran style index access
-
 template<typename T, size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_element<Args...>(), T&>
@@ -147,7 +146,6 @@ template<typename T, size_t N>
 	}
 
 // Matrix_ref: fortran style index access - const version
-
 template<typename T, size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_element<Args...>(), const T&>
@@ -155,6 +153,30 @@ template<typename T, size_t N>
 	{
 		assert(Matrix_impl::check_bounds(desc, args...));
 		return *(ptr + desc(args...));
+	}
+
+// Matrix_ref: slice access
+template<typename T,size_t N>
+	template<typename... Args>
+	Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<T,N>>
+	Matrix_ref<T,N>::operator()(const Args&... args)
+	{
+		Matrix_slice<N> d;
+		d.size = 1; // 2016.11.13 add
+		d.start = desc.start + Matrix_impl::do_slice(desc,d,args...);
+		return {d,ptr};
+	}
+
+// Matrix_ref: slice access - const version
+template<typename T, size_t N>
+	template<typename... Args>
+	Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<const T,N>>
+	Matrix_ref<T,N>::operator()(const Args&... args) const
+	{
+		Matrix_slice<N> d;
+		d.size = 1; // 2016.11.13 add
+		d.start = desc.start + Matrix_impl::do_slice(desc,d,args...);
+		return {d,ptr};
 	}
 
 

@@ -328,3 +328,58 @@ void test_const_Matrix_ref_fortran_index()
 #endif
 }
 
+void test_Matrix_ref_slice_index()
+{
+	cout << "--- test_Matrix_ref_slice_index() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,2> mr = m(slice(1,2), slice(0,3));
+	cout << "mr: " << mr << endl;
+
+	auto mr01 = mr(slice(0,2),slice(1,2));
+	cout << "mr01.desc: " << mr01.descriptor() << endl;
+	cout << "mr01: " << mr01 << endl;
+
+	mr(slice{0,2},slice{1,2}) = {
+			{112,113},
+			{122,123}
+	};
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_slice_index()
+{
+	cout << "--- test_const_Matrix_ref_slice_index() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,2> mr = m(slice(1,2), slice(0,3));
+	cout << "mr: " << mr << endl;
+
+	auto mr01 = mr(slice(0,2),slice(1,2));
+	cout << "mr01.desc: " << mr01.descriptor() << endl;
+	cout << "mr01: " << mr01 << endl;
+
+#if 0
+	mr(slice{0,2},slice{1,2}) = {
+			{112,113},
+			{122,123}
+	};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 2ull>()'
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+
