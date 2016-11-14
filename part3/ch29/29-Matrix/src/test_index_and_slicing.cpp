@@ -287,3 +287,44 @@ void test_const_Matrix_col2()
 #endif
 }
 
+void test_Matrix_ref_fortran_index()
+{
+	cout << "--- test_Matrix_ref_fortran_index() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,2> mr = m(slice(1,2),slice(0,3));
+	cout << "mr: " << mr << endl;
+
+	mr(1,2) = 99;
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_fortran_index()
+{
+	cout << "--- test_const_Matrix_ref_fortran_index() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,2> mr = m(slice(1,2),slice(0,3));
+	cout << "mr: " << mr << endl;
+
+#if 0
+	mr(1,2) = 99;
+		// error: assignment of read-only location 'mr.Matrix_ref<T, N>::operator()<{int, int}>(1, 2)'
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+

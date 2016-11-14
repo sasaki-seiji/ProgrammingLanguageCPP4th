@@ -40,6 +40,8 @@ void test_Matrix_row1();
 void test_const_Matrix_row1();
 void test_Matrix_col2();
 void test_const_Matrix_col2();
+void test_Matrix_ref_fortran_index();
+void test_const_Matrix_ref_fortran_index();
 
 // test_arithmetic_calculation.cpp
 void test_arithmetic_calculation();

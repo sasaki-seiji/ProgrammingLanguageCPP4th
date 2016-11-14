@@ -135,6 +135,29 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 	return *this;
 }
 
+// Matrix_ref: fortran style index access
+
+template<typename T, size_t N>
+	template<typename... Args>
+	Enable_if<Matrix_impl::Request_element<Args...>(), T&>
+	Matrix_ref<T,N>::operator()(Args... args)
+	{
+		assert(Matrix_impl::check_bounds(desc, args...));
+		return *(ptr + desc(args...));
+	}
+
+// Matrix_ref: fortran style index access - const version
+
+template<typename T, size_t N>
+	template<typename... Args>
+	Enable_if<Matrix_impl::Request_element<Args...>(), const T&>
+	Matrix_ref<T,N>::operator()(Args... args) const
+	{
+		assert(Matrix_impl::check_bounds(desc, args...));
+		return *(ptr + desc(args...));
+	}
+
+
 // 2016.11.08 add: row()
 
 template<typename T, size_t N>

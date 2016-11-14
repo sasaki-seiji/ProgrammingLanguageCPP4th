@@ -47,6 +47,8 @@ int main()
 	test_const_Matrix_row1();
 	test_Matrix_col2();
 	test_const_Matrix_col2();
+	test_Matrix_ref_fortran_index();
+	test_const_Matrix_ref_fortran_index();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

@@ -72,6 +72,14 @@ public:
 	Matrix_ref& operator=(Matrix_initializer<T,N>);
 
 
+	template<typename... Args>
+		Enable_if<Matrix_impl::Request_element<Args...>(), T&>
+		operator()(Args... args);
+	template<typename... Args>
+		Enable_if<Matrix_impl::Request_element<Args...>(), const T&>
+		operator()(Args... args) const;
+
+
 	// 2016.11.08 add: index, row, col
 
 	template<size_t M=N>
