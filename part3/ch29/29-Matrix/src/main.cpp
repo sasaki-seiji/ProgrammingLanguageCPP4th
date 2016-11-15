@@ -55,6 +55,10 @@ int main()
 	test_const_Matrix_ref_slice_and_int_index();
 	test_Matrix_ref_cstyle_index();
 	test_const_Matrix_ref_cstyle_index();
+	test_Matrix_ref_row2();
+	test_const_Matrix_ref_row2();
+	test_Matrix_ref_row1();
+	test_const_Matrix_ref_row1();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

@@ -495,3 +495,97 @@ void test_const_Matrix_ref_cstyle_index()
 #endif
 }
 
+void test_Matrix_ref_row2()
+{
+	cout << "--- test_Matrix_ref_row2() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,2> mr = m(slice(1),slice(0));
+	cout << "mr: " << mr << endl;
+
+	auto r1 = mr.row(1);
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+	r1 = {111,112,113};
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_row2()
+{
+	cout << "--- test_const_Matrix_ref_row2() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,2> mr = m(slice(1),slice(0));
+	cout << "mr: " << mr << endl;
+
+	auto r1 = mr.row(1);
+	cout << "r1.desc: " << r1.descriptor() << endl;
+	cout << "r1: " << r1 << endl;
+
+#if 0
+	r1 = {111,112,113};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 1ull>()'
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+
+void test_Matrix_ref_row1()
+{
+	cout << "--- test_Matrix_ref_row1() --\n";
+
+	Matrix<int,2> m {
+		{ 11,12,13 },
+		{ 21,22,23 }
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,1> mr = m[1];
+	cout << "mr: " << mr << endl;
+
+	auto& r1 = mr.row(1);
+	cout << "r1: " << r1 << endl;
+
+	r1 = 100;
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_row1()
+{
+	cout << "--- test_const_Matrix_ref_row1() --\n";
+
+	const Matrix<int,2> m {
+		{ 11,12,13 },
+		{ 21,22,23 }
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,1> mr = m[1];
+	cout << "mr: " << mr << endl;
+
+	auto& r1 = mr.row(1);
+	cout << "r1: " << r1 << endl;
+
+#if 0
+	r1 = 100;
+		// error: assignment of read-only reference 'r1'
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+
