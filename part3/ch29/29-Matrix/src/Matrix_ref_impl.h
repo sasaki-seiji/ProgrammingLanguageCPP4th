@@ -218,6 +218,26 @@ template<typename T, size_t N>
 	return *(ptr + desc(i));
 }
 
+// Matrix_ref::col(size_t)
+template<typename T, size_t N>
+Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n)
+{
+	assert(n<cols());
+	Matrix_slice<N-1> col;
+	Matrix_impl::slice_dim<1>(n,desc,col);
+	return {col,ptr};
+}
+
+// Matrix_ref::col(size_t) const
+template<typename T, size_t N>
+Matrix_ref<const T,N-1> Matrix_ref<T,N>::col(size_t n) const
+{
+	assert(n<cols());
+	Matrix_slice<N-1> col;
+	Matrix_impl::slice_dim<1>(n,desc,col);
+	return {col,ptr};
+}
+
 
 template<typename T, size_t N>
 Matrix<T,N> operator+(const Matrix_ref<T,N>& x, const T& n)

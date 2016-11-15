@@ -589,3 +589,52 @@ void test_const_Matrix_ref_row1()
 #endif
 }
 
+void test_Matrix_ref_col2()
+{
+	cout << "--- test_Matrix_ref_col2() --\n";
+
+	Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int,2> mr = m(slice(1),slice(0));
+	cout << "mr: " << mr << endl;
+
+	auto c1 = mr.col(1);
+	cout << "c1.desc: " << c1.descriptor() << endl;
+	cout << "c1: " << c1 << endl;
+
+	c1 = {102,103};
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_const_Matrix_ref_col2()
+{
+	cout << "--- test_const_Matrix_ref_col2() --\n";
+
+	const Matrix<int,2> m {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<const int,2> mr = m(slice(1),slice(0));
+	cout << "mr: " << mr << endl;
+
+	auto c1 = mr.col(1);
+	cout << "c1.desc: " << c1.descriptor() << endl;
+	cout << "c1: " << c1 << endl;
+
+#if 0
+	c1 = {102,103};
+		// error: assignment of read-only location '(& it)->Matrix_ref_iterator<T, N>::operator*<const int, 1ull>()'
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+#endif
+}
+

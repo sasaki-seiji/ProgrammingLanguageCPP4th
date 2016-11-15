@@ -59,6 +59,8 @@ int main()
 	test_const_Matrix_ref_row2();
 	test_Matrix_ref_row1();
 	test_const_Matrix_ref_row1();
+	test_Matrix_ref_col2();
+	test_const_Matrix_ref_col2();
 
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;

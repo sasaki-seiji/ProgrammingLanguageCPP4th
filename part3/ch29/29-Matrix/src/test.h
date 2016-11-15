@@ -52,6 +52,8 @@ void test_Matrix_ref_row2();
 void test_const_Matrix_ref_row2();
 void test_Matrix_ref_row1();
 void test_const_Matrix_ref_row1();
+void test_Matrix_ref_col2();
+void test_const_Matrix_ref_col2();
 
 // test_arithmetic_calculation.cpp
 void test_arithmetic_calculation();

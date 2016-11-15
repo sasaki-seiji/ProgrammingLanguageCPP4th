@@ -112,6 +112,10 @@ public:
 	template<size_t M = N>
 		Enable_if<(M==1), const T&> row(size_t n) const;
 
+	Matrix_ref<T,N-1> col(size_t n);
+	Matrix_ref<const T,N-1> col(size_t n) const;
+
+
 	// 2016.11.08 add: metrics
 
 	size_t extent(size_t n) const { return desc.extents[n]; }

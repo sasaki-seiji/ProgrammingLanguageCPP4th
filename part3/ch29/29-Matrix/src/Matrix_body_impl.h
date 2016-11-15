@@ -315,6 +315,7 @@ template<typename T, size_t N>
 
 #endif
 
+// Matrix::col(size_t)
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix<T,N>::col(size_t n)
 {
@@ -324,6 +325,7 @@ Matrix_ref<T,N-1> Matrix<T,N>::col(size_t n)
 	return {col,data()};
 }
 
+// Matrix::col(size_t) const
 template<typename T, size_t N>
 Matrix_ref<const T,N-1> Matrix<T,N>::col(size_t n) const
 {
