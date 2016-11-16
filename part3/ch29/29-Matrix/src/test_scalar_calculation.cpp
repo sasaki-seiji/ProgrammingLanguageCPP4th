@@ -100,3 +100,23 @@ void test_Matrix_add_scalar()
 	cout << "m2: " << m2 << endl;
 }
 
+void test_Matrix_ref_add_scalar()
+{
+	cout << "--- test_Matrix_ref_add_scalar() --\n";
+
+	Matrix<double, 2> m {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<double, 2> mr = m(slice(0),slice(1));
+	cout << "mr: " << mr << endl;
+
+	//auto m2 = mr + 10;  // why ?
+		// error: no match for 'operator+' (operand types are 'Matrix_ref<double, 2ull>' and 'int')
+	auto m2 = mr + 10.0;
+	cout << "m2: " << m2 << endl;
+}
+

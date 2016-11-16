@@ -238,12 +238,12 @@ Matrix_ref<const T,N-1> Matrix_ref<T,N>::col(size_t n) const
 	return {col,ptr};
 }
 
-
+// Matrix_ref + scalar
 template<typename T, size_t N>
-Matrix<T,N> operator+(const Matrix_ref<T,N>& x, const T& n)
+Matrix<T,N> operator+(const Matrix_ref<T,N>& x, const T& val)
 {
 	Matrix<T,N> res = x;
-	res+=n;
+	res+=val;
 	return res;
 }
 
