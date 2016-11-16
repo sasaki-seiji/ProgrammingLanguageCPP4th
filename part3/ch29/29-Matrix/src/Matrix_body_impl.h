@@ -106,6 +106,14 @@ template<typename T, size_t N>
 	}
 
 
+// Matrix = scalar
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
+{
+	return apply([&](T& a){ a=val; });
+}
+
+// Matrix += scalar
 template<typename T, size_t N>
 Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
 {
@@ -113,6 +121,7 @@ Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
 }
 
 // 2016.11.11 add
+// Matrix *= scalar
 template<typename T, size_t N>
 Matrix<T,N>& Matrix<T,N>::operator*=(const T& val)
 {

@@ -21,3 +21,13 @@ void test_apply_chain()
 	cout << "m: " << m << endl;
 }
 
+void test_Matrix_assign_scalar()
+{
+	cout << "--- test_Matrix_assign_scalar() --\n";
+
+	Matrix<double, 2> m {{1,2,3},{4,5,6}};
+	cout << "m: " << m << endl;
+
+	m = 10;
+	cout << "m: " << m << endl;
+}

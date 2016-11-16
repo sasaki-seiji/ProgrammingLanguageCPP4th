@@ -69,6 +69,7 @@ int main()
 	// test_scalar_calculation.cpp
 	cout << "\n@@@ test_scalar_calculation.cpp @@@" << endl;
 	test_apply_chain();
+	test_Matrix_assign_scalar();
 
 	// test_matrix_addition.cpp
 	cout << "\n@@@ test_matrix_addition.cpp @@@" << endl;
