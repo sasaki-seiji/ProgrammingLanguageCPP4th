@@ -86,3 +86,17 @@ void test_Matrix_modassign_scalar()
 	m %= 3;
 	cout << "m: " << m << endl;
 }
+
+void test_Matrix_add_scalar()
+{
+	cout << "--- test_Matrix_add_scalar() --\n";
+
+	Matrix<double, 2> m {{1,2,3},{4,5,6}};
+	cout << "m: " << m << endl;
+
+	//auto m2 = m + 10;  // why ?
+		// error: no match for 'operator+' (operand types are 'Matrix<double, 2ull>' and 'int')
+	auto m2 = m + 10.0;
+	cout << "m2: " << m2 << endl;
+}
+
