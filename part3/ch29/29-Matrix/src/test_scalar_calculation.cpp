@@ -75,3 +75,14 @@ void test_Matrix_divassign_scalar()
 	m /= 10;
 	cout << "m: " << m << endl;
 }
+
+void test_Matrix_modassign_scalar()
+{
+	cout << "--- test_Matrix_modassign_scalar() --\n";
+
+	Matrix<int, 2> m {{1,2,3},{4,5,6}};
+	cout << "m: " << m << endl;
+
+	m %= 3;
+	cout << "m: " << m << endl;
+}
