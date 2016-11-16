@@ -71,6 +71,7 @@ int main()
 	test_apply_chain();
 	test_Matrix_assign_scalar();
 	test_Matrix_addassign_scalar();
+	test_Matrix_subassign_scalar();
 
 	// test_matrix_addition.cpp
 	cout << "\n@@@ test_matrix_addition.cpp @@@" << endl;

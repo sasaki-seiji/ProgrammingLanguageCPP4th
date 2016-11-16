@@ -42,3 +42,14 @@ void test_Matrix_addassign_scalar()
 	m += 10;
 	cout << "m: " << m << endl;
 }
+
+void test_Matrix_subassign_scalar()
+{
+	cout << "--- test_Matrix_subassign_scalar() --\n";
+
+	Matrix<double, 2> m {{1,2,3},{4,5,6}};
+	cout << "m: " << m << endl;
+
+	m -= 10;
+	cout << "m: " << m << endl;
+}

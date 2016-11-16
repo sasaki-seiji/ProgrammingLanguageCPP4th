@@ -62,6 +62,7 @@ void test_arithmetic_calculation();
 void test_apply_chain();
 void test_Matrix_assign_scalar();
 void test_Matrix_addassign_scalar();
+void test_Matrix_subassign_scalar();
 
 // test_matrix_addition.cpp
 void test_mixed_add();
