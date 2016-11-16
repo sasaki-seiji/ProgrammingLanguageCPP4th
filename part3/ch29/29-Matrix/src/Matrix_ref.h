@@ -116,6 +116,19 @@ public:
 	Matrix_ref<const T,N-1> col(size_t n) const;
 
 
+	template<typename F>
+		Matrix_ref& apply(F f);
+
+	template<typename M, typename F>
+		Enable_if<Matrix_type<M>(),Matrix_ref&> apply(const M& m, F f);
+
+	Matrix_ref& operator=(const T& value);
+	Matrix_ref& operator+=(const T& value);
+	Matrix_ref& operator-=(const T& value);
+	Matrix_ref& operator*=(const T& value);
+	Matrix_ref& operator/=(const T& value);
+	Matrix_ref& operator%=(const T& value);
+
 	// 2016.11.08 add: metrics
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
