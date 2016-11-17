@@ -261,6 +261,13 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator+=(const T& val)
 	return apply([&](T& a){ a+=val; });
 }
 
+// Matrix_ref -= scalar
+template<typename T, size_t N>
+Matrix_ref<T,N>& Matrix_ref<T,N>::operator-=(const T& val)
+{
+	return apply([&](T& a){ a-=val; });
+}
+
 // Matrix_ref + scalar
 template<typename T, size_t N>
 Matrix<T,N> operator+(const Matrix_ref<T,N>& x, const T& val)
