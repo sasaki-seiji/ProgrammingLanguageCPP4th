@@ -79,6 +79,7 @@ int main()
 	test_Matrix_ref_assign_scalar();
 	test_Matrix_ref_addassign_scalar();
 	test_Matrix_ref_subassign_scalar();
+	test_Matrix_ref_mulassign_scalar();
 	test_Matrix_ref_add_scalar();
 
 	// test_matrix_addition.cpp
