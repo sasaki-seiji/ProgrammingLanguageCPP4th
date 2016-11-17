@@ -176,6 +176,44 @@ void test_Matrix_ref_mulassign_scalar()
 	cout << "m: " << m << endl;
 }
 
+void test_Matrix_ref_divassign_scalar()
+{
+	cout << "--- test_Matrix_ref_divassign_scalar() --\n";
+
+	Matrix<double, 2> m {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<double, 2> mr = m(slice(0),slice(1));
+	cout << "mr: " << mr << endl;
+
+	mr /= 10;
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
+void test_Matrix_ref_modassign_scalar()
+{
+	cout << "--- test_Matrix_ref_modassign_scalar() --\n";
+
+	Matrix<int, 2> m {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int, 2> mr = m(slice(0),slice(1));
+	cout << "mr: " << mr << endl;
+
+	mr %= 5;
+	cout << "mr: " << mr << endl;
+	cout << "m: " << m << endl;
+}
+
 void test_Matrix_ref_add_scalar()
 {
 	cout << "--- test_Matrix_ref_add_scalar() --\n";

@@ -80,6 +80,8 @@ int main()
 	test_Matrix_ref_addassign_scalar();
 	test_Matrix_ref_subassign_scalar();
 	test_Matrix_ref_mulassign_scalar();
+	test_Matrix_ref_divassign_scalar();
+	test_Matrix_ref_modassign_scalar();
 	test_Matrix_ref_add_scalar();
 
 	// test_matrix_addition.cpp
