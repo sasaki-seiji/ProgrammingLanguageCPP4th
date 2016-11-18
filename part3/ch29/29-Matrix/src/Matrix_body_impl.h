@@ -202,6 +202,7 @@ Matrix<T,N> operator%(const Matrix<T,N>& m, const T& val)
 	return res;
 }
 
+// Matrix += Matrix_type
 template<typename T, size_t N>
 	template<typename M>
 	Enable_if<Matrix_type<M>(),Matrix<T,N>&> Matrix<T,N>::operator+=(const M& m)
@@ -212,6 +213,8 @@ template<typename T, size_t N>
 		return apply(m, [](T& a, const Value_type<M>& b){ a+=b; });
 	}
 
+// Matrix::apply:
+//	apply f between *this elements and Matrix_type elements
 template<typename T, size_t N>
 	template<typename M, typename F>
 	Enable_if<Matrix_type<M>(),Matrix<T,N>&> Matrix<T,N>::apply(const M& m, F f)
@@ -222,6 +225,7 @@ template<typename T, size_t N>
 		return *this;
 	}
 
+// Matrix + Matrix
 template<typename T, size_t N>
 Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
 {
@@ -230,6 +234,7 @@ Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
 	return res;
 }
 
+// Matrix + Matrix_ref
 template<typename T, size_t N>
 Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix_ref<T,N>& b)
 {
@@ -238,7 +243,8 @@ Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix_ref<T,N>& b)
 	return res;
 }
 
-// 2016.11.11 change :
+// 2016.11.11 change : RT
+// Matrix<T1> + Matrix<T2>
 template<typename T, typename T2, size_t N,
 	//typename RT = Matrix<Common_type<Value_type<T>,Value_type<T2>>,N>>
 	typename RT = Common_type<T,T2>>

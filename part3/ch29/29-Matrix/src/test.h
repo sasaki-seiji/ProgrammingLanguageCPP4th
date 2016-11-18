@@ -84,7 +84,7 @@ void test_Matrix_ref_div_scalar();
 void test_Matrix_ref_mod_scalar();
 
 // test_matrix_addition.cpp
-void test_mixed_add();
+void test_Matrix_mixed_add();
 void test_Matrix_addassign_Matrix();
 void test_Matrix_addassign_Matrix_ref();
 void test_Matrix_add_Matrix();

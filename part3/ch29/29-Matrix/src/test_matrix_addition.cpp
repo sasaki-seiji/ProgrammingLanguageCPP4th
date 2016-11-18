@@ -32,20 +32,27 @@ namespace std {
 
 }
 
-void test_mixed_add()
+
+void test_Matrix_mixed_add()
 {
-	cout << "--- test_mixed_add() --\n";
+	cout << "--- test_Matrix_mixed_add() --\n";
 
 	Matrix<double, 2> md = { { 1, 2 }, { 3, 4 } };
 	Matrix<complex<double>, 2> mc = {
 			{ complex<double>(0, 1), complex<double>(0, 2) },
 			{ complex<double>(1, 3), complex<double>(1, 4) }
 	};
+	cout << "md: " << md << endl;
+	cout << "mc: " << mc << endl;
+
 	Matrix<complex<double>, 2> mc2 = mc + md;
 	cout << "mc2: " << mc2 << endl;
 
 	Matrix<long double, 2> mld = { { 1, 2 }, { 3, 4 } };
 	Matrix<Quad, 2> mqd = {	{ 10, 20 }, { 30, 40 } };
+	cout << "mld: " << mld << endl;
+	cout << "mqd: " << mqd << endl;
+
 	Matrix<Quad, 2> mqd2 = mld + mqd;
 	cout << "mqd2: " << mqd2 << endl;
 }
