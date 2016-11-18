@@ -79,6 +79,7 @@ int main()
 	test_Matrix_sub_scalar();
 	test_Matrix_mul_scalar();
 	test_Matrix_div_scalar();
+	test_Matrix_mod_scalar();
 	test_Matrix_ref_assign_scalar();
 	test_Matrix_ref_addassign_scalar();
 	test_Matrix_ref_subassign_scalar();
