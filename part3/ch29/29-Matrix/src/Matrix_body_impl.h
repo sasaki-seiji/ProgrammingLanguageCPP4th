@@ -230,6 +230,14 @@ Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
 	return res;
 }
 
+template<typename T, size_t N>
+Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix_ref<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res+=b;
+	return res;
+}
+
 // 2016.11.11 change :
 template<typename T, typename T2, size_t N,
 	//typename RT = Matrix<Common_type<Value_type<T>,Value_type<T2>>,N>>

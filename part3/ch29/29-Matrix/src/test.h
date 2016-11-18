@@ -88,6 +88,7 @@ void test_mixed_add();
 void test_Matrix_addassign_Matrix();
 void test_Matrix_addassign_Matrix_ref();
 void test_Matrix_add_Matrix();
+void test_Matrix_add_Matrix_ref();
 
 // test_matrix_ref.cpp
 void test_missing_ref();
