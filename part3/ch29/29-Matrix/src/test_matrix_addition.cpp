@@ -128,3 +128,19 @@ void test_Matrix_subassign_Matrix()
 	cout << "m1: " << m1 << endl;
 }
 
+void test_Matrix_subassign_Matrix_ref()
+{
+	cout << "--- test_Matrix_subassign_Matrix_ref() --\n";
+
+	Matrix<double, 2> m1 = { { 1, 2 }, { 3, 4 } };
+	Matrix<double, 2> m2 = { { 5, 6 }, { 7, 8 }, { 9, 10 } };
+	Matrix_ref<double, 2> mr2 = m2(slice(1), slice(0));
+
+	cout << "m1: " << m1 << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "mr2: " << mr2 << endl;
+
+	m1 -= mr2;
+	cout << "m1: " << m1 << endl;
+}
+
