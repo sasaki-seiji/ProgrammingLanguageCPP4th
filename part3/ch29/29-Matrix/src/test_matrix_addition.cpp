@@ -234,3 +234,21 @@ void test_Matrix_ref_addassign_Matrix_ref()
 	cout << "m1r: " << m1r << endl;
 	cout << "m1: " << m1 << endl;
 }
+
+void test_Matrix_ref_add_Matrix()
+{
+	cout << "--- test_Matrix_ref_add_Matrix() --\n";
+
+	Matrix<double, 2> m1 = { { 1, 2 }, { 3, 4 }, { 5, 6 } };
+	Matrix_ref<double, 2> m1r = m1(slice(1),slice(0));
+	cout << "m1: " << m1 << endl;
+	cout << "m1r: " << m1r << endl;
+
+	Matrix<double, 2> m2 = { { 0.1, 0.2 }, { 0.3, 0.4 } };
+	cout << "m2: " << m2 << endl;
+
+	auto m3 = m1r + m2;
+	cout << "m3: " << m3 << endl;
+	cout << "m1: " << m1 << endl;
+}
+

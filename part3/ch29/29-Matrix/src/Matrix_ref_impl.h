@@ -358,5 +358,14 @@ template<typename T, size_t N>
 		return apply(m, [](T& a, const Value_type<M>& b){ a+=b; });
 	}
 
+// Matrix_ref + Matrix
+template<typename T, size_t N>
+Matrix<T,N> operator+(const Matrix_ref<T,N>& a, const Matrix<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res+=b;
+	return res;
+}
+
 
 #endif /* MATRIX_REF_IMPL_H_ */

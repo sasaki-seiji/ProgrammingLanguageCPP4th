@@ -106,6 +106,7 @@ int main()
 	test_Matrix_sub_Matrix_ref();
 	test_Matrix_ref_addassign_Matrix();
 	test_Matrix_ref_addassign_Matrix_ref();
+	test_Matrix_ref_add_Matrix();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
