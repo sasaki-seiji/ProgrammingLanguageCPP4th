@@ -213,6 +213,17 @@ template<typename T, size_t N>
 		return apply(m, [](T& a, const Value_type<M>& b){ a+=b; });
 	}
 
+// Matrix -= Matrix_type
+template<typename T, size_t N>
+	template<typename M>
+	Enable_if<Matrix_type<M>(),Matrix<T,N>&> Matrix<T,N>::operator-=(const M& m)
+	{
+		static_assert(m.order==N,"-=: mismatched Matrix dimensions");
+		assert(same_extents(desc,m.descriptor()));
+
+		return apply(m, [](T& a, const Value_type<M>& b){ a-=b; });
+	}
+
 // Matrix::apply:
 //	apply f between *this elements and Matrix_type elements
 template<typename T, size_t N>
