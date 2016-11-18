@@ -110,6 +110,7 @@ int main()
 	test_Matrix_ref_add_Matrix_ref();
 	test_Matrix_ref_subassign_Matrix();
 	test_Matrix_ref_subassign_Matrix_ref();
+	test_Matrix_ref_sub_Matrix();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
