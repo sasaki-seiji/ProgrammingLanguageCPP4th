@@ -175,6 +175,15 @@ Matrix<T,N> operator-(const Matrix<T,N>& m, const T& val)
 	return res;
 }
 
+// Matrix * scalar
+template<typename T,size_t N>
+Matrix<T,N> operator*(const Matrix<T,N>& m, const T& val)
+{
+	Matrix<T,N> res = m;
+	res*=val;
+	return res;
+}
+
 template<typename T, size_t N>
 	template<typename M>
 	Enable_if<Matrix_type<M>(),Matrix<T,N>&> Matrix<T,N>::operator+=(const M& m)

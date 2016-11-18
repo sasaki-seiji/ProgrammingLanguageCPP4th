@@ -111,6 +111,17 @@ void test_Matrix_sub_scalar()
 	cout << "m2: " << m2 << endl;
 }
 
+void test_Matrix_mul_scalar()
+{
+	cout << "--- test_Matrix_mul_scalar() --\n";
+
+	Matrix<double, 2> m {{1,2,3},{4,5,6}};
+	cout << "m: " << m << endl;
+
+	auto m2 = m * 10.0;
+	cout << "m2: " << m2 << endl;
+}
+
 void test_Matrix_ref_assign_scalar()
 {
 	cout << "--- test_Matrix_ref_assign_scalar() --\n";
