@@ -263,6 +263,15 @@ Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix_ref<T,N>& b)
 	return res;
 }
 
+// Matrix - Matrix_ref
+template<typename T, size_t N>
+Matrix<T,N> operator-(const Matrix<T,N>& a, const Matrix_ref<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res-=b;
+	return res;
+}
+
 // 2016.11.11 change : RT
 // Matrix<T1> + Matrix<T2>
 template<typename T, typename T2, size_t N,
