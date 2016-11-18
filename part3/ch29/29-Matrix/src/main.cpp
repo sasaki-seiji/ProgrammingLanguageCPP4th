@@ -99,6 +99,7 @@ int main()
 	test_Matrix_addassign_Matrix_ref();
 	test_Matrix_add_Matrix();
 	test_Matrix_add_Matrix_ref();
+	test_Matrix_mixed_sub();
 	test_Matrix_subassign_Matrix();
 	test_Matrix_subassign_Matrix_ref();
 	test_Matrix_sub_Matrix();

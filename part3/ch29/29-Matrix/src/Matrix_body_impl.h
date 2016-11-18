@@ -285,6 +285,16 @@ Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b)
 	return res;
 }
 
+// Matrix<T1> - Matrix<T2>
+template<typename T, typename T2, size_t N,
+	typename RT = Common_type<T,T2>>
+Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b)
+{
+	Matrix<RT,N> res = a;
+	res-=b;
+	return res;
+}
+
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
 {

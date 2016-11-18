@@ -89,6 +89,7 @@ void test_Matrix_addassign_Matrix();
 void test_Matrix_addassign_Matrix_ref();
 void test_Matrix_add_Matrix();
 void test_Matrix_add_Matrix_ref();
+void test_Matrix_mixed_sub();
 void test_Matrix_subassign_Matrix();
 void test_Matrix_subassign_Matrix_ref();
 void test_Matrix_sub_Matrix();

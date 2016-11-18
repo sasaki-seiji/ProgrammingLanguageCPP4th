@@ -15,6 +15,7 @@ struct Quad {
 	long double ld;
 	Quad(long double q) : ld{q} { }
 	Quad& operator+=(Quad q) { ld += q.ld; return *this; }
+	Quad& operator-=(Quad q) { ld -= q.ld; return *this; }
 };
 
 ostream& operator<<(ostream& os, Quad q)
@@ -114,6 +115,31 @@ void test_Matrix_add_Matrix_ref()
 	auto m3 = m1 + mr2;
 	cout << "m3: " << m3 << endl;
 }
+
+void test_Matrix_mixed_sub()
+{
+	cout << "--- test_Matrix_mixed_sub() --\n";
+
+	Matrix<double, 2> md = { { 1, 2 }, { 3, 4 } };
+	Matrix<complex<double>, 2> mc = {
+			{ complex<double>(0, 1), complex<double>(0, 2) },
+			{ complex<double>(1, 3), complex<double>(1, 4) }
+	};
+	cout << "md: " << md << endl;
+	cout << "mc: " << mc << endl;
+
+	Matrix<complex<double>, 2> mc2 = mc - md;
+	cout << "mc2: " << mc2 << endl;
+
+	Matrix<long double, 2> mld = { { 1, 2 }, { 3, 4 } };
+	Matrix<Quad, 2> mqd = {	{ 10, 20 }, { 30, 40 } };
+	cout << "mld: " << mld << endl;
+	cout << "mqd: " << mqd << endl;
+
+	Matrix<Quad, 2> mqd2 = mld - mqd;
+	cout << "mqd2: " << mqd2 << endl;
+}
+
 
 void test_Matrix_subassign_Matrix()
 {
