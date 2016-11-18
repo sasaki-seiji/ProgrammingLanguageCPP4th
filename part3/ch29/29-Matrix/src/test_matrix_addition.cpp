@@ -49,3 +49,29 @@ void test_mixed_add()
 	Matrix<Quad, 2> mqd2 = mld + mqd;
 	cout << "mqd2: " << mqd2 << endl;
 }
+
+void test_Matrix_addassign_Matrix()
+{
+	cout << "--- test_Matrix_addassign_Matrix() --\n";
+
+	Matrix<double, 2> m1 = { { 1, 2 }, { 3, 4 } };
+	Matrix<double, 2> m2 = { { 5, 6 }, { 7, 8 } };
+	cout << "m1: " << m1 << endl;
+	cout << "m2: " << m2 << endl;
+
+	m1 += m2;
+	cout << "m1: " << m1 << endl;
+}
+
+void test_Matrix_add_Matrix()
+{
+	cout << "--- test_Matrix_add_Matrix() --\n";
+
+	Matrix<double, 2> m1 = { { 1, 2 }, { 3, 4 } };
+	Matrix<double, 2> m2 = { { 5, 6 }, { 7, 8 } };
+	cout << "m1: " << m1 << endl;
+	cout << "m2: " << m2 << endl;
+
+	auto m3 = m1 + m2;
+	cout << "m3: " << m3 << endl;
+}

@@ -95,6 +95,8 @@ int main()
 	// test_matrix_addition.cpp
 	cout << "\n@@@ test_matrix_addition.cpp @@@" << endl;
 	test_mixed_add();
+	test_Matrix_addassign_Matrix();
+	test_Matrix_add_Matrix();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
