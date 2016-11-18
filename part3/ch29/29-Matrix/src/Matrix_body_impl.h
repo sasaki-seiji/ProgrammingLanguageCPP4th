@@ -295,6 +295,7 @@ Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b)
 	return res;
 }
 
+// Matrix<1> * Matrix<1> -> Matrix<2>
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
 {
@@ -307,6 +308,7 @@ Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
 	return res;
 }
 
+// Matrix<2> * Matrix<1> -> Matrix<1>
 template<typename T>
 Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
 {
@@ -338,12 +340,14 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 #endif
 
 
+// dot_product: inner_product of 2 Matrix_ref<1>
 template<typename T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 {
 	return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
 }
 
+// Matrix<2> * Matrix<2> -> Matrix<2>
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 {
