@@ -87,6 +87,7 @@ int main()
 	test_Matrix_ref_divassign_scalar();
 	test_Matrix_ref_modassign_scalar();
 	test_Matrix_ref_add_scalar();
+	test_Matrix_ref_sub_scalar();
 
 	// test_matrix_addition.cpp
 	cout << "\n@@@ test_matrix_addition.cpp @@@" << endl;

@@ -78,6 +78,7 @@ void test_Matrix_ref_mulassign_scalar();
 void test_Matrix_ref_divassign_scalar();
 void test_Matrix_ref_modassign_scalar();
 void test_Matrix_ref_add_scalar();
+void test_Matrix_ref_sub_scalar();
 
 // test_matrix_addition.cpp
 void test_mixed_add();
