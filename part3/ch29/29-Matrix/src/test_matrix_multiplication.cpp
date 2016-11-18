@@ -10,9 +10,9 @@
 #include <iostream>
 using namespace std;
 
-void test_Matrix_1_mul_Matrix_2()
+void test_Matrix_1_mul_Matrix_1()
 {
-	cout << "--- test_Matrix_1_mul_Matrix_2() --\n";
+	cout << "--- test_Matrix_1_mul_Matrix_1() --\n";
 
 	Matrix<double,1> m1 = { 1, 2, 3, 4 };
 	Matrix<double,1> m2 = { 0.1, 0.2, 0.3, 0.4 };

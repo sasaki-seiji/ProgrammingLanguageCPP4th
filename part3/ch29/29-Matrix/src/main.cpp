@@ -114,7 +114,7 @@ int main()
 	test_Matrix_ref_sub_Matrix_ref();
 
 	// test_matrix_multiplication.cpp
-	test_Matrix_1_mul_Matrix_2();
+	test_Matrix_1_mul_Matrix_1();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
