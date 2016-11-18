@@ -94,6 +94,7 @@ void test_Matrix_subassign_Matrix();
 void test_Matrix_subassign_Matrix_ref();
 void test_Matrix_sub_Matrix();
 void test_Matrix_sub_Matrix_ref();
+void test_Matrix_ref_addassign_Matrix();
 
 // test_matrix_ref.cpp
 void test_missing_ref();

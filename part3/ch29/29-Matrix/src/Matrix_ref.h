@@ -129,6 +129,12 @@ public:
 	Matrix_ref& operator/=(const T& value);
 	Matrix_ref& operator%=(const T& value);
 
+	template<typename M>
+		Enable_if<Matrix_type<M>(),Matrix_ref&> operator+=(const M& m);
+	template<typename M>
+		Enable_if<Matrix_type<M>(),Matrix_ref&> operator-=(const M& m);
+
+
 	// 2016.11.08 add: metrics
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
