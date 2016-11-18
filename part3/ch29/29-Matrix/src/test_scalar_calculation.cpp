@@ -336,3 +336,21 @@ void test_Matrix_ref_div_scalar()
 	cout << "mr: " << mr << endl;
 }
 
+void test_Matrix_ref_mod_scalar()
+{
+	cout << "--- test_Matrix_ref_mod_scalar() --\n";
+
+	Matrix<int, 2> m {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<int, 2> mr = m(slice(0),slice(1));
+	cout << "mr: " << mr << endl;
+
+	auto m2 = mr % 4;
+	cout << "m2: " << m2 << endl;
+	cout << "mr: " << mr << endl;
+}

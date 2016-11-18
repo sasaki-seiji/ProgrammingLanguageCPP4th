@@ -325,6 +325,14 @@ Matrix<T,N> operator/(const Matrix_ref<T,N>& x, const T& val)
 	return res;
 }
 
+// Matrix_ref % scalar
+template<typename T, size_t N>
+Matrix<T,N> operator%(const Matrix_ref<T,N>& x, const T& val)
+{
+	Matrix<T,N> res = x;
+	res%=val;
+	return res;
+}
 
 
 #endif /* MATRIX_REF_IMPL_H_ */
