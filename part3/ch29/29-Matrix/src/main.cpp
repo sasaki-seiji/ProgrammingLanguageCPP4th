@@ -100,6 +100,7 @@ int main()
 	test_Matrix_add_Matrix();
 	test_Matrix_add_Matrix_ref();
 	test_Matrix_subassign_Matrix();
+	test_Matrix_sub_Matrix();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
