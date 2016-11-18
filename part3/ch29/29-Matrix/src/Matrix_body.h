@@ -39,6 +39,7 @@ public:
 	// 2016.11.11 add
 	template<typename U>
 		Matrix(const Matrix<U,N>&);
+		//explicit Matrix(const Matrix<U,N>&);
 	template<typename U>
 		Matrix& operator=(const Matrix<U,N>&);
 

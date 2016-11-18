@@ -237,6 +237,7 @@ template<typename T, typename T2, size_t N,
 Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b)
 {
 	Matrix<RT,N> res = a;
+	//Matrix<RT,N> res{a};
 	res+=b;
 	return res;
 }
