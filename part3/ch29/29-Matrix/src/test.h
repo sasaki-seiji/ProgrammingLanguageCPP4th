@@ -101,6 +101,7 @@ void test_Matrix_ref_add_Matrix_ref();
 void test_Matrix_ref_subassign_Matrix();
 void test_Matrix_ref_subassign_Matrix_ref();
 void test_Matrix_ref_sub_Matrix();
+void test_Matrix_ref_sub_Matrix_ref();
 
 // test_matrix_ref.cpp
 void test_missing_ref();

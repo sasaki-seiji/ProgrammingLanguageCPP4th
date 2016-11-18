@@ -396,5 +396,14 @@ Matrix<T,N> operator+(const Matrix_ref<T,N>& a, const Matrix_ref<T,N>& b)
 	return res;
 }
 
+// Matrix_ref - Matrix_ref
+template<typename T, size_t N>
+Matrix<T,N> operator-(const Matrix_ref<T,N>& a, const Matrix_ref<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res-=b;
+	return res;
+}
+
 
 #endif /* MATRIX_REF_IMPL_H_ */
