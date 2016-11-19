@@ -67,13 +67,19 @@ struct Matrix_slice {
 };
 
 template<size_t N>
-Matrix_slice<N>::Matrix_slice()
-	: size(0), start(0)
+void impl_Matrix_slice(Matrix_slice<N>& ms)
 {
-	for (auto& elem : extents)
+	ms.size = ms.start= 0;
+	for (auto& elem : ms.extents)
 		elem = 0;
-	for (auto& elem : strides)
+	for (auto& elem : ms.strides)
 		elem = 0;
+}
+
+template<size_t N>
+Matrix_slice<N>::Matrix_slice()
+{
+	impl_Matrix_slice(*this);
 }
 
 template<size_t N>
@@ -146,11 +152,7 @@ size_t Matrix_slice<N>::at(std::array<size_t,N>& i) const
 template<>
 struct Matrix_slice<1> {
 
-	Matrix_slice()
-		: size(0), start(0)
-	{
-		extents[0] = strides[0] = 0;
-	}
+	Matrix_slice() { impl_Matrix_slice(*this); }
 
 
 	Matrix_slice(size_t offset,
@@ -199,12 +201,7 @@ struct Matrix_slice<1> {
 template<>
 struct Matrix_slice<2> {
 
-	Matrix_slice()
-		: size(0), start(0)
-	{
-		extents[0] = extents[1] = 0;
-		strides[0] = strides[1] = 0;
-	}
+	Matrix_slice() { impl_Matrix_slice(*this); }
 
 	Matrix_slice(size_t offset,
 			std::initializer_list<size_t> exts)
