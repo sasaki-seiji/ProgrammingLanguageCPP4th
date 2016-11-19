@@ -39,6 +39,8 @@ struct slice {
 	size_t stride;
 };
 
+// struct Matrix_slice<N>:
+//	define matrix figure and calculate index
 template<size_t N>
 struct Matrix_slice {
 	// 2016.11.06 change
@@ -66,6 +68,8 @@ struct Matrix_slice {
 	std::array<size_t,N> strides;
 };
 
+// default Matrix_slice constructor
+
 template<size_t N>
 void impl_Matrix_slice(Matrix_slice<N>& ms)
 {
@@ -82,52 +86,76 @@ Matrix_slice<N>::Matrix_slice()
 	impl_Matrix_slice(*this);
 }
 
+// Matrix_slice constructor from offset and extents
+
+template<size_t N>
+void impl_Matrix_slice(Matrix_slice<N>& ms, size_t offset,std::initializer_list<size_t> exts)
+{
+	assert(exts.size()==N);
+	ms.start = offset;
+	int i = 0;
+	for (auto it=exts.begin(); it!=exts.end(); ++it, ++i)
+		ms.extents[i] = *it;
+	ms.size = 1;
+	for (int i = N-1; i>=0; --i) {
+		ms.strides[i] = ms.size;
+		ms.size *= ms.extents[i];
+	}
+}
+
 template<size_t N>
 Matrix_slice<N>::Matrix_slice(size_t offset,std::initializer_list<size_t> exts)
 {
-	assert(exts.size()==N);
-	start = offset;
+	impl_Matrix_slice(*this, offset, exts);
+}
+
+// Matrix_slice constructor from offset, extents and strides
+
+template<size_t N>
+void impl_Matrix_slice(Matrix_slice<N>& ms, size_t offset, std::initializer_list<size_t> exts, std::initializer_list<size_t> strs)
+{
+	assert(exts.size()==N && strs.size()==N);
+	ms.start = offset;
 	int i = 0;
-	for (auto it=exts.begin(); it!=exts.end(); ++it, ++i)
-		extents[i] = *it;
-	size = 1;
-	for (int i = N-1; i>=0; --i) {
-		strides[i] = size;
-		size *= extents[i];
+	for (auto ie=exts.begin(), is=strs.begin(); ie!=exts.end();
+			++ie, ++is, ++i) {
+		ms.extents[i] = *ie;
+		ms.strides[i] = *is;
 	}
+	ms.size = 1;
+	for (int i = N-1; i>=0; --i)
+		ms.size *= ms.extents[i];
 }
 
 template<size_t N>
 Matrix_slice<N>::Matrix_slice(size_t offset, std::initializer_list<size_t> exts, std::initializer_list<size_t> strs)
 {
-	assert(exts.size()==N && strs.size()==N);
-	start = offset;
-	int i = 0;
-	for (auto ie=exts.begin(), is=strs.begin(); ie!=exts.end();
-			++ie, ++is, ++i) {
-		extents[i] = *ie;
-		strides[i] = *is;
-	}
-	size = 1;
-	for (int i = N-1; i>=0; --i)
-		size *= extents[i];
+	impl_Matrix_slice(*this, offset, exts, strs);
 }
+
+// Matrix_slice constructor from variadic extents parameter
+
+template<size_t N, typename... Dims>
+	void impl_Matrix_slice(Matrix_slice<N>& ms, Dims... dims)
+	{
+		static_assert(sizeof...(Dims)==N,
+				"Matrix_slice<N>::operator(): dimension mismatch");
+		ms.start = 0;
+		size_t args[N] = { size_t(dims)... };
+		for (size_t i=0; i<N; ++i)
+			ms.extents[i] = args[i];
+		ms.size = 1;
+		for (int i = N-1; i>=0; --i) {
+			ms.strides[i] = ms.size;
+			ms.size *= ms.extents[i];
+		}
+	}
 
 template<size_t N>
 	template<typename... Dims>
 	Matrix_slice<N>::Matrix_slice(Dims... dims)
 	{
-		static_assert(sizeof...(Dims)==N,
-				"Matrix_slice<N>::operator(): dimension mismatch");
-		start = 0;
-		size_t args[N] = { size_t(dims)... };
-		for (size_t i=0; i<N; ++i)
-			extents[i] = args[i];
-		size = 1;
-		for (int i = N-1; i>=0; --i) {
-			strides[i] = size;
-			size *= extents[i];
-		}
+		impl_Matrix_slice(*this, dims...);
 	}
 
 template<size_t N>
@@ -152,32 +180,17 @@ size_t Matrix_slice<N>::at(std::array<size_t,N>& i) const
 template<>
 struct Matrix_slice<1> {
 
-	Matrix_slice() { impl_Matrix_slice(*this); }
+	Matrix_slice()
+		{ impl_Matrix_slice(*this); }
 
+	Matrix_slice(size_t offset, std::initializer_list<size_t> exts)
+		{ impl_Matrix_slice(*this, offset, exts); }
 
-	Matrix_slice(size_t offset,
-			std::initializer_list<size_t> exts)
-	{
-		assert(exts.size()==1);
-		start = offset;
-		extents[0] = *exts.begin();
-		size = extents[0];
-		strides[0] = 1;
-	}
-	Matrix_slice(size_t offset,
-			std::initializer_list<size_t> exts,	std::initializer_list<size_t> strs)
-	{
-		assert(exts.size()==1 && strs.size()==1);
-		start = offset;
-		extents[0] = *exts.begin();
-		strides[0] = *strs.begin();
-		size = extents[0];
-	}
+	Matrix_slice(size_t offset, std::initializer_list<size_t> exts,	std::initializer_list<size_t> strs)
+		{ impl_Matrix_slice(*this, offset, exts, strs); }
 
-	Matrix_slice(size_t s)
-	{
-		size = s; start = 0; extents[0] = s; strides[0] = 1;
-	}
+	template<typename... Dims>
+		Matrix_slice(Dims... dims) { impl_Matrix_slice(*this, dims...); }
 
 	size_t operator()(size_t i) const
 	{
@@ -201,38 +214,17 @@ struct Matrix_slice<1> {
 template<>
 struct Matrix_slice<2> {
 
-	Matrix_slice() { impl_Matrix_slice(*this); }
+	Matrix_slice()
+		{ impl_Matrix_slice(*this); }
 
-	Matrix_slice(size_t offset,
-			std::initializer_list<size_t> exts)
-	{
-		assert(exts.size()==2);
-		start = offset;
-		auto it = exts.begin();
-		extents[0] = *it++; extents[1] = *it;
-		size = extents[0]*extents[1];
-		strides[1] = 1; strides[0] = extents[1];
-	}
+	Matrix_slice(size_t offset, std::initializer_list<size_t> exts)
+		{ impl_Matrix_slice(*this, offset, exts); }
 
-	Matrix_slice(size_t offset,
-			std::initializer_list<size_t> exts,	std::initializer_list<size_t> strs)
-	{
-		assert(exts.size()==2 && strs.size()==2);
-		start = offset;
-		auto ie = exts.begin();
-		extents[0] = *ie++; extents[1] = *ie;
-		auto is = strs.begin();
-		strides[0] = *is++; strides[1] = *is;
-		size = extents[0]*extents[1];
-	}
+	Matrix_slice(size_t offset, std::initializer_list<size_t> exts,	std::initializer_list<size_t> strs)
+		{ impl_Matrix_slice(*this, offset, exts, strs); }
 
-	Matrix_slice(size_t e1, size_t e2)
-	{
-		start = 0;
-		extents[0] = e1; extents[1] = e2;
-		size = e1*e2;
-		strides[1] = 1; strides[0] = e2;
-	}
+	template<typename... Dims>
+		Matrix_slice(Dims... dims) { impl_Matrix_slice(*this, dims...); }
 
 	size_t operator()(size_t i, size_t j) const
 	{
