@@ -105,6 +105,7 @@ void test_Matrix_ref_sub_Matrix_ref();
 
 // test_matrix_multiplication.cpp
 void test_Matrix_1_mul_Matrix_1();
+void test_Matrix_2_mul_Matrix_1();
 
 // test_matrix_ref.cpp
 void test_missing_ref();

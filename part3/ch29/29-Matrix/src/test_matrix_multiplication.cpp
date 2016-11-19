@@ -24,4 +24,17 @@ void test_Matrix_1_mul_Matrix_1()
 }
 
 
+void test_Matrix_2_mul_Matrix_1()
+{
+	cout << "--- test_Matrix_2_mul_Matrix_1() --\n";
+
+	Matrix<double,2> m1 = { {1, 2},{ 3, 4} };
+	Matrix<double,1> m2 = { 0.1, 0.2 };
+	cout << "m1: " << m1 << endl;
+	cout << "m2: " << m2 << endl;
+
+	Matrix<double, 1> m3 = m1 * m2 ;
+	cout << "m3: " << m3 << endl;
+}
+
 

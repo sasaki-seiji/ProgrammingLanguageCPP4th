@@ -318,7 +318,7 @@ Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
 	Matrix<T,1> res(nr);
 	for (size_t i = 0; i!=nr; ++i)
 		for (size_t j = 0; j!=nc; ++j)
-			res(i,j) += m(i,j)*v(j);
+			res(i) += m(i,j)*v(j);
 	return res;
 }
 
