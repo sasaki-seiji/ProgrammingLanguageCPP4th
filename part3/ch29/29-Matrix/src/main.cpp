@@ -122,6 +122,7 @@ int main()
 	test_default_Matrix_slice();
 	test_Matrix_slice_from_offset_extents();
 	test_Matrix_slice_from_offset_extents_strides();
+	test_Matrix_slice_from_variadic_extent();
 
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;

@@ -40,3 +40,14 @@ void test_Matrix_slice_from_offset_extents_strides()
 	cout << "ms(0,0,0): " << ms(0,0,0) << endl;
 	cout << "ms(1,2,3): " << ms(1,2,3) << endl;
 }
+
+void test_Matrix_slice_from_variadic_extent()
+{
+	cout << "--- test_Matrix_slice_from_variadic_extent() --\n";
+
+	Matrix_slice<3> ms(2, 3, 4);
+	cout << "ms: " << ms << endl;
+
+	cout << "ms(0,0,0): " << ms(0,0,0) << endl;
+	cout << "ms(1,2,3): " << ms(1,2,3) << endl;
+}
