@@ -108,6 +108,11 @@ void test_Matrix_1_mul_Matrix_1();
 void test_Matrix_2_mul_Matrix_1();
 void test_Matrix_2_mul_Matrix_2();
 
+// test_matrix_slice.cpp
+void test_default_Matrix_slice();
+void test_Matrix_slice_from_offset_extents();
+void test_Matrix_slice_from_offset_extents_strides();
+
 // test_matrix_ref.cpp
 void test_missing_ref();
 

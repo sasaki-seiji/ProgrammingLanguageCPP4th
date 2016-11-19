@@ -100,7 +100,7 @@ Matrix_slice<N>::Matrix_slice(size_t offset, std::initializer_list<size_t> exts,
 	for (auto ie=exts.begin(), is=strs.begin(); ie!=exts.end();
 			++ie, ++is, ++i) {
 		extents[i] = *ie;
-		strides[i] = strs;
+		strides[i] = *is;
 	}
 	size = 1;
 	for (int i = N-1; i>=0; --i)
