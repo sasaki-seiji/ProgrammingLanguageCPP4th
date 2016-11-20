@@ -160,3 +160,22 @@ void test_Matrix_assign_different_Matrix()
 	};
 	cout << "mc: " << mc << endl;
 }
+
+void test_Matrix_ref_assign_Matrix_initializer()
+{
+	cout << "--- test_Matrix_ref_assign_Matrix_initializer() --\n";
+
+	Matrix<int,2> m = {
+			{1,2,3},
+			{4,5,6},
+			{7,8,9}
+	};
+	Matrix_ref<int,2> mr = m(slice(1),slice(0));
+	cout << "m: " << m << endl;
+	cout << "mr: " << mr << endl;
+
+	mr = { {44,55,66}, {77,88,99}};
+	cout << "m: " << m << endl;
+	cout << "mr: " << mr << endl;
+}
+

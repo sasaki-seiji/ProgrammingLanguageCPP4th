@@ -29,6 +29,7 @@ int main()
 	test_Matrix_assign_Matrix_ref();
 	test_Matrix_from_different_Matrix();
 	test_Matrix_assign_different_Matrix();
+	test_Matrix_ref_assign_Matrix_initializer();
 
 
 	// test_index_and_slicing.cpp
