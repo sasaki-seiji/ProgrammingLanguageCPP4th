@@ -74,10 +74,8 @@ template<size_t N>
 void impl_Matrix_slice(Matrix_slice<N>& ms)
 {
 	ms.size = ms.start= 0;
-	for (auto& elem : ms.extents)
-		elem = 0;
-	for (auto& elem : ms.strides)
-		elem = 0;
+	ms.extents.fill(0);
+	ms.strides.fill(0);
 }
 
 template<size_t N>
