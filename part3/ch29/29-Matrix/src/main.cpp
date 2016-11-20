@@ -127,5 +127,12 @@ int main()
 	// test_matrix_ref.cpp
 	cout << "\n@@@ test_matrix_ref.cpp @@@" << endl;
 	test_missing_ref();
+
+	// test_matrix_initializer.cpp
+	test_Matrix_initializer_1();
+	test_Matrix_initializer_2();
+	test_Matrix_initializer_3();
+	test_jagged_Matrix_initializer();
+
 }
 

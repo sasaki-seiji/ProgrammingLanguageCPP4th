@@ -117,4 +117,10 @@ void test_Matrix_slice_from_variadic_extent();
 // test_matrix_ref.cpp
 void test_missing_ref();
 
+// test_matrix_initializer.cpp
+void test_Matrix_initializer_1();
+void test_Matrix_initializer_2();
+void test_Matrix_initializer_3();
+void test_jagged_Matrix_initializer();
+
 #endif /* TEST_H_ */
