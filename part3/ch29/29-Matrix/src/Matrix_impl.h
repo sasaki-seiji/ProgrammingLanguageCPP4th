@@ -30,6 +30,17 @@ struct Matrix_init<T,0> ;
 //	get matrix extents array from Matrix_initializer
 
 template<size_t N, typename List>
+std::array<size_t,N> derive_extents(const List& list);
+
+template<size_t N, typename I, typename List>
+Enable_if<(N>1),void> add_extents(I& first, const List& list);
+
+template<size_t N, typename I, typename List>
+Enable_if<(N==1),void> add_extents(I& first, const List& list);
+
+template<size_t N, typename List> bool check_non_jagged(const List& list);
+
+template<size_t N, typename List>
 std::array<size_t,N> derive_extents(const List& list)
 {
 	std::array<size_t,N> a;
@@ -82,6 +93,12 @@ void compute_strides(Matrix_slice<N>& ms)
 //	append Matrix elements from Matrix_initializer
 
 template<typename T, typename Vec>
+void add_list(const std::initializer_list<T>* first, const std::initializer_list<T>* last, Vec& vec);
+
+template<typename T, typename Vec>
+void add_list(const T* first, const T* last, Vec& vec);
+
+template<typename T, typename Vec>
 void insert_flat(std::initializer_list<T> list, Vec& vec)
 {
 	add_list(list.begin(),list.end(),vec);
@@ -105,6 +122,9 @@ void add_list(const T* first, const T* last, Vec& vec)
 // 2016.11.10 add
 //	copy_flat:
 //	copy Matrix_initializer elements to sequence (Matrix_ref elements seq.)
+
+template<typename T, typename Iter>
+void copy_flat(const T& v, Iter& it);
 
 template<typename T, typename Iter>
 void copy_flat(std::initializer_list<T> init, Iter& it)

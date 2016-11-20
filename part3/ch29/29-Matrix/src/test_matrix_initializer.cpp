@@ -94,7 +94,7 @@ void test_Matrix_initializer_3()
 
 void test_jagged_Matrix_initializer()
 {
-	cout << "--- test_Matrix_initializer_3() --\n";
+	cout << "--- test_jagged_Matrix_initializer() --\n";
 
 	Matrix_initializer<int, 3> mi {
 		{{1,2}, {3,4}, {5,6}},

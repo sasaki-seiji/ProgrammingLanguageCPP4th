@@ -20,22 +20,6 @@ template<typename T, size_t N> class Matrix_ref_const_iterator;
 struct slice ;
 template<size_t N> struct Matrix_slice ;
 
-template<typename... Args>
-constexpr bool All(bool b, Args... args);
-
-template<typename... Args>
-constexpr bool Some(bool b, Args... args);
-
-template<size_t N>
-std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms);
-
-template<typename M>
-Enable_if<Matrix_type<M>(),std::ostream&>
-operator<<(std::ostream& os, const M& m);
-
-template<size_t N>
-bool same_extents(const Matrix_slice<N>&, const Matrix_slice<N>&);
-
 
 // declare of Matrix_impl
 
@@ -43,25 +27,8 @@ namespace Matrix_impl {
 
 	template<typename T, size_t N> struct Matrix_init;
 
-	template<size_t N, typename List>
-	std::array<size_t,N> derive_extents(const List& list);
-
-	template<size_t N, typename I, typename List>
-	Enable_if<(N>1),void> add_extents(I& first, const List& list);
-
-	template<size_t N, typename I, typename List>
-	Enable_if<(N==1),void> add_extents(I& first, const List& list);
-
-	template<size_t N, typename List> bool check_non_jagged(const List& list);
-
+	// used in Matrix_util.h
 	template<size_t N> void compute_strides(Matrix_slice<N>& ms) ;
-
-	template<typename T, typename Vec>
-	void add_list(const std::initializer_list<T>* first,
-			const std::initializer_list<T>* last, Vec& vec);
-
-	template<typename T, typename Vec>
-	void add_list(const T* first, const T* last, Vec& vec);
 
 	template<size_t I, size_t N>
 	void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns);
@@ -87,14 +54,6 @@ namespace Matrix_impl {
 
 	template<size_t N>
 	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
-
-	// 2016.11.10 add
-
-	template<typename Val, typename Iter>
-	void copy_flat(const Val& v, Iter& it);
-
-	template<typename T, typename Iter>
-	void copy_flat(std::initializer_list<T> init, Iter& it);
 
 }
 
