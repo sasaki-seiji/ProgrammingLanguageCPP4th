@@ -94,11 +94,7 @@ void impl_Matrix_slice(Matrix_slice<N>& ms, size_t offset,std::initializer_list<
 	int i = 0;
 	for (auto it=exts.begin(); it!=exts.end(); ++it, ++i)
 		ms.extents[i] = *it;
-	ms.size = 1;
-	for (int i = N-1; i>=0; --i) {
-		ms.strides[i] = ms.size;
-		ms.size *= ms.extents[i];
-	}
+	Matrix_impl::compute_strides(ms);
 }
 
 template<size_t N>
