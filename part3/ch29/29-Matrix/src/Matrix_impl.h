@@ -10,6 +10,8 @@
 
 namespace Matrix_impl {
 
+// Matrix_init (Matrix_initializer)
+
 template<typename T, size_t N>
 struct Matrix_init {
 	using type = std::initializer_list<typename Matrix_init<T,N-1>::type>;
@@ -20,18 +22,13 @@ struct Matrix_init<T,1> {
 	using type = std::initializer_list<T>;
 };
 
-#if 1
 template<typename T>
 struct Matrix_init<T,0> ;
-#else
-template<typename T>
-struct Matrix_init<T,0>
-{
-	using type = T;
-};
-#endif
 
-#if 1
+
+// derive_extents:
+//	get matrix extents array from Matrix_initializer
+
 template<size_t N, typename List>
 std::array<size_t,N> derive_extents(const List& list)
 {
@@ -64,47 +61,10 @@ bool check_non_jagged(const List& list)
 			return false;
 	return true;
 }
-#else
 
-template<typename I, typename T, size_t N>
-void add_extents(I& first, const Matrix_initializer<T,N>& list);
 
-template<typename T, size_t N>
-bool check_non_jagged(const Matrix_initializer<T,N>& list);
-
-template<typename T, size_t N>
-std::array<size_t,N> derive_extents(const Matrix_initializer<T,N>& list)
-{
-	std::array<size_t,N> a;
-	auto f = a.begin();
-	add_extents<N>(f,list);
-	return a;
-}
-
-template<typename I, typename T, size_t N>
-Enable_if<(N>1),void> add_extents(I& first, const Matrix_initializer<T,N>& list)
-{
-	assert(check_non_jagged(list));
-	*first++ = list.size();
-	add_extents<N-1>(first, *list.begin());
-}
-
-template<typename I, typename T, size_t N>
-Enable_if<(N==1),void> add_extents(I& first, const Matrix_initializer<T,N>& list)
-{
-	*first = list.size();
-}
-
-template<typename T, size_t N>
-bool check_non_jagged(const Matrix_initializer<T,N>& list)
-{
-	auto i = list.begin();
-	for (auto j = i+1; j!=list.end(); ++j)
-		if (derive_extents(*i) != derive_extents(*j))
-			return false;
-	return true;
-}
-#endif
+// compute_strides:
+//	calculate size and strides from extents
 
 template<size_t N>
 void compute_strides(Matrix_slice<N>& ms)
@@ -116,6 +76,10 @@ void compute_strides(Matrix_slice<N>& ms)
 	}
 	ms.size = st;
 }
+
+
+// insert_flat:
+//	append Matrix elements from Matrix_initializer
 
 template<typename T, typename Vec>
 void insert_flat(std::initializer_list<T> list, Vec& vec)
