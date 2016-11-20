@@ -129,20 +129,15 @@ Matrix_slice<N>::Matrix_slice(size_t offset, std::initializer_list<size_t> exts,
 // Matrix_slice constructor from variadic extents parameter
 
 template<size_t N, typename... Dims>
-	void impl_Matrix_slice(Matrix_slice<N>& ms, Dims... dims)
-	{
-		static_assert(sizeof...(Dims)==N,
-				"Matrix_slice<N>::operator(): dimension mismatch");
-		ms.start = 0;
-		size_t args[N] = { size_t(dims)... };
-		for (size_t i=0; i<N; ++i)
-			ms.extents[i] = args[i];
-		ms.size = 1;
-		for (int i = N-1; i>=0; --i) {
-			ms.strides[i] = ms.size;
-			ms.size *= ms.extents[i];
-		}
-	}
+void impl_Matrix_slice(Matrix_slice<N>& ms, Dims... dims)
+{
+	static_assert(sizeof...(Dims)==N, "Matrix_slice<N>::operator(): dimension mismatch");
+	ms.start = 0;
+	size_t args[N] = { size_t(dims)... };
+	for (size_t i=0; i<N; ++i)
+		ms.extents[i] = args[i];
+	Matrix_impl::compute_strides(ms);
+}
 
 template<size_t N>
 	template<typename... Dims>
