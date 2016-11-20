@@ -110,15 +110,14 @@ void impl_Matrix_slice(Matrix_slice<N>& ms, size_t offset, std::initializer_list
 {
 	assert(exts.size()==N && strs.size()==N);
 	ms.start = offset;
+	ms.size = 1;
 	int i = 0;
 	for (auto ie=exts.begin(), is=strs.begin(); ie!=exts.end();
 			++ie, ++is, ++i) {
 		ms.extents[i] = *ie;
 		ms.strides[i] = *is;
-	}
-	ms.size = 1;
-	for (int i = N-1; i>=0; --i)
 		ms.size *= ms.extents[i];
+	}
 }
 
 template<size_t N>
