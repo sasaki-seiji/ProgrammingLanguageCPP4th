@@ -102,6 +102,24 @@ void add_list(const T* first, const T* last, Vec& vec)
 }
 
 
+// 2016.11.10 add
+//	copy_flat:
+//	copy Matrix_initializer elements to sequence (Matrix_ref elements seq.)
+
+template<typename T, typename Iter>
+void copy_flat(std::initializer_list<T> init, Iter& it)
+{
+	for (auto& elem : init)
+		copy_flat(elem, it);
+}
+
+template<typename T, typename Iter>
+void copy_flat(const T& v, Iter& it)
+{
+	*it = v;
+	++it;
+}
+
 template<size_t I, size_t N>
 void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 {
@@ -198,22 +216,6 @@ template<size_t N>
 size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns)
 {
 	return 0;
-}
-
-// 2016.11.10 add
-
-template<typename T, typename Iter>
-void copy_flat(std::initializer_list<T> init, Iter& it)
-{
-	for (auto& elem : init)
-		copy_flat(elem, it);
-}
-
-template<typename T, typename Iter>
-void copy_flat(const T& v, Iter& it)
-{
-	*it = v;
-	++it;
 }
 
 }

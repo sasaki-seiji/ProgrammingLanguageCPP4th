@@ -39,6 +39,11 @@ void test_Matrix_initializer_1()
 	vector<int> vec;
 	Matrix_impl::insert_flat(mi, vec);
 	cout << "vec: " << vec << endl;
+
+	Matrix_initializer<int,1> mi2 { 11, 22, 33 };
+	auto it = vec.begin();
+	Matrix_impl::copy_flat(mi2, it);
+	cout << "vec: " << vec << endl;
 }
 
 void test_Matrix_initializer_2()
@@ -52,6 +57,11 @@ void test_Matrix_initializer_2()
 
 	vector<int> vec;
 	Matrix_impl::insert_flat(mi, vec);
+	cout << "vec: " << vec << endl;
+
+	Matrix_initializer<int,2> mi2 { {11, 22}, {33, 44}, {55, 66} };
+	auto it = vec.begin();
+	Matrix_impl::copy_flat(mi2, it);
 	cout << "vec: " << vec << endl;
 }
 
@@ -70,6 +80,15 @@ void test_Matrix_initializer_3()
 
 	vector<int> vec;
 	Matrix_impl::insert_flat(mi, vec);
+	cout << "vec: " << vec << endl;
+
+	Matrix_initializer<int,3> mi2 {
+		{{11, 22}, {33, 44}},
+		{{55, 66}, {77, 88}},
+		{{99, 1010}, {1111, 1212}}
+	};
+	auto it = vec.begin();
+	Matrix_impl::copy_flat(mi2, it);
 	cout << "vec: " << vec << endl;
 }
 
