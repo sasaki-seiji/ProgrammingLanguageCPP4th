@@ -255,8 +255,8 @@ std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms)
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Matrix_ref<T,0>& m)
 {
-	os << static_cast<const T&>(m);
-	return os;
+	const T& v = m;
+	return os << v;
 }
 
 template<typename M>
