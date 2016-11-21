@@ -89,28 +89,13 @@ public:
 
 
 	// 2016.11.08 add: index, row, col
+	// 2016.11.21 change
 
-	template<size_t M=N>
-		Enable_if<(M>1),Matrix_ref<T,N-1>>
-		operator[](size_t i) { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M==1),T&>
-		operator[](size_t i) { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M>1),Matrix_ref<const T,N-1>>
-		operator[](size_t i) const { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M==1),const T&>
-		operator[](size_t i) const { return row(i); }
+	Matrix_ref<T,N-1> operator[](size_t i) { return row(i); }
+	Matrix_ref<const T,N-1> operator[](size_t i) const { return row(i); }
 
-	template<size_t M = N>
-		Enable_if<(M>1), Matrix_ref<T,M-1>> row(size_t n);
-	template<size_t M = N>
-		Enable_if<(M==1), T&> row(size_t n);
-	template<size_t M = N>
-		Enable_if<(M>1), Matrix_ref<const T,M-1>> row(size_t n) const;
-	template<size_t M = N>
-		Enable_if<(M==1), const T&> row(size_t n) const;
+	Matrix_ref<T,N-1> row(size_t n);
+	Matrix_ref<const T,N-1> row(size_t n) const;
 
 	Matrix_ref<T,N-1> col(size_t n);
 	Matrix_ref<const T,N-1> col(size_t n) const;
@@ -157,6 +142,29 @@ public:
 
 private:
 	Matrix_slice<N> desc;
+	T* ptr;
+};
+
+
+template<typename T>
+class Matrix_ref<T,0>
+{
+public:
+	//static constexpr size_t order = 0;
+	using value_type = T;
+
+	Matrix_ref(const Matrix_slice<0>& s, T* p) :desc{s}, ptr{p} { }
+
+	T& operator()() { return *(ptr + desc()); }
+	const T& operator()() const { return *(ptr + desc()); }
+
+	operator T&() { return *(ptr + desc()); }
+	operator const T&() const { return *(ptr + desc()); }
+
+	Matrix_ref& operator=(const T& v) { *(ptr + desc()) = v; return *this; }
+
+private:
+	Matrix_slice<0> desc;
 	T* ptr;
 };
 

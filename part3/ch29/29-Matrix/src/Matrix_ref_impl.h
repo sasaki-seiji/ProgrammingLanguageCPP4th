@@ -183,26 +183,7 @@ template<typename T, size_t N>
 // 2016.11.08 add: row()
 
 template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M>1),Matrix_ref<T,M-1>> Matrix_ref<T,N>::row(size_t n)
-	{
-		assert(n<rows());
-		Matrix_slice<N-1> row;
-		Matrix_impl::slice_dim<0>(n,desc,row);
-		return {row,ptr};
-	}
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M==1),T&> Matrix_ref<T,N>::row(size_t i)
-	{
-		return *(ptr + desc(i));
-	}
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M>1),Matrix_ref<const T,M-1>>
-	Matrix_ref<T,N>::row(size_t n) const
+Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n)
 {
 	assert(n<rows());
 	Matrix_slice<N-1> row;
@@ -211,12 +192,14 @@ template<typename T, size_t N>
 }
 
 template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M==1),const T&>
-	Matrix_ref<T,N>::row(size_t i) const
+Matrix_ref<const T,N-1> Matrix_ref<T,N>::row(size_t n) const
 {
-	return *(ptr + desc(i));
+	assert(n<rows());
+	Matrix_slice<N-1> row;
+	Matrix_impl::slice_dim<0>(n,desc,row);
+	return {row,ptr};
 }
+
 
 // Matrix_ref::col(size_t)
 template<typename T, size_t N>

@@ -222,7 +222,7 @@ void test_Matrix_row1()
 	Matrix<int,1> m { 11,12,13 };
 	cout << "m: " << m << endl;
 
-	auto& r1 = m.row(1);
+	auto r1 = m.row(1);
 	cout << "r1: " << r1 << endl;
 
 	r1 = 100;
@@ -236,12 +236,12 @@ void test_const_Matrix_row1()
 	const Matrix<int,1> m { 11,12,13 };
 	cout << "m: " << m << endl;
 
-	auto& r1 = m.row(1);
+	auto r1 = m.row(1);
 	cout << "r1: " << r1 << endl;
 
 #if 0
 	r1 = 100;
-		// error: assignment of read-only reference 'r1'
+		// error: assignment of read-only location '*(((Matrix_ref<const int, 0ull>*)this)->Matrix_ref<const int, 0ull>::ptr + ((sizetype)(((Matrix_ref<const int, 0ull>*)this)->Matrix_ref<const int, 0ull>::desc.Matrix_slice<N>::operator()<{}, void>() * 4ull)))'
 	cout << "m: " << m << endl;
 #endif
 }
@@ -557,7 +557,8 @@ void test_Matrix_ref_row1()
 	Matrix_ref<int,1> mr = m[1];
 	cout << "mr: " << mr << endl;
 
-	auto& r1 = mr.row(1);
+	//auto& r1 = mr.row(1);
+	int& r1 = mr.row(1);
 	cout << "r1: " << r1 << endl;
 
 	r1 = 100;
@@ -578,7 +579,8 @@ void test_const_Matrix_ref_row1()
 	Matrix_ref<const int,1> mr = m[1];
 	cout << "mr: " << mr << endl;
 
-	auto& r1 = mr.row(1);
+	//auto& r1 = mr.row(1);
+	const int& r1 = mr.row(1);
 	cout << "r1: " << r1 << endl;
 
 #if 0

@@ -252,6 +252,13 @@ std::ostream& operator<<(std::ostream& os, const Matrix_slice<N>& ms)
 
 // 2016.11.10 add:
 
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Matrix_ref<T,0>& m)
+{
+	os << static_cast<const T&>(m);
+	return os;
+}
+
 template<typename M>
 	Enable_if<Matrix_type<M>(),std::ostream&>
 operator<<(std::ostream& os, const M& m)

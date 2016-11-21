@@ -9,12 +9,8 @@
 #define MATRIX_BODY_H_
 
 
-#if 0
-using Matrix_impl::Matrix_initializer;
-#else
 template<typename T, size_t N>
 using Matrix_initializer = typename Matrix_impl::Matrix_init<T,N>::type;
-#endif
 
 template<typename T, size_t N>
 class Matrix {
@@ -39,7 +35,6 @@ public:
 	// 2016.11.11 add
 	template<typename U>
 		Matrix(const Matrix<U,N>&);
-		//explicit Matrix(const Matrix<U,N>&);
 	template<typename U>
 		Matrix& operator=(const Matrix<U,N>&);
 
@@ -80,37 +75,13 @@ public:
 		Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<const T,N>>
 		operator()(const Args&... args) const;
 
-#if 0	// 2016.11.05
+	// 2016.11.05、2016.11.21
 	Matrix_ref<T,N-1> operator[](size_t i) { return row(i); }
 	Matrix_ref<const T,N-1> operator[](size_t i) const { return row(i); }
-#else
-	template<size_t M=N>
-		Enable_if<(M>1),Matrix_ref<T,N-1>>
-		operator[](size_t i) { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M==1),T&>
-		operator[](size_t i) { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M>1),Matrix_ref<const T,N-1>>
-		operator[](size_t i) const { return row(i); }
-	template<size_t M=N>
-		Enable_if<(M==1),const T&>
-		operator[](size_t i) const { return row(i); }
-#endif
 
-#if 0	// 2016.11.05
+	// 2016.11.05、2016.11.21
 	Matrix_ref<T,N-1> row(size_t n);
 	Matrix_ref<const T,N-1> row(size_t n) const;
-#else
-	template<size_t M = N>
-		Enable_if<(M>1), Matrix_ref<T,M-1>> row(size_t n);
-	template<size_t M = N>
-		Enable_if<(M==1), T&> row(size_t n);
-	template<size_t M = N>
-		Enable_if<(M>1), Matrix_ref<const T,M-1>> row(size_t n) const;
-	template<size_t M = N>
-		Enable_if<(M==1), const T&> row(size_t n) const;
-#endif
 
 	Matrix_ref<T,N-1> col(size_t n);
 	Matrix_ref<const T,N-1> col(size_t n) const;

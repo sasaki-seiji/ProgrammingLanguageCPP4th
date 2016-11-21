@@ -362,8 +362,6 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 	return res;
 }
 
-#if 0
-
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix<T,N>::row(size_t n)
 {
@@ -373,34 +371,14 @@ Matrix_ref<T,N-1> Matrix<T,N>::row(size_t n)
 	return {row,data()};
 }
 
+#if 0
 template<typename T>
 T& Matrix<T,1>::row(size_t i)
 {
 	return elem[i];
 }
-
-#else
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M>1),Matrix_ref<T,M-1>> Matrix<T,N>::row(size_t n)
-	{
-		assert(n<rows());
-		Matrix_slice<N-1> row;
-		Matrix_impl::slice_dim<0>(n,desc,row);
-		return {row,data()};
-	}
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M==1),T&> Matrix<T,N>::row(size_t i)
-	{
-		return elems[desc.start+i*desc.strides[0]];
-	}
-
 #endif
 
-#if 0
 
 template<typename T, size_t N>
 Matrix_ref<const T,N-1> Matrix<T,N>::row(size_t n) const
@@ -411,34 +389,14 @@ Matrix_ref<const T,N-1> Matrix<T,N>::row(size_t n) const
 	return {row,data()};
 }
 
+#if 0
 template<typename T>
 const T& Matrix<T,1>::row(size_t i) const
 {
 	return elem[i];
 }
-
-#else
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M>1),Matrix_ref<const T,M-1>>
-	Matrix<T,N>::row(size_t n) const
-{
-	assert(n<rows());
-	Matrix_slice<N-1> row;
-	Matrix_impl::slice_dim<0>(n,desc,row);
-	return {row,data()};
-}
-
-template<typename T, size_t N>
-	template<size_t M>
-	Enable_if<(M==1),const T&>
-	Matrix<T,N>::row(size_t i) const
-{
-	return elems[desc.start+i*desc.strides[0]];
-}
-
 #endif
+
 
 // Matrix::col(size_t)
 template<typename T, size_t N>
