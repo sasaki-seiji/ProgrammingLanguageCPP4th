@@ -238,6 +238,12 @@ size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 //	calculates ns.extents, ns.strides, ns.size and returns ns.start
 //	for right hand side indexes: s, args...
 
+template<size_t N>
+size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns)
+{
+	return 0;
+}
+
 template<size_t N, typename T, typename... Args>
 size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 		const T& s, const Args&... args)
@@ -247,11 +253,6 @@ size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 	return m+n;
 }
 
-template<size_t N>
-size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns)
-{
-	return 0;
-}
 
 }
 

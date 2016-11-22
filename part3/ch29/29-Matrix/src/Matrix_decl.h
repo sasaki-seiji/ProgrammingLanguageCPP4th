@@ -30,31 +30,6 @@ namespace Matrix_impl {
 	// used in Matrix_util.h
 	template<size_t N> void compute_strides(Matrix_slice<N>& ms) ;
 
-	template<size_t I, size_t N>
-	void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns);
-
-	template<size_t N, typename... Dims>
-	bool check_bounds(const Matrix_slice<N>& slice, Dims... dims);
-
-	template<typename... Args> constexpr bool Request_element();
-
-	template<typename... Args> constexpr bool Request_slice();
-
-	template<size_t I, size_t N>
-	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			size_t n) ;
-
-	template<size_t I, size_t N>
-	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			const slice& s);
-
-	template<size_t N, typename T, typename... Args>
-	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
-			const T& s, const Args&... args);
-
-	template<size_t N>
-	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
-
 }
 
 

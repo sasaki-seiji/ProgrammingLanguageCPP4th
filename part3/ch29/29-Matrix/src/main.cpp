@@ -11,7 +11,6 @@ using namespace std;
 
 int main()
 {
-#if 0
 	// test_basic_usage.cpp
 	cout << "@@@ test_basic_usage.cpp @@@" << endl;
 	test_define_matrix();
@@ -31,7 +30,6 @@ int main()
 	test_Matrix_from_different_Matrix();
 	test_Matrix_assign_different_Matrix();
 	test_Matrix_ref_assign_Matrix_initializer();
-#endif
 
 	// test_index_and_slicing.cpp
 	cout << "\n@@@ test_index_and_slicing.cpp @@@" << endl;
@@ -64,7 +62,6 @@ int main()
 	test_Matrix_ref_col2();
 	test_const_Matrix_ref_col2();
 
-#if 0
 	// test_arithmetic_calculation.cpp
 	cout << "\n@@@ test_arithmetic_calculation.cpp @@@" << endl;
 	test_arithmetic_calculation();
@@ -136,6 +133,5 @@ int main()
 	test_Matrix_initializer_2();
 	test_Matrix_initializer_3();
 	test_jagged_Matrix_initializer();
-#endif
 }
 
