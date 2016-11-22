@@ -181,7 +181,7 @@ template<typename T, size_t N>
 
 
 // 2016.11.08 add: row()
-
+//　Matrix_ref<T,N>が参照するMatrix<T,N>の行を参照する
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n)
 {
@@ -191,6 +191,8 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n)
 	return {row,ptr};
 }
 
+//　const Matrix_ref<T,N>が参照する const Matrix<T,N>の行を参照する
+//	戻り値は、Matrix_ref<const T, N-1>
 template<typename T, size_t N>
 Matrix_ref<const T,N-1> Matrix_ref<T,N>::row(size_t n) const
 {

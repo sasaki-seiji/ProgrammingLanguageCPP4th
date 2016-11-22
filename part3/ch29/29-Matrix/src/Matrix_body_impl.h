@@ -362,6 +362,7 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 	return res;
 }
 
+// Matrix<T,N>の行を参照するMatrix_ref<N-1,T>を返す
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix<T,N>::row(size_t n)
 {
@@ -377,9 +378,11 @@ T& Matrix<T,1>::row(size_t i)
 {
 	return elem[i];
 }
+//error: invalid use of incomplete type 'class Matrix<T, 1ull>'
 #endif
 
 
+// const Matrix<T,N>の行を参照するMatrix_ref<const T, N-1>を返す
 template<typename T, size_t N>
 Matrix_ref<const T,N-1> Matrix<T,N>::row(size_t n) const
 {
@@ -395,6 +398,7 @@ const T& Matrix<T,1>::row(size_t i) const
 {
 	return elem[i];
 }
+// error: invalid use of incomplete type 'class Matrix<T, 1ull>'
 #endif
 
 

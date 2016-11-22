@@ -146,11 +146,13 @@ private:
 };
 
 
+// Matrix_ref<T,N> の　N=0 の時の特殊化
+//	Matrix<T,1>::row(size_t),　Matrix_ref<T,1>::row(size_t)のリターン値となる
 template<typename T>
 class Matrix_ref<T,0>
 {
 public:
-	//static constexpr size_t order = 0;
+	static constexpr size_t order = 0;
 	using value_type = T;
 
 	Matrix_ref(const Matrix_slice<0>& s, T* p) :desc{s}, ptr{p} { }
