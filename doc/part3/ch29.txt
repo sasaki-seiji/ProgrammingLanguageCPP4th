@@ -283,3 +283,36 @@
 			Matrix& operator=(const Matrix<U,N>&);
 
 	
+【29.4.5:　Matrix_impl::check_bounds のバグ】
+
+日付：　2016.11.06、2016.11.22
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	Matrix_impl::check_boundsには以下の問題がある
+	
+	①可変長引数のサイズチェックが抜けている
+	②std::equalは組み込み配列型に対して適用できない(エラーが出る)
+
+	以下のように修正
+
+		template<size_t N, typename... Dims>
+		bool check_bounds(const Matrix_slice<N>& slice, Dims... dims)
+		{
+			// 2016.11.05 add
+			static_assert(sizeof...(Dims)==N, "check_bounds(): dimension mismatch");
+
+			size_t indexes[N] {size_t(dims)...};
+		#if 0	// 2016.11.06 change
+			return std::equal(indexes. indexes+N, slice.extents.begin(), std::less<size_t>{});
+				// error: request for member 'indexes' in 'indexes', which is of non-class type 'std::size_t [2] {aka long long unsigned int [2]}'
+		#else
+			for (size_t i = 0; i < N; ++i)
+				if (indexes[i] >= slice.extents[i]){
+					std::cerr << "Matrix_impl::check_bounds : out of range - indexes[" << i << "]=" << indexes[i] << std::endl << std::flush;
+					return false;
+				}
+			return true;
+		#endif
+		}
+
