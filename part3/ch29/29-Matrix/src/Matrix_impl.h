@@ -143,7 +143,7 @@ void copy_flat(const T& v, Iter& it)
 template<size_t I, size_t N>
 void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 {
-	int i = N-1, j = N-2;
+	int i = (int)N-1, j = (int)N-2;
 	while (i>=0) {
 		if (i==I) {
 			ns.start = os.start + n*os.strides[i];
@@ -159,6 +159,8 @@ void slice_dim(size_t n, const Matrix_slice<N>& os, Matrix_slice<N-1>& ns)
 	}
 }
 
+// check index for fortran style access
+//	: any index must be less than extents[i]
 template<size_t N, typename... Dims>
 bool check_bounds(const Matrix_slice<N>& slice, Dims... dims)
 {
@@ -192,6 +194,10 @@ constexpr bool Request_slice()
 			&& Some(Same<Args,slice>()...);
 }
 
+// do_slice_dim(size_t):
+//	calculate ns.extents[N-I], ns.strides[N-I]
+//	and returns offset from (0.. 0 0..) to (0.. n 0..)
+
 template<size_t I, size_t N>
 size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 		size_t n)
@@ -202,26 +208,35 @@ size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 	return n*os.strides[i];
 }
 
+// do_slice_dim(slice):
+//	calculate ns.extents[N-I] and ns.strides[N-I],
+//	and multiply ns.size by slice.length,
+//	and returns offset from (0.. 0 0..) to (0.. slice.start 0..)
+
 template<size_t I, size_t N>
 size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
 		const slice& s)
 {
 	int i = N-I;
-	int start, length;
+	size_t start, length;
 
 	ns.strides[i] = os.strides[i];
 
 	start = s.start;
-	if (start == -1) start = 0;
+	if (start == (size_t)-1) start = 0;
 
 	length = s.length;
-	if (length == -1) length = os.extents[i] - start;
+	if (length == (size_t)-1 || start + length > os.extents[i]) length = os.extents[i] - start;
 
 	ns.extents[i] = length;
 	ns.size *= ns.extents[i];
 
 	return start*os.strides[i];
 }
+
+// do_slice:
+//	calculates ns.extents, ns.strides, ns.size and returns ns.start
+//	for right hand side indexes: s, args...
 
 template<size_t N, typename T, typename... Args>
 size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,

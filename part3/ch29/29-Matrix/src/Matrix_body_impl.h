@@ -418,6 +418,7 @@ Matrix_ref<const T,N-1> Matrix<T,N>::col(size_t n) const
 	return {col,data()};
 }
 
+// fortran style index access: enabled when size_t indexes access only
 template<typename T, size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_element<Args...>(), T&>
@@ -427,6 +428,8 @@ template<typename T, size_t N>
 		return *(data() + desc(args...));
 	}
 
+// fortran style index access for const Matrix: returns const T
+//	: enabled when size_t indexes access only
 template<typename T, size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_element<Args...>(), const T&>
@@ -436,17 +439,23 @@ template<typename T, size_t N>
 		return *(data() + desc(args...));
 	}
 
+// slice index access for non-const Matrix<T,N>
+//	returns Matrix_ref<T,N>
+//	: enabled when having size_t or slice index and having at least one slice index
 template<typename T,size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<T,N>>
 	Matrix<T,N>::operator()(const Args&... args)
 	{
 		Matrix_slice<N> d;
-		d.size = 1; // 2016.11.13 add
+		d.size = 1; // 2016.11.13 add: do_slice multiplies d.size by each ns.extents[i]
 		d.start = Matrix_impl::do_slice(desc,d,args...);
 		return {d,data()};
 	}
 
+// slice index access for const Matrix<N,T>
+//	returns Matrix_ref<const T,N>
+//	: enabled when having size_t or slice index and having at least one slice index
 template<typename T, size_t N>
 	template<typename... Args>
 	Enable_if<Matrix_impl::Request_slice<Args...>(), Matrix_ref<const T,N>>
@@ -455,7 +464,7 @@ template<typename T, size_t N>
 		Matrix_slice<N> d;
 		d.size = 1; // 2016.11.13 add
 		d.start = Matrix_impl::do_slice(desc,d,args...);
-		return {d,data()};
+		return {d,data()};	// type of data() is 'const T*'
 	}
 
 

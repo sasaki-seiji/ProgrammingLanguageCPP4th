@@ -17,6 +17,7 @@ void test_Matrix_fortran_index()
 		{01,02,03},
 		{11,12,13}
 	};
+	cout << "m: " << m << endl;
 
 	m(1,2) = 99;
 	//auto d1 = m(1);
@@ -102,11 +103,14 @@ void test_Matrix_slice_and_int_index()
 	cout << "m3: " << m3 << endl;
 
 	auto m31 = m3(slice{1,2},1);
-	auto m32 = m3(slice{1,2},0);
-	auto x = m3(1,2);
-
+	cout << "m31.desc: " << m31.descriptor() << endl;
 	cout << "m31: " << m31 << endl;
+
+	auto m32 = m3(slice{1,2},0);
+	cout << "m32.desc: " << m32.descriptor() << endl;
 	cout << "m32: " << m32 << endl;
+
+	auto x = m3(1,2);
 	cout << "x: " << x << endl;
 }
 
@@ -300,6 +304,7 @@ void test_Matrix_ref_fortran_index()
 
 	Matrix_ref<int,2> mr = m(slice(1,2),slice(0,3));
 	cout << "mr: " << mr << endl;
+	cout << "mr(1,2): " << mr(1,2) << endl;
 
 	mr(1,2) = 99;
 	cout << "mr: " << mr << endl;
@@ -319,6 +324,7 @@ void test_const_Matrix_ref_fortran_index()
 
 	Matrix_ref<const int,2> mr = m(slice(1,2),slice(0,3));
 	cout << "mr: " << mr << endl;
+	cout << "mr(1,2): " << mr(1,2) << endl;
 
 #if 0
 	mr(1,2) = 99;
@@ -557,8 +563,7 @@ void test_Matrix_ref_row1()
 	Matrix_ref<int,1> mr = m[1];
 	cout << "mr: " << mr << endl;
 
-	//auto& r1 = mr.row(1);
-	int& r1 = mr.row(1);
+	auto r1 = mr.row(1);
 	cout << "r1: " << r1 << endl;
 
 	r1 = 100;
@@ -579,8 +584,7 @@ void test_const_Matrix_ref_row1()
 	Matrix_ref<const int,1> mr = m[1];
 	cout << "mr: " << mr << endl;
 
-	//auto& r1 = mr.row(1);
-	const int& r1 = mr.row(1);
+	auto r1 = mr.row(1);
 	cout << "r1: " << r1 << endl;
 
 #if 0
