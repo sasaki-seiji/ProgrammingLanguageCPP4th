@@ -7,6 +7,7 @@
 
 
 #include "Matrix.h"
+#include "Matrix_multiply.h"
 #include <iostream>
 using namespace std;
 
