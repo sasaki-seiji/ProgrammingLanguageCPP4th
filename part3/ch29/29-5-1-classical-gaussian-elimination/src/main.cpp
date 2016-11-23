@@ -41,7 +41,7 @@ void solve_system(const Mat2d& A, const Vec& b)
 
 	try {
 		Vec x = classical_gaussian_elimination(A,b);
-		cout << "classical elim solutino is x = " << x << '\n';
+		cout << "classical elim solution is x = " << x << '\n';
 		Vec v = A * x;
 		cout << "A * x = " << v << '\n';
 	}
