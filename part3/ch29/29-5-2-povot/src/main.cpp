@@ -60,8 +60,10 @@ void solve_random_system(size_t n)
 
 int main()
 {
-	cout << "--- random test ---\n";
-	solve_random_system(3);
+	for (int i = 0; i < 3; ++i) {
+		cout << "--- random test ---\n";
+		solve_random_system(3);
+	}
 
 	cout << "--- zero diagonal ---\n";
 	Mat2d A = {
