@@ -179,3 +179,23 @@ void test_Matrix_ref_assign_Matrix_initializer()
 	cout << "mr: " << mr << endl;
 }
 
+void test_Matrix_ref_assign_Matrix()
+{
+	cout << "--- test_Matrix_ref_assign_Matrix() --\n";
+
+	Matrix<double,2> m = {
+			{1.1, 2.2, 3.3},
+			{4.4, 5.5, 6.6},
+			{7.7, 8.8, 9.9}
+	};
+	cout << "m: " << m << endl;
+
+	Matrix_ref<double,2> mr = m(slice(1),slice(0));
+	cout << "mr: " << mr << endl;
+
+	Matrix<int,2> ms = { {4,5,6},{7,8,9} };
+	mr = ms;
+	cout << "m: " << m << endl;
+	cout << "mr: " << mr << endl;
+}
+
