@@ -56,7 +56,7 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 
 
 // dot_product: inner_product of 2 Matrix_ref<1>
-#if 0
+#if 0	// 2016.11.23 : adapt mixed type product
 template<typename T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 {
