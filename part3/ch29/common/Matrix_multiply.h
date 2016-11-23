@@ -56,11 +56,19 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 
 
 // dot_product: inner_product of 2 Matrix_ref<1>
+#if 0
 template<typename T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 {
 	return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
 }
+#else
+template<typename T1, typename T2, typename RT=Common_type<T1,T2>>
+RT dot_product(const Matrix_ref<T1,1>& a, const Matrix_ref<T2,1>& b)
+{
+	return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
+}
+#endif
 
 // Matrix<2> * Matrix<2> -> Matrix<2>
 template<typename T>

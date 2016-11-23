@@ -120,6 +120,19 @@ Matrix_ref_const_iterator<T,N>::Matrix_ref_const_iterator(const Matrix_ref<T,N>*
 	for (auto& x : cur) x = 0;
 }
 
+// 2016.11.23 add: assign Matrix
+
+template<typename T, size_t N>
+	template<typename U>
+	Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(const Matrix<U,N>& m)
+{
+	static_assert(Convertible<U,T>(), "Matrix_ref =: incompatible element types");
+	assert(desc.extents==m.descriptor().extents);
+
+	std::copy(m.begin(), m.end(), begin());
+	return *this;
+}
+
 
 //2016.11.10 add: assign Matrix_initializer
 

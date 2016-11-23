@@ -109,6 +109,10 @@ void test_Matrix_ref_sub_Matrix_ref();
 void test_Matrix_1_mul_Matrix_1();
 void test_Matrix_2_mul_Matrix_1();
 void test_Matrix_2_mul_Matrix_2();
+void test_dot_product_nonconst_nonconst();
+void test_dot_product_const_const();
+void test_dot_product_const_nonconst();
+void test_dot_product_nonconst_const();
 
 // test_matrix_slice.cpp
 void test_default_Matrix_slice();

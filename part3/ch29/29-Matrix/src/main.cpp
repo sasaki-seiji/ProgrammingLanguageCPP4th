@@ -115,11 +115,17 @@ int main()
 	test_Matrix_ref_sub_Matrix_ref();
 
 	// test_matrix_multiplication.cpp
+	cout << "\n@@@ test_matrix_multiplication.cpp @@@" << endl;
 	test_Matrix_1_mul_Matrix_1();
 	test_Matrix_2_mul_Matrix_1();
 	test_Matrix_2_mul_Matrix_2();
+	test_dot_product_nonconst_nonconst();
+	test_dot_product_const_const();
+	test_dot_product_const_nonconst();
+	test_dot_product_nonconst_const();
 
 	// test_matrix_slice.cpp
+	cout << "\n@@@ test_matrix_slice.cpp @@@" << endl;
 	test_default_Matrix_slice();
 	test_Matrix_slice_from_offset_extents();
 	test_Matrix_slice_from_offset_extents_strides();
