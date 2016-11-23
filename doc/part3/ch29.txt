@@ -376,3 +376,53 @@
 		#endif
 		}
 
+
+【29.5.1:　ガウスの消去法：dot_productの引数のミスマッチ】
+
+日付：　2016.11.23
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	Matrixの乗算の内部で使用している、テンプレート関数dot_product()を
+	ガウスの消去法のback_substitutionの内部で利用しているが、引数型の
+	ミスマッチが発生する。
+	
+		Vec back_substitution(const Mat2d& A, const Vec& b)
+		{
+			const size_t n = A.rows();
+			Vec x(n);
+	
+			for (size_t i = n-1; i>= 0; --i) { // ?
+				double s = b(i) - dot_product(A[i](slice(i+1)),x(slice(i+1)));
+				if (double m = A(i,i))
+					x = s/m;
+				else
+					throw Back_subst_failure(i);
+			}
+			return x;
+		}
+
+		↓
+error: no matching function for call to 'dot_product(Estd::Enable_if<true, Matrix_ref<const double, 1ull> >, Estd::Enable_if<true, Matrix_ref<double, 1ull> >)'
+
+	dot_productの定義は、
+	
+		template<typename T>
+		T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
+		{
+			return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
+		}
+
+	であるが、上記の利用では、引数が、Matrix_ref<const double,1>, 
+	Matrix_ref<double,1> となり、テンプレート関数にマッチしない
+	
+	以下のように、dot_productを混合演算（constと非constの混合を含む）に
+	対応することで対策
+	
+		template<typename T1, typename T2, typename RT=Common_type<T1,T2>>
+		RT dot_product(const Matrix_ref<T1,1>& a, const Matrix_ref<T2,1>& b)
+		{
+			return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
+		}
+
+	
