@@ -425,4 +425,20 @@ error: no matching function for call to 'dot_product(Estd::Enable_if<true, Matri
 			return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
 		}
 
+
+【29.5.4:　MVmulVadd::operator Vec() と Vec::Vec(const MVmulVadd&)がバッティング】
+
+日付：　2016.11.23
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	VecをMVmulVaddで初期化する際に、MVmulVadd::operator Vec() と 
+	Vec::Vec(const MVmulVadd&)がバッティングし、コンパイルエラーが発生する
+	
+		Vec U = M*V+W;
+			↓
+C:\books\ProgrammingLanguageCPP4th\part3\ch29\29-5-4-composite-operation\Debug/../src/main.cpp:23: undefined reference to `MVmulVadd::operator Matrix<double, 1ull>()'
+
+	MVmulVadd::operator Vec() を削除することで解決
+	
 	
