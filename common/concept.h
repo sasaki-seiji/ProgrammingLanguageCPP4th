@@ -23,6 +23,10 @@ using Enable_if = typename std::enable_if<B,X>::type;
 template<typename... ARGS>
 using Common_type = typename std::common_type<ARGS...>::type;
 
+// 2016.11.27 add: 32.2.1. sequence
+template<typename X>
+using Iterator = typename X::iterator;
+
 // primary type predicate
 
 template<typename X>
@@ -997,6 +1001,15 @@ constexpr bool Range()
 			&& Has_end_member<X>() && Input_iterator<End_member_result<X>>())
 		|| (Has_begin_function<X>() && Input_iterator<Begin_function_result<X>>()
 			&& Has_end_function<X>() && Input_iterator<End_function_result<X>>());
+}
+
+// Sortable<Iter>()
+//	2016.11.27 add: 32.2.1. sequence
+
+template<typename Iter>
+constexpr bool Sortable()
+{
+	return Random_access_iterator<Iter>();
 }
 
 }
