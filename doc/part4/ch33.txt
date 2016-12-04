@@ -1,0 +1,42 @@
+【33.5.1:　bind呼び出しで、すべての引数を指定する】
+
+日付：　2016.12.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	bind呼び出しで、指定した関数が必要とするすべての引数を指定する必要がある
+	テキストの
+	
+		void f(int,const string&);
+		bind(f)(2,"hello");
+		
+	では以下のコンパイルエラーが出力される
+		
+		error: static assertion failed: Wrong number of arguments for function
+
+【33.5.1:　bind呼び出しで参照引数を指定する例が不適切】
+
+日付：　2016.12.04
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	参照引数をとる関数をbindする例が
+	
+		int i = 1;
+		incr(i);
+		auto inc = bind(incr, _1);
+		inc(i);
+
+	では、inc(i)には、iの参照が渡され、正しく、3にインクリメントされる
+	例題の意味としては、
+	
+		int i = 1;
+		auto inc = bind(incr, i);
+		inc();	// i はインクリメントされない
+
+	と、
+		int i = 1;
+		auto inc = bind(incr, ref(i));
+		inc();	// i はインクリメントされる
+
+	を比べるべき
