@@ -13,12 +13,12 @@
 using namespace std;
 
 struct Asteroid {
-	static constexpr double RADIUS = 10;
+	static constexpr double RADIUS = 5;
 	static constexpr int TICK_COUNT = 1000;
 	static constexpr double time_delta = 1;
 	static constexpr int INIT_AREA = 1000;
-	static constexpr int INIT_SPEED = 5;
-	static constexpr double GRAVITY = 100;
+	static constexpr int INIT_SPEED = 3;
+	static constexpr double GRAVITY = 500;
 
 	int	id;
 	double x, y;
@@ -110,7 +110,7 @@ void check_collision(vec_Asteroid& va, size_t i)
 
 	if (auto neighbor = sp->neighbor.lock()) {
 		double sdist = calc_sdist(sp, neighbor);
-		if (sdist <= Asteroid::RADIUS*Asteroid::RADIUS) {
+		if (sdist <= 4 * Asteroid::RADIUS * Asteroid::RADIUS) {
 			collision(va, sp, neighbor);
 		}
 	}
@@ -140,6 +140,8 @@ void owner()
 			check_collision(va, i);
 		}
 	}
+
+	cout << "-- last count: " << Asteroid::count << endl;
 }
 
 int main()
