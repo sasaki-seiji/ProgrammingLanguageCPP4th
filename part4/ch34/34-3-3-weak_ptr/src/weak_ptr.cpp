@@ -29,6 +29,8 @@ struct Asteroid {
 
 	Asteroid(int iden, double init_x, double init_y, double init_vx, double init_vy)
 		: id{iden}, x{init_x}, y{init_y}, vx{init_vx}, vy{init_vy} { ++count; }
+
+	~Asteroid() { cout << "destoyed#" << id << endl; }
 };
 
 int Asteroid::count = 0;
