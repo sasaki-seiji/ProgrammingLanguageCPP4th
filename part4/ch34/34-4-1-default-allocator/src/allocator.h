@@ -9,6 +9,7 @@
 #define ALLOCATOR_H_
 
 #include <cstdlib>
+#include <utility>
 
 template<typename T>
 struct Simple_alloc {
@@ -72,7 +73,8 @@ struct My_alloc {
 		{ a.release(p, n*sizeof(T)); }
 
 	template<typename U, typename... Args>
-		void construct(U* p, Args&&... args) { new(p) T{args...}; }
+		void construct(U* p, Args&&... args)
+			{ new(p) T{std::forward<Args>(args)...}; }
 	template<typename U>
 		void destroy(U* p) { p->~U(); }
 };
