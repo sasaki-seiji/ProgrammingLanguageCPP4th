@@ -1,12 +1,17 @@
 【34.4.4:　scoped_allocator_adaptorに適用するためのアロケータの要件】
 
-日付：　2016.12.11
+日付：　2016.12.11、2016.12.12
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+参考：
+	Allocatorの要件については、
+		http://en.cppreference.com/w/cpp/concept/Allocator
+	を参照
+
 コメント：
 
 	scoped_alloctor_adaptorの内部・外部アロケータに適用するためには以下が必要
 	①デフォルトコンストラクタを実装する
-	②自身の型のインスタンスとの==比較ができる
+	②==により比較ができる
 	③consturctメンバ関数で完全転送を使用しない
 	（コンパイラが無限ループに入る模様）
 
