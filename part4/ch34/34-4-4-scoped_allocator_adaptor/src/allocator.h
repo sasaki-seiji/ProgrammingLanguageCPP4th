@@ -88,8 +88,12 @@ struct My_alloc {
 	template<typename U>
 		void destroy(U* p) { p->~U(); }
 
-	// 2016.12.11 add for scoped_allocator_adaptor
-	bool operator==(const My_alloc<T>& other) const { return pa == other.pa; }
+	// 2016.12.11, 2016.12.12 add for scoped_allocator_adaptor
+	// see   http://en.cppreference.com/w/cpp/concept/Allocator
+	template<typename U>
+		bool operator==(const My_alloc<U>& other) const { return pa == other.pa; }
+	template<typename U>
+		bool operator!=(const My_alloc<U>& other) const { return pa != other.pa; }
 };
 
 
