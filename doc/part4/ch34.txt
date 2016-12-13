@@ -10,13 +10,14 @@
 コメント：
 
 	scoped_alloctor_adaptorの内部・外部アロケータに適用するためには以下が必要
-	①デフォルトコンストラクタを実装する
-	②==により比較ができる
-	③consturctメンバ関数で完全転送を使用しない
+	Tに対するアロケータ型をA、そのインスタンスをa、Uに対するアロケータ型をB、
+	そのインスタンスをbとする
+	①統合演算子==を定義する。
+	　a1==a2は、a1に割り当てたメモリがa2によって解放できることを意味する
+	②コンストラクタ、A a(b) を定義する。このとき、A(b)==a、B(a)==b　が成り立つ
+	③consturctメンバ関数で完全転送を使用しない（scoped_allocator_adaptor固有）
 	（コンパイラが無限ループに入る模様）
-
-	My_allocクラスでは、①のために、Areanを参照でなくポインタとして
-	保持するように変更
+	④デフォルトコンストラクタを実装する（scoped_allocator_adaptor固有）
 
 	template<typename T>
 	struct My_alloc {
@@ -34,14 +35,14 @@
 		// 2016.12.11 add: My_alloc<List> instance -> My_alloc<Link> instance
 		template<typename U>
 			My_alloc(const My_alloc<U>& alloc) : pa{alloc.pa} { }
-	
+
 		T* allocate(size_t n)
 			{ return reinterpret_cast<T*>(pa->get(n*sizeof(T))); }
 		void deallocate(T* p, size_t n)
 			{ pa->release(p, n*sizeof(T)); }
 
 		template<typename U, typename... Args>
-			// 2016.12.11 change: compiler into infinite recursion
+		// 2016.12.11 change: compiler into infinite recursion
 	#if 0
 			void construct(U* p, Args&&... args)
 				{ new(p) T{std::forward<Args>(args)...}; }
@@ -53,7 +54,11 @@
 		template<typename U>
 			void destroy(U* p) { p->~U(); }
 
-		// 2016.12.11 add for scoped_allocator_adaptor
-		bool operator==(const My_alloc<T>& other) const { return pa == other.pa; }
+		// 2016.12.11, 2016.12.12 add for scoped_allocator_adaptor
+		// see   http://en.cppreference.com/w/cpp/concept/Allocator
+		template<typename U>
+			bool operator==(const My_alloc<U>& other) const { return pa == other.pa; }
+		template<typename U>
+			bool operator!=(const My_alloc<U>& other) const { return pa != other.pa; }
 	};
 
