@@ -29,6 +29,20 @@ using Iterator = typename X::iterator;
 
 // primary type predicate
 
+// 2016.12.14
+template<typename X>
+constexpr bool Is_floating_point()
+{
+	return std::is_floating_point<X>::value;
+}
+
+// 2016.12.14
+template<typename X>
+constexpr bool Is_array()
+{
+	return std::is_array<X>::value;
+}
+
 template<typename X>
 constexpr bool Is_class()
 {
@@ -36,6 +50,20 @@ constexpr bool Is_class()
 }
 
 // type property predicate
+
+// 2016.12.14
+template<typename X>
+constexpr bool Trivially_copyable()
+{
+	return std::is_trivially_copyable<X>::value;
+}
+
+// 2016.12.14
+template<typename X>
+constexpr bool Trivially_destructible()
+{
+	return std::is_trivially_destructible<X>::value;
+}
 
 template<typename X>
 constexpr bool Destructible()
@@ -79,6 +107,16 @@ constexpr bool Assignable()
 	return std::is_assignable<X,Y>::value;
 }
 
+// type property confirm
+
+// 2016.12.14
+
+template<typename X, size_t N>
+constexpr size_t Extent()
+{
+	return std::extent<X,N>::value;
+}
+
 // type relation
 
 template<typename X, typename Y>
@@ -94,11 +132,21 @@ constexpr bool Same()
 	return std::is_same<X,Y>::value;
 }
 
+// 2016.12.14
+template<typename X, typename Y>
+constexpr bool Base_of()
+{
+	return std::is_base_of<X,Y>::value;
+}
 
 // type generator
 
 template<typename X>
 using Add_lvalue_reference = typename std::add_lvalue_reference<X>::type;
+
+// 2016.12.14
+template<typename X>
+using Remove_pointer = typename std::remove_pointer<X>::type;
 
 
 // iterator traits
