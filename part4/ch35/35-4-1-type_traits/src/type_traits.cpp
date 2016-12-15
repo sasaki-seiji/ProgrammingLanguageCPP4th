@@ -16,6 +16,8 @@ using namespace std;
 #include "concept.h"
 using namespace Estd;
 
+// is_floating_point
+
 template<typename T>
 void f(T& a)
 {
@@ -30,6 +32,8 @@ void f2(T& a)
 	cout << "T is floating point" << endl;
 }
 
+// is_copy_constructible, is_trivially_copyable
+
 template<typename T>
 class Cont {
 	T* elem;
@@ -42,8 +46,8 @@ public:
 
 	Cont(const Cont& a) :elem{new T[a.sz]}, sz{a.sz}
 	{
-		static_assert(Copy_constructible<T>(), "Cont::Cont(): no copy");
-		if (Trivially_copyable<T>())
+		static_assert(Is_copy_constructible<T>(), "Cont::Cont(): no copy");
+		if (Is_trivially_copyable<T>())
 			memcpy(elem, a.elem, sz*sizeof(T));
 		else
 			uninitialized_copy(a.begin(), a.end(), elem);
@@ -57,13 +61,17 @@ public:
 	const T* end() const { return &elem[sz]; }
 };
 
+// is_trivially_destructible
+
 template<typename T>
 Cont<T>::~Cont()
 {
-	if (!Trivially_destructible<T>())
+	if (!Is_trivially_destructible<T>())
 		for (T* p = elem; p != elem+sz; ++p)
 			p->~T();
 }
+
+// do not check access control
 
 class X {
 public:
@@ -85,14 +93,18 @@ void outside()
 	cout << "outside ~: " << is_destructible<X>::value << '\n';
 }
 
+// extent
+
 template<typename T>
-void g(T a)
+void f3(T a)
 {
-	static_assert(Is_array<T>(), "g(): not an array");
+	static_assert(Is_array<T>(), "f3(): not an array");
 	constexpr int dn {Extent<T,2>()};
 
 	cout << "dn: " << dn << endl;
 }
+
+// is_same, is_base_of
 
 struct Shape {
 	virtual void draw() { };
@@ -105,7 +117,7 @@ struct Circle : public Shape {
 template<typename T>
 void draw(T t)
 {
-	static_assert(Same<Shape*,T>() || Base_of<Shape,Remove_pointer<T>>(), "");
+	static_assert(Is_same<Shape*,T>() || Is_base_of<Shape,Remove_pointer<T>>(), "");
 	t->draw();
 }
 
@@ -113,34 +125,43 @@ void draw(T t)
 
 int main()
 {
+	cout << "-- is_floating_point --\n";
 	double d;
 	f(d);
 	f2(d);
 
-	cout << "Copy_constructible<complex<double>>() ? "
-			<< Copy_constructible<complex<double>>() << endl;
-	cout << "Trivially_copyable<complex<double>>() ? "
-			<< Trivially_copyable<complex<double>>() << endl;
-	cout << "Trivially_destructible<complex<double>>() ? "
-			<< Trivially_destructible<complex<double>>() << endl;
+	cout << "-- is_copy_constructible, is_trivially_copyable, is_trivially_destructible --\n";
+
+	cout << "Is_copy_constructible<complex<double>>() ? "
+			<< Is_copy_constructible<complex<double>>() << endl;
+	cout << "Is_trivially_copyable<complex<double>>() ? "
+			<< Is_trivially_copyable<complex<double>>() << endl;
+	cout << "Is_trivially_destructible<complex<double>>() ? "
+			<< Is_trivially_destructible<complex<double>>() << endl;
 	Cont<complex<double>> cd1(100);
 	Cont<complex<double>> cd2{cd1};
 
-	cout << "Copy_constructible<string>() ? "
-			<< Copy_constructible<string>() << endl;
-	cout << "Trivially_copyable<string>() ? "
-			<< Trivially_copyable<string>() << endl;
-	cout << "Trivially_destructible<string>() ? "
-			<< Trivially_destructible<string>() << endl;
+	cout << "Is_copy_constructible<string>() ? "
+			<< Is_copy_constructible<string>() << endl;
+	cout << "Is_trivially_copyable<string>() ? "
+			<< Is_trivially_copyable<string>() << endl;
+	cout << "Is_trivially_destructible<string>() ? "
+			<< Is_trivially_destructible<string>() << endl;
 	Cont<string> cs1(100);
 	Cont<string> cs2{cs1};
+
+	cout << "-- type check and access constrol --\n";
 
 	X::inside();
 	outside();
 
+	cout << "-- extent --\n";
+
 	int arr[3][4][5];
-	//g(arr);
-	g<int[3][4][5]>(arr);
+	//f3(arr);
+	f3<int[3][4][5]>(arr);
+
+	cout << "-- is_same, is_base_of --\n";
 
 	Circle circle;
 	draw(&circle);

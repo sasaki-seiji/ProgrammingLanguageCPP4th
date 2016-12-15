@@ -51,58 +51,58 @@ constexpr bool Is_class()
 
 // type property predicate
 
-// 2016.12.14
+// 2016.12.14, 2016.12.15
 template<typename X>
-constexpr bool Trivially_copyable()
+constexpr bool Is_trivially_copyable()
 {
 	return std::is_trivially_copyable<X>::value;
 }
 
 // 2016.12.14
 template<typename X>
-constexpr bool Trivially_destructible()
+constexpr bool Is_trivially_destructible()
 {
 	return std::is_trivially_destructible<X>::value;
 }
 
 template<typename X>
-constexpr bool Destructible()
+constexpr bool Is_destructible()
 {
 	return std::is_destructible<X>::value;
 }
 
 template<typename X>
-constexpr bool Default_constructible()
+constexpr bool Is_default_constructible()
 {
 	return std::is_default_constructible<X>::value;
 }
 
 template<typename X>
-constexpr bool Move_constructible()
+constexpr bool Is_move_constructible()
 {
 	return std::is_move_constructible<X>::value;
 }
 
 template<typename X>
-constexpr bool Move_assignable()
+constexpr bool Is_move_assignable()
 {
 	return std::is_move_assignable<X>::value;
 }
 
 template<typename X>
-constexpr bool Copy_constructible()
+constexpr bool Is_copy_constructible()
 {
 	return std::is_copy_constructible<X>::value;
 }
 
 template<typename X>
-constexpr bool Copy_assignable()
+constexpr bool Is_copy_assignable()
 {
 	return std::is_copy_assignable<X>::value;
 }
 
 template<typename X, typename Y>
-constexpr bool Assignable()
+constexpr bool Is_assignable()
 {
 	return std::is_assignable<X,Y>::value;
 }
@@ -120,21 +120,21 @@ constexpr size_t Extent()
 // type relation
 
 template<typename X, typename Y>
-constexpr bool Convertible()
+constexpr bool Is_convertible()
 {
 	return std::is_convertible<X,Y>::value;
 }
 
 // 2016.11.05 add
 template<typename X, typename Y>
-constexpr bool Same()
+constexpr bool Is_same()
 {
 	return std::is_same<X,Y>::value;
 }
 
 // 2016.12.14
 template<typename X, typename Y>
-constexpr bool Base_of()
+constexpr bool Is_base_of()
 {
 	return std::is_base_of<X,Y>::value;
 }
@@ -847,8 +847,8 @@ template<typename X, typename Y>
 constexpr bool Common()
 {
 	return Has_common_type<X,Y>()
-		&& Convertible<X,Common_type_result<X,Y>>()
-		&& Convertible<Y,Common_type_result<X,Y>>();
+		&& Is_convertible<X,Common_type_result<X,Y>>()
+		&& Is_convertible<Y,Common_type_result<X,Y>>();
 }
 
 // Equality_comparable<>()
@@ -867,12 +867,12 @@ constexpr bool Equality_comparable()
 template<typename X>
 constexpr bool Semiregular()
 {
-	return Destructible<X>()
-		&& Default_constructible<X>()
-		&& Move_constructible<X>()
-		&& Move_assignable<X>()
-		&& Copy_constructible<X>()
-		&& Copy_assignable<X>();
+	return Is_destructible<X>()
+		&& Is_default_constructible<X>()
+		&& Is_move_constructible<X>()
+		&& Is_move_assignable<X>()
+		&& Is_copy_constructible<X>()
+		&& Is_copy_assignable<X>();
 }
 
 // Regular<>()
@@ -931,9 +931,9 @@ constexpr bool Predicate()
 template<typename X>
 constexpr bool Movable()
 {
-	return Destructible<X>()
-		&& Move_constructible<X>()
-		&& Move_assignable<X>()
+	return Is_destructible<X>()
+		&& Is_move_constructible<X>()
+		&& Is_move_assignable<X>()
 		&& Has_address<X>();
 }
 
@@ -943,8 +943,8 @@ template<typename X>
 constexpr bool Copyable()
 {
 	return Movable<X>()
-		&& Copy_constructible<X>()
-		&& Copy_assignable<X>();
+		&& Is_copy_constructible<X>()
+		&& Is_copy_assignable<X>();
 }
 
 // iterator
@@ -956,7 +956,7 @@ constexpr bool Common_iterator()
 {
 	return Has_iterator_value_type<Iter>()
 		&& Has_iterator_category<Iter>()
-		&& Copy_constructible<Iter>() && Copy_assignable<Iter>()
+		&& Is_copy_constructible<Iter>() && Is_copy_assignable<Iter>()
 		&& Has_dereference<Iter>()
 		&& Has_pre_increment<Iter>();
 }
@@ -967,9 +967,9 @@ template<typename Iter>
 constexpr bool Input_iterator()
 {
 	return Common_iterator<Iter>()
-		&& Convertible<Iterator_category_result<Iter>, std::input_iterator_tag>()
+		&& Is_convertible<Iterator_category_result<Iter>, std::input_iterator_tag>()
 		&& Has_equal<Iter>() && Has_not_equal<Iter>()
-		&& Convertible<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
+		&& Is_convertible<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Output_iterator<Iter>()
@@ -979,8 +979,8 @@ template<typename Iter, typename Val>
 constexpr bool Output_iterator()
 {
 	return Common_iterator<Iter>()
-		&& Convertible<Iterator_category_result<Iter>, std::output_iterator_tag>()
-		&& Assignable<Dereference_result<Iter>,Val>();
+		&& Is_convertible<Iterator_category_result<Iter>, std::output_iterator_tag>()
+		&& Is_assignable<Dereference_result<Iter>,Val>();
 }
 
 // Forward_iterator<Iter>()
@@ -990,14 +990,14 @@ constexpr bool Forward_const_iterator()
 {
 	return Input_iterator<Iter>()
 		&& (!Is_class<Iterator_value_type_result<Iter>>() || Has_arrow<Iter>())
-		&& Convertible<Iterator_category_result<Iter>, std::forward_iterator_tag>();
+		&& Is_convertible<Iterator_category_result<Iter>, std::forward_iterator_tag>();
 }
 
 template<typename Iter>
 constexpr bool Forward_iterator()
 {
 	return Forward_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
+		&& Is_assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Bidirectional_iterator<Iter>()
@@ -1006,7 +1006,7 @@ template<typename Iter>
 constexpr bool Bidirectional_const_iterator()
 {
 	return Forward_const_iterator<Iter>()
-		&& Convertible<Iterator_category_result<Iter>, std::bidirectional_iterator_tag>()
+		&& Is_convertible<Iterator_category_result<Iter>, std::bidirectional_iterator_tag>()
 		&& Has_pre_decrement<Iter>();
 }
 
@@ -1014,7 +1014,7 @@ template<typename Iter>
 constexpr bool Bidirectional_iterator()
 {
 	return Bidirectional_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
+		&& Is_assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 // Random_access_iterator<Iter>()
@@ -1023,7 +1023,7 @@ template<typename Iter>
 constexpr bool Random_access_const_iterator()
 {
 	return Bidirectional_const_iterator<Iter>()
-		&& Convertible<Iterator_category_result<Iter>, std::bidirectional_iterator_tag>()
+		&& Is_convertible<Iterator_category_result<Iter>, std::bidirectional_iterator_tag>()
 		&& Has_index<Iter,int>()
 		&& Has_plus_assign<Iter,int>() && Has_minus_assign<Iter,int>()
 		&& Has_plus<Iter,int>() && Has_minus<Iter,int>()
@@ -1035,8 +1035,8 @@ template<typename Iter>
 constexpr bool Random_access_iterator()
 {
 	return Random_access_const_iterator<Iter>()
-		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>()
-		&& Assignable<Index_result<Iter,int>,Iterator_value_type_result<Iter>>();
+		&& Is_assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>()
+		&& Is_assignable<Index_result<Iter,int>,Iterator_value_type_result<Iter>>();
 }
 
 
