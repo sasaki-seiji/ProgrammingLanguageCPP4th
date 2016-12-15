@@ -307,13 +307,13 @@ void test_ordered()
 
 void test_assignable()
 {
-	cout << "--- test for Assignable ---\n";
-	cout << "Assignable<int&,int>(): "
-			<< Assignable<int&,int>() << '\n';
-	cout << "Assignable<int,int>(): "
-			<< Assignable<int,int>() << '\n';
-	cout << "Assignable<Base*&,Derived*>(): "
-			<< Assignable<Base*&,Derived*>() << '\n';
+	cout << "--- test for Is_assignable ---\n";
+	cout << "Is_assignable<int&,int>(): "
+			<< Is_assignable<int&,int>() << '\n';
+	cout << "Is_ssignable<int,int>(): "
+			<< Is_assignable<int,int>() << '\n';
+	cout << "Is_assignable<Base*&,Derived*>(): "
+			<< Is_assignable<Base*&,Derived*>() << '\n';
 }
 
 void test_predicate()
@@ -367,13 +367,13 @@ void test_copyable()
 
 void test_convertible()
 {
-	cout << "--- test for Convertible ---\n";
-	cout << "Convertible<double,int>(): "
-			<< Convertible<double,int>() << '\n';
-	cout << "Convertible<Derived*,Base*>(): "
-			<< Convertible<Derived*,Base*>() << '\n';
-	cout << "Convertible<Base*,Derived*>(): "
-			<< Convertible<Base*,Derived*>() << '\n';
+	cout << "--- test for Is_convertible ---\n";
+	cout << "Is_convertible<double,int>(): "
+			<< Is_convertible<double,int>() << '\n';
+	cout << "Is_convertible<Derived*,Base*>(): "
+			<< Is_convertible<Derived*,Base*>() << '\n';
+	cout << "Is_convertible<Base*,Derived*>(): "
+			<< Is_convertible<Base*,Derived*>() << '\n';
 }
 
 #if 0
