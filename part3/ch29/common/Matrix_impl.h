@@ -184,14 +184,14 @@ bool check_bounds(const Matrix_slice<N>& slice, Dims... dims)
 template<typename... Args>
 constexpr bool Request_element()
 {
-	return All(Convertible<Args,size_t>()...);
+	return All(Is_convertible<Args,size_t>()...);
 }
 
 template<typename... Args>
 constexpr bool Request_slice()
 {
-	return All((Convertible<Args,size_t>() || Same<Args,slice>())...)
-			&& Some(Same<Args,slice>()...);
+	return All((Is_convertible<Args,size_t>() || Is_same<Args,slice>())...)
+			&& Some(Is_same<Args,slice>()...);
 }
 
 // do_slice_dim(size_t):

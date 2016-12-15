@@ -56,7 +56,7 @@ struct Matrix_slice {
 		Matrix_slice(Dims... dims);
 
 	template<typename... Dims,
-			typename = Enable_if<All(Convertible<Dims,size_t>()...)>>
+			typename = Enable_if<All(Is_convertible<Dims,size_t>()...)>>
 		size_t operator()(Dims... dims) const;
 
 	// 2016.11.09 add: for index array access

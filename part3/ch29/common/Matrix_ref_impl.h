@@ -126,7 +126,7 @@ template<typename T, size_t N>
 	template<typename U>
 	Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(const Matrix<U,N>& m)
 {
-	static_assert(Convertible<U,T>(), "Matrix_ref =: incompatible element types");
+	static_assert(Is_convertible<U,T>(), "Matrix_ref =: incompatible element types");
 	assert(desc.extents==m.descriptor().extents);
 
 	std::copy(m.begin(), m.end(), begin());

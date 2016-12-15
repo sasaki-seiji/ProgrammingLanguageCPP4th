@@ -58,7 +58,7 @@ template<typename T, size_t N>
 		//:desc{x.desc}, elems{x.begin(),x.end()}
 		: elems(x.begin(),x.end())
 	{
-		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+		static_assert(Is_convertible<U,T>(), "Matrix constructor: incompatible element types");
 
 		// 2016.11.12 add
 		desc.start = 0;
@@ -71,7 +71,7 @@ template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
 	{
-		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+		static_assert(Is_convertible<U,T>(), "Matrix constructor: incompatible element types");
 
 		std::vector<T> nv{x.begin(), x.end()};	// exception safe
 
@@ -89,7 +89,7 @@ template<typename T, size_t N>
 	Matrix<T,N>::Matrix(const Matrix<U,N>& x)
 		:desc{x.descriptor()}, elems(x.begin(),x.end())
 	{
-		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+		static_assert(Is_convertible<U,T>(), "Matrix constructor: incompatible element types");
 	}
 
 // 2016.11.13 add
@@ -98,7 +98,7 @@ template<typename T, size_t N>
 	template<typename U>
 	Matrix<T,N>& Matrix<T,N>::operator=(const Matrix<U,N>& x)
 	{
-		static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
+		static_assert(Is_convertible<U,T>(), "Matrix constructor: incompatible element types");
 
 		std::vector<T> nv{x.begin(),x.end()};
 		desc = x.descriptor();
