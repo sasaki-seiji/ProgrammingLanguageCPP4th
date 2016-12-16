@@ -17,12 +17,6 @@ namespace Estd {
 template<typename X>
 using Value_type = typename X::value_type;
 
-template<bool B, typename X=void>
-using Enable_if = typename std::enable_if<B,X>::type;
-
-template<typename... ARGS>
-using Common_type = typename std::common_type<ARGS...>::type;
-
 // 2016.11.27 add: 32.2.1. sequence
 template<typename X>
 using Iterator = typename X::iterator;
@@ -109,9 +103,8 @@ constexpr bool Is_assignable()
 
 // type property confirm
 
-// 2016.12.14
-
-template<typename X, size_t N>
+// 2016.12.14, 2016.12.16
+template<typename X, size_t N=0>
 constexpr size_t Extent()
 {
 	return std::extent<X,N>::value;
@@ -141,12 +134,42 @@ constexpr bool Is_base_of()
 
 // type generator
 
+// 2016.12.16
+template<typename X>
+using Add_const = typename std::add_const<X>::type;
+
+// 2016.12.16
+template<typename X>
+using Remove_reference = typename std::remove_reference<X>::type;
+
 template<typename X>
 using Add_lvalue_reference = typename std::add_lvalue_reference<X>::type;
+
+// 2016.12.16
+template<typename X>
+using Remove_extent = typename std::remove_extent<X>::type;
+
+// 2016.12.16
+template<typename X>
+using Remove_all_extents = typename std::remove_all_extents<X>::type;
 
 // 2016.12.14
 template<typename X>
 using Remove_pointer = typename std::remove_pointer<X>::type;
+
+// 2016.12.16
+template<typename X>
+using Add_pointer = typename std::add_pointer<X>::type;
+
+template<bool B, typename X=void>
+using Enable_if = typename std::enable_if<B,X>::type;
+
+template<typename... ARGS>
+using Common_type = typename std::common_type<ARGS...>::type;
+
+// 2016.12.16
+template<typename FX>
+using Result_of = typename std::result_of<FX>::type;
 
 
 // iterator traits
