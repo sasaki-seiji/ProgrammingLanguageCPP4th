@@ -161,6 +161,10 @@ using Remove_pointer = typename std::remove_pointer<X>::type;
 template<typename X>
 using Add_pointer = typename std::add_pointer<X>::type;
 
+// 2016.12.17
+template<size_t N, size_t A>
+using Aligned_storage = typename std::aligned_storage<N,A>::type;
+
 template<bool B, typename X=void>
 using Enable_if = typename std::enable_if<B,X>::type;
 

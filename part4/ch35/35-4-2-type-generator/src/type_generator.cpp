@@ -16,6 +16,8 @@ using namespace std;
 #include "concept.h"
 using namespace Estd;
 
+// change const, volatile
+
 template<typename K, typename V>
 class My_map {
 	pair<typename add_const<K>::type, V> default_node;
@@ -25,6 +27,16 @@ template<typename K, typename V>
 class My_map2 {
 	pair<Add_const<K>, V> default_node;
 };
+
+void test_add_const()
+{
+	cout << "-- test_add_const() --\n";
+
+	My_map<string, int> m;
+	My_map2<string, int> m2;
+}
+
+// change reference type
 
 template<typename T>
 void f(T&& v)
@@ -54,6 +66,8 @@ void user()
 	cout << "val: " << val << endl;
 }
 
+// change array type
+
 void change_array()
 {
 	cout << "-- change_array() --\n";
@@ -64,6 +78,8 @@ void change_array()
 
 	cout << Extent<decltype(a20)>() << ' ' << Extent<decltype(i)>() << '\n';
 }
+
+// change pointer type
 
 template<typename T>
 void f2(T&& x)
@@ -84,6 +100,34 @@ void change_pointer()
 	f2(v);
 	f2(7);
 }
+
+// aligned_storage
+
+template<std::size_t N, std::size_t A>
+struct my_aligned_storage {
+	using type = struct { alignas(A) unsigned char data[N]; };
+};
+template<size_t N, size_t A>
+using My_aligned_storage = typename my_aligned_storage<N,A>::type;
+
+void alignment()
+{
+	cout << "-- alignment() --\n";
+
+	Aligned_storage<100,16> a;
+	Aligned_storage<100,alignof(double)> b;
+
+	cout << "sizeof(a): " << sizeof(a) << ", alignof(a): " << alignof(a) << endl;
+	cout << "sizeof(b): " << sizeof(b) << ", alignof(b): " << alignof(b) << endl;
+
+	My_aligned_storage<100,16> a2;
+	My_aligned_storage<100,alignof(double)> b2;
+
+	cout << "sizeof(a2): " << sizeof(a2) << ", alignof(a2): " << alignof(a2) << endl;
+	cout << "sizeof(b2): " << sizeof(b2) << ", alignof(b2): " << alignof(b2) << endl;
+}
+
+// common_type
 
 struct Shape {
 	virtual void draw() = 0;
@@ -141,6 +185,8 @@ void test_common_type()
 	cout << "My_common_type<void*,double*,Shape*>: " << typeid(y5).name() << endl;
 }
 
+// result_of
+
 int ff(int) { return 2; }
 
 typedef bool (*PF)(int);
@@ -181,8 +227,8 @@ void test2_result_of()
 
 	//Result_of<ff> r12 = 7;
 		// error: type/value mismatch at argument 1 in template parameter list for 'template<class FX> using Result_of = typename std::result_of::type'
-	//Result_of<ff(2)> r13 = 7;
-		// error: call to non-constexpr function 'int ff(int)'
+	//Result_of<ff(int)> r13 = 7;
+		// error: error: template argument 1 is invalid
 	//Result_of<decltype(ff)(int)> r2 = 7;
 		// error: 'type name' declared as function returning a function
 	Result_of<decltype(ff)*(int)> r3 = 7;
@@ -211,15 +257,15 @@ void f4()
 	cout << "d: " << d << endl;
 }
 
+// main
+
 int main()
 {
-	My_map<string, int> m;
-	My_map2<string, int> m2;
-
+	test_add_const();
 	user();
-
 	change_array();
 	change_pointer();
+	alignment();
 	test_common_type();
 	test_result_of();
 	test2_result_of();
