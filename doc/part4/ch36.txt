@@ -33,3 +33,24 @@
 		cout << endl;
 	}
 
+【36.3.2:　整数値や文字の並びによる初期化】
+
+日付：　2016.12.17
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	整数値や文字の並びによる初期化が、initializer_listによる初期化ととられ、
+	例題コードが意図と異なる動作となる。
+	（）による初期化を行うと、テキストの意図の動作となる
+	
+	//string s3 {7};
+	//string s3 (7);
+		// error: no matching function for call to 'std::__cxx11::basic_string<char>::basic_string(int)'
+	//string s4 {'a'};
+	//string s4 ('a');
+		// error: no matching function for call to 'std::__cxx11::basic_string<char>::basic_string(char)'
+	//string s5 {7, 'a'};
+	string s5 (7, 'a');
+	//string s6 {0};
+	//string s6 (0);	// crash!!!
+
