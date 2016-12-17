@@ -1,0 +1,35 @@
+【36.3.1:　qsortの使い方に誤り】
+
+日付：　2016.12.17
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	コード例で,qsort関数の使い方に、以下の誤りがある
+	①配列の要素数を示す引数(2番目)と、配列要素の大きさ(3番目)が逆
+	②関数ポインタは、引数として配列要素のアドレスを受け取る（const char**）
+	コード例のように、strcmpを直接渡すことはできない
+	
+	以下のように修正
+
+	static int compare_cstring(const void* a, const void* b)
+	{
+		const char* ps1 = *(const char**)a;
+		const char* ps2 = *(const char**)b;
+		return strcmp(ps1, ps2);
+	}
+
+	void test4()
+	{
+		vector<string> vs = {"Grieg", "Williams", "Bach", "Handel"};
+		sort(vs.begin(),vs.end());
+		for (auto b = vs.begin(); b != vs.end(); ++b)
+			cout << *b << ", ";
+		cout << endl;
+
+		const char* as[] = {"Grieg", "Williams", "Bach", "Handel"};
+		qsort(as, sizeof(as)/sizeof(*as),sizeof(*as), compare_cstring);
+		for (size_t i=0; i < sizeof(as)/sizeof(*as); ++i)
+			cout << as[i] << ", ";
+		cout << endl;
+	}
+
