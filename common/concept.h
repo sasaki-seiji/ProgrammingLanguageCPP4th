@@ -101,6 +101,20 @@ constexpr bool Is_assignable()
 	return std::is_assignable<X,Y>::value;
 }
 
+// 2016.12.17
+template<typename X>
+constexpr bool Is_nothrow_move_constructible()
+{
+	return std::is_nothrow_move_constructible<X>::value;
+}
+
+// 2016.12.17
+template<typename X>
+constexpr bool Is_nothrow_move_assignable()
+{
+	return std::is_nothrow_move_assignable<X>::value;
+}
+
 // type property confirm
 
 // 2016.12.14, 2016.12.16
