@@ -80,3 +80,28 @@
 		fill(cin, buf, 1000);
 		cout << "buf.size(): " << buf.size() << ", buf: " << buf << endl;
 	}
+
+【36.3.6:　replaceとfindを連続して処理した場合の結果が正しくない】
+
+日付：　2016.12.17
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	コード例において、stringのreplaceとfindを連続して処理した場合の結果が
+	正しくない。関数引数の処理順の問題と思われる
+	
+	以下のようになる
+	
+	void f2()
+	{
+		string s = "but I have heard it works even if you don't believe in it";
+		s.replace(0,4,"").replace(s.find("even"),4,"only")
+						.replace(s.find(" don't"),6,"");
+		//assert(s=="I have heard it works only if you believe in it");
+		cout << s << endl;
+	}
+	
+	↓
+	
+	I have heard it works evenonlyyou donieve in it
+
