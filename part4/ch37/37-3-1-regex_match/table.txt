@@ -1,0 +1,4 @@
+Class	Boys	Girls	Total
+1a  	12	15	27
+1b  	16	14	30
+Total	28	29	57
