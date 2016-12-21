@@ -10,7 +10,8 @@
 #include <iostream>
 using namespace std;
 
-int main()
+
+void sub_match_equality()
 {
 	regex pat ("<(.*?)>(.*?)</(.*?)>");
 
@@ -19,4 +20,24 @@ int main()
 	smatch m;
 	if (regex_search(s,m,pat))
 		if (m[1]==m[3]) cout << "match\n";
+}
+
+void test()
+{
+	regex pat ("(AAAA)(BBB)?");
+	string s = "AAAA";
+	smatch m;
+	regex_search(s,m,pat);
+
+	cout << boolalpha;
+	cout << m[0].matched << '\n';
+	cout << m[1].matched << '\n';
+	cout << m[2].matched << '\n';
+	cout << m[3].matched << '\n';
+}
+
+int main()
+{
+	sub_match_equality();
+	test();
 }
