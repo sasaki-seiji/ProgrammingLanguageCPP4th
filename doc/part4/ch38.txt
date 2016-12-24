@@ -1,0 +1,18 @@
+【38.2.2:　istringstringのcoutへの直接出力】
+
+日付：　2016.12.24
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	コード例では、istringstringのcoutへの直接出力すると、1が出力される
+	としているが、no match for 'operator<<'　のコンパイルエラーが出る
+	
+	void test2()
+	{
+		istringstream iss;
+		iss.str("Foobar");
+
+		//cout << iss << '\n';
+			// error: no match for 'operator<<' (operand types are 'std::ostream {aka std::basic_ostream<char>}' and 'std::istringstream {aka std::__cxx11::basic_istringstream<char>}')
+		cout << iss.str() << '\n';
+	}
