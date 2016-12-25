@@ -16,3 +16,58 @@
 			// error: no match for 'operator<<' (operand types are 'std::ostream {aka std::basic_ostream<char>}' and 'std::istringstream {aka std::__cxx11::basic_istringstream<char>}')
 		cout << iss.str() << '\n';
 	}
+
+【38.3:　ストリームの例外設定のサンプル】
+
+日付：　2016.12.25
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	ストリームの例外設定のサンプルでは、以下の問題がある
+	
+	①Io_gaurdクラスの非staticデータメンバold_eをauto型としているが、
+	　非staticデータメンバをautoすることができない
+	　→データ型を、ios_base::iostate と明示し、
+	　　コンストラクタ内で明示的に初期化を実行
+
+	②use関数の本体全体を囲むtryキーワードが抜けている。また、catch内では、
+	　例外型ios_base::failure& を指定する必要がある
+	　
+	③この環境（Windows+MinGW)では、ios_base::failure&例外を捕捉することができない
+	
+	修正したコードは以下の通り
+	
+	struct Io_guard {
+		istream& s;
+		ios_base::iostate old_e;
+
+		Io_guard(istream& ss, ios_base::iostate e) :s{ss}
+		{
+			old_e = s.exceptions();
+			s.exceptions(old_e | e);
+		}
+		~Io_guard() { s.exceptions(old_e); }
+	};
+	
+	void use(istream& is)
+	try
+	{
+		Io_guard guard(is, ios_base::badbit);
+
+		for (string s; is>>s; )
+			cout << s << endl;
+
+		is.setstate(ios_base::badbit);
+	}
+	catch (ios_base::failure& e)
+	{
+		cerr << "ios_base::bad_bit - " << e.what() << endl;
+	}
+
+	int main()
+	{
+		use(cin);
+		istringstream iss("this is a istringstream");
+		use(iss);
+	}
+
