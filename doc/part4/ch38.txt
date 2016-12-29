@@ -80,8 +80,20 @@
 	テキストのbasic_streambufのメンバ関数に関する説明は不明瞭・不正確で
 	あるものが多い。
 	
-	ドキュメントとしては、以下を参照するとよい
+	ドキュメントとしては、以下を参照のこと
 	
 	http://www.cplusplus.com/reference/streambuf/basic_streambuf/
 	
 	
+【38.6.3:　i(o)streambuf_iteratorのコード例を追加】
+
+日付：　2016.12.29
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	以下のドキュメントをベースに、i(o)streambuf_iteratorのコード例と、
+	実行サンプルコードを追加
+	
+	http://www.cplusplus.com/reference/iterator/ostreambuf_iterator/
+	http://www.cplusplus.com/reference/iterator/istreambuf_iterator/
+
