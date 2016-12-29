@@ -100,6 +100,7 @@ int test_my_istreambuf_iterator () {
 
 int main()
 {
-	//test_istreambuf_iterator();
+	test_istreambuf_iterator();
+	char ch; cin.get(ch); // 2016.12.29 add: skip '\n'
 	test_my_istreambuf_iterator();
 }
