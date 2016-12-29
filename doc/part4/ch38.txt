@@ -71,3 +71,17 @@
 		use(iss);
 	}
 
+【38.6:　basic_streambufの説明】
+
+日付：　2016.12.29
+バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+コメント：
+
+	テキストのbasic_streambufのメンバ関数に関する説明は不明瞭・不正確で
+	あるものが多い。
+	
+	ドキュメントとしては、以下を参照するとよい
+	
+	http://www.cplusplus.com/reference/streambuf/basic_streambuf/
+	
+	
