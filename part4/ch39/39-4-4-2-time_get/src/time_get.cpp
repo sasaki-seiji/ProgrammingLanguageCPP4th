@@ -24,13 +24,14 @@ void test()
 	if (order == time_base::mdy)
 		cout << "month day year\n";
 	else
-		cout << "poor guess\n";
-	stringstream ss ("10/3/1980");
+		cout << "poor guess: " << order << "\n";
+	stringstream ss ("10/4/1980");
 	ss >> d1;
 	cout << d1 << '\n';
 }
 
 int main()
 {
+	cin.imbue(locale("C"));
 	test();
 }
