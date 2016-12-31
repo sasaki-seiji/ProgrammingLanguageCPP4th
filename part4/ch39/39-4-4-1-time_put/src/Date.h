@@ -79,10 +79,9 @@ namespace Chrono {
 
 	inline Date operator+(Date d, int n) { return d+=n; }
 	inline Date operator-(Date d, int n) { return d-=n; }
-#if 0
+
 	ostream& operator<<(ostream& os, const Date& d);
 	istream& operator>>(istream& is, Date&d);
-#endif
 } /* namespace Chrono */
 
 #endif /* DATE_H_ */

@@ -6,6 +6,9 @@
  */
 
 #include "Date.h"
+#include <locale>
+#include <sstream>
+using namespace std;
 
 namespace Chrono {
 
@@ -207,12 +210,20 @@ bool operator>(Date a, Date b)
 	}
 }
 
-#if 0 // 2016.12.31 del
+// 2016.12.31 add
 ostream& operator<<(ostream& os, const Date& d)
 {
-	os << d.year() << '.' << static_cast<int>(d.month()) << '.' << d.day();
+	ostringstream ss;
+	tm t;
+	t.tm_mday = d.day();
+	t.tm_mon = static_cast<int>(d.month())-1;
+	t.tm_year = d.year()-1900;
+	char fmt[] ="{%Y-%m-%d}";
+
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
 	return os;
 }
+
 
 istream& operator>>(istream& is, Date&d)
 {
@@ -226,6 +237,5 @@ istream& operator>>(istream& is, Date&d)
 
 	return is;
 }
-#endif
 
 } // Chrono
