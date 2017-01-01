@@ -32,6 +32,6 @@ void test()
 
 int main()
 {
-	cin.imbue(locale("C"));
+	cin.imbue(locale("en_US.UTF-8"));
 	test();
 }
