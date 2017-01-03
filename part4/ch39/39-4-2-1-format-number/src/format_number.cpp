@@ -6,18 +6,10 @@
  */
 
 
-#include <locale>
 #include <iostream>
 using namespace std;
 
-class My_punct : public numpunct<char> {
-public:
-	explicit My_punct(size_t r = 0) : numpunct<char>(r) { }
-protected:
-	char do_decimal_point() const override { return ','; }
-	char do_thousands_sep() const override { return '_'; }
-	string do_grouping() const override { return "\003"; }
-};
+#include "My_punct.h"
 
 void f()
 {
