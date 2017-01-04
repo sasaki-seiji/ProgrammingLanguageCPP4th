@@ -17,3 +17,24 @@
 	My_meny_io特性をデフォルトロケールに設定して、Moneyデータを出力した時、
 	通貨記号　"USD"が出力されない
 
+
+【39.4.4.2:　get_dateが日付を読み出せない】
+
+日付：　2017.01.04
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	以下の問題があり、get_dateが日付を読みだすことができない
+
+	①get_date呼出し後のエラー判定で、iostatus変数にeofbitがセットされるため、
+	if(!err)の判定を通過しない。以下のように修正
+
+		use_facet<time_get<char>>(is.getloc()).get_date(is,0,is,err,&t);
+		if (err==0 || err==ios_base::eofbit){
+			Month m = static_cast<Month>(t.tm_mon+1);
+			d = Date(t.tm_mday, m, t.tm_year+1900);
+		}
+
+	②入力文字列が、"10/4/1980"では、月が読み出せない。以下のように修正
+
+		stringstream ss ("10/04/1980");
