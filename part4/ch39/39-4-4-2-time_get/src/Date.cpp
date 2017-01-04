@@ -231,11 +231,14 @@ istream& operator>>(istream& is, Date&d)
 		ios_base::iostate err = ios_base::goodbit;
 		struct tm t;
 		use_facet<time_get<char>>(is.getloc()).get_date(is,0,is,err,&t);
-		//use_facet<time_get<char>>(is.getloc()).get_date(is,time_get<char>::iter_type(),is,err,&t);
-		if (!err){
+		if (err==0 || err==ios_base::eofbit){
 			Month m = static_cast<Month>(t.tm_mon+1);
 			d = Date(t.tm_mday, m, t.tm_year+1900);
 		}
+		// for debug
+		cerr << "err: " << err << endl << flush;
+		cerr << "day: " << t.tm_mday << ", month: " << t.tm_mon+1 << ", year: " << t.tm_year << endl << flush;
+
 		is.setstate(err);
 	}
 	return is;

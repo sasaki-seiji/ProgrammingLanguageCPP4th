@@ -25,13 +25,15 @@ void test()
 		cout << "month day year\n";
 	else
 		cout << "poor guess: " << order << "\n";
-	stringstream ss ("10/4/1980");
+	//stringstream ss ("10/4/1980");
+	stringstream ss ("10/04/1980");
+	ss.imbue(locale::classic());	// 2017.01.04 add
 	ss >> d1;
 	cout << d1 << '\n';
 }
 
 int main()
 {
-	cin.imbue(locale("en_US.UTF-8"));
+	cin.imbue(locale::classic());	// 2017.01.04 add
 	test();
 }
