@@ -268,9 +268,19 @@
 
 第39章　ロケール
 
-	2016.12.31		
+	2016.12.31、2017.01.02	39.2:localeクラス
+	2017.01.02、2017.01.03、2017.01.04	39.4:標準facet
+		
+
+＠＠　環境　＠＠
+
+【Ubuntu環境】
+
+	Ubuntu:	#74-Ubuntu SMP Fri Dec 2 15:59:10 UTC 2016
+	コンパイラ：g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+	eclipse：Version: Mars.2 Release (4.5.2)
 	
-＠＠　参考　＠＠
+＠＠　参考　＠＠	
 
 	cpluspluc.com Referecne
 	http://www.cplusplus.com/reference/
