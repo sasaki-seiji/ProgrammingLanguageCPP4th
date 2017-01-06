@@ -61,3 +61,26 @@
 		cout << ch;
 
 
+【39.4.7:　My_messagesのメッセージテーブル構築処理に誤り】
+
+日付：　2017.01.05、2017.01.06
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	My_messagesのメッセージテーブル構築処理に誤りがある。
+	od_openメソッドにおいて、forルールの条件の、f>>s　は、
+	行末の改行記号をストリームに残すので、最初のメッセージが空となる
+
+
+	for(string s; f>>s && s=="<<<"; ) {
+		c.sets.push_back(Set{});
+		Set& ss = c.sets.back();
+		while (getline(f,s) && s != ">>>")
+			ss.msgs.push_back(s);
+	}
+
+		↓
+
+	for(string s; getline(f,s) && s=="<<<"; ) {
+		・・・
+	}
