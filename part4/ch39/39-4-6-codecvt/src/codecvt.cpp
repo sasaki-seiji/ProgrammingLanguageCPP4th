@@ -12,7 +12,7 @@ using namespace std;
 
 int main()
 {
-	locale ulocale(locale("C"), new Cvt_to_upper);
+	locale ulocale(locale(), new Cvt_to_upper);
 
 	cin.imbue(ulocale);
 	for (char ch; cin>>ch; )
