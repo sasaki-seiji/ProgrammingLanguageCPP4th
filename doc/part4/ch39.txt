@@ -42,10 +42,22 @@
 
 【39.4.6:　Cvt_to_upperが動作しない】
 
-日付：　2017.01.04
+日付：　2017.01.05、2017.01.06
 バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
-	コード例が正しく動作しない。
-	現象としては、cin.imbue（）を実行しても、do_inがコールバックされない
+	cinにcodecvt特性項目を設定しても、do_inがコールバックされない
+	ifstreamにcodecvtを設定すると、正しく動作する
+
+	locale ulocale(locale(), new Cvt_to_upper);
+
+	cin.imbue(ulocale);
+	for (char ch; cin>>ch; )
+		cout << ch;
+
+	ifstream ifs("test.txt");
+	ifs.imbue(ulocale);
+	for (char ch; ifs>>ch; )
+		cout << ch;
+
 
