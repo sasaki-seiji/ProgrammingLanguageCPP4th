@@ -9,16 +9,12 @@
 #define CVT_TO_UPPER_H_
 
 #include <locale>
-#include <iostream>
 using std::codecvt;
-using std::cerr;
-using std::endl;
 
 class Cvt_to_upper: public codecvt<char, char, mbstate_t>
 {
 public:
-	explicit Cvt_to_upper(size_t r = 0) : codecvt(r)
-	{ cerr << "Cvt_to_upper()" << endl; }
+	explicit Cvt_to_upper(size_t r = 0) : codecvt(r) 	{ }
 
 protected:
 	using State = mbstate_t;

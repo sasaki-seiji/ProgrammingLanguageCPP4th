@@ -16,7 +16,7 @@ Cvt_to_upper::do_in(
 	const char* from, const char* from_end, const char*& from_next,
 	char* to, char* to_end, char*& to_next) const
 {
-	cerr << "do_in" << endl;
+	cerr << "do_in()\n";
 
 	for( ; from!=from_end && to!=to_end; ++from, ++to)
 		*to = toupper(*from);
@@ -32,6 +32,8 @@ Cvt_to_upper::do_out(
 	const char* from, const char* from_end, const char*& from_next,
 	char* to, char* to_end, char*& to_next) const
 {
+	cerr << "do_out()\n";
+
 	return codecvt<char,char,mbstate_t>::do_out(s,from,from_end,from_next,to,to_end,to_next);
 }
 
@@ -47,7 +49,8 @@ int Cvt_to_upper::do_length(
 
 int Cvt_to_upper::do_max_length() const noexcept
 {
-	return INT_MAX;
+	cerr << "do_max_length()\n";
+	return 1;
 }
 
 
