@@ -13,7 +13,7 @@ using namespace std;
 void f(const string& s1, const string& s2, const string& name)
 {
 	bool b {s1==s2};
-	cout << "b: " << b << endl;
+	cout << boolalpha << "b: " << b << endl;
 
 	const char* s1b {s1.data()};
 	const char* s1e {s1.data()+s1.size()};
@@ -39,13 +39,14 @@ void f(const string& s1, const string& s2, const string& name)
 
 void f2(const string& s1, const string& s2, const string& name)
 {
-	int i0 = locale{}(s1,s2);
-	int i1 = locale{""}(s1,s2);
-	int i2 = locale(name)(s1,s2);
+	bool b0 = locale{}(s1,s2);
+	bool b1 = locale{""}(s1,s2);
+	bool b2 = locale(name)(s1,s2);
 
-	cout << "i0: " << i0 << endl;
-	cout << "i1: " << i1 << endl;
-	cout << "i2: " << i2 << endl;
+	cout << boolalpha;
+	cout << "b0: " << b0 << endl;
+	cout << "b1: " << b1 << endl;
+	cout << "b2: " << b2 << endl;
 }
 
 int main()
