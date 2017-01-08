@@ -16,6 +16,25 @@
 		$ sudo locale-gen fr_FR.UTF-8
 
 
+【39.1:　en_USとrf_FR間での日付変換の問題】
+
+日付：　2017.01.04
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	以下の問題があり、テキストの例のようなロール間変換は困難
+
+	①en_US、fr_FRともtime_get::date_order（）がno_orderを返すため、
+	operator<<(ostream&,Date)、operator>>(istream&,Date)演算子関数内で
+	動的に日付フォーマットを変更・特定することができない
+
+	②fr_FRでは、日付読み出し時に、%eが正しく、１桁の日付（月の中の日）を
+	読みだすことができない。
+
+	以上から、日付のフォーマットはen_US,fr_FRとも"%b %d %Y"固定とした
+
+	
+
 【39.4.1:　collate.compare()が異常終了】
 
 日付：　2017.01.04
