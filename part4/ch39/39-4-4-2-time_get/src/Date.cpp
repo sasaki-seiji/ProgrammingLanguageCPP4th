@@ -220,7 +220,7 @@ ostream& operator<<(ostream& os, const Date& d)
 	t.tm_year = d.year()-1900;
 	char fmt[] ="{%Y-%m-%d}";
 
-	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt)-1);
 	return os;
 }
 
@@ -236,8 +236,8 @@ istream& operator>>(istream& is, Date&d)
 			d = Date(t.tm_mday, m, t.tm_year+1900);
 		}
 		// for debug
-		cerr << "err: " << err << endl << flush;
-		cerr << "day: " << t.tm_mday << ", month: " << t.tm_mon+1 << ", year: " << t.tm_year << endl << flush;
+		cerr << "err: " << err << endl;
+		cerr << "day: " << t.tm_mday << ", month: " << t.tm_mon+1 << ", year: " << t.tm_year << endl;
 
 		is.setstate(err);
 	}
