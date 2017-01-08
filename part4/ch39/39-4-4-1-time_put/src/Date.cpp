@@ -218,9 +218,11 @@ ostream& operator<<(ostream& os, const Date& d)
 	t.tm_mday = d.day();
 	t.tm_mon = static_cast<int>(d.month())-1;
 	t.tm_year = d.year()-1900;
-	char fmt[] ="{%Y-%m-%d}";
+	//char fmt[] ="{%Y-%m-%d}";
+	char fmt[] ="%b %e %Y";
 
-	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
+	//use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt)-1);
 	return os;
 }
 
