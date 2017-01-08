@@ -8,6 +8,7 @@
 #include "Date.h"
 #include <locale>
 #include <sstream>
+#include <cstring>
 using namespace std;
 
 namespace Chrono {
@@ -218,24 +219,32 @@ ostream& operator<<(ostream& os, const Date& d)
 	t.tm_mday = d.day();
 	t.tm_mon = static_cast<int>(d.month())-1;
 	t.tm_year = d.year()-1900;
-	char fmt[] ="{%Y-%m-%d}";
+	static const char fmt[] = "%b %d %Y";
 
-	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt)-1);
+	cerr << "os.good()=" << os.good() << endl;
 	return os;
 }
 
 // 2016.12.31 change
 istream& operator>>(istream& is, Date&d)
 {
+	static const char fmt[] = "%b %d %Y";
+
+	auto order = use_facet<time_get<char>>(is.getloc()).date_order();
+	cerr << "date_order=" << order << endl;
+
 	if (istream::sentry guard{is}) {
 		ios_base::iostate err = ios_base::goodbit;
 		struct tm t;
-		use_facet<time_get<char>>(is.getloc()).get_date(is,0,is,err,&t);
-		//use_facet<time_get<char>>(is.getloc()).get_date(is,time_get<char>::iter_type(),is,err,&t);
-		if (!err){
+		use_facet<time_get<char>>(is.getloc()).get(is,0,is,err,&t,begin(fmt),end(fmt)-1);
+		if (err==ios_base::goodbit || err==ios_base::eofbit){
 			Month m = static_cast<Month>(t.tm_mon+1);
 			d = Date(t.tm_mday, m, t.tm_year+1900);
 		}
+		cerr << "err=" << err << endl;
+		cerr << "year=" << t.tm_year << ",month=" << t.tm_mon << ",day=" << t.tm_mday << endl;
+
 		is.setstate(err);
 	}
 	return is;
