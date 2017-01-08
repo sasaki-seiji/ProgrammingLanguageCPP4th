@@ -41,9 +41,30 @@ void test(iostream& io, char ch)
 int main()
 {
 	string buf = "abcdefghijklmn";
-	f(1234, buf, 5);
-	cout << buf << endl;
+	f(123456789, buf, 2);
+	cout << "default locale: " << buf << endl;
+
+	cout.imbue(locale("en_US.UTF-8"));
+	f(123456789, buf, 2);
+	cout << "en_US.UTF-8: " << buf << endl;
+
+	cout.imbue(locale("fr_FR.UTF-8"));
+	f(123456789, buf, 2);
+	cout << "fr_FR.UTF-8: " << buf << endl;
+
+	cout.imbue(locale("da_DK.UTF-8"));
+	f(123456789, buf, 2);
+	cout << "da_DK.UTF-8: " << buf << endl;
 
 	stringstream ss("this is string test data");
+	cout << "-- default locale ---\n";
+	test(ss, 'A');
+
+	cout << "-- en_US.UTF-8 ---\n";
+	ss.imbue(locale("en_US.UTF-8"));
+	test(ss, 'A');
+
+	cout << "-- fr_FR.UTF-8 ---\n";
+	ss.imbue(locale("fr_FR.UTF-8"));
 	test(ss, 'A');
 }
