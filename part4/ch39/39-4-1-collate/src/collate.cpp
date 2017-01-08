@@ -52,8 +52,10 @@ void f2(const string& s1, const string& s2, const string& name)
 int main()
 {
 	string s1 = "abcd";
-	string s2 = "XYZ";
+	string s2 = "WXYZ";
 	string name = "en_US.UTF-8";
+	//string name = "en_US";
+	//string name = "fr_FR.UTF-8";
 
 	f(s1, s2, name);
 	f2(s1, s2, name);
