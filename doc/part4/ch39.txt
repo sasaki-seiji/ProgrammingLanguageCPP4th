@@ -1,3 +1,21 @@
+【39.1:　Ubuntuでlocaleを追加する方法】
+
+日付：　2017.01.08
+参考：　http://dqn.sakusakutto.jp/2013/03/ubuntu_locale.html
+コメント：
+
+	ubuntuでlocaleを追加するためにには、上記記事のように行う
+
+	①登録されているlocaleの確認
+
+		$ locale -a
+		$ grep ja /usr/share/i18n/SUPPORTED
+
+	②localeの追加
+
+		$ sudo locale-gen fr_FR.UTF-8
+
+
 【39.4.1:　collate.compare()が異常終了】
 
 日付：　2017.01.04
@@ -16,6 +34,21 @@
 
 	My_meny_io特性をデフォルトロケールに設定して、Moneyデータを出力した時、
 	通貨記号　"USD"が出力されない
+
+
+【39.4.4.1:　time_put::putのフォーマット引数指定の誤り】
+
+日付：　2017.01.08
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	コード例で、time_put::putのフォーマット指定子の終了がNULを含む文字配列
+	の末尾を指しているため、フォーマット文字列にNULが含まれる（NULLが出力される）
+
+	char fmt[] ="%b %e %Y";
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt));
+		↓
+	use_facet<time_put<char>>(os.getloc()).put(os,os,' ',&t,begin(fmt),end(fmt)-1);
 
 
 【39.4.4.2:　get_dateが日付を読み出せない】
