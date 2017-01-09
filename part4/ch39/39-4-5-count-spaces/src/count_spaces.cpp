@@ -32,7 +32,17 @@ int count_spaces_puncts(const string& s, const locale& loc)
 	return i;
 }
 
+const char* test_scan_is(const string& s, const locale& loc)
+{
+	const ctype<char>& ct = use_facet<ctype<char>>(loc);
+	return ct.scan_is(ctype_base::punct, s.data(), s.data()+s.size());
+}
 
+void test_toupper(char* from, char* to, const locale& loc)
+{
+	const ctype<char>& ct = use_facet<ctype<char>>(loc);
+	ct.toupper(from, to);
+}
 
 int main()
 {
@@ -44,4 +54,11 @@ int main()
 
 	int i2 = count_spaces_puncts(s, loc1);
 	cout << "i2: " << i2 << endl;
+
+	const char* p1 = test_scan_is(s, loc1);
+	cout << "*p1: " << *p1 << endl;
+
+	char chrs[] = "abc DEF\tghi$JKL#\tmno?pqr";
+	test_toupper(begin(chrs), end(chrs)-1, loc1);
+	cout << "after toupper(), chrs: " << chrs << endl;
 }
