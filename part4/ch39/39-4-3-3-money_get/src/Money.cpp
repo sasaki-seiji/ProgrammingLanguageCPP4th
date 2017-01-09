@@ -73,7 +73,6 @@ istream& operator>>(istream& s, Money& m)
 		const auto& f = use_facet<money_get<char>>(s.getloc());
 
 		f.get(s, istreambuf_iterator<char>{}, true, s, state, str);
-		cerr << str  << flush;
 
 		if (state==0 || state==ios_base::eofbit) {
 			long long i = stoll(str);
