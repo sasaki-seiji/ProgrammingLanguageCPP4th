@@ -32,8 +32,22 @@ void test()
 	cout << d1 << '\n';
 }
 
+// 2017.01.09 add
+void test_get_date(const locale& loc, const string& s)
+{
+	Date d;
+	istringstream iss;
+	iss.imbue(loc);
+	iss.str(s);
+	iss >> d;
+	cout << d << endl;
+}
+
 int main()
 {
 	cin.imbue(locale::classic());	// 2017.01.04 add
 	test();
+
+	test_get_date(locale("en_US.UTF-8"), "04/10/1999");
+	test_get_date(locale("fr_FR.UTF-8"), "10/12/2015");
 }
