@@ -27,7 +27,7 @@ public:
 
 	string_type do_curr_symbol() const override { return "USD "; }
 	string_type do_positive_sign() const override { return ""; }
-	string_type do_negative_sign() const override { return "-"; }
+	string_type do_negative_sign() const override { return "()"; }
 
 	int do_frac_digits() const override { return 2; }
 
