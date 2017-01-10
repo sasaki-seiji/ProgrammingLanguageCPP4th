@@ -11,27 +11,23 @@
 #include <vector>
 #include <string>
 #include <locale>
-using std::vector;
-using std::string;
-using std::locale;
-using std::messages;
 
 struct Set {
-	vector<string> msgs;
+	std::vector<std::string> msgs;
 };
 
 struct Cat {
-	vector<Set> sets;
+	std::vector<Set> sets;
 };
 
-class My_messages : public messages<char> {
-	vector<Cat>& catalogs;
+class My_messages : public std::messages<char> {
+	std::vector<Cat>& catalogs;
 public:
-	explicit My_messages(size_t = 0) :catalogs{*new vector<Cat>} { }
+	explicit My_messages(size_t = 0) :catalogs{*new std::vector<Cat>} { }
 
-	catalog do_open(const string& s, const locale& loc) const;
+	catalog do_open(const std::string& s, const std::locale& loc) const;
 
-	string do_get(catalog cat, int s, int m, const string&) const;
+	std::string do_get(catalog cat, int s, int m, const std::string&) const;
 
 	void do_close(catalog cat) const
 	{
