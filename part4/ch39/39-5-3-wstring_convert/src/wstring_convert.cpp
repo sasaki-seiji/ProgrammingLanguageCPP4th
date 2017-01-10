@@ -24,11 +24,12 @@ void f()
 
 void test()
 {
-	wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
-	//wstring_convert<codecvt_utf8<wchar_t>> converter;
+	//wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+	wstring_convert<codecvt_utf8_utf16<char16_t>,char16_t> converter;
 
 	string s8 = u8"This is a UTF-8 string";
-	wstring s16 = converter.from_bytes(s8);
+	//wstring s16 = converter.from_bytes(s8);
+	u16string s16 = converter.from_bytes(s8);
 	string s88 = converter.to_bytes(s16);
 
 	if (s8!=s88)
