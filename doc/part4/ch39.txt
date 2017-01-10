@@ -136,3 +136,14 @@
 	for(string s; getline(f,s) && s=="<<<"; ) {
 		・・・
 	}
+
+【39.5.3:　codecvt_utf8_utf16による相互変換の結果が正しくない】
+
+日付：　2017.01.10
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	wstring_convert<codecvt_utf8_utf16<wchar_t>>による相互変換の結果が正しくない
+	コード例を実行すると、s88の結果が壊れる。	但し、
+	wstring_convert<codecvt_utf8<wchar_t>>による相互変換では正しく変換される
+
