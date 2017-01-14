@@ -27,10 +27,10 @@ void f(valarray<double>& d)
 	v_odd = 0;
 }
 
-slice_array<double> row(valarray<double>& d, int i)
+slice_array<double> col(valarray<double>& d, int i)
 {
-	slice_array<double> v = d[slice(0, d.size()/2, 1)];
-	return d[slice((i%2)*d.size()/2, d.size()/2, 1)];
+	slice_array<double> v = d[slice(0, 2, d.size()/2)];
+	return d[slice(i%2, 2, d.size()/2)];
 }
 
 int main()
@@ -39,6 +39,6 @@ int main()
 	f(v);
 	cout << "v: " << v << endl;
 
-	valarray<double> row1 = row(v,1);
-	cout << "row(v,1): " << row1 << endl;
+	col(v,1) = 13.5;
+	cout << "v: " << v << endl;
 }
