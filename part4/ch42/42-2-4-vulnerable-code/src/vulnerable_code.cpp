@@ -25,7 +25,7 @@ void g()
 }
 
 struct Foo {
-	//int x = 12;
+	int x = 12;
 };
 
 void run(int i, int n)
@@ -40,7 +40,7 @@ try
 
 		t2 = move(t3);
 	}
-	v[i] = Foo{};
+	v.at(i) = Foo{};
 
 	t1.join();
 	t2.join();
