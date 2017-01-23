@@ -1,0 +1,46 @@
+【42.3.4:　mainスレッドで条件変数を待つことができない】
+
+日付：　2017.01.23
+コメント：
+
+	mainスレッドで条件変数を待つことができない
+	テキストの例では、
+
+	void simple_timer(int delay)
+	{
+		condition_variable timer;
+		mutex mtx;
+		auto t0 = steady_clock::now();
+		unique_lock<mutex> lck(mtx);
+		timer.wait_for(lck,milliseconds{delay});
+		auto t1 = steady_clock::now();
+		cout << duration_cast<milliseconds>(t1-t0).count() << " milliseconds passed\n";
+	}
+
+	int main()
+	{
+		simple_timer(1);
+		simple_timer(10);
+		simple_timer(100);
+		simple_timer(1000);
+	}
+
+	とすると、mainがブロックされず、0 milliseconds と出力される
+	以下のようにmain以外のスレッドからsiple_timerを呼び出すと
+	ブロックされる
+
+	void task()
+	{
+		simple_timer(1);
+		simple_timer(10);
+		simple_timer(100);
+		simple_timer(1000);
+	}
+
+	int main()
+	{
+		thread th{task};
+		th.join();
+	}
+
+
