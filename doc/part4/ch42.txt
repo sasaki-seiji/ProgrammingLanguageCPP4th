@@ -1,6 +1,7 @@
 【42.3.4:　mainスレッドで条件変数を待つことができない】
 
 日付：　2017.01.23
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	mainスレッドで条件変数を待つことができない
@@ -42,5 +43,49 @@
 		thread th{task};
 		th.join();
 	}
+
+
+【42.4.2:　mainスレッドでpackaged_taskを呼び出すとエラーとなる】
+
+日付：　2017.01.26
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	mainスレッドでpackaged_taskを呼び出すとエラーとなる。
+	テキストの例では、
+
+	void test_packaged_task()
+	{
+		packaged_task<int(int)> pt1 {ff};
+		packaged_task<int(int)> pt2 {ff};
+
+		pt1(1);
+		pt2(0);
+
+		auto v1 = pt1.get_future();
+		auto v2 = pt2.get_future();
+
+		try {
+			cout << v1.get() << '\n';
+			cout << v2.get() << '\n';
+		}
+		catch (exception& e) {
+			cout << "exception1: " << e.what() << '\n';
+		}
+	}
+
+	int main()
+	{
+	#if 0
+		test_packaged_task();
+	#else
+		thread th {test_packaged_task};
+		th.join();
+	#endif
+		return 0;
+	}
+
+	のように、mainとは別のスレッドでpackaged_taskを呼び出す必要がある
+
 
 
