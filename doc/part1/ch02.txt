@@ -10,3 +10,24 @@
 		↓
 	if( s < 0 ) throw length_error{"Vector::Vector"};
 
+
+
+【2.4.3.3.　static_assertにconst doubleを指定できない】
+
+日付：　2016.03.20、2017.01.31
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	static_assertにconst doubleで指定した定数を指定するとエラーとなる
+
+	const double local_max = 160.0/(60*60); // 160km/h
+		・・・
+	static_assert(local_max < C, "can't go that fast");
+		// error: non-constant condition for static assertion
+
+		↓
+
+	constexpr double local_max = 160.0/(60*60); // 160km/h
+		・・・
+	static_assert(local_max < C, "can't go that fast");
+
