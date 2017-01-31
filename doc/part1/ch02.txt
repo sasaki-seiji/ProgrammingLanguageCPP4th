@@ -1,11 +1,11 @@
 【2.4.3.2.不変条件ーlength_errorの初期化処理がコンパイルエラー】
 
-日付：　2016.03.20
+日付：　2016.03.20、2017.01.31
 コメント：
 	length_errorのデフォルトコンストラクタ呼び出しでコンパイルエラーが発生
 	文字列引数をとるコンストラクタ呼び出しに変更
 	
-	if( s < 0 ) throw length_error{"Vector::Vector"};
+	if( s < 0 ) throw length_error{};
 	// no matching function for call to 'std::length_error::length_error(<brace-enclosed initializer list>)'
 		↓
 	if( s < 0 ) throw length_error{"Vector::Vector"};
