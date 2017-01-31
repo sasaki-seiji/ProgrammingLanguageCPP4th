@@ -31,7 +31,7 @@ int My_code::main()
 	auto z2 = sqrt(z);
 	std::cout << '{' << z2.real() << ',' << z2.imag() << "}\n";
 
-	return 0 ; // 2016.03.20 neet return value
+	return 0 ; // 2016.03.20 need return value
 }
 
 int main()
