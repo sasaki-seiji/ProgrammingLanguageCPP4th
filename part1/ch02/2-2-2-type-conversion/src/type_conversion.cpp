@@ -12,7 +12,7 @@ void some_function()
 	double d = 2.2;
 	int i = 7;
 	d = d + i;
-	i = d + i; // no warning
+	i = d * i; // no warning
 
 	// 2016.03.18 add
 	std::cout << " d = " << d << ", i = " << i << "\n";
