@@ -26,11 +26,8 @@ int main()
 	Color col = Color::red;
 	Traffic_light light = Traffic_light::red;
 
-	// cout << "col = " << col << ", light = " << light << endl;
-		// cannot bind 'std::basic_ostream<char>' lvalue to 'std::basic_ostream<char>&&'
-
 	cout << "col == Color::red ? " << ( col == Color::red )
-			<< ", light == Traffic_light ? " << ( light == Traffic_light::red )<< endl;
+			<< ", light == Traffic_light::red ? " << ( light == Traffic_light::red )<< endl;
 
 	//Color x = red;
 		// 'red' was not declared in this scope
@@ -43,6 +40,6 @@ int main()
 		// cannot convert 'int' to 'Color' in initialization
 
 	Traffic_light next = ++light;
-	cout << "next == Traffic_light::green" << (next == Traffic_light::green) << endl;
+	cout << "next == Traffic_light::green ? " << (next == Traffic_light::green) << endl;
 }
 
