@@ -26,10 +26,12 @@ int main()
 	//cout << "v = " << v << endl; // compile error
 
 	int i1 = 7.2;
-	int i2 {7.2};	// warning (not error)
-	int i3 = {7.2};	// warning (not error)
+	//int i2 {7.2};
+		// error: narrowing conversion of ‘7.2000000000000002e+0’ from ‘double’ to ‘int’ inside { } [-Wnarrowing]
+	//int i3 = {7.2};
+		// error: narrowing conversion of ‘7.2000000000000002e+0’ from ‘double’ to ‘int’ inside { } [-Wnarrowing]
 
-	cout << "i1 = " << i1 << ", i2 = " << i2 << ", i3 = " << i3 << endl;
+	cout << "i1 = " << i1 << endl;
 }
 
 
