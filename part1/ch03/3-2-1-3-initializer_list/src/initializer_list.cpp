@@ -5,8 +5,6 @@
  *      Author: sasaki
  */
 
-static_assert(__cplusplus >= 201103L, "invalid __cplusplus macro value");
-
 #include <iostream>
 using namespace std;
 
