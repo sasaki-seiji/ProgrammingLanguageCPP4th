@@ -14,17 +14,6 @@ using namespace std;
 #include "circle.h"
 #include "smiley.h"
 
-void draw_all(vector<Shape*>& v)
-{
-	for (auto p : v) p->draw();
-}
-
-void rotate_all(vector<Shape*>& v, int angle)
-{
-	for (auto p : v)
-		p->rotate(angle);
-}
-
 // 2016.03.26 dummy function
 Shape* read_shape(istream &is)
 {

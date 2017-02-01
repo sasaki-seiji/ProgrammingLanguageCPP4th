@@ -8,6 +8,8 @@
 #ifndef SHAPE_H_
 #define SHAPE_H_
 
+#include <vector>
+
 struct Point {
 	int	x, y;
 };
@@ -21,5 +23,7 @@ public:
 	virtual ~Shape() {}
 };
 
+void draw_all(std::vector<Shape*>& v);
+void rotate_all(std::vector<Shape*>& v, int angle);
 
 #endif /* SHAPE_H_ */
