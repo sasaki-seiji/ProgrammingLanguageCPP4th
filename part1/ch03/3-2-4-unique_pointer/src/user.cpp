@@ -15,17 +15,6 @@ using namespace std;
 #include "circle.h"
 #include "smiley.h"
 
-void draw_all(vector<unique_ptr<Shape>>& v)
-{
-	for (auto& p : v) p->draw();
-}
-
-void rotate_all(vector<unique_ptr<Shape>>& v, int angle)
-{
-	for (auto& p : v)
-		p->rotate(angle);
-}
-
 // 2016.03.26 dummy function
 unique_ptr<Shape> read_shape(istream &is)
 {
