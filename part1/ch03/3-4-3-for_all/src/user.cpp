@@ -21,7 +21,7 @@ unique_ptr<Shape> read_shape(istream &is)
 {
 	string s;
 
-	is >> s;
+	if(!(is >> s)) return unique_ptr<Shape>{};
 
 	if (s == "smiley"){
 		Smiley *smiley = new Smiley(Point{5, 10}, 4);
@@ -38,8 +38,8 @@ unique_ptr<Shape> read_shape(istream &is)
 void user()
 {
 	std::vector<unique_ptr<Shape>> v;
-	while(cin)
-		v.push_back(read_shape(cin));
+	while(unique_ptr<Shape> p = read_shape(cin))
+		v.push_back(move(p));
 	for_all(v, [](Shape& s) { s.draw(); });
 	for_all(v, [](Shape& s) { s.rotate(45); });
 }
