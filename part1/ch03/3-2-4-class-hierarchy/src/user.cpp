@@ -19,7 +19,7 @@ Shape* read_shape(istream &is)
 {
 	string s;
 
-	is >> s;
+	if (!(is >> s)) return nullptr;
 
 	if (s == "smiley"){
 		Smiley *smiley = new Smiley(Point{5, 10}, 4);
@@ -36,8 +36,8 @@ Shape* read_shape(istream &is)
 void user()
 {
 	std::vector<Shape*> v;
-	while(cin)
-		v.push_back(read_shape(cin));
+	for (Shape* p; p=read_shape(cin); )
+		v.push_back(p);
 	draw_all(v);
 	rotate_all(v, 45);
 	for (auto p : v) delete p;
