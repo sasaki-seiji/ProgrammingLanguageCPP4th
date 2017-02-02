@@ -15,7 +15,11 @@ std::vector<std::thread> my_threads;
 // 2016.03.27 add
 void heartbeat()
 {
-	std::cout << "heartbeat() called\n";
+	for (int i = 0; i<10; ++i) {
+		std::cout << "heartbeat\n";
+		std::this_thread::sleep_for(std::chrono::milliseconds{200});
+	}
+	std::cout << "dead\n";
 }
 
 Vector init(int n)
