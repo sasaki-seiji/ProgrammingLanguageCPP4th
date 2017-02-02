@@ -5,7 +5,9 @@
  *      Author: sasaki
  */
 
+
 #include <list>
+#include <complex>
 #include <iostream>
 #include "Vector.h"
 using namespace std;
@@ -14,7 +16,7 @@ template<typename C>
 using Value_type = typename C::value_type;
 
 template<typename Container>
-void alog(Container& c)
+void algo(Container& c)
 {
 //	Vector<Value_type<Container>> vec;
 	Vector<Value_type<Container>> vec(c.size());
@@ -45,6 +47,8 @@ string_map<int> m;
 int main()
 {
 	list<int>	ls { 1, 2, 3, 4 };
-	alog(ls);
+	algo(ls);
 
+	list<complex<double>> lsc { {1,1},{1.1,2.2},{1.2,3.3}};
+	algo(lsc);
 }
