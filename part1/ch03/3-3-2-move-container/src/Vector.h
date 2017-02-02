@@ -29,5 +29,8 @@ public:
 	int size() const;
 };
 
+class Vector_size_mismatch { };
+
+Vector operator+(const Vector& a, const Vector& b);
 
 #endif /* VECTOR_H_ */
