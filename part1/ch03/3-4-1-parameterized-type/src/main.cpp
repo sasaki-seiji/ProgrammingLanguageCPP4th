@@ -19,18 +19,6 @@ void write(const Vector<string>& vs)
 		cout << vs[i] << '\n';
 }
 
-template<typename T>
-T* begin(Vector<T>& x)
-{
-	return x.size() ? &x[0] : nullptr;
-}
-
-template<typename T>
-T* end(Vector<T>& x)
-{
-	return begin(x) + x.size();
-}
-
 void f2(Vector<string>& vs)
 {
 	for (auto& s : vs)

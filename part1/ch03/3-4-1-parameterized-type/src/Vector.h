@@ -51,4 +51,16 @@ const T& Vector<T>::operator[](int i) const
 	return elem[i];
 }
 
+template<typename T>
+T* begin(Vector<T>& x)
+{
+	return x.size() ? &x[0] : nullptr;
+}
+
+template<typename T>
+T* end(Vector<T>& x)
+{
+	return begin(x) + x.size();
+}
+
 #endif /* VECTOR_H_ */
