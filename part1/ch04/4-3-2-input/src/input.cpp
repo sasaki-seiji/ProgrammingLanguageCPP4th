@@ -41,7 +41,7 @@ int main()
 	f();
 	hello();
 
-	// 2016.04.02 add: discard rest input
+	// 2016.04.02 add: discard rest NL
 	string buf;
 	getline(cin, buf);
 
