@@ -16,7 +16,7 @@ void silly(vector<Entry>& book)
 {
 	int i = book[book.size()].number;
 
-	cout << "book[book.size()] returns " << i << '\n';
+	cout << "book[book.size()].number returns " << i << '\n';
 }
 
 void checked(Vec<Entry>& book)
