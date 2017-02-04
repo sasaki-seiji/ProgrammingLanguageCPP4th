@@ -45,7 +45,8 @@ int main()
 	print_values(vi, cout);
 
 	cout << "sort vector descendant order\n";
-	sort(vi, [](int x, int y){ return y - x; }); // descendant order
+	//sort(vi, [](int x, int y){ return y - x; }); // descendant order
+	sort(vi, [](int x, int y){ return x > y; }); // descendant order
 	print_values(vi, cout);
 }
 
