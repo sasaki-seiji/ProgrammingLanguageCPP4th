@@ -19,6 +19,25 @@
 	つまり、futureに対して、get()を呼び出すだけでは、スレッドの終了が
 	保証できない模様
 
+（追記）
+日付：　2016.04.05
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+現象：
+
+Ubuntu環境では、以下のメッセージが出力される
+	terminate called without an active exception
+
+原因：
+	threadオブジェクトが破壊されるときに、システムのスレッドが動作中であると、
+	terminateを行う仕様となっている。
+	この場合、f0.get() + f1.get()　によりタスクが終了してもシステムのスレッドが
+	完了しておらず、この現象が現れるものと思われる。
+	以下のように修正することができる。
+
+		double res = f0.get() + f1.get();
+		t1.join(); t2.join();
+		return res;
+
 
 【5.4.3　リテラル型：constexprメンバ関数にconst関数指定が必要】
 
