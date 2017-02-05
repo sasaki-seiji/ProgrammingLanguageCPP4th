@@ -23,9 +23,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-// 2016.04.04 change : why reference does not work ?
-//void f(promise<int>& px)
-void f(promise<int> px)
+void f(promise<int>& px)
 {
 	try {
 		int sum = 0;
@@ -55,7 +53,7 @@ int main()
 	promise<int> px;
 	future<int> fx = px.get_future();
 
-	thread th {f, move(px)};	// why move(px) ?
+	thread th {f, ref(px)};
 
 	g(fx);
 
