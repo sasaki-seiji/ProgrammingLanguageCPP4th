@@ -31,9 +31,11 @@ double comp2(vector<double>& v)
 	thread t2 {move(pt1), first + v.size()/2, first + v.size(), 0};
 
 	// 2016.04.05 add
-	t1.join(); t2.join();
+	//t1.join(); t2.join();
 
-	return f0.get() + f1.get();
+	double res = f0.get() + f1.get();
+	t1.join(); t2.join();
+	return res;
 }
 
 int main()
