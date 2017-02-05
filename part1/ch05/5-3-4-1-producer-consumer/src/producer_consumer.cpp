@@ -64,13 +64,13 @@ void producer()
 	const int max_count = 100;
 
 	while(true) {
+		sleep_for(milliseconds{100});
+
 		string mes;
 		if( seq < max_count ) mes = string("message#") + to_string(seq++);
 		else mes = "quit";
 
 		Message m { mes };
-
-		sleep_for(milliseconds{100});
 
 		unique_lock<mutex> lck {mmutex};
 		mqueue.push(m);
