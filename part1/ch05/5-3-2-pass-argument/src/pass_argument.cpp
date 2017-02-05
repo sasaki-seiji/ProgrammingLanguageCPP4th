@@ -19,20 +19,18 @@ struct F {
 };
 
 // 2016.04.03 add body of function f and F::operator()
+// 2017.02.05 change function body
 void f(vector<double>& v)
 {
-	double sum = 0;
-	for (double x : v)
-		sum += x;
-	cout << "result of f() is " << sum << '\n'; // dangerous
+	for (double& x : v)
+		x += 1.5;
 }
 
+// 2017.02.05 change function body
 void F::operator()()
 {
-	double sum = 0;
-	for (double x : v)
-		sum += x;
-	cerr << "result of F::operator() is " << sum << '\n'; // dangerous
+	for (double& x : v)
+		x *= 1.5;
 }
 
 int main()
@@ -45,5 +43,15 @@ int main()
 
 	t1.join();
 	t2.join();
+
+	cout << "some_vec: ";
+	for (auto x : some_vec)
+		cout << x << ' ';
+	cout << endl;
+
+	cout << "vec2: ";
+	for (auto x : vec2)
+		cout << x << ' ';
+	cout << endl;
 }
 
