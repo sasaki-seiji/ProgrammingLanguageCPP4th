@@ -12,9 +12,12 @@ using namespace std;
 
 struct X {
 	int val;
-	X() : val{0} { }
-	X(int i) : val{i} { }
+	X() : val{0} { cout << "X::X()\n"; }
+	X(int i) : val{i} { cout << "X::X(" << i << ")\n"; }
 	void do_something() { cout << "do_something() called\n"; }
+
+	// 2017.02.05 add
+	~X() { cout << "X::~X(" << val << ")\n" ; }
 };
 
 class Z { };
@@ -36,7 +39,9 @@ void f(int i, int j)
 
 unique_ptr<X> make_X(int i)
 {
-	return unique_ptr<X>{new X{i}};
+	cout << "make_X(" << i << ")\n";
+
+	return unique_ptr<X>{new X{i}}; // move
 }
 
 // 2016.04.03 add exception class and function body of f, g
@@ -52,11 +57,13 @@ void g(shared_ptr<fstream> fp)
 
 void user(const string& name, ios_base::openmode mode)
 {
+	cout << "user(" << name << "," << mode << ")\n";
+
 	shared_ptr<fstream> fp {new fstream(name, mode)};
 	if (!*fp) throw No_file { };
 
-	f(fp);
-	g(fp);
+	f(fp); // copy fp
+	g(fp); // copy fp
 }
 
 int main()
