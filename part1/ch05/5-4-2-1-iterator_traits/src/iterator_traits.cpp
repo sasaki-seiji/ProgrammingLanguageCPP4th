@@ -12,8 +12,8 @@
 #include <iostream>
 using namespace std;
 
-template<typename C>
-using Value_type = typename C::value_type;
+template<typename Iter>
+using Value_type = typename Iter::value_type;
 
 template<typename C>
 using Iterator_type = typename C::iterator;
