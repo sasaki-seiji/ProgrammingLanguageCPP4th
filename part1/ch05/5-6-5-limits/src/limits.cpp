@@ -11,7 +11,7 @@
 using namespace std;
 
 static_assert(numeric_limits<char>::is_signed, "unsigned characters!");
-static_assert(1000000 < numeric_limits<int>::max(), "small ints!");
+static_assert(100000 < numeric_limits<int>::max(), "small ints!");
 
 int main()
 {
