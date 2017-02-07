@@ -13,7 +13,8 @@ template <typename C>
 void print(const C& c)
 {
 	for (auto& x : c)
-		cout << x << '\n';
+		cout << x << "  ";
+	cout << '\n';
 }
 
 void f(valarray<double>& a1, valarray<double>& a2)
@@ -23,11 +24,11 @@ void f(valarray<double>& a1, valarray<double>& a2)
 	a = abs(a);
 	double d = a2[7];
 
-	cout << "a1:\n";
+	cout << "a1: ";
 	print(a1);
-	cout << "a2:\n";
+	cout << "a2: ";
 	print(a2);
-	cout << "a:\n";
+	cout << "a: ";
 	print(a);
 
 	cout << "d = " << d << '\n';
