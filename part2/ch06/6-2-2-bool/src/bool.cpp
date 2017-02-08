@@ -9,7 +9,7 @@
 using namespace std;
 
 bool b1 = 7;
-bool b2 {7};
+bool b2 {7};	// not error
 
 int i1 = true;
 int i2 {true};
@@ -36,18 +36,18 @@ void g(int* p)
 		cout << "in if(p)\n";
 	}
 
-	cout << "b = " << b << ", b2 = " << b2 << '\n';
+	cout << boolalpha << "b = " << b << ", b2 = " << b2 << '\n';
 }
 
 int main()
 {
-	cout << "b1 = " << b1 << ", b2 = " << b2 << '\n';
+	cout << boolalpha << "b1 = " << b1 << ", b2 = " << b2 << '\n';
 	cout << "i1 = " << i1 << ", i2 = " << i2 << '\n';
 
 	f(7);
 	int	i = 7;
 	g(&i);
 
-	cout << "a = " << a << ", b = " << b << '\n';
-	cout << "x = " << x << ", y == " << y << ", z = " << z << '\n';
+	cout << boolalpha << "a = " << a << ", b = " << b << '\n';
+	cout << boolalpha << "x = " << x << ", y == " << y << ", z = " << z << '\n';
 }
