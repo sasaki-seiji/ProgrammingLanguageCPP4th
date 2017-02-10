@@ -13,6 +13,8 @@ using namespace std;
 int x;
 void f()
 {
+	cout << "--f()--\n";
+
 	int x;
 	x = 1;
 	{
@@ -23,11 +25,14 @@ void f()
 	x = 3;
 
 	cout << "x = " << x << '\n';
+	cout << "::x = " << ::x << '\n';
 }
 int *p = &x;
 
 void f2()
 {
+	cout << "--f2()--\n";
+
 	int x = 1;
 	::x = 2;
 	x = 2;
@@ -37,6 +42,8 @@ void f2()
 
 void f3()
 {
+	cout << "--f3()--\n";
+
 	int x = x;	// 'x' is used uninitialized in this function [-Wuninitialized]
 
 	cout << "x = " << x << '\n';
@@ -44,6 +51,8 @@ void f3()
 
 void f4()
 {
+	cout << "--f4()--\n";
+
 	int y = x;	// x means ::x
 	int x = 22;
 	y = x;		// x means local x
@@ -60,9 +69,11 @@ void f5(int x)
 
 void f(vector<string>& v, list<int>& lst)
 {
+	cout << "--f(vector,list)--\n";
+
 	for (const auto& x : v) cout << x << '\n';
 	for (auto x : lst) cout << x << '\n';
-	for (int i = 0; i != v.size(); ++i) cout << v[i] << '\n';
+	for (size_t i = 0; i != v.size(); ++i) cout << v[i] << '\n';
 	for (auto i : {1, 2, 3, 4, 5, 6, 7}) cout << i << '\n';
 }
 
