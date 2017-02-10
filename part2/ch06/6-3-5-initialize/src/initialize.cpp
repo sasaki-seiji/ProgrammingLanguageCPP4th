@@ -11,6 +11,8 @@ using namespace std;
 
 void f(double val, int val2)
 {
+	cout << "--f(double,int)--\n";
+
 	int x2 = val;
 	char c2 = val2;
 
@@ -22,10 +24,10 @@ void f(double val, int val2)
 
 	char c4 {24};
 	//char c5 {264};
-	// narrowing conversion of '264' from 'int' to 'char' inside { } [-Wnarrowing]
+	// error: narrowing conversion of ‘264’ from ‘int’ to ‘char’ inside { } [-Wnarrowing]
 
 	//int x4 {2.0};
-	// narrowing conversion of '2.0e+0' from 'double' to 'int' inside { } [-Wnarrowing]
+	// error: narrowing conversion of ‘2.0e+0’ from ‘double’ to ‘int’ inside { } [-Wnarrowing]
 
 	cout << "x2 = " << x2 << '\n';
 	cout << "c2 = " << c2 << ", int{c2} = " << int{c2} << '\n';
@@ -49,7 +51,8 @@ int main()
 
 	vector<string> vs1{"hello"};
 	//vector<string> vs2("hello");
-	// no matching function for call to 'std::vector<std::__cxx11::basic_string<char> >::vector(const char [6])'
+	// error: no matching function for call to 'std::vector<std::__cxx11::basic_string<char> >::vector(const char [6])'
+	cout << "vs1.size() = " << vs1.size() <<  '\n';
 
 	int x4 {};
 	double d4 {};
