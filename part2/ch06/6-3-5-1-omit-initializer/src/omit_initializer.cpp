@@ -9,8 +9,13 @@
 #include <iostream>
 using namespace std;
 
+int a;
+double d;
+
 void f()
 {
+	cout << "-- f() --\n";
+
 	int x;
 	char buf[1024];
 	int* p {new int};
@@ -21,6 +26,7 @@ void f()
 	string* ps {new string};
 
 	cout << "x = " << x << '\n';
+		// warning: ‘x’ may be used uninitialized in this function [-Wmaybe-uninitialized]
 	cout << "int{buf[1000]} = " << int{buf[1000]} << '\n';
 	cout << "*p = " << *p << '\n';
 	cout << "int{q[1000]} = " << int{q[1000]} << '\n';
@@ -32,6 +38,8 @@ void f()
 
 void ff()
 {
+	cout << "-- ff() --\n";
+
 	int x { };
 	char buf[1024] { };
 	int* p {new int{10}};
@@ -45,6 +53,9 @@ void ff()
 
 int main()
 {
+	cout << "::a = " << ::a << '\n';
+	cout << "::d = " << ::d << '\n';
+
 	f();
 	ff();
 }
