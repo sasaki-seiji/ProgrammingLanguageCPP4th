@@ -25,15 +25,18 @@ complex<double> z2 {1, 2};
 complex<double> f2 { };
 
 //auto x1 {1, 2, 3, 4};
-// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+//error: direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
 //auto x2 {1.0, 2.25, 3.5};
-// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+//error:  direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
 //auto x3 {1.0, 2};
-// direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
-// unable to deduce 'std::initializer_list<_Tp>' from '{1.0e+0, 2}'
+//error:  direct-list-initialization of 'auto' requires exactly one element [-fpermissive]
+//error: unable to deduce 'std::initializer_list<_Tp>' from '{1.0e+0, 2}'
 
 int main()
 {
+	cout << "a[0] = " << a[0] << ", a[1] = " << a[1] << '\n';
+	cout << "s.x = " << s.x << ", s.s = " << s.s << '\n';
+
 	cout << "z = " << z << '\n';
 	cout << "v.size() = " << v.size() << '\n';
 
