@@ -19,7 +19,7 @@ extern int error_number;
 
 const char* name ="Njal";
 const char* season[] = {"spring", "summer", "fall", "winter" };
-vector<string> peole {name, "Skarphedin", "Gunnar" };
+vector<string> people {name, "Skarphedin", "Gunnar" };
 
 struct Date { int d, m, y; };
 int day(Date* p) { return p->d; }
@@ -35,8 +35,16 @@ struct User;
 enum class Beer { Carlsberg, Tuborg, Thor };
 namespace NS { int a; }
 
+// must be defined
+double sqrt(double d) { return 0.1; }// dummy
+int error_number = 1;
+struct User { int id; string name; };
+
+
 void f()
 {
+	cout << "-- f() --\n";
+
 	int count {1};
 	const char* name = {"Bjarne"};
 	count = 2;
@@ -49,7 +57,31 @@ void f()
 int main()
 {
 	cout << "int{::ch} = " << int{::ch} << '\n';
+	cout << "s = " << s << '\n';
 	cout << "::count = " << ::count << '\n';
+	cout << "pi = " << pi << '\n';
+	cout << "error_number = " << error_number << '\n';
+	cout << "name = " << name << '\n';
+
+	cout << "season: ";
+	for (auto x : season) cout << x << ' ';
+	cout << endl;
+
+	cout << "people: ";
+	for (auto x : people) cout << x << ' ';
+	cout << endl;
+
+	Date date{10, 2, 2017};
+	cout << "day(&date) = " << day(&date) << '\n';
+
+	cout << "sqrt(10.0) = " << sqrt(10.0) << '\n';
+	cout << "zz = " << zz << '\n';
+
+	Cmplx z {1.1, 2.2};
+	cout << "Cmplx z = " << z << '\n';
+
+	cout << "static_cast<int>(Beer::Carlsberg) = " << static_cast<int>(Beer::Carlsberg) << '\n';
+	cout << "NS::a = " << NS::a << '\n';
 
 	f();
 }
