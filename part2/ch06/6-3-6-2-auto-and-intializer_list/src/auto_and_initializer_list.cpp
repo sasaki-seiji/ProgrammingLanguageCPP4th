@@ -35,6 +35,9 @@ int main()
 	cout << "v2 = " << v2 << '\n';
 	cout << "v3 = " << v3 << '\n';
 
+	cout << "v2i = " << v2i << '\n';
+	cout << "v3i = " << v3i << '\n';
+
 	cout << "v1a = " << v1a << '\n';
 	cout << "v2a = " << v2a << '\n';
 	cout << "v3a = " << v3a << '\n';
