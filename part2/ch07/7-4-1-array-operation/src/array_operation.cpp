@@ -15,12 +15,16 @@ void use(char c)
 
 void fi(char v[])
 {
+	cout << "-- fi(" << v << ") --\n";
+
 	for (int i = 0; v[i] != 0; ++i)
 		use(v[i]);
 }
 
 void fp(char v[])
 {
+	cout << "-- fp(" << v << ") --\n";
+
 	for (char* p = v; *p != 0; ++p)
 		use(*p);
 }
@@ -33,6 +37,8 @@ int byte_diff(T* p, T* q)
 
 void diff_test()
 {
+	cout << "-- diff_test() --\n";
+
 	int vi[10];
 	short vs[10];
 	cout << vi << ' ' << &vi[1] << ' ' << &vi[1] - &vi[0] << ' '
@@ -43,6 +49,8 @@ void diff_test()
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	int v1[10];
 	int v2[10];
 
@@ -62,6 +70,9 @@ void f()
 
 void fp(char v[], int size)
 {
+	cout << "-- fp(" << v << ", " << size << ") --\n";
+
+	cout << "v[] using size:\n";
 	for (int i=0; i!=size; ++i)
 		use(v[i]);
 	//for (int x : v)
@@ -71,8 +82,12 @@ void fp(char v[], int size)
 
 	const int N = 7;
 	char v2[N];
+
+	cout << "v2[] using size:\n";
 	for (int i=0; i!=N; ++i)
 		use(v2[i]);
+
+	cout << "v2[] using range for:\n";
 	for (int x : v2)
 		use(x);
 }
