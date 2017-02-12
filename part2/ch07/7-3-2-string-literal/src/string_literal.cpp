@@ -10,8 +10,10 @@ using namespace std;
 
 void f()
 {
-	char* p = "Plato";
-		// ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+	cout << "-- f() --\n";
+
+	char* p = "Plato";	// not error
+		// warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
 	//p[4] = 'e';	// system down
 
 	cout << "p = " << p << '\n';
@@ -19,6 +21,8 @@ void f()
 
 void f2()
 {
+	cout << "-- f2() --\n";
+
 	char p[] = "Zeno";
 	p[0] = 'R';
 	cout << "p = " << p << '\n';
@@ -34,6 +38,8 @@ const char* q = "Heraclitus";
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	if (p == q) cout << "one!\n";
 }
 
