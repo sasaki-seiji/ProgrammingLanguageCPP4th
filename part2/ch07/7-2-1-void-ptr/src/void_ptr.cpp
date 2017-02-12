@@ -12,17 +12,17 @@ void f(int* pi)
 {
 	void* pv = pi;
 	//*pv;
-		// 'void*' is not a pointer-to-object type
-	++pv;
-		// ISO C++ forbids incrementing a pointer of type 'void*' [-Wpointer-arith]
+		// error: ‘void*’ is not a pointer-to-object type
+	//++pv;	// not error
+		// warning: ISO C++ forbids incrementing a pointer of type ‘void*’ [-Wpointer-arith]
 
 	int* pi2 = static_cast<int*>(pv);
 
 	//double* pd1 = pv;
-		// 	invalid conversion from 'void*' to 'double*' [-fpermissive]
+		// error: invalid conversion from ‘void*’ to ‘double*’ [-fpermissive]
 
 	//double* pd2 = pi;
-		// cannot convert 'int*' to 'double*' in initialization
+		// error: cannot convert ‘int*’ to ‘double*’ in initialization
 
 	double* pd3 = static_cast<double*>(pv);
 
