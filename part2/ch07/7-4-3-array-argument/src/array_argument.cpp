@@ -29,7 +29,9 @@ void print(double* arg)
 
 void f()
 {
-	double a1[10] = {0};	// ƒƒ‚ƒŠƒŒƒCƒAƒEƒgãAa3[100]Aa2[5]Aa1[10]‚Ì‡H
+	cout << "-- f() --\n";
+
+	double a1[10] = {0};	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½Aï¿½Eï¿½gï¿½ï¿½Aa3[100]ï¿½Aa2[5]ï¿½Aa1[10]ï¿½Ìï¿½ï¿½H
 	double a2[5] = {0};
 	double a3[100] = {0};
 
@@ -37,21 +39,29 @@ void f()
 	comp(a2);
 	comp(a3);
 
+	cout << "a1[10]:\n";
 	print(a1);
+	cout << "a2[5]:\n";
 	print(a2);
+	cout << "a3[100]:\n";
 	print(a3);
 
 	comp2(a1);
 	comp2(a2);
 	comp2(a3);
 
+	cout << "a1[10]:\n";
 	print(a1);
+	cout << "a2[5]:\n";
 	print(a2);
+	cout << "a3[100]:\n";
 	print(a3);
 }
 
 void print_m35(int m[3][5])
 {
+	cout << "-- print_m35(int m[3][5]) --\n";
+
 	for (int i = 0; i!=3; i++) {
 		for (int j = 0; j!=5; j++)
 			cout << m[i][j] << '\t';
@@ -61,6 +71,8 @@ void print_m35(int m[3][5])
 
 void print_mi5(int m[][5], int dim1)
 {
+	cout << "-- print_mi5(int m[][5], int dim1) --\n";
+
 	for (int i = 0; i!=dim1; i++){
 		for (int j = 0; j!=5; j++)
 			cout << m[i][j] << '\t';
@@ -70,6 +82,8 @@ void print_mi5(int m[][5], int dim1)
 
 void print_mij(int* m, int dim1, int dim2)
 {
+	cout << "-- print_mij(int* m, int dim1, int dim2) --\n";
+
 	for (int i = 0; i!=dim1; i++){
 		for (int j = 0; j!=dim2; j++)
 			cout << m[i*dim2+j] << '\t';
@@ -79,6 +93,8 @@ void print_mij(int* m, int dim1, int dim2)
 
 void test()
 {
+	cout << "-- test() --\n";
+
 	int v[3][5] = {
 		{0,1,2,3,4},
 		{10,11,12,13,14},
