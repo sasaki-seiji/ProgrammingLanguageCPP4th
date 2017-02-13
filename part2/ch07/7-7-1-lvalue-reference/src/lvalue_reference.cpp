@@ -11,6 +11,8 @@ using namespace std;
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	int var = 1;
 	int& r {var};
 	int x = r;
@@ -25,11 +27,13 @@ void f()
 int var = 1;
 int& r1 {var};
 //int& r2;
-	// 'r2' declared as reference but not initialized
+	// error: 'r2' declared as reference but not initialized
 extern int& r3;	// defined anywhere
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	int var = 0;
 	int& rr {var};
 	++rr;
@@ -41,7 +45,7 @@ void g()
 }
 
 //double& dr = 1;
-	// invalid initialization of non-const reference of type 'double&' from an rvalue of type 'double'
+	// error: invalid initialization of non-const reference of type 'double&' from an rvalue of type 'double'
 const double& cdr {1};
 
 void increment(int& aa)
@@ -50,6 +54,8 @@ void increment(int& aa)
 }
 void f2()
 {
+	cout << "-- f2() --\n";
+
 	int x = 1;
 	increment(x);
 	cout << "x = " << x << '\n';
@@ -58,6 +64,8 @@ void f2()
 int next(int p) { return p+1; }
 void g2()
 {
+	cout << "-- g2() --\n";
+
 	int x = 1;
 	increment(x);
 	x = next(x);
@@ -87,27 +95,16 @@ V& Map<K,V>::operator[](const K& k)
 
 int main()
 {
-	cout << "call f():\n";
+	cout << "::var = " << ::var << '\n';
+	cout << "::r1 = " << ::r1 << '\n';
+	cout << "::r3 = " << ::r3 << '\n';
+
 	f();
-	cout << "return from f()\n";
-
-	cout << "var = " << var << '\n';
-	cout << "r1 = " << r1 << '\n';
-	cout << "r3 = " << r3 << '\n';
-
-	cout << "call g():\n";
 	g();
-	cout << "return from g()\n";
-
-	cout << "call f2():\n";
 	f2();
-	cout << "return from f2()\n";
-
-	cout << "call g2():\n";
 	g2();
-	cout << "return from g2()\n";
 
-	cout << "enter words:\n";
+	cout << "-- enter words:\n";
 	Map<string,int> buf;
 	for (string s; cin >> s; ) ++buf[s];
 	for (const auto& x : buf)
