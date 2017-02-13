@@ -17,7 +17,7 @@ int global {7};
 
 void f()
 {
-	int* pn = new int{7}; //reak
+	int* pn = new int{7}; //leak
 	int i {7};
 	int* q = &i;
 	confused(pn);
