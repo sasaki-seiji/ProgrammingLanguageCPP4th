@@ -1,10 +1,10 @@
-�y7.3�@�z��F�ϐ���v�f���Ƃ���z�񂪃G���[�ƂȂ�Ȃ��z
+【7.3　配列：変数を要素数とする配列がエラーとならない】
 
-���t�F�@2016.04.10
-�R�����g�F
-	�ϐ���v�f���Ƃ���z��̒�`���G���[�ƂȂ�Ȃ��B
-	�ȉ��̗�ŁAv1[0]��10�ƕ\�������
-	
+日付：　2016.04.10、2017.02.12
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+	変数を要素数とする配列の定義がエラーとならない。
+	以下の例で、v1[0]は10と表示される	（Ubuntuでは、0と表示された）	
 	
 	void f(int n)
 	{
@@ -19,25 +19,29 @@
 		f(10);
 	}
 
-�y7.3.2�@�����񃊃e�����F�@char*�ւ̃��e�����̑���z
 
-���t�F�@2016.04.14
-�R�����g�F
-	�e�L�X�g�̋L�q�ƈقȂ�Achar*�ւ̕����񃊃e�����̑���̓G���[�ƂȂ炸�A
-	warning�ƂȂ�B
-	���̂��ƂŁAchar*��ʂ�������ɂ��A�V�X�e�����_�E������
+【7.3.2　文字列リテラル：　char*へのリテラルの代入】
+
+日付：　2016.04.14、2017.02.12
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+	テキストの記述と異なり、char*への文字列リテラルの代入はエラーとならず、
+	warningとなる。
+	そのあとで、char*を通した代入により、システムがダウンする
 	
 	char* p = "Plato";
 		// ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
 	p[4] = 'e';
 	
-�y7.3.2.2�@��K�͕����Z�b�g�F�@unicode�������o�͂���Ȃ��z
 
-���t�F�@2016.04.14
-�R�����g�F
-	windows��ŁAunicode�����Autf8�Autf16�Autf32���������o�͂���Ȃ�
+【7.3.2.2　大規模文字セット：　unicode文字が出力されない】
+
+日付：　2016.04.14、2017.02.12
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+	windows上で、unicode文字、utf8、utf16、utf32が正しく出力されない
 	
-	�ȉ��̃v���O���������s����ƁA
+	以下のプログラムを実行すると、
 
 	cout << "folder\\file" << '\n';
 	cout << R"(folder\file)" << '\n';
@@ -49,7 +53,7 @@
 	cout << UR"(folder\file)" << '\n';
 	cout << u8"The official vowels in Danish are: a, e, i, o, u, \u00E6, \u00F8, \u00E5 and y." << '\n';
 
-	���L�̏o�͂�������
+	下記の出力が得られる
 
 	folder\file
 	folder\file
@@ -59,5 +63,10 @@
 	0x40403e
 	0x404058
 	0x404058
+	The official vowels in Danish are: a, e, i, o, u, ﾃｦ, ﾃｸ, ﾃ･ and y.
+
+（追記）
+	Ubuntu環境では、最後の例は以下のように正しく出力される
+
 	The official vowels in Danish are: a, e, i, o, u, æ, ø, å and y.
 
