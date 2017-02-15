@@ -17,15 +17,25 @@ struct Address {
 	const char*	zip;
 };
 
+void print_addr(const Address* p);
+void print_addr2(const Address& r);
+
 void f()
 {
+	cout << "-- f() --\n";
+
 	Address jd;
 	jd.name = "Jim Dandy";
 	jd.number = 61;
+
+	// 2017.02.15 add
+	print_addr(&jd);
 }
 
 void print_addr(const Address* p)
 {
+	cout << "-- print_addr(const Address*) --\n";
+
 	cout << p->name << '\n'
 			<< p->number << ' ' << p->street << '\n'
 			<< p->town << '\n'
@@ -34,6 +44,8 @@ void print_addr(const Address* p)
 
 void print_addr2(const Address& r)
 {
+	cout << "-- print_addr2(const Address&) --\n";
+
 	cout << r.name << '\n'
 			<< r.number << ' ' << r.street << '\n'
 			<< r.town << '\n'
@@ -43,6 +55,8 @@ void print_addr2(const Address& r)
 Address current;
 Address set_current(Address next)
 {
+	cout << "-- set_current(Address) --\n";
+
 	Address prev = current;
 	current = next;
 	return prev;
