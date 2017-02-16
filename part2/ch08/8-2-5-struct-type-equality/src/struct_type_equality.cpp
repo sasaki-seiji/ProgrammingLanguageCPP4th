@@ -5,15 +5,20 @@
  *      Author: sasaki
  */
 
+#include <iostream>
+using namespace std;
 
 struct S1 { int a; };
 struct S2 { int a; };
 
 S1 x;
 //S2 y = x;
-	// conversion from 'S1' to non-scalar type 'S2' requested
+	// error: conversion from 'S1' to non-scalar type 'S2' requested
 
 //int i = x;
-	// cannot convert 'S1' to 'int' in initialization
+	// error: cannot convert 'S1' to 'int' in initialization
 
-
+int main()
+{
+	cout << "::x.a = " << ::x.a << endl;
+}
