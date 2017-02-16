@@ -7,11 +7,13 @@
 
 #include <iostream>
 #include <initializer_list>
+#include <algorithm>
 #include <cassert>
 //using namespace std;
 using std::cout;
 using std::initializer_list;
 using std::copy;
+using std::uninitialized_copy;
 using std::ostream;
 
 struct Point {
@@ -36,10 +38,10 @@ int x2 = points[2].x;
 struct Point3Array {
 	Point elem[3];
 #ifdef ELIMINATE_BRACKET
-	// 2016.04.18�A2016.04.20 add
+	// 2016.04.18,2016.04.20 add
 	Point3Array(const initializer_list<Point>& args)
 	{ assert(args.size() == 3);
-	  copy(args.begin(), args.end(), elem); }
+	  uninitialized_copy(args.begin(), args.end(), elem); }
 #endif
 };
 
@@ -68,7 +70,7 @@ Point3Array shift(Point3Array a, Point p)
 
 void test_point3array()
 {
-	cout << "test for Point3Array struct\n";
+	cout << "-- test for Point3Array struct --\n";
 	Point3Array ax2 = shift(points2, {10,20});
 	print(ax2);
 }
@@ -80,7 +82,7 @@ struct array {
 
 	// 2016.04.18 add
 	array(const initializer_list<T>& args)
-	{ copy(args.begin(), args.end(), elem); }
+	{ uninitialized_copy(args.begin(), args.end(), elem); }
 
 	T* begin() noexcept { return elem; }
 	const T* begin() const noexcept { return elem; }
@@ -123,7 +125,7 @@ void print(const array<T,N>& a)
 
 void test_pointarray()
 {
-	cout << "test for array<Point,3> template struct\n";
+	cout << "-- test for array<Point,3> template struct --\n";
 	PointArray ax3 = shift(points3, {10, 20});
 	print(ax3);
 }
@@ -132,16 +134,22 @@ Point point1[] = {{1,2},{3,4},{5,6}};
 array<Point,3> point2 = {{1,2},{3,4},{5,6}};
 //array<Point> point3 = {{1,2},{3,4},{5,6}};
 	// wrong number of template arguments (1, should be 2)
+	// error: scalar object ‘point3’ requires one element in initializer
 
 void test_printarray()
 {
-	cout << "test for print built-in array and template array\n";
+	cout << "-- test for print built-in array and template array --\n";
 	print(point1, 4);
 	print(point2);
 }
 
 int main()
 {
+	cout << "::x2 = " << ::x2 << '\n';
+	cout << "::y2 = " << ::y2 << '\n';
+	cout << "::x3 = " << ::x3 << '\n';
+	cout << "::y3 = " << ::y3 << '\n';
+
 	test_point3array();
 	test_pointarray();
 	test_printarray();
