@@ -33,7 +33,7 @@ struct Points {
 };
 
 //Points x0;
-	// no matching function for call to 'Points::Points()'
+	// error: no matching function for call to 'Points::Points()'
 Points x1{ {100,200} };
 Points x2{ {100,200}, {300,400} };
 
@@ -113,6 +113,14 @@ Address jd = {
 
 int main()
 {
+	cout << "::x1 = ";
+	for (auto& p : ::x1.elem) cout << p << ' ';
+	cout << '\n';
+
+	cout << "::x2 = ";
+	for (auto p : ::x2.elem) cout << p << ' ';
+	cout << '\n';
+
 	Point p0;
 	Point p1 {};
 	Point p2 {1};
@@ -123,6 +131,6 @@ int main()
 	cout << "p2 = " << p2 << '\n';
 	cout << "p3 = " << p3 << '\n';
 
-	cout << jd;
+	cout << "jd:\n" << jd << '\n';
 }
 
