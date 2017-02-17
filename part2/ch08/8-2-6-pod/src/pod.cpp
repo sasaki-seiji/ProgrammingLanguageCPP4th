@@ -9,6 +9,7 @@
 #include <iostream>
 #include <type_traits>
 #include <vector>
+#include <cstring>
 using namespace std;
 
 
@@ -27,6 +28,8 @@ struct S9 : S0, S1 { };
 
 void test_pod()
 {
+	cout << "-- test_pod() --\n";
+
 	cout << "is_pod<S0>::value ? " << is_pod<S0>::value << '\n';
 	cout << "  is_standard_layout<S0>::value ? " << is_standard_layout<S0>::value << '\n';
 	cout << "  is_trivially_copyable<S0>::value ? " << is_trivially_copyable<S0>::value << '\n';
@@ -82,6 +85,8 @@ void test_pod()
 template<typename T>
 void mycopy(T* to, const T* from, int count)
 {
+	cout << "-- mycopy() --\n";
+
 	if (is_pod<T>::value) {
 		memcpy(to, from, count*sizeof(T));
 		cout << "memcpy()\n";
