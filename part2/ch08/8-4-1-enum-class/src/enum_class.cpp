@@ -12,23 +12,23 @@ enum class Traffic_light { red, yellow, green };
 enum class Warning { green, yellow, orange, red };
 
 //Warning a1 = 7;
-	// cannot convert 'int' to 'Warning' in initialization
+	// error: cannot convert 'int' to 'Warning' in initialization
 //int a2 = green;
-	// 'green' was not declared in this scope
+	// error: 'green' was not declared in this scope
 //int a3 = Warning::green;
-	// cannot convert 'Warning' to 'int' in initialization
+	// error: cannot convert 'Warning' to 'int' in initialization
 Warning a4 = Warning::green;
 
 void f(Traffic_light x)
 {
 	//if (x) { }
-		// could not convert 'x' from 'Traffic_light' to 'bool'
+		// error: could not convert 'x' from 'Traffic_light' to 'bool'
 	//if (x == 9) { }
-		// no match for 'operator==' (operand types are 'Traffic_light' and 'int')
+		// error: no match for 'operator==' (operand types are 'Traffic_light' and 'int')
 	//if (x == red) { }
-		// 'red' was not declared in this scope
+		// error: 'red' was not declared in this scope
 	//if (x == Warning::red) { }
-		// no match for 'operator==' (operand types are 'Traffic_light' and 'Warning')
+		// error: no match for 'operator==' (operand types are 'Traffic_light' and 'Warning')
 	if (x == Traffic_light::red) { }
 }
 
@@ -37,8 +37,10 @@ enum class Warning3 : char { green, yellow, orange, red };
 
 void f(Warning key)
 {
+	cout << "-- f(Waning) --\n";
+
 	switch (key) {
-		// enumeration value 'yellow' not handled in switch [-Wswitch]
+		// warning: enumeration value 'yellow' not handled in switch [-Wswitch]
 	case Warning::green:
 		cout << "Warning::green\n";
 		break;
@@ -72,6 +74,8 @@ constexpr Printer_flags operator&(Printer_flags a, Printer_flags b)
 
 void try_to_print(Printer_flags x)
 {
+	cout << "-- try_to_print(Printer_flags) --\n";
+
 	if ((x&Printer_flags::acknowledge) != Printer_flags::none) {
 		cout << "acknowledge\n";
 	}
@@ -86,9 +90,11 @@ void try_to_print(Printer_flags x)
 
 void g(Printer_flags x)
 {
+	cout << "-- g(Printer_flags) --\n";
+
 	switch (x) {
-		// enumeration value 'none' not handled in switch [-Wswitch]
-		// enumeration value 'paper_empty' not handled in switch [-Wswitch]
+		// warning: enumeration value 'none' not handled in switch [-Wswitch]
+		// warning: enumeration value 'paper_empty' not handled in switch [-Wswitch]
 	case Printer_flags::acknowledge:
 		cout << "acknowledge\n";
 		break;
@@ -102,26 +108,32 @@ void g(Printer_flags x)
 		cout << "out_of_color\n";
 		break;
 	case Printer_flags::out_of_black|Printer_flags::out_of_color:
-		// case value '24' not in enumerated type 'Printer_flags' [-Wswitch]
+		// warning: case value '24' not in enumerated type 'Printer_flags' [-Wswitch]
 		cout << "out_of_color and out_of_color\n";
 		break;
 	}
 }
 
 enum class Color_code : char;
-void foobar(Color_code* p) { }
+void foobar(Color_code* p);
 
 enum class Color_code : char {
 	red, yellow, green, blue
 };
 
+void foobar(Color_code* p)
+{
+	cout << "-- foobar(Color_code* p) --\n";
+	cout << " static_cast<int>(*p) = " << static_cast<int>(*p) << '\n';
+}
+
 enum class Flag : char { x=1, y=2, z=4, e=8 };
 
 Flag f0{ };
 //Flag f1 = 5;
-	// cannot convert 'int' to 'Flag' in initialization
+	// error: cannot convert 'int' to 'Flag' in initialization
 //Flag f2 = Flag{5};
-	// cannot convert 'int' to 'Flag' in initialization
+	// error: cannot convert 'int' to 'Flag' in initialization
 Flag f3 = static_cast<Flag>(5);
 Flag f4 = static_cast<Flag>(999);
 
@@ -135,8 +147,10 @@ int main()
 	cout << "static_cast<int>(Warning::orange) = " << static_cast<int>(Warning::orange) << '\n';
 	cout << "static_cast<int>(Warning::red) = " << static_cast<int>(Warning::red) << '\n';
 
-	f(Warning::orange);
+	f(Warning::green);
 	f(Warning::yellow);
+	f(Warning::orange);
+	f(Warning::red);
 
 	try_to_print(Printer_flags::busy);
 	try_to_print(Printer_flags::acknowledge);
@@ -145,9 +159,9 @@ int main()
 	g(Printer_flags::busy);
 	g(Printer_flags::out_of_black|Printer_flags::out_of_color);
 
-	cout << "f0 = " << static_cast<int>(f0) << '\n';
-	cout << "f3 = " << static_cast<int>(f3) << '\n';
-	cout << "f4 = " << static_cast<int>(f4) << '\n';
+	cout << "::f0 = " << static_cast<int>(::f0) << '\n';
+	cout << "::f3 = " << static_cast<int>(::f3) << '\n';
+	cout << "::f4 = " << static_cast<int>(::f4) << '\n';
 
 	int i = static_cast<int>(Flag::y);
 	char c = static_cast<char>(Flag::e);
