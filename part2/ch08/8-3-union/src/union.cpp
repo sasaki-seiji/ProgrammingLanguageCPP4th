@@ -19,8 +19,12 @@ struct Entry {
 
 void f(Entry* p)
 {
+	cout << "-- f(Entry*) --\n";
+
 	if (p->t == str)
-		cout << p->s;
+		cout << p->s << '\n';
+	else
+		cout << p->i << '\n';
 }
 
 union Value {
@@ -36,8 +40,12 @@ struct Entry2 {
 
 void f(Entry2 *p)
 {
+	cout << "-- f(Entry2*) --\n";
+
 	if (p->t == str)
-		cout << p->v.s;
+		cout << p->v.s << '\n';
+	else
+		cout << p->v.i << '\n';
 }
 
 union Fudge {
@@ -60,12 +68,15 @@ int* cheat2(int i)
 int main()
 {
 	char name[] = "name";
-	char value[] = "something\n";
+	char value[] = "something";
 
 	Entry e;
 	e.name = name;
 	e.t = str;
 	e.s = value;
+	f(&e);
+	e.t = num;
+	e.i = 1234;
 	f(&e);
 
 	Entry2 e2;
@@ -73,6 +84,10 @@ int main()
 	e2.t = str;
 	e2.v.s = value;
 	f(&e2);
+	e2.t = num;
+	e2.v.i = 5678;
+	f(&e2);
+
 
 	cout << "cheat(10) returns " << cheat(10) << '\n';
 	cout << "cheat2(10) returns " << cheat2(10) << '\n';
