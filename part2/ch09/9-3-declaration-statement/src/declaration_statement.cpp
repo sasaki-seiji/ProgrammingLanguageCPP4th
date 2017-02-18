@@ -15,8 +15,10 @@ void error(const char* mes)
 	exit(1);
 }
 
-void f(vector<string>& v, int i ,const char* p)
+void f(vector<string>& v, size_t i ,const char* p)
 {
+	cout << "-- f(vector<string>&,size_t,const char*) ---\n";
+
 	if (p==nullptr) return;
 	if (i<0 || v.size()<=i)
 		error("bad index");
@@ -28,6 +30,8 @@ void f(vector<string>& v, int i ,const char* p)
 
 void use()
 {
+	cout << "-- use() --\n";
+
 	string s1;
 	s1 = "The best is the enemy of the good.";
 
@@ -36,6 +40,8 @@ void use()
 
 void input()
 {
+	cout << "-- input() --\n";
+
 	const int max = 10;
 	int buf[max];
 	int count = 0;
@@ -44,6 +50,10 @@ void input()
 		if (count==max) error("buffer overflow");
 		buf[count++] = i;
 	}
+
+	for (int i=0; i<count; ++i)
+		cout << buf[i] << ' ';
+	cout << '\n';
 }
 
 int main()
