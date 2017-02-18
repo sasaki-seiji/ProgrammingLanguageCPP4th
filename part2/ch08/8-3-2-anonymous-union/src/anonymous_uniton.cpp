@@ -24,7 +24,8 @@ public:
 	~Entry2();
 	Entry2& operator=(const Entry2&);
 	Entry2(const Entry2&);
-	Entry2();
+	Entry2(int ii=0);
+	Entry2(const string& ss);
 
 	int number() const;
 	string text() const;
@@ -33,9 +34,12 @@ public:
 	void set_text(const string&);
 };
 
-Entry2::Entry2() :type{Tag::number}
+Entry2::Entry2(int ii) :type{Tag::number}, i{ii}
 {
-	i = 100;
+}
+
+Entry2::Entry2(const string& ss) :type{Tag::text}, s{ss}
+{
 }
 
 Entry2::~Entry2()
@@ -86,25 +90,23 @@ Entry2& Entry2::operator=(const Entry2& e)
 	switch (e.type) {
 	case Tag::number:
 		i = e.i;
+		// 2016.04.22 add
+		type = e.type;
 		break;
 	case Tag::text:
 		// 2016.04.22 change: syntax error
 		// new(&s)(e.s);
 		new(&s) string{e.s};
-
-		// 2016.04.22 delete
-		//type = e.type;
+		type = e.type;
 		break;
 	}
 
-	// 2016.04.22 add
-	type = e.type;
 	return *this;
 }
 
 int main()
 {
-	Entry2 e;
+	Entry2 e{123};
 	cout << "e.number() = " << e.number() << '\n';
 
 	e.set_text("a string");
@@ -113,32 +115,37 @@ int main()
 	e.set_number(111);
 	cout << "after e.set_number(111), e.nubmer() = " << e.number() << '\n';
 
-	Entry2 t;
-	Entry2 s;
-
 	// number = number
-	t.set_number(10);
-	s.set_number(20);
-	t = s;
-	cout << "after t/10/ = s/20/, t.number() = " << t.number() << '\n';
+	{
+		Entry2 t{10};
+		Entry2 s{20};
+		t = s;
+		cout << "after t(10) = s(20), t.number() = " << t.number() << '\n';
+	}
 
 	// number = string
-	t.set_number(11);
-	s.set_text("source");
-	t = s;
-	cout << "after t/11/ = s/source/, t.text() = " << t.text() << '\n';
+	{
+		Entry2 t{11};
+		Entry2 s{"source"};
+		t = s;
+		cout << "after t(11) = s(\"source\"), t.text() = " << t.text() << '\n';
+	}
 
 	// string = number
-	t.set_text("target");
-	s.set_number(21);
-	t = s;
-	cout << "after t/target/ = s/21/, t.number() = " << t.number() << '\n';
+	{
+		Entry2 t{"target"};
+		Entry2 s{21};
+		t = s;
+		cout << "after t(\"target\") = s(21), t.number() = " << t.number() << '\n';
+	}
 
 	// string = string
-	t.set_text("target");
-	s.set_text("source");
-	t = s;
-	cout << "after t/target/ = s/source/, t.text() = " << t.text() << '\n';
+	{
+		Entry2 t{"target"};
+		Entry2 s{"source"};
+		t = s;
+		cout << "after t(\"target\") = s(\"source\"), t.text() = " << t.text() << '\n';
+	}
 
 	return 0;
 }
