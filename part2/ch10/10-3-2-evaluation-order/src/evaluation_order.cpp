@@ -35,19 +35,23 @@ void f2(int x)
 
 int main()
 {
+	cout << "-- x = f(2) + f(3) --\n";
 	int x = f(2) + g(3);
-	cout << "f(2) + g(3) returns " << x << '\n';
+	cout << "x = " << x << '\n';
 
+	cout << "-- v[i] = i++ --\n";
 	v[i] = i++;
-		// operation on 'i' may be undefined [-Wsequence-point]
-
+		// warning: operation on 'i' may be undefined [-Wsequence-point]
 	cout << "i: " << i << ", v[0]: " << v[0] << ", v[1]: " << v[1] << ", v[2]: " << v[2] << '\n';
 
+	cout << "-- i = 1; f1(v[i], i++) --\n";
 	v[0] = 0; v[1] = 1; v[2] = 2;
 	i = 1;
 	f1(v[i], i++);
-		// operation on 'i' may be undefined [-Wsequence-point]
+		// warning: operation on 'i' may be undefined [-Wsequence-point]
+
+	cout << "-- f2( (v[i],i++) ) --\n";
 	f2( (v[i],i++) );
-		// left operand of comma operator has no effect [-Wunused-value]
+		// warning: left operand of comma operator has no effect [-Wunused-value]
 }
 
