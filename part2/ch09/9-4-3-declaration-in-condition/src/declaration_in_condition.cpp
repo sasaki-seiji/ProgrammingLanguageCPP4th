@@ -5,29 +5,40 @@
  *      Author: sasaki
  */
 
+#include <iostream>
+using namespace std;
+
 double prim(bool);
 
 double f1(double left)
 {
+	cout << "-- f1(" << left << ") --\n";
+
 	if (double d = prim(true)) {
 		left /= d;
 	}
+
+	cout << "f1(double) = " << left << "\n";
 	return left;
 }
 
 double f2(double left)
 {
+	cout << "-- f2(" << left << ") --\n";
+
 	double d2;
 	double d;
 
 	d2 = d;
-		// 'd' is used uninitialized in this function [-Wuninitialized]
+		// warning: 'd' is used uninitialized in this function [-Wuninitialized]
 
 	if (d = prim(true)) {
 		left /= d;
 	}
 
 	d = 2.0;
+
+	cout << "f2(double) = " << left << '\n';
 	return left;
 }
 
