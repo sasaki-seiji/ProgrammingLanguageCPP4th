@@ -12,12 +12,16 @@ using namespace std;
 
 void f(int v[], int max)
 {
+	cout << "-- f(int v[], int max) using for --\n";
+
 	for (int i = 0; i!=max; ++i)
 		v[i] = i*i;
 }
 
 void f2(int v[], int max)
 {
+	cout << "-- f2(int v[], int max) using while --\n";
+
 	int i;
 	while (i!=max) {
 		v[i] = i*i;
@@ -27,6 +31,8 @@ void f2(int v[], int max)
 
 void input(vector<string>& v)
 {
+	cout << "-- input(vector<string>&) --\n";
+
 	for (string s; cin >> s; )
 		v.push_back(s);
 }
