@@ -11,6 +11,9 @@ using namespace std;
 
 void f(vector<string>&v, string terminate)
 {
+	cout << "-- f(vector<string>&, string) --\n";
+	cout << "enter string, break if \"" << terminate << "\"\n";
+
 	string s;
 	while (cin>>s) {
 		if (s == terminate) break;
