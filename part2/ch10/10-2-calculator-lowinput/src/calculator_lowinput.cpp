@@ -88,7 +88,9 @@ Token Token_stream::get()
 					ip->putback(ch);
 					break;
 				}
-			ct.kind = {Kind::name};
+			// 2017.02.19 change
+			//ct.kind = {Kind::name};
+			ct.kind = Kind::name;
 			return ct;
 		}
 
