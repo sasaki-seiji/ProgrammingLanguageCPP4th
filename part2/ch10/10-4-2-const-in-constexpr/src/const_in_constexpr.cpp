@@ -17,7 +17,7 @@ const int y = sqrt(x);
 
 constexpr int xx = x;
 //constexpr string ss = s;
-	// the type 'const string {aka const std::__cxx11::basic_string<char>}' of constexpr variable 'ss' is not literal
+	// error: the type 'const string {aka const std::__cxx11::basic_string<char>}' of constexpr variable 'ss' is not literal
 constexpr int yy = y;
 
 int main()
