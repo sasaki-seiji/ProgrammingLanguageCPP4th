@@ -12,14 +12,16 @@ using namespace std;
 int x1 = 7;
 constexpr int x2 = 7;
 //constexpr int x3 = x1;
-	// the value of 'x1' is not usable in a constant expression
+	// error: the value of 'x1' is not usable in a constant expression
 constexpr int x4 = x2;
 
 void f()
 {
 	//constexpr int y3 = x1;
-		// the value of 'x1' is not usable in a constant expression
+		// error: the value of 'x1' is not usable in a constant expression
 	constexpr int y4 = x2;
+
+	cout << "y4 = " << y4 << endl;
 }
 
 constexpr int isqrt_helper(int sq, int d, int a)
@@ -37,6 +39,7 @@ constexpr int s2 = isqrt(1234);
 
 int main()
 {
+	f();
 	cout << "s1: " << s1 << '\n';
 	cout << "s2: " << s2 << '\n';
 }
