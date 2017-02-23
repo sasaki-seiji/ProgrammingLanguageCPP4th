@@ -12,12 +12,8 @@ using namespace std;
 
 struct Point {
 	int x, y, z;
-	//constexpr Point up(int d) { return {x, y, z+d}; }
-	constexpr Point up(int d) const { return {x, y, z+d}; }
-		// Invalid arguments 'Candidates are: Point up(int)	'
-	//constexpr Point move(int dx, int dy) { return {x+dx, y+dy}; }
-	constexpr Point move(int dx, int dy) const { return {x+dx, y+dy}; }
-		// Invalid arguments 'Candidates are: Point move(int, int)'
+	constexpr Point up(int d) { return {x, y, z+d}; }
+	constexpr Point move(int dx, int dy) { return {x+dx, y+dy}; }
 };
 
 constexpr Point origo {0, 0};
