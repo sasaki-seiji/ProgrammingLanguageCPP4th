@@ -11,7 +11,7 @@ using namespace std;
 
 int i = 2.7;
 char b = 2000.7;
-	// overflow in implicit constant conversion [-Woverflow]
+	// warning: overflow in implicit constant conversion [-Woverflow]
 
 int i2 = float(1234567890);
 
