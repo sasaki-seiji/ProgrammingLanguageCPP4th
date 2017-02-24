@@ -1,6 +1,8 @@
 【10.3.4　一時オブジェクト】
 
-日付:　2016.04.26
+日付:　2016.04.26、2017.02.22
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの例に以下の間違いがある
 	①stringはmoveメンバ関数を持たない
@@ -16,7 +18,9 @@
 
 【10.4.2　定数式中のconst：sqrtを用いたconstexprがエラーとならない】
 
-日付：　2016.04.26
+日付：　2016.04.26、2017.02.23
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの記述と異なり、sqrtを用いたconstexprがエラーとならない
 
@@ -29,7 +33,9 @@
 
 【10.4.5　アドレス定数式：p1+2がコンパイルエラーとならない】
 
-日付：　2016.04.29
+日付：　2016.04.29、2017.02.24
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの記述と異なり、定数式　p1+2がコンパイルエラーとならない
 	
@@ -38,13 +44,15 @@
 	constexpr const char* p3 = p1+2;	// OK
 	constexpr char c = p1[2];
 
+
 【10.5.2　変換】
 
-日付：　2016.04.29
+日付：　2016.04.29、2017.02.24
 バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	・テキストの記述と異なり、｛｝形式の初期化はエラーでなく、ワーニングとなる
 		char c {d};
-			// narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
+			// waring: narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
 	・縮小変換のワーニングは、-Wconversionオプションを付けた場合のみ出力される
 
