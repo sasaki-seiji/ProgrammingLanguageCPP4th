@@ -11,7 +11,6 @@ using namespace std;
 void f(double d)
 {
 	char c = d;
-		// conversion to 'char' from 'double' may alter its value [-Wfloat-conversion]
 
 	cout << "int{c}: " << int{c} << '\n';
 }
@@ -19,8 +18,7 @@ void f(double d)
 void f2(double d)
 {
 	char c {d};
-		// narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
-		// conversion to 'char' from 'double' may alter its value [-Wfloat-conversion]
+		// warning: narrowing conversion of 'd' from 'double' to 'char' inside { } [-Wnarrowing]
 
 	cout << "int{c}: " << int{c} << '\n';
 }
