@@ -13,6 +13,7 @@ void f(int* p, int i)
 	bool is_not_zero = p;
 	bool b2 = i;
 
+	cout << boolalpha;
 	cout << "is_not_zero: " << is_not_zero << '\n';
 	cout << "b2: " << b2 << '\n';
 }
@@ -27,8 +28,7 @@ void ff(int*p, int* q)
 	if (q!=nullptr) do_something(*q);
 
 	//fi(p);
-		// Invalid arguments 'Candidates are:void fi(int)'
-		// invalid conversion from 'int*' to 'int' [-fpermissive]
+		// error: invalid conversion from 'int*' to 'int' [-fpermissive]
 
 	fb(q);
 }
