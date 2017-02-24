@@ -14,7 +14,7 @@ int i;
 void* vpi = &i;
 void f(){ }
 //void* vpf = f;
-	// invalid conversion from 'void (*)()' to 'void*' [-fpermissive]
+	// error: invalid conversion from 'void (*)()' to 'void*' [-fpermissive]
 
 int main()
 {
