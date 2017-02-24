@@ -34,6 +34,8 @@ struct Enode {
 	Token token;
 	Enode* left;
 	Enode* right;
+
+	~Enode() { delete left; delete right; }
 };
 
 class Token_stream {
@@ -244,6 +246,7 @@ void calculate()
 		n = expr(false);
 		generate(n);
 		cout << " print" << endl;
+		delete n;
 	}
 }
 
