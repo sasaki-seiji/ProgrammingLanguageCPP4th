@@ -25,7 +25,7 @@ int main()
 	cout << "d2(DBL_MAX): " << d2 << '\n';
 	cout << "f2(=d2): " << f2 << '\n';
 	cout << "ld(=d2): " << ld << '\n';
-	cout << "ld2(<long double>::max(): " << ld2 << '\n';
+	cout << "ld2(<long double>::max()): " << ld2 << '\n';
 	cout << "d3(=ld2): " << d3 << '\n';
 }
 
