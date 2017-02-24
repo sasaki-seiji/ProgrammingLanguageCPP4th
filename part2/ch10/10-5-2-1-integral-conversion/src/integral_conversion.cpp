@@ -9,10 +9,10 @@
 using namespace std;
 
 unsigned char uc = 1023;
-	// large integer implicitly truncated to unsigned type [-Woverflow]
+	// warning: large integer implicitly truncated to unsigned type [-Woverflow]
 
 signed char sc = 1023;
-	// overflow in implicit constant conversion [-Woverflow]
+	// warning: overflow in implicit constant conversion [-Woverflow]
 
 int main()
 {
