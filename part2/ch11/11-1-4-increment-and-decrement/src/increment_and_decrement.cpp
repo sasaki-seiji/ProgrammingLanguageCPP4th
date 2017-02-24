@@ -12,6 +12,7 @@ using namespace std;
 void cpy(char* p, const char* q)
 {
 	while (*p++ = *q++) ;
+		// warning: suggest parentheses around assignment used as truth value [-Wparentheses]
 }
 
 void cpy2(char*p, const char*  q)
@@ -52,10 +53,15 @@ void cpy6(char* p, const char* q)
 	while ((*p++ = *q++) != 0) { }
 }
 
+void cpy7(char*p, const char* q)
+{
+	strcpy(p, q);
+}
+
 int main()
 {
 	char src[] = "this is a string to be copied";
-	char dst[80], dst2[80], dst3[80], dst4[80], dst5[80], dst6[80]  ;
+	char dst[80], dst2[80], dst3[80], dst4[80], dst5[80], dst6[80], dst7[80]  ;
 
 	cpy(dst, src);
 	cout << "cpy: " << dst << '\n';
@@ -69,5 +75,7 @@ int main()
 	cout << "cpy5: " << dst5 << '\n';
 	cpy6(dst6, src);
 	cout << "cpy6: " << dst6 << '\n';
+	cpy7(dst7, src);
+	cout << "cpy7: " << dst7 << '\n';
 }
 
