@@ -13,16 +13,11 @@ using namespace std;
 template<typename T> class complex {
 public:
 	constexpr complex(T re = 0, T im = 0) :r{re}, i{im} { }
-	template<typename U> constexpr complex(const complex<U>&);
-//	template<typename U> explicit constexpr complex(const complex<U>&);
+	template<typename U> explicit constexpr complex(const complex<U>&);
 
-	//constexpr T real() {return r;}
-	constexpr T real() const {return r;}
-		// Invalid arguments '	Candidates are:	float real() void real(float)'
+	constexpr T real() {return r;}
 	void real(T);
-	//constexpr T imag() {return i;}
-	constexpr T imag() const {return i;}
-		// Invalid arguments 'Candidates are: float imag() void imag(float)'
+	constexpr T imag() {return i;}
 	void imag(T);
 
 	complex<T>& operator=(T);
@@ -46,9 +41,9 @@ public:
 	constexpr complex(const complex<float>& z) : r{z.real()}, i{z.imag()} { }
 	explicit constexpr complex(const complex<long double>&);
 
-	constexpr double real() const {return r;}
+	constexpr double real() {return r;}
 	void real(double);
-	constexpr double imag() const {return i;}
+	constexpr double imag() {return i;}
 	void imag(double);
 
 	complex<double>& operator=(double);
