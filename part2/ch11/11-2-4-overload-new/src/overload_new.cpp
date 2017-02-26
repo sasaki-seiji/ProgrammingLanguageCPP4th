@@ -19,15 +19,20 @@ private:
 
 void f(int i)
 {
+	cout << "-- f(" << i << ") --\n";
+
 	void* buf = reinterpret_cast<void*>(0xF00F);
 	X* p2 = new(buf) X(i);
-	cout << "p2: " << p2 << '\n';
+	cout << "p2 = " << p2 << '\n';
 }
 
 class Arena {
 public:
 	virtual void* alloc(size_t) = 0;
 	virtual void free(void*) = 0;
+
+	// 2017.02.26 add
+	virtual ~Arena() { }
 };
 
 void* operator new(size_t sz, Arena* a)
@@ -69,11 +74,13 @@ void destroy(X* p, Arena*a)
 
 void g(int i)
 {
+	cout << "-- g(" << i << ") --\n";
+
 	X* p = new(Persistent) X(i);
 	X* q = new(Shared) X(i);
 
-	cout << "p: " << p << '\n';
-	cout << "q: " << q << '\n';
+	cout << "p = " << p << '\n';
+	cout << "q = " << q << '\n';
 
 	destroy(p, Persistent);
 	destroy(q, Shared);
