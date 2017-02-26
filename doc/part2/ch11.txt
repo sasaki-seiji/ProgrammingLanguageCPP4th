@@ -1,3 +1,16 @@
+【11.2　Enode*のコンストラクタ引数の評価順、ts.current()が更新される】
+
+日付：　2017.02.25
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	Enode* をnewで作成する際、コンストラクタ引数にts.current()とterm()を渡しているが、
+	引数の評価順は不定のため、term()が先に評価されて、ts.current()が更新されてしまう
+	以下のように修正
+
+			Token t = ts.current();
+			left = new Enode {t, left, term(true)};
+
 
 【11.3.3　非修飾並び】
 
