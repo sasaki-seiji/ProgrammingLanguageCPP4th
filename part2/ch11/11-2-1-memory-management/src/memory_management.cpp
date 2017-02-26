@@ -12,44 +12,64 @@ using namespace std;
 
 void bad()
 {
+	cout << "-- bad() --\n";
+
 	int* p1 = new int{99};
 	int* p2 = p1;
 	delete p1;
 	p1 = nullptr;
 	char* p3 = new char{'x'};
 	*p2 = 999;
-	cout << *p3 << '\n';
+	cout << "*p3 = " << *p3 << ", int{*p3} = " << int{*p3} << '\n';
 }
 
 void sloppy()
 {
+	cout << "-- sloppy() --\n";
+
 	int* p = new int[1000];
 	for (int i=0; i != 1000; ++i)
 		p[i] = i;
+
+	for (int i=0; i!= 1000; ++i)
+		cout << p[i] << ' ';
+	cout << '\n';
+
 	delete[] p;
 
 	//delete[] p;
 		// crash!!!
+		// on Ubuntu, terminated by exit value: -1
 }
 
 void f(const string& s)
 {
+	cout << "-- f(const string&) --\n";
+
 	vector<char> v;
 	for (auto c : s)
 		v.push_back(c);
 	cout << "v.size(): " << v.size() << '\n';
+
+// destruct v
 }
 
 string reverse(const string& s)
 {
+	cout << "-- reverse(const string&) --\n";
+
 	string ss;
 	for (int i = s.size()-1; i >= 0; --i)
 		ss.push_back(s[i]);
 	return ss;
+
+// ss is moved
 }
 
 void f(int n)
 {
+	cout << "-- f(" << n << ") --\n";
+
 	int* p1 = new int[n];
 	unique_ptr<int[]> p2 {new int[n]};
 
