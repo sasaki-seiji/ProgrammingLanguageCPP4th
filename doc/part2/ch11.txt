@@ -12,6 +12,20 @@
 			left = new Enode {t, left, term(true)};
 
 
+【11.3.1　initialize_listのコンストラクタがprivate】
+
+日付：　2017.02.27
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+	initializer_listを、配列と配列要素数から初期化する宣言で、
+	コンストラクタがprivateであるとのエラーメッセージが出力される
+
+	const double temp[] = {double{1}, double{2}, 3.14};
+	const initializer_list<double> tmp(temp, sizeof(temp)/sizeof(double));
+		// error: ‘constexpr std::initializer_list<_E>::initializer_list(std::initializer_list<_E>::const_iterator, std::initializer_list<_E>::size_type) [with _E = double; std::initializer_list<_E>::const_iterator = const double*; std::initializer_list<_E>::size_type = long unsigned int]’ is private
+
+
+
 【11.3.3　非修飾並び】
 
 日付：　2016.05.01
