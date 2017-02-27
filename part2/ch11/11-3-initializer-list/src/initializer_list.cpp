@@ -20,8 +20,7 @@ void h()
 {
 	f({1,2});
 	//g({1,2});
-		// 	'g' is ambiguous 'Candidates are:void g(SS)	void g(S)'
-		// call of overloaded 'g(<brace-enclosed initializer list>)' is ambiguous
+		// error: call of overloaded 'g(<brace-enclosed initializer list>)' is ambiguous
 
 	g(S{1,2});
 	g(SS{1,2});
