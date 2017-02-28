@@ -21,6 +21,8 @@ ostream& operator<<(ostream& os, const vector<int>& v)
 
 void algo(vector<int>& v)
 {
+	cout << "-- algo(vector<int>&) --\n";
+
 	sort(v.begin(), v.end());
 	cout << v << '\n';
 	sort(v.begin(), v.end(), [](int x, int y){ return abs(x)<abs(y); });
@@ -29,13 +31,21 @@ void algo(vector<int>& v)
 
 void f(vector<int>& v)
 {
-	bool sensitive = true;
+	cout << "-- f(vector<int>&) --\n";
 
+	bool sensitive = true;
 	sort(v.begin(), v.end(),
 			//[](int x, int y){ return sensitive ? x<y : abs(x)<abs(y); });
+				// error: 'sensitive' is not captured
 			[sensitive](int x, int y){ return sensitive ? x<y : abs(x)<abs(y); });
-				// 'sensitive' is not captured
+	cout << v << '\n';
 
+	sensitive = false;
+	sort(v.begin(), v.end(),
+			//[](int x, int y){ return sensitive ? x<y : abs(x)<abs(y); });
+				// error: 'sensitive' is not captured
+			[sensitive](int x, int y){ return sensitive ? x<y : abs(x)<abs(y); });
+	cout << v << '\n';
 }
 
 int main()
@@ -47,6 +57,5 @@ int main()
 	}
 	algo(v);
 	f(v);
-	cout << v << '\n';
 }
 
