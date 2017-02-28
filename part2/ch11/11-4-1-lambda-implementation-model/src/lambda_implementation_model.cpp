@@ -12,6 +12,8 @@ using namespace std;
 
 void print_modulo(const vector<int>& v, ostream& os, int m)
 {
+	cout << "-- print_modulo(const vector<int>&,ostream&, int:" << m << ") --\n";
+
 	for_each(begin(v), end(v),
 			[&os,m](int x){ if (x%m==0) os << x << '\n'; }
 	);
@@ -28,6 +30,8 @@ public:
 
 void print_modulo2(const vector<int>& v, ostream& os, int m)
 {
+	cout << "-- print_modulo2(const vector<int>&,ostream&, int:" << m << ") --\n";
+
 	for_each(begin(v), end(v), Modulo_print{os,m});
 }
 
@@ -38,6 +42,6 @@ int main()
 		v.push_back(i);
 
 	print_modulo(v, cout, 17);
-	print_modulo(v, cout, 19);
+	print_modulo2(v, cout, 19);
 }
 
