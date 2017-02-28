@@ -8,11 +8,14 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <typeinfo>
 #include <iostream>
 using namespace std;
 
 void print_modulo3(const vector<int>& v, ostream& os, int m)
 {
+	cout << "-- print_modulo3(const vector<int>&,ostream&, int:" << m << ") --\n";
+
 	class Modulo_print {
 		ostream& os;
 		int m;
@@ -27,6 +30,8 @@ void print_modulo3(const vector<int>& v, ostream& os, int m)
 
 void print_modulo4(const vector<int>& v, ostream& os, int m)
 {
+	cout << "-- printf_modulo4(const vector<int>&,ostream&,int:" << m << ") --\n";
+
 	auto Modulo_print = [&os,m](int x){ if (x%m==0) os << x << '\n'; };
 
 	for_each(begin(v), end(v), Modulo_print);
@@ -50,6 +55,8 @@ ostream& operator<<(ostream& os, const pair<string, int>& p)
 template<typename C, typename Fct>
 void print_modulo6(C& v, ostream& os, int m, Fct f)
 {
+	cout << "-- print_modulo6(C&:" << typeid(v).name() << ",ostream&,int:" << m << ",Fct) --\n";
+
 	for (auto x : v)
 		if (f(x) % m == 0)
 			os << x << '\n';
