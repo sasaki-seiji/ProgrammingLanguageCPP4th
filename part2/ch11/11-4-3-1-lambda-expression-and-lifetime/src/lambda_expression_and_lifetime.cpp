@@ -25,7 +25,7 @@ private:
 public:
 	void operator()(const string& label) { actions[label](); }
 	void add(const string& lb, function<void()> f) { actions[lb] = f; }
-	void draw(Point p1, Point p2, Point p3)
+	void draw(Point p1, Point p2, Point p3) const
 	{ cout << p1 << ',' << p2 << ',' << p3 << '\n'; }
 };
 
@@ -40,9 +40,9 @@ void setup2(Menu& m)
 {
 	Point p1{1,2}, p2{3,4}, p3{5,6};
 
-	//m.add("draw triagle", [=]{ m.draw(p1, p2, p3); });
-	m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
-		// passing 'const Menu' as 'this' argument discards qualifiers [-fpermissive]
+	m.add("draw triagle", [=]{ m.draw(p1, p2, p3); });
+		// error: passing 'const Menu' as 'this' argument discards qualifiers [-fpermissive]
+	//m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
 }
 
 int main()
