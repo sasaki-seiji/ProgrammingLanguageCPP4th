@@ -48,6 +48,31 @@ void f(vector<int>& v)
 	cout << v << '\n';
 }
 
+int h1() { return 0; }
+template<typename... Var>
+int h1(int s, Var... v)
+{
+	return s + h1(v...);
+}
+
+int h2() { return 1; }
+template<typename... Var>
+int h2(int s, Var... v)
+{
+	return s * h2(v...);
+}
+
+template<typename... Var>
+void algo(int s, Var... v)
+{
+	cout << "-- algo(int,Var...) --\n";
+
+	auto helper = [&s,&v...] { return s*(h1(v...)+h2(v...)); };
+
+	auto res = helper();
+	cout << "res = " << res << endl;
+}
+
 int main()
 {
 	vector<int> v;
@@ -57,5 +82,7 @@ int main()
 	}
 	algo(v);
 	f(v);
+
+	algo(4, 3, 2, 1);
 }
 
