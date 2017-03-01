@@ -28,19 +28,23 @@
 
 【11.3.3　非修飾並び】
 
-日付：　2016.05.01
+日付：　2016.05.01、2017.02.27
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの記述と異なり、+=　の右辺に非修飾｛｝並びを指定するとエラーとなる
 	v = v + {88} の意味に解釈され、+演算でエラーとなる模様
 	
 	int v {7};
 	v += {88};
-		// invalid operands of types 'int' and '<brace-enclosed initializer list>' to binary 'operator+'
+		// error: invalid operands of types 'int' and '<brace-enclosed initializer list>' to binary 'operator+'
 
 
 【11.4.3.1　ラムダ式と生存期間】
 
-日付：　2016.05.02
+日付：　2016.05.02、2017.03.01
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	クラスオブジェクトへの非constな参照を値でキャプチャするとエラーが出る
 	
@@ -55,6 +59,24 @@
 	以下のように、参照としてキャプチャする必要がある
 	
 		m.add("draw triagle", [=, &m]{ m.draw(p1, p2, p3); });
+
+(追記：2017.03.01）
+
+	Menuクラスのdrawメンバ関数をconstとすれば、上記エラーは無くなる
+	但し、この場合、Menuのインスタンスをコピーすることは望ましくないので
+	（古い状態のactionsデータメンバをクロージャオブジェクトに不必要にコピーする）、
+	参照でキャプチャしたほうが良いかも？？？
+
+	class Menu {
+	private:
+		map<string, function<void()>> actions;
+	public:
+		void operator()(const string& label) { actions[label](); }
+		void add(const string& lb, function<void()> f) { actions[lb] = f; }
+		void draw(Point p1, Point p2, Point p3) const
+			{ cout << p1 << ',' << p2 << ',' << p3 << '\n'; }
+	};
+
 
 【11.4.4　呼び出しとリターン】
 
