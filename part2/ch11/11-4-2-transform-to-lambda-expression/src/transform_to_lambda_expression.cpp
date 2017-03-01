@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <queue>
 #include <algorithm>
 #include <typeinfo>
 #include <iostream>
@@ -70,6 +71,75 @@ void test(vector<int>& v, map<string, int>& m)
 
 }
 
+class Tree {
+	int v;
+	Tree *l, *r;
+public:
+	Tree(int vv, Tree* ll=nullptr, Tree* rr=nullptr)
+		: v{vv}, l{ll}, r{rr} { }
+	int value() const { return v; }
+	Tree* left() const { return l; }
+	Tree* right() const { return r; }
+};
+
+template<typename Fct>
+void depth_first_recursive(const Tree* tree, Fct f)
+{
+	if (Tree* l = tree->left()) depth_first_recursive(l, f);
+	f(tree->value());
+	if (Tree* r = tree->right()) depth_first_recursive(r, f);
+}
+
+template<typename Fct>
+void depth_first(const Tree& tree, Fct f)
+{
+	cout << "-- depth_first(const Tree&, Fct) --\n";
+
+	depth_first_recursive(&tree, f);
+}
+
+template<typename Fct>
+void breadth_first(const Tree& tree, Fct f)
+{
+	cout << "-- breadth_first(const Tree&, Fct) --\n";
+
+	queue<const Tree*> fifo;
+	fifo.push(&tree);
+
+	while (!fifo.empty()) {
+		const Tree *p = fifo.front();
+		fifo.pop();
+
+		f(p->value());
+		if (Tree* l = p->left()) fifo.push(l);
+		if (Tree* r = p->right()) fifo.push(r);
+	}
+}
+
+template<typename K, typename V, typename Fct>
+void every_second_element(const map<K,V>& m, Fct f)
+{
+	cout << "-- every_second_element(const map&, Fct) --\n";
+	for (const auto& x : m)
+		f(x.second);
+}
+
+void test_scanner(ostream& os, int m)
+{
+	Tree *t11 = new Tree{11}, *t12 = new Tree{12}, *t21 = new Tree{21};
+	Tree *t10 = new Tree{10,t11, t12}, *t20 = new Tree{20, t21};
+	Tree *root = new Tree{100, t10, t20};
+
+	depth_first(*root, [&os,m](int x) { if (x%m==0) os << x << '\n'; });
+	breadth_first(*root, [&os,m](int x){ if (x%m==0) os << x << '\n'; });
+
+	map<string,int> digits {
+		{"one", 1}, {"two", 2}, {"three", 3}, {"four", 4}, {"five", 5},
+		{"six", 6}, {"seven", 7}, {"eight", 8}, {"nine", 9}, {"tem", 10}
+	};
+	every_second_element(digits, [&os,m](int x){ if (x%m==0) os << x << '\n'; });
+}
+
 int main()
 {
 	vector<int> v;
@@ -87,5 +157,5 @@ int main()
 		m["key"+to_string(i)] = i;
 	}
 	test(v, m);
-
+	test_scanner(cout, 2);
 }
