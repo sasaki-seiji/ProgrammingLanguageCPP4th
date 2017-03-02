@@ -12,6 +12,8 @@ void f(double x) { cout << "f(" << x << ")\n"; }
 
 void g(double y)
 {
+	cout << "-- g(" << y << ") --\n";
+
 	auto z0 = [&]{ f(y); };
 	auto z1 = [=](int x){ return x+y; };
 	auto z2 = [y]{ if (y) return 1; else return 2; };
