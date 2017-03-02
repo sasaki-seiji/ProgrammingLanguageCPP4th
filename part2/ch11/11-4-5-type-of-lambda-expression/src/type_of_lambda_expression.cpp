@@ -12,8 +12,10 @@ using namespace std;
 
 void f(string& s1, string& s2)
 {
+	cout << "-- f(" << s1 << "," << s2 << ") --\n";
+
 	//auto rev = [&rev](char* b, char*e) { if (1 < e-b) { swap(*b, *--e); rev(++b, e); } };
-		// use of 'rev' before deduction of 'auto'	type_of_lambda_expression.cpp	/11-4-5-type-of-lambda-expression/src	行 14	C/C++ 問題
+		// error: use of 'rev' before deduction of 'auto'	type_of_lambda_expression.cpp	/11-4-5-type-of-lambda-expression/src	行 14	C/C++ 問題
 	function<void(char*,char*)> rev =
 		//[](char* b, char* e) { if (1 < e-b) { swap(*b, *--e); rev(++b, e); } };
 		[&rev](char* b, char* e) { if (1 < e-b) { swap(*b, *--e); rev(++b, e); } };
@@ -25,6 +27,8 @@ void f(string& s1, string& s2)
 
 void g(string& s1, string& s2)
 {
+	cout << "-- g(" << s1 << "," << s2 << ") --\n";
+
 	auto rev = [](char* b, char* e) { while (1 < e-b) swap(*b++, *--e); };
 
 	rev(&s1[0], &s1[0]+s1.size());
@@ -46,7 +50,9 @@ int main()
 	double (*p1)(double) = [](double a) { return sqrt(a); };
 	double (*p2)(double) = [&](double a) { return sqrt(a); };
 	//double (*p3)(int) = [](double a) { return sqrt(a); };
-		// invalid user-defined conversion from 'main()::<lambda(double)>' to 'double (*)(int)' [-fpermissive]
+		// error: invalid user-defined conversion from 'main()::<lambda(double)>' to 'double (*)(int)' [-fpermissive]
+	//double (*p4)(double) = [&](double a) { cout << s1 << endl; return sqrt(a); };
+		// error: cannot convert ‘main()::<lambda(double)>’ to ‘double (*)(double)’ in initialization
 
 	cout << "p1(3.5)->" << p1(3.5) << '\n';
 	cout << "p2(3.5)->" << p2(3.5) << '\n';
