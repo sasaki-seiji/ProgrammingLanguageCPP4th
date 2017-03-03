@@ -14,17 +14,19 @@ using namespace std;
 auto d1 = double{2};
 double d2 {double{2}/4};
 
-void f(int i) { cout << "f(int " << i << ")\n"; }
-void f(double d) { cout << "f(double " << d << ")\n"; }
+void f(int i) { cout << "f(int:" << i << ")\n"; }
+void f(double d) { cout << "f(double:" << d << ")\n"; }
 
 void g(int i, double d)
 {
-	f(1);
+	cout << "-- g(int:" << i << ",double:" << d << ") --\n";
+
+	f(i);
 	f(double{i});
-		// narrowing conversion of 'i' from 'int' to 'double' inside { } [-Wnarrowing]
+		// warning: narrowing conversion of 'i' from 'int' to 'double' inside { } [-Wnarrowing]
 	f(d);
 	f(int{d});
-		// narrowing conversion of 'd' from 'double' to 'int' inside { } [-Wnarrowing]
+		// warning: narrowing conversion of 'd' from 'double' to 'int' inside { } [-Wnarrowing]
 	f(static_cast<int>(d));
 	f(round(d));
 	f(static_cast<int>(lround(d)));
@@ -54,19 +56,21 @@ void f2(const T& x)
 
 void g3()
 {
+	cout << "-- g3() --\n";
+
 	f2(int{});
 	f2(complex<double>{});
 }
 
 int main()
 {
-	cout << "d1: " << d1 << '\n';
-	cout << "d2: " << d2 << '\n';
+	cout << "d1 = " << d1 << '\n';
+	cout << "d2 = " << d2 << '\n';
 
 	g(10, 5.5);
 
-	cout << "x: " << x << '\n';
-	cout << "y; " << y << '\n';
+	cout << "x = " << x << '\n';
+	cout << "y = " << y << '\n';
 
 	g3();
 }
