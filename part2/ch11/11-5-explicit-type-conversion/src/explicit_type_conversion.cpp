@@ -20,81 +20,90 @@ Target narrow_cast(Source v)
 void test(double d, int i, char* p)
 {
 	try {
+		cout << "narrow_cast<char>(64): ";
 		auto c1 = narrow_cast<char>(64);
 		cout << "int{c1}: " << int{c1} << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<char>(64): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<char>(-64): ";
 		auto c2 = narrow_cast<char>(-64);
 		cout << "int{c2}: " << int{c2} << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<char>(-64): " << e.what() << '\n';
+		cout  << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<char>(264): ";
 		auto c3 = narrow_cast<char>(264);
 		cout << "int{c3}: " << c3 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<char>(264): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<double>(1/3.0F): " ;
 		auto d1 = narrow_cast<double>(1/3.0F);
-		cout << "d1: " << d1 << '\n';
+		cout << d1 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<double>(1/3.0F): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<float>(1/3.0): ";
 		auto f1 = narrow_cast<float>(1/3.0);
-		cout << "f1: " << f1 << '\n';
+		cout << f1 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<float>(1/3.0): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<char>(i): ";
 		auto c4 = narrow_cast<char>(i);
-		cout << "c4: " << c4 << '\n';
+		cout << int{c4} << c4 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<char>(i): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<float>(d): " ;
 		auto f2 = narrow_cast<float>(d);
-		cout << "f2: " << f2 << '\n';
+		cout << f2 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<float>(d): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 
 	//auto p1 = narrow_cast<char*>(i);
-		// invalid static_cast from type 'char*' to type 'int'
+		// error: invalid static_cast from type 'char*' to type 'int'
 	//auto i1 = narrow_cast<int>(p);
-		// invalid static_cast from type 'int' to type 'char*'
+		// error: invalid static_cast from type 'int' to type 'char*'
 
 	try {
+		cout << "narrow_cast<double>(i): " ;
 		auto d2 = narrow_cast<double>(i);
-		cout << "d2: " << d2 << '\n';
+		cout << d2 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<double>(i): " << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
+		cout << "narrow_cast<int>(d): ";
 		auto i2 = narrow_cast<int>(d);
-		cout << "i2: " << i2 << '\n';
+		cout << i2 << '\n';
 	}
 	catch (runtime_error& e) {
-		cerr << "narrow_cast<int>(d): " << e.what() << '\n';
+		cout  << e.what() << '\n';
 	}
 }
 
