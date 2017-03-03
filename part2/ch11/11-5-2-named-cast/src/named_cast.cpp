@@ -20,19 +20,23 @@ void* my_allocator(size_t);
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	int* p = static_cast<int*>(my_allocator(100));
-	cout << "p: " << p << '\n';
+	cout << "p = " << p << '\n';
 }
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	char x = 'a';
 	//int* p1 = &x;
-		// cannot convert 'char*' to 'int*' in initialization
+		// error: cannot convert 'char*' to 'int*' in initialization
 	//int* p2 = static_cast<int*>(&x);
-		// invalid static_cast from type 'char*' to type 'int*'
+		// error: invalid static_cast from type 'char*' to type 'int*'
 	int* p3 = reinterpret_cast<int*>(&x);
-	cout << "p3: " << p3 << '\n';
+	cout << "p3 = " << p3 << '\n';
 	*p3 = 12345679; // dangerous
 }
 
@@ -41,16 +45,18 @@ struct D : B { };
 
 void h()
 {
+	cout << "-- h() --\n";
+
 	B* pb = new D;
 	//D* pd = pb;
-		// invalid conversion from 'B*' to 'D*' [-fpermissive]
+		// error: invalid conversion from 'B*' to 'D*' [-fpermissive]
 	D* pd2 = static_cast<D*>(pb);
-	cout << "pd2: " << pd2 << '\n';
+	cout << "pd2 = " << pd2 << '\n';
 }
 
 int main()
 {
-	cout << "d1: " << d1 << '\n';
+	cout << "d1 = " << d1 << '\n';
 	f();
 	g();
 	h();
