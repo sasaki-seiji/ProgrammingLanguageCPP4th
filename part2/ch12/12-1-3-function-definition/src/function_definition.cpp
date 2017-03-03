@@ -22,7 +22,7 @@ void f(const int);
 
 void f(int x) { cout << "f(int: " << x << ")\n"; ++x; }
 //void f(const int x) { cout << "f(const int: " << x << ")\n"; }
-	// redefinition of 'void f(int)'
+	// error: redefinition of 'void f(int)'
 
 int& max(int& a, int& b, int& c);
 int& max(int& x1, int& x2, int& x3)
@@ -33,23 +33,26 @@ int& max(int& x1, int& x2, int& x3)
 struct table { };
 void search(table* t, const char* key, const char*)
 {
-	cout << "t: " << t << '\n';
-	cout << "key: " << key << '\n';
+	cout << "-- search(table* t,const char* key, const char*) --\n";
+
+	cout << "t = " << t << '\n';
+	cout << "key = " << key << '\n';
 }
 
 int main()
 {
 	int i = 10, j = 20;
 
-	cout << "i: " << i << ", j: " << j << '\n';
+	cout << "before swap(), i = " << i << ", j = " << j << '\n';
 	swap(&i, &j);
-	cout << "i: " << i << ", j: " << j << '\n';
+	cout << "after swap(), i = " << i << ", j = " << j << '\n';
 
 	f(i);
 
 	int k = 30;
+	cout << "before max()++, i,j,k = " << i << ',' << j << ',' << k << endl;
 	max(i,j,k)++;
-	cout << "i, j, k: " << i << ", " << j << ", " << k << '\n';
+	cout << "after max()++, i,j,k = " << i << ',' << j << ',' << k << endl;
 
 	table t;
 	search(&t, "search-key", nullptr);
