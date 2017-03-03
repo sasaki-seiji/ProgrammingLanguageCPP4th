@@ -11,23 +11,31 @@ using namespace std;
 
 void f(double d)
 {
+	cout << "-- f(double:" << d << ") --\n";
+
 	int i = int(d);
 	//complex z = complex(d);
 	complex<double> z = complex<double>(d);
 
-	cout << "i: " << i << '\n';
-	cout << "z: " << z << '\n';
+	cout << "i = " << i << '\n';
+	cout << "z = " << z << '\n';
 }
 
 void f(double d, char* p)
 {
+	cout << "-- f(double:" << d << ",char*) --\n";
+
 	int a = int(d);
 	//int b = int(p);
-		// cast from 'char*' to 'int' loses precision [-fpermissive]
+		// error: cast from 'char*' to 'int' loses precision [-fpermissive]
+	long lb = (long)p;
 	//int c = (int)p;
-		// cast from 'char*' to 'int' loses precision [-fpermissive]
+		// error: cast from 'char*' to 'int' loses precision [-fpermissive]
+	long lc = (long)p;
 
-	cout << "a: " << a << '\n';
+	cout << "a = " << a << '\n';
+	cout << "lb = " << lb << endl;
+	cout << "lc = " << lc << endl;
 }
 
 int main()
