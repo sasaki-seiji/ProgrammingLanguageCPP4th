@@ -17,29 +17,31 @@ constexpr int f9 = fac(9);
 
 void f(int n)
 {
+	cout << "-- f(" << n << ") --\n";
+
 	int f5 = fac(5);
 	int fn = fac(n);
 
 	constexpr int f6 = fac(6);
 	//constexpr int fnn = fac(n);
-		// 'n' is not a constant expression
+		// error: 'n' is not a constant expression
 
 	char a[fac(4)];
 	char a2[fac(n)];
 
-	cout << "f5: " << f5 << '\n';
-	cout << "fn: " << fn << '\n';
-	cout << "f6: " << f6 << '\n';
+	cout << "f5 = " << f5 << '\n';
+	cout << "fn = " << fn << '\n';
+	cout << "f6 = " << f6 << '\n';
 
-	cout << "sizeof(a): " << sizeof(a) << '\n';
-	cout << "sizeof(a2): " << sizeof(a2) << '\n';
+	cout << "sizeof(a) = " << sizeof(a) << '\n';
+	cout << "sizeof(a2) = " << sizeof(a2) << '\n';
 }
 
 int glob;
 
 #if 0
 constexpr void bad1(int a)
-	// invalid return type 'void' of constexpr function 'constexpr void bad1(int)'
+// error: invalid return type 'void' of constexpr function 'constexpr void bad1(int)'
 {
 	glob = a;
 }
@@ -47,25 +49,25 @@ constexpr void bad1(int a)
 
 #if 0
 constexpr int bad2(int a)
+// error: body of constexpr function 'constexpr int bad2(int)' not a return-statement
 {
 	if (a>=0) return a; else return -a;
 }
-	// body of constexpr function 'constexpr int bad2(int)' not a return-statement
 #endif
 
 #if 0
 constexpr int bad3(int a)
+// error: body of constexpr function 'constexpr int bad3(int)' not a return-statement
 {
 	int sum = 0;
 	for (int i=0; i<a; ++i) sum += fac(i);
 	return sum;
 }
-	// body of constexpr function 'constexpr int bad3(int)' not a return-statement
 #endif
 
 int main()
 {
-	cout << "f9: " << fac(9) << '\n';
+	cout << "f9 = " << fac(9) << '\n';
 	f(7);
 }
 
