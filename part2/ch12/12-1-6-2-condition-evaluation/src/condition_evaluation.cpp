@@ -28,11 +28,11 @@ constexpr int check(int i)
 constexpr int val0 = check(50);
 constexpr int val1 = check(f(x, y, z));
 //constexpr int val2 = check(200);
-	// in constexpr expansion of 'check(200)'
+	// error: expression ‘<throw-expression>’ is not a constant-expression
 
 
 int main()
 {
-	cout << "val0: " << val0 << '\n';
-	cout << "val1: " << val1 << '\n';
+	cout << "val0 = " << val0 << '\n';
+	cout << "val1 = " << val1 << '\n';
 }
