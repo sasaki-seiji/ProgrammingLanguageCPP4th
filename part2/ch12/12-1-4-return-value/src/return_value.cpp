@@ -7,15 +7,20 @@
 
 #include <vector>
 #include <iostream>
+#include <typeinfo>
 using namespace std;
 
-string to_string(int a);
-auto to_string(int a) -> string;
+string my_to_string(int a);
+auto my_to_string(int a) -> string;
 
 template<typename T, typename U>
 //auto product(const vector<T>& x, const vector<U>& y) -> decltype(x*y) { return x*y; }
 auto product(const vector<T>& x, const vector<U>& y) -> decltype(x[0]*y[0])
 {
+	cout << "-- product(const vector<" << typeid(T).name()
+			<< ">&, const vector<" << typeid(U).name() << ">&) -> "
+			<< typeid(decltype(x[0]*y[0])).name() << " --\n";
+
 	decltype(x[0]*y[0]) res { };
 	typename vector<T>::const_iterator px;
 	typename vector<U>::const_iterator py;
@@ -27,7 +32,7 @@ auto product(const vector<T>& x, const vector<U>& y) -> decltype(x[0]*y[0])
 }
 
 int f1() { }
-	// no return statement in function returning non-void [-Wreturn-type]
+	// warning: no return statement in function returning non-void [-Wreturn-type]
 
 void f2() { }
 
@@ -57,7 +62,7 @@ int f() { return 1; }
 int* fp()
 {
 	int local = 1;
-		// address of local variable 'local' returned [-Wreturn-local-addr]
+		// warning: address of local variable 'local' returned [-Wreturn-local-addr]
 
 	return &local;
 }
@@ -65,43 +70,49 @@ int* fp()
 int& fr()
 {
 	int local = 2;
-		// reference to local variable 'local' returned [-Wreturn-local-addr]
+		// warning: reference to local variable 'local' returned [-Wreturn-local-addr]
 
 	return local;
 }
 
 void g(int* p)
 {
-	cout << "p: " << p << ", *p: " << *p << '\n';
+	cout << "g(int*: " << *p << ")\n";
 }
 
 void h(int* p)
 {
+	cout << "h(int*: " << *p << ")\n";
 	return g(p);
 }
 
 int main()
 {
 
-	//cout << "to_string(123) -> " << to_string(123) << '\n';
-		// call of overloaded 'to_string(int)' is ambiguous
+	cout << "my_to_string(123) -> " << my_to_string(123) << endl;
 
-	vector<int> vi(5, 2);
-	vector<double> vb(5, 3.5);
+	vector<int> vi(7, 2);
+	vector<double> vb(7, 3.3);
 
 	auto prod = product(vi, vb);
-	cout << prod << '\n';
+	cout << prod << endl;
 
-	cout << "fac(10) -> " << fac(10) << '\n';
-	cout << "fac2(10) -> " << fac2(10) << '\n';
+	cout << "fac(10) -> " << fac(10) << endl;
+	cout << "fac2(10) -> " << fac2(10) << endl;
 
 	int* p = fp();
 	int& r = fr();
 
-	//cout << "*p: " << *p << '\n'; // crash!!!
-	//cout << "r: " << r << '\n'; // crash!!!
+	//cout << "*fp() = " << *p << '\n'; // crash!!!, terminated on Ubuntu
+	//cout << "fr() = " << r << '\n'; // crash!!!, terninated on Ubuntu
 
 	int i = 10;
 	h(&i);
 }
 
+// undef
+
+string my_to_string(int x)
+{
+	return std::to_string(x);
+}
