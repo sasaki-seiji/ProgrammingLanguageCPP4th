@@ -11,12 +11,14 @@ using namespace std;
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	char v[] = "Annemarie";
 	int i = strlen(v);
 	int j = strlen("Nicholas");
 
-	cout << "i: " << i << '\n';
-	cout << "j: " << j << '\n';
+	cout << "i = " << i << '\n';
+	cout << "j = " << j << '\n';
 }
 
 void odd(int* p);
@@ -33,12 +35,14 @@ void f(int(&r)[4])
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	int a1[] = {1,2,3,4};
 	int a2[] = {1,2};
 
 	f(a1);
-	// f(a2);
-		// no matching function for call to 'f(int [2])'
+	//f(a2);
+		// error: no matching function for call to 'f(int [2])'
 }
 
 template<typename T, int N> void f(T(&r)[N])
@@ -54,6 +58,8 @@ double a2[100];
 
 void g2()
 {
+	cout << "-- g2() --\n";
+
 	f(a1);
 	f(a2);
 }
