@@ -67,6 +67,8 @@ int X::def_arg = 7;
 
 void g(X& a)
 {
+	cout << "-- g(X&) --\n";
+
 	a.f();
 	a.def_arg = 9;
 	a.f();
@@ -74,18 +76,18 @@ void g(X& a)
 
 int f(int, int =0, char* =nullptr);
 //int g(int =0, int =0, char*);
-	// default argument missing for parameter 3 of 'int g(int, int, char*)'
+	// error: default argument missing for parameter 3 of 'int g(int, int, char*)'
 //int h(int =0, int, char* =nullptr);
-	// default argument missing for parameter 2 of 'int h(int, int, char*)'
+	// error: default argument missing for parameter 2 of 'int h(int, int, char*)'
 
 //void nasty(char*=nullptr);
-	// expected ',' or '...' before '*=' token
+	// error: expected ',' or '...' before '*=' token
 
 void f(int x =7);
 //void f(int =7);
-	// default argument given for parameter 1 of 'void f(int)' [-fpermissive]
+	// error: default argument given for parameter 1 of 'void f(int)' [-fpermissive]
 //void f(int =8);
-	// default argument given for parameter 1 of 'void f(int)'
+	// error: default argument given for parameter 1 of 'void f(int)'
 
 
 void g()
@@ -99,25 +101,25 @@ int main()
 	complex c2 {10};
 	complex c3;
 
-	cout << "c1: " << c1 << '\n';
-	cout << "c2: " << c2 << '\n';
-	cout << "c3: " << c3 << '\n';
+	cout << "c1 = " << c1 << '\n';
+	cout << "c2 = " << c2 << '\n';
+	cout << "c3 = " << c3 << '\n';
 
 	complex2 c21 {10, 20};
 	complex2 c22 {10};
 	complex2 c23;
 
-	cout << "c21: " << c21 << '\n';
-	cout << "c22: " << c22 << '\n';
-	cout << "c23: " << c23 << '\n';
+	cout << "c21 = " << c21 << '\n';
+	cout << "c22 = " << c22 << '\n';
+	cout << "c23 = " << c23 << '\n';
 
 	complex3 c31 {10, 20};
 	complex3 c32 {10};
 	complex3 c33;
 
-	cout << "c31: " << c31 << '\n';
-	cout << "c32: " << c32 << '\n';
-	cout << "c33: " << c33 << '\n';
+	cout << "c31 = " << c31 << '\n';
+	cout << "c32 = " << c32 << '\n';
+	cout << "c33 = " << c33 << '\n';
 
 	X x;
 	g(x);
@@ -126,5 +128,5 @@ int main()
 // undefs
 void X::f(int x)
 {
-	cout << "f(" << x << ")\n" ;
+	cout << "X::f(" << x << ")\n" ;
 }
