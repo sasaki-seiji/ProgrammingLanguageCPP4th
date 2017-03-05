@@ -15,7 +15,7 @@ int main()
 	printf("My name is %s %s\n", first_name, second_name);
 	printf("%d + %d = %d\n", 2, 3, 5);
 
-	//printf("My name is %s %s\n", 2);	// crash!!!
-		// format '%s' expects a matching 'char*' argument [-Wformat=]
-		// format '%s' expects argument of type 'char*', but argument 2 has type 'int' [-Wformat=]
+	printf("My name is %s %s\n", 2);	// crash!!! on Windows, terminated on Ubuntu
+		// warning: format '%s' expects a matching 'char*' argument [-Wformat=]
+		// warning: format '%s' expects argument of type 'char*', but argument 2 has type 'int' [-Wformat=]
 }
