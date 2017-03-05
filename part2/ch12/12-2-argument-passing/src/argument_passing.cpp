@@ -18,7 +18,11 @@ int* find(int* first, int* last, int v)
 
 void g(int* p, int* q)
 {
+	cout << "-- g(int*:" << p << ", int*:" << q << ") --\n";
+
 	int* pp = find(p, q, 'x');
+	cout << "find(p, q, 'x') -> " << pp << endl;
+
 	cout << ( (pp == q) ? "not found: 'x'" : "found: 'x'" ) << '\n';
 }
 
