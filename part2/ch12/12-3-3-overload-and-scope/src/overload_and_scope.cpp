@@ -13,6 +13,8 @@ void f(int);
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	void f(double);
 	f(1);
 }
@@ -27,6 +29,8 @@ struct Derived : Base {
 
 void g(Derived& d)
 {
+	cout << "-- g(Derived&) --\n";
+
 	d.f(1);
 }
 
