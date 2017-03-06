@@ -14,10 +14,12 @@ void print(long);
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	print(1L);
 	print(1.0);
 	//print(1);
-		// 'print' is ambiguous 'Candidates are: void print(long int) void print(double)'
+		// error: 'print' is ambiguous 'Candidates are: void print(long int) void print(double)'
 }
 
 void print(int);
@@ -28,6 +30,8 @@ void print(char);
 
 void h(char c, int i, short s, float f)
 {
+	cout << "-- h(char:'" << c << "',int:" << i << ",short:" << s << ",float:" << f << ") --\n";
+
 	print(c);
 	print(i);
 	print(s);
@@ -46,6 +50,8 @@ void print_string(const char*);
 
 void g(int i, char c, const char* p, double d)
 {
+	cout << "-- g(int:" << i << ",char:'" << c << "',const char*:\"" << p << "\",double:" << d << ") --\n";
+
 	print_int(i);
 	print_char(c);
 	print_string(p);
@@ -53,7 +59,7 @@ void g(int i, char c, const char* p, double d)
 	print_int(c);
 	print_char(i);
 	//print_string(i);
-		// invalid conversion from 'int' to 'const char*' [-fpermissive]
+		// error: invalid conversion from 'int' to 'const char*' [-fpermissive]
 	print_int(d);
 }
 
