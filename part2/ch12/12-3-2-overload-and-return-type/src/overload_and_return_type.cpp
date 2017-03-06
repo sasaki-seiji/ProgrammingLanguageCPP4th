@@ -13,13 +13,15 @@ double sqrt(double);
 
 void f(double da, float fla)
 {
+	cout << "-- f(double:" << da << ",float:" << fla << ") --\n";
+
 	float fl = sqrt(da);
 	double d = sqrt(da);
-	cout << "fl: << " << fl << ", d: " << d << '\n';
+	cout << "fl = sqrt(da):" << fl << ", d = sqrt(da):" << d << '\n';
 
 	fl = sqrt(fla);
 	d = sqrt(fla);
-	cout << "fl: << " << fl << ", d: " << d << '\n';
+	cout << "fl = sqrt(fla):" << fl << ", d = sqrt(fla):" << d << '\n';
 }
 
 int main()
