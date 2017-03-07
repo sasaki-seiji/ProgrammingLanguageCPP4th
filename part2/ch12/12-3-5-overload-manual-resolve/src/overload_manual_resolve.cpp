@@ -18,8 +18,11 @@ void f2(int*);
 
 void k(int i)
 {
+	cout << "-- k(int:" << i << ") --\n";
+
 	f1(i);
 	//f2(0);
+		// error: call of overloaded ‘f2(int)’ is ambiguous
 	f2(static_cast<int*>(0));
 }
 
