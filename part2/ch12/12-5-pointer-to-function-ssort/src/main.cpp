@@ -60,4 +60,9 @@ int main()
 	cout << "Heads in order of department number:\n";
 	ssort(&heads[0], 6, sizeof(User), cmp2);
 	print_id(heads);
+	cout << '\n';
+
+	cout << "use cmp3 - int (*)(const User*, const User*):\n";
+	ssort(&heads[0], 6, sizeof(User), reinterpret_cast<int(*)(const void*,const void*)>(cmp3));
+	print_id(heads);
 }
