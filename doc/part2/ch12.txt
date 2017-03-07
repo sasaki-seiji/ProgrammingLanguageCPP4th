@@ -57,3 +57,29 @@
 （追記）2017.03.05
 
 	Ubuntu/g++環境では、上記2番めの問題はない
+
+
+【12.5　noexcept指定のない関数を、noexcept関数ポインタに代入できる】
+
+日付：　2017.03.07
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	テキストの記述と異なり、noexcept指定のない関数を、noexcept関数ポインタに
+	代入できる。
+	ビルドが通るだけでなく、実行もできる
+
+		void ff(int) noexcept;
+		void gg(int);
+
+		void (*p1)(int) = ff;
+		void (*p2)(int) noexcept = ff;
+		void (*p3)(int) noexcept = gg;	//　エラーとならない
+
+	同様に、noexceptを指定した型別名も定義できる
+
+		using Pn = void(int) noexcept;	//　2017.03.07　エラーとならない
+
+
+
+
