@@ -38,9 +38,9 @@ int main()
 {
 	cout << "Heads in alphabetical order:\n";
 	sort(heads.begin(), heads.end(),
-			// 2016.05.11 change for bug
+			// 2016.05.11,2017.03.07 change for bug
 			//[](const User& x, const User& y) { return x.name < y.name; });
-			[](const User& x, const User& y) { return strcmp(x.name, y.name); });
+			[](const User& x, const User& y) { return strcmp(x.name, y.name) < 0; });
 	print_id(heads);
 	cout << '\n';
 
@@ -48,5 +48,12 @@ int main()
 	sort(heads.begin(), heads.end(),
 			[](const User& x, const User& y) { return x.dept < y.dept; });
 	print_id(heads);
+	cout << '\n';
+
+	cout << "Heads in order of id:\n";
+	sort(heads.begin(), heads.end(),
+			[](const User& x, const User& y) { return strcmp(x.id, y.id) < 0; });
+	print_id(heads);
+	cout << '\n';
 }
 
