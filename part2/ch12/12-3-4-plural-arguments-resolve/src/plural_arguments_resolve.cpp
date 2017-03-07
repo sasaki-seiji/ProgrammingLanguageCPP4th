@@ -38,17 +38,28 @@ complex pow(complex, complex);
 
 void k(complex z)
 {
+	cout << "-- k(complex:" << z << ") --\n";
+
 	int i = pow(2,2);
+	cout << "pow(2,2) -> " << i << endl;
+
 	double d = pow(2.0,2.0);
+	cout << "pow(2.0,2.0) -> " << d << endl;
+
 	complex z2 = pow(2,z);
+	cout << "pow(2,z) -> " << z2 << endl;
+
 	complex z3 = pow(z,2);
+	cout << "pow(z,2) -> " << z3 << endl;
+
 	complex z4 = pow(z,z);
+	cout << "pow(z,z) -> " << z4 << endl;
 }
 
 void g()
 {
 	//double d = pow(2.0, 2);
-		// call of overloaded 'pow(double, int)' is ambiguous
+		// error: call of overloaded 'pow(double, int)' is ambiguous
 }
 
 int main()
