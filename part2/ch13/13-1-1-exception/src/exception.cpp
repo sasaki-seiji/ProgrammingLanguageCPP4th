@@ -16,6 +16,8 @@ bool succeeded = true;
 
 void taskmaster()
 {
+	cout << "-- taskmaster() --\n";
+
 	try {
 		auto result = do_task();
 		cout << "result: " << result << '\n';
@@ -41,7 +43,7 @@ const int max = 10;
 
 void f(int n)
 {
-	cout << "f(" << n << ")\n";
+	cout << "-- f(" << n << ") --\n";
 
 	if (n < 0 || max < n) throw Range_error{ };
 }
@@ -57,6 +59,6 @@ int main()
 		f(11);
 	}
 	catch (Range_error& e) {
-		cout << "catched Range_error\n";
+		cout << "caught Range_error\n";
 	}
 }
