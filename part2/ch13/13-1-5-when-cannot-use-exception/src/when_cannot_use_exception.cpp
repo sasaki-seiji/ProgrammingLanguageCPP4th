@@ -22,6 +22,7 @@ public:
 		else error_code = 1;
 	}
 	int invalid() const { return error_code; }
+	~my_vector() { if (!error_code) delete [] elem; }
 };
 
 pair<char* ,int> make_vector(int n)
@@ -33,6 +34,11 @@ pair<char* ,int> make_vector(int n)
 	else error_code = 1;
 
 	return make_pair(p, error_code);
+}
+
+void release_vector(pair<char*,int> p)
+{
+	delete [] p.first;
 }
 
 void f(int n)
@@ -59,6 +65,7 @@ void g(int n)
 	auto val = v.first;
 	val[10] = 'x';
 	cout << "val[10]: " << val[10] << endl;
+	release_vector(v);
 }
 
 int main()
