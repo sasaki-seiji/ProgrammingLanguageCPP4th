@@ -33,7 +33,13 @@ public:
 		if (p == nullptr) throw runtime_error("File_ptr: nullptr");
 	}
 
+	// 2017.03.11 add: delete copy
+	File_ptr(const File_ptr&) = delete;
+	File_ptr& operator=(const File_ptr&) = delete;
+
 	~File_ptr() { fclose(p); }
+
+	operator FILE*() { return p; }
 };
 
 #endif /* FILEPTR_H_ */
