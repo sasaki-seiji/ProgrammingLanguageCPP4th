@@ -5,19 +5,20 @@
  *      Author: sasaki
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "interface.h"
 
 void c_function(void)
 {
-	printf("c_function() called\n");
+	printf("-- c_function() --\n");
 	errno = E_CPLPLFCTBLEWIT;
 }
 
 void c_entry(void)
 {
-	printf("c_entry() called\n");
+	printf("-- c_entry() --\n");
 	errno = 0 ;
 	call_from_C();
 	if (errno) {

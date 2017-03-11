@@ -27,12 +27,13 @@ void callC()
 
 void c_plus_plus_function()
 {
-	cout << "c_plus_plus_function() called\n";
+	cout << "-- c_plus_plus_function() --\n";
 	throw C_blewit(E_CPLPLFCTBLEWIT);
 }
 
 extern "C" void call_from_C() noexcept
 {
+	cout << "-- call_from_C() --\n";
 	try {
 		c_plus_plus_function();
 	}
