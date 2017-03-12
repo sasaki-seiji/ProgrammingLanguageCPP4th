@@ -1,6 +1,8 @@
 【13.3.1:finally　Final_actionクラスのコピーコンストラクタの削除に関するエラー】
 
-日付：　2016.05.15
+日付：　2016.05.15、2017.03.12
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの例では、Final_actionクラスのコピーコンストラクタを削除しているが、
 	これを使っている箇所があり、エラーとなる
@@ -24,6 +26,39 @@
 			// use of deleted function 'Final_action<F>::Final_action(const Final_action<F>&) [with F = test()::<lambda()>]'
 		cout << "var = " << var << '\n';
 	}
+
+（追記）2017.03.12
+
+		auto act2 = finally([&]{ cout << "finally!\n"; var = 7; });
+
+	など、=を使った初期化はコピー初期化と解釈される。また、=を使用しないと、
+	autoは機能しないという問題がある。
+
+
+【13.5　テンプレート関数と非テンプレート関数のオーバーロードの矛盾】
+
+日付：　2017.03.12
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	dynamic関数がテンプレート関数と非テンプレート関数間で多重定義され、
+	関数引数については同一合致度となるため、関数呼び出し時にテンプレート
+	実引数を省略した場合（<>を省略した場合）は、常に非テンプレート関数が選択される
+
+	inline void dynamic(bool b, const string& s)
+	{
+		dynamic<true, Error>(b, s);
+	}
+	inline void dynamic(bool b)
+	{
+		dynamic<true, Error>(b);
+	}
+
+	非テンプレート関数は、current_levelと無関係にアサートを実行するため、
+	CURRENT_LEVELの制御が効かない（CURRENT_LEVEL=0としても）
+
+	非テンプレート関数版は削除するべき
+
 
 【13.6.3　vector_baseのムーブ代入が無限再帰】
 
