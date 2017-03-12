@@ -15,21 +15,21 @@ constexpr int max = 10;
 
 void f(int n)
 {
+	cout << "-- f(" << n << ") --\n";
 	Assert::dynamic<Assert::level(2), Assert::Error>(
 			(1<=n && n<max), Assert::compose(__FILE__, __LINE__, "range problem"));
-	cout << "f(" << n << ")\n";
 }
 
 void f2(int n)
 {
+	cout << "-- f2(" << n << ") --\n";
 	Assert::dynamic((1<=n && n<max), Assert::compose(__FILE__, __LINE__, "range problem"));
-	cout << "f2(" << n << ")\n";
 }
 
 void f3(int n)
 {
+	cout << "-- f3(" << n << ") --\n";
 	Assert::dynamic(1<=n && n<max);
-	cout << "f3(" << n << ")\n";
 }
 
 int main()
@@ -39,7 +39,7 @@ int main()
 		f(10);
 	}
 	catch (Assert::Error& e) {
-		cerr << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
@@ -47,7 +47,7 @@ int main()
 		f2(10);
 	}
 	catch (Assert::Error& e) {
-		cerr << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 	try {
@@ -55,7 +55,7 @@ int main()
 		f3(10);
 	}
 	catch (Assert::Error& e) {
-		cerr << e.what() << '\n';
+		cout << e.what() << '\n';
 	}
 
 }

@@ -39,8 +39,10 @@ namespace Assert {
 	}
 
 	template<>
-	inline void dynamic<false, Error>(bool assertion, const string& s) { };
+	inline void dynamic<false, Error>(bool assertion, const string& s)
+	{ }
 
+#if 0 // 2017.03.12 delete
 	inline void dynamic(bool b, const string& s)
 	{
 		dynamic<true, Error>(b, s);
@@ -49,7 +51,7 @@ namespace Assert {
 	{
 		dynamic<true, Error>(b);
 	}
-
+#endif
 	string compose(const char* file, int line, const string& message);
 
 
