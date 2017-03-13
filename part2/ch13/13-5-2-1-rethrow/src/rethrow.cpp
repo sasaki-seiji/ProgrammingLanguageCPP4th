@@ -40,6 +40,6 @@ int main()
 		h();
 	}
 	catch (std::exception& err) {
-		cerr << err.what() << '\n';
+		cout << "caught in main(): " << err.what() << '\n';
 	}
 }
