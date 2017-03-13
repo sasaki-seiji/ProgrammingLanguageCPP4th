@@ -16,6 +16,7 @@ void m()
 		//...
 	}
 	catch (std::exception& err) {
+		cout << "rethrow in m()\n";
 		throw;
 	}
 }
@@ -28,6 +29,7 @@ void m2()
 		//..
 	}
 	catch (...) {
+		cout << "rethrow in m2()\n";
 		throw;
 	}
 }
@@ -38,13 +40,13 @@ int main()
 		m();
 	}
 	catch (std::exception& e) {
-		cerr << e.what() << '\n';
+		cout << "caught in main(): " << e.what() << '\n';
 	}
 
 	try {
 		m2();
 	}
 	catch (...) {
-		cerr << "m2() raise exception\n";
+		cout << "caught in main(): m2() raise exception\n";
 	}
 }
