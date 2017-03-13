@@ -23,10 +23,9 @@ try
 	:vi{sz1},
 	 vs{sz2}
 {
-
 }
 catch (std::exception& err) {
-	cerr << "X::X(int,int) caught exception: " << err.what() << '\n';
+	cout << "X::X(int,int) caught exception: " << err.what() << '\n';
 }
 
 int main()
@@ -35,5 +34,5 @@ try
 	X x{1000, -20};
 }
 catch (...) {
-	cerr << "main() caught exception\n";
+	cout << "main() caught exception\n";
 }
