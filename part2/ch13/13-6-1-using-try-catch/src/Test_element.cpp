@@ -80,12 +80,14 @@ void Test_element::display_counters()
 
 void Test_element::trigger_default_construct_exception(int after)
 {
+	if (verbose_flag) cout << "(T) trigger_default_construct_exception(" << after << ")\n";
 	default_construct_exception_count = default_construct_count + after;
 	default_construct_exception_enabled = true;
 }
 
 void Test_element::trigger_copy_construct_exception(int after)
 {
+	if (verbose_flag) cout << "(T) trigger_copy_construct_exception(" << after << ")\n";
 	copy_construct_exception_count = copy_construct_count + after;
 	copy_construct_exception_enabled = true;
 }
