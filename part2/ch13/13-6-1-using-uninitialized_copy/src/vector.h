@@ -13,7 +13,7 @@ using std::allocator;
 using std::uninitialized_fill;
 
 template<typename T, typename A = allocator<T>>
-class vector {
+class Vector {
 private:
 	T* elem;
 	T* space;
@@ -23,15 +23,15 @@ private:
 public:
 	using size_type = typename A::size_type;
 
-	explicit vector(size_type n, const T& val = T(), const A& = A());
+	explicit Vector(size_type n, const T& val = T(), const A& = A());
 
-	vector(const vector& a);
-	vector& operator=(const vector& a);
+	Vector(const Vector& a);
+	Vector& operator=(const Vector& a);
 
-	vector(vector&& a);
-	vector& operator=(vector&& a);
+	Vector(Vector&& a);
+	Vector& operator=(Vector&& a);
 
-	~vector();
+	~Vector();
 
 	size_type size() const { return space - elem; }
 	size_type capacity() const { return last - elem; }
@@ -43,7 +43,7 @@ public:
 };
 
 template<typename T, typename A>
-vector<T,A>::vector(size_type n, const T& val, const A& a)
+Vector<T,A>::Vector(size_type n, const T& val, const A& a)
 	:alloc{a}
 {
 	elem = alloc.allocate(n);
@@ -58,7 +58,7 @@ vector<T,A>::vector(size_type n, const T& val, const A& a)
 }
 
 template<typename T, typename A>
-vector<T,A>::~vector()
+Vector<T,A>::~Vector()
 {
 	for (T* p = elem; p!=space; ++p)
 		alloc.destroy(p);
