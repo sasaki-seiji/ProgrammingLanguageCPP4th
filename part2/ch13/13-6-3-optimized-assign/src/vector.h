@@ -15,25 +15,25 @@ using std::swap;
 using std::uninitialized_copy;
 
 template<typename T, typename A = allocator<T>>
-struct vector_base {
+struct Vector_base {
 	A alloc;
 	T* elem;
 	T* space;
 	T* last;
 
-	vector_base(const A& a, typename A::size_type n, typename A::size_type m = 0)
+	Vector_base(const A& a, typename A::size_type n, typename A::size_type m = 0)
 		:alloc{a}, elem{alloc.allocate(n+m)}, space{elem+n}, last{elem+n+m} { }
-	~vector_base() { alloc.deallocate(elem, last-elem); }
+	~Vector_base() { alloc.deallocate(elem, last-elem); }
 
-	vector_base(const vector_base&) = delete;
-	vector_base& operator=(const vector_base&) = delete;
+	Vector_base(const Vector_base&) = delete;
+	Vector_base& operator=(const Vector_base&) = delete;
 
-	vector_base(vector_base&&);
-	vector_base& operator=(vector_base&&);
+	Vector_base(Vector_base&&);
+	Vector_base& operator=(Vector_base&&);
 };
 
 template<typename T, typename A>
-vector_base<T,A>::vector_base(vector_base&& a)
+Vector_base<T,A>::Vector_base(Vector_base&& a)
 	: alloc{a.alloc},
 	  elem{a.elem},
 	  space{a.space},
@@ -43,7 +43,7 @@ vector_base<T,A>::vector_base(vector_base&& a)
 }
 
 template<typename T, typename A>
-vector_base<T,A>& vector_base<T,A>::operator=(vector_base&& a)
+Vector_base<T,A>& Vector_base<T,A>::operator=(Vector_base&& a)
 {
 	// 2016.05.22 stack overflow
 	//swap(*this, a);
@@ -57,22 +57,22 @@ vector_base<T,A>& vector_base<T,A>::operator=(vector_base&& a)
 }
 
 template<typename T, typename A = allocator<T>>
-class vector {
-	vector_base<T,A> vb;
+class Vector {
+	Vector_base<T,A> vb;
 	void destroy_elements();
 
 public:
 	using size_type = typename A::size_type;
 
-	explicit vector(size_type n, const T& val = T(), const A& = A());
+	explicit Vector(size_type n, const T& val = T(), const A& = A());
 
-	vector(const vector& a);
-	vector& operator=(const vector& a);
+	Vector(const Vector& a);
+	Vector& operator=(const Vector& a);
 
-	vector(vector&& a);
-	vector& operator=(vector&& a);
+	Vector(Vector&& a);
+	Vector& operator=(Vector&& a);
 
-	~vector() { destroy_elements(); }
+	~Vector() { destroy_elements(); }
 
 	size_type size() const { return vb.space - vb.elem; }
 	size_type capacity() const { return vb.last - vb.elem; }
@@ -94,7 +94,7 @@ public:
 };
 
 template<typename T, typename A>
-void vector<T,A>::destroy_elements()
+void Vector<T,A>::destroy_elements()
 {
 	for (T* p = vb.elem; p != vb.space; ++p)
 		p->~T();
@@ -102,14 +102,14 @@ void vector<T,A>::destroy_elements()
 }
 
 template<typename T, typename A>
-vector<T,A>::vector(size_type n, const T& val, const A& a)
+Vector<T,A>::Vector(size_type n, const T& val, const A& a)
 	:vb{a,n}
 {
 	uninitialized_fill(vb.elem, vb.elem+n, val);
 }
 
 template<typename T, typename A>
-vector<T,A>::vector(const vector<T,A>& a)
+Vector<T,A>::Vector(const Vector<T,A>& a)
 	:vb{a.vb.alloc, a.size()}
 {
 	//uninitialized_copy(a.begin(), a.end(), vb.elem);
@@ -117,13 +117,13 @@ vector<T,A>::vector(const vector<T,A>& a)
 }
 
 template<typename T, typename A>
-vector<T,A>::vector(vector&& a)
+Vector<T,A>::Vector(Vector&& a)
 	:vb{move(a.vb)}
 {
 }
 
 template<typename T, typename A>
-vector<T,A>& vector<T,A>::operator=(vector&& a)
+Vector<T,A>& Vector<T,A>::operator=(Vector&& a)
 {
 	// 2016.05.22 not yet defined
 	//clear();
@@ -132,10 +132,10 @@ vector<T,A>& vector<T,A>::operator=(vector&& a)
 }
 
 template<typename T, typename A>
-vector<T,A>& vector<T,A>::operator=(const vector& a)
+Vector<T,A>& Vector<T,A>::operator=(const Vector& a)
 {
 	if (capacity() < a.size()) {
-		vector temp {a};
+		Vector temp {a};
 		swap(*this, temp);
 		return *this;
 	}
