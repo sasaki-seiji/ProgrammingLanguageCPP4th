@@ -11,7 +11,7 @@ using namespace std;
 #include "vector.h"
 
 template<typename T>
-ostream& operator<<(ostream& os, const vector<T>& v)
+ostream& operator<<(ostream& os, const Vector<T>& v)
 {
 	os << '[';
 	for (size_t i = 0 ; i != v.size(); ++i)
@@ -21,23 +21,28 @@ ostream& operator<<(ostream& os, const vector<T>& v)
 }
 
 template<typename T>
-vector<T> make_vector(size_t n, const T& val = T{})
+Vector<T> make_vector(size_t n, const T& val = T{})
 {
-	vector<T> v(n, val);
+	Vector<T> v(n, val);
 	return v;
 }
 
 int main()
 {
-	vector<int> vi(10, 123);
-	vector<string> vs(10, "abc");
+	Vector<int> vi(10, 123);
+	Vector<string> vs(10, "abc");
 	cout << "vi: " << vi << '\n'<< flush;
 	cout << "vs: " << vs << '\n'<< flush;
 
-	vector<int> vi2(15, 456);
-	vector<string> vs2(15, "xyz");
+	Vector<int> vi2(15, 456);
+	Vector<string> vs2(15, "xyz");
 	cout << "vi2: " << vi2 << '\n'<< flush;
 	cout << "vs2: " << vs2 << '\n'<< flush;
+
+	// swap
+	swap(vs,vs2);
+	cout << "vs(swapped): " << vs << endl;
+	cout << "vs2(swapped): " << vs2 << endl;
 
 	// assign
 	vi2 = vi;
