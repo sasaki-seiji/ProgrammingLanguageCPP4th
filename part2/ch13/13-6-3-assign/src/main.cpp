@@ -74,6 +74,8 @@ void test_element_copy_fail()
 	catch (const exception& e) {
 		cout << e.what() << endl;
 	}
+
+	cout << "v2(after assign): " << v2 << endl;
 }
 
 int main()
