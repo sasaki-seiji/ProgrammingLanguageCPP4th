@@ -8,7 +8,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 #include "vector.h"
+#include "Test_element.h"
 
 template<typename T>
 ostream& operator<<(ostream& os, const Vector<T>& v)
@@ -20,15 +22,11 @@ ostream& operator<<(ostream& os, const Vector<T>& v)
 	return os;
 }
 
-template<typename T>
-Vector<T> make_vector(size_t n, const T& val = T{})
-{
-	Vector<T> v(n, val);
-	return v;
-}
 
-int main()
+void test_assign()
 {
+	cout << "-- test_assign() --\n";
+
 	Vector<int> vi(10, 123);
 	Vector<string> vs(10, "abc");
 	cout << "vi: " << vi << '\n'<< flush;
@@ -39,14 +37,51 @@ int main()
 	cout << "vi2: " << vi2 << '\n'<< flush;
 	cout << "vs2: " << vs2 << '\n'<< flush;
 
-	// swap
-	swap(vs,vs2);
-	cout << "vs(swapped): " << vs << endl;
-	cout << "vs2(swapped): " << vs2 << endl;
-
 	// assign
 	vi2 = vi;
 	vs2 = vs;
-	cout << "vi2(assigned): " << vi2 << '\n'<< flush;
-	cout << "vs2(assigned): " << vs2 << '\n'<< flush;
+	cout << "vi2(assigned from vi): " << vi2 << '\n'<< flush;
+	cout << "vs2(assigned from vs): " << vs2 << '\n'<< flush;
+}
+
+void test_swap()
+{
+	cout << "-- test_swap() --\n";
+
+	Vector<string> vs(5, "abc");
+	Vector<string> vs2(10, "xyz");
+	cout << "vs: " << vs << endl;
+	cout << "vs2: " << vs2 << endl;
+
+	// swap
+	swap(vs,vs2);
+	cout << "vs(swapped with vs2): " << vs << endl;
+	cout << "vs2(swapped with vs): " << vs2 << endl;
+}
+
+void test_element_copy_fail()
+{
+	cout << "-- test_element_copy_fail() --\n";
+
+	Vector<Test_element<string>> v1(5, string("abc")), v2(5,string("xyz"));
+	cout << "Vector<Test_element<string>> v1(5, \"abc\"), v2(5, \"xyz\") : success\n";
+
+	Test_element<string>::trigger_copy_construct_exception(3);
+	try {
+		v2 = v1;
+		cout << "v2 = v1 : success\n";
+	}
+	catch (const exception& e) {
+		cout << e.what() << endl;
+	}
+}
+
+int main()
+{
+	test_assign();
+	test_swap();
+
+	Test_element<string>::verbose();
+	test_element_copy_fail();
+	Test_element<string>::display_counters();
 }
