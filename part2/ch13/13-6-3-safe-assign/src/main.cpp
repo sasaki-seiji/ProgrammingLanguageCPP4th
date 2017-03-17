@@ -22,13 +22,6 @@ ostream& operator<<(ostream& os, const Vector<T>& v)
 	return os;
 }
 
-template<typename T>
-Vector<T> make_vector(size_t n, const T& val = T{})
-{
-	Vector<T> v(n, val);
-	return v;
-}
-
 void test_safe_assign()
 {
 	cout << "-- test_safe_assign() --\n";
@@ -71,9 +64,9 @@ void test_safe_assign_by_value()
 	cout << "vs2(safe assigned by value from vs): " << vs2 << '\n'<< flush;
 }
 
-void test_element_assign_fail()
+void test_element_copy_fail()
 {
-	cout << "-- test_element_assign_fail() --\n";
+	cout << "-- test_element_copy_fail() --\n";
 
 	Vector<Test_element<string>> v1(5, string("abc")), v2(5,string("xyz"));
 	cout << "Vector<Test_element<string>> v1(5, \"abc\"), v2(5, \"xyz\") : success\n";
@@ -88,6 +81,17 @@ void test_element_assign_fail()
 	}
 
 	cout << "v2(after safe_assign): " << v2 << endl;
+
+	Test_element<string>::trigger_copy_construct_exception(3);
+	try {
+		safe_assign_by_value(v2,v1);
+		cout << "safe_assign_by_value(v2,v1) : success\n";
+	}
+	catch (const exception& e) {
+		cout << e.what() << endl;
+	}
+
+	cout << "v2(after safe_assign_by_value): " << v2 << endl;
 }
 
 int main()
@@ -96,6 +100,6 @@ int main()
 	test_safe_assign_by_value();
 
 	Test_element<string>::verbose();
-	test_element_assign_fail();
+	test_element_copy_fail();
 	Test_element<string>::display_counters();
 }
