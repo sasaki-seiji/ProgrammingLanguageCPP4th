@@ -8,7 +8,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 #include "vector.h"
+#include "Test_element.h"
 
 template<typename T>
 ostream& operator<<(ostream& os, const Vector<T>& v)
@@ -20,14 +22,8 @@ ostream& operator<<(ostream& os, const Vector<T>& v)
 	return os;
 }
 
-template<typename T>
-Vector<T> make_vector(size_t n, const T& val = T{})
-{
-	Vector<T> v(n, val);
-	return v;
-}
 
-int main()
+void test_assign()
 {
 	Vector<int> vi(10, 123);
 	Vector<string> vs(10, "abc");
@@ -42,6 +38,33 @@ int main()
 	// assign
 	vi2 = vi;
 	vs2 = vs;
-	cout << "vi2(assigned): " << vi2 << '\n'<< flush;
-	cout << "vs2(assigned): " << vs2 << '\n'<< flush;
+	cout << "vi2(assigned from vi): " << vi2 << '\n'<< flush;
+	cout << "vs2(assigned from vs): " << vs2 << '\n'<< flush;
+}
+
+void test_element_copy_fail()
+{
+	cout << "-- test_element_copy_fail() --\n";
+
+	Vector<Test_element<string>> v1(5, string("abc")), v2(5,string("xyz"));
+	cout << "Vector<Test_element<string>> v1(5, \"abc\"), v2(5, \"xyz\") : success\n";
+
+	Test_element<string>::trigger_copy_construct_exception(3);
+	try {
+		v2 = v1;
+		cout << "v2 = v1 : success\n";
+	}
+	catch (const exception& e) {
+		cout << e.what() << endl;
+	}
+}
+
+
+int main()
+{
+	test_assign();
+
+	Test_element<string>::verbose();
+	test_element_copy_fail();
+	Test_element<string>::display_counters();
 }
