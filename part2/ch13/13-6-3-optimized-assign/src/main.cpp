@@ -29,26 +29,10 @@ Vector<T> make_vector(size_t n, const T& val = T{})
 	return v;
 }
 
-
 void test_assign()
 {
 	cout << "-- test_assign() --\n";
 
-	Vector<Test_element> v1(5, 1), v2(5,2);
-	cout << "Vector<Test_element> v1(5, 1), v2(5, 2) : success\n";
-
-	Test_element::trigger_assign_exception(3);
-	try {
-		v2 = v1;
-		cout << "v2 = v1 : success\n";
-	}
-	catch (const exception& e) {
-		cout << e.what() << endl;
-	}
-}
-
-int main()
-{
 	Vector<int> vi(10, 123);
 	Vector<string> vs(10, "abc");
 	cout << "vi: " << vi << '\n'<< flush;
@@ -81,8 +65,30 @@ int main()
 	vs = vs3;
 	cout << "vi(assigned from vi3): " << vi << '\n'<< flush;
 	cout << "vs(assigned from vs3): " << vs << '\n'<< flush;
+}
 
-	Test_element::verbose();
+void test_element_assign_fail()
+{
+	cout << "-- test_element_assign_fail() --\n";
+
+	Vector<Test_element<string>> v1(5, string("abc")), v2(5,string("xyz"));
+	cout << "Vector<Test_element<string>> v1(5, \"abc\"), v2(5, \"xyz\") : success\n";
+
+	Test_element<string>::trigger_assign_exception(3);
+	try {
+		v2 = v1;
+		cout << "v2 = v1 : success\n";
+	}
+	catch (const exception& e) {
+		cout << e.what() << endl;
+	}
+}
+
+int main()
+{
 	test_assign();
-	Test_element::display_counters();
+
+	Test_element<string>::verbose();
+	test_element_assign_fail();
+	Test_element<string>::display_counters();
 }
