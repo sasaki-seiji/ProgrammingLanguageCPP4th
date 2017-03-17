@@ -11,7 +11,7 @@ using namespace std;
 #include "vector.h"
 
 template<typename T>
-ostream& operator<<(ostream& os, const vector<T>& v)
+ostream& operator<<(ostream& os, const Vector<T>& v)
 {
 	os << '[';
 	for (size_t i = 0 ; i != v.size(); ++i)
@@ -21,36 +21,36 @@ ostream& operator<<(ostream& os, const vector<T>& v)
 }
 
 template<typename T>
-vector<T> make_vector(size_t n, const T& val = T{})
+Vector<T> make_vector(size_t n, const T& val = T{})
 {
-	vector<T> v(n, val);
+	Vector<T> v(n, val);
 	return v;
 }
 
 int main()
 {
-	vector<int> vi(10, 123);
-	vector<string> vs(10, "abc");
+	Vector<int> vi(10, 123);
+	Vector<string> vs(10, "abc");
 	cout << "vi: " << vi << '\n'<< flush;
 	cout << "vs: " << vs << '\n'<< flush;
 
-	vector<int> vi2(15, 456);
-	vector<string> vs2(15, "xyz");
+	Vector<int> vi2(15, 456);
+	Vector<string> vs2(15, "xyz");
 	cout << "vi2: " << vi2 << '\n'<< flush;
 	cout << "vs2: " << vs2 << '\n'<< flush;
 
 	// safe assign
 	safe_assign(vi2, vi);
 	safe_assign(vs2, vs);
-	cout << "vi2(safe assigned): " << vi2 << '\n'<< flush;
-	cout << "vs2(safe assigned): " << vs2 << '\n'<< flush;
+	cout << "vi2(safe assigned from vi): " << vi2 << '\n'<< flush;
+	cout << "vs2(safe assigned from vs): " << vs2 << '\n'<< flush;
 
 	// safe assign by value
-	vector<int> vi3(5, 789);
-	vector<string> vs3(5, "uvw");
+	Vector<int> vi3(5, 789);
+	Vector<string> vs3(5, "uvw");
 	safe_assign_by_value(vi, vi3);
 	safe_assign_by_value(vs, vs3);
-	cout << "vi(safe assigned by value): " << vi << '\n'<< flush;
-	cout << "vs(safe assigned by value): " << vs << '\n'<< flush;
+	cout << "vi(safe assigned by value from vi3): " << vi << '\n'<< flush;
+	cout << "vs(safe assigned by value from vs3): " << vs << '\n'<< flush;
 
 }
