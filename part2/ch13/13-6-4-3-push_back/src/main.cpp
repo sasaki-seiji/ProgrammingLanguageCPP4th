@@ -8,7 +8,9 @@
 #include <iostream>
 #include <string>
 using namespace std;
+
 #include "vector.h"
+#include "Test_element.h"
 
 template<typename T>
 ostream& operator<<(ostream& os, const Vector<T>& v)
@@ -20,15 +22,10 @@ ostream& operator<<(ostream& os, const Vector<T>& v)
 	return os;
 }
 
-template<typename T>
-Vector<T> make_vector(size_t n, const T& val = T{})
+void test_push_back()
 {
-	Vector<T> v(n, val);
-	return v;
-}
+	cout << "-- test_push_back() --\n";
 
-int main()
-{
 	Vector<int> vi(0);
 	Vector<string> vs(0);
 
@@ -38,4 +35,35 @@ int main()
 	}
 	cout << "vi: " << vi << ", capacity = " << vi.capacity() << '\n'<< flush;
 	cout << "vs: " << vs << ", capacity = " << vs.capacity() << '\n'<< flush;
+}
+
+void test_element_copy_fail()
+{
+	cout << "-- test_element_copy_fail() --\n";
+
+	Vector<Test_element<string>> v1(5, string("abc"));
+	cout << "Vector<Test_element<string>> v1(5, \"abc\") : success\n";
+	v1.reserve(10);
+	cout << "v1.reserve(10) : success\n";
+
+	Test_element<string>::trigger_copy_construct_exception(0);
+	try {
+		v1.push_back(string("xyz"));
+		cout << "v1.push_back(string(\"xyz\")) : success\n";
+	}
+	catch (const exception& e) {
+		cout << e.what() << endl;
+	}
+
+	cout << "v1(after push_back): " << v1 << endl;
+}
+
+
+int main()
+{
+	test_push_back();
+
+	Test_element<string>::verbose();
+	test_element_copy_fail();
+	Test_element<string>::display_counters();
 }
