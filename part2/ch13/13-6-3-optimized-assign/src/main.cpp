@@ -82,6 +82,8 @@ void test_element_assign_fail()
 	catch (const exception& e) {
 		cout << e.what() << endl;
 	}
+
+	cout << "v2(after assign): " << v2 << endl;
 }
 
 int main()

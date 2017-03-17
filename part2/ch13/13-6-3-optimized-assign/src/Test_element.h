@@ -21,6 +21,7 @@ public:
 
 	~Test_element();
 
+	T value() const { return val; }
 	void trace(const char*) const;
 
 private:
@@ -50,6 +51,12 @@ public:
 
 	static void display_counters();
 };
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Test_element<T>& e)
+{
+	return os << e.value();
+}
 
 template<typename T>
 bool Test_element<T>::verbose_flag = false;
