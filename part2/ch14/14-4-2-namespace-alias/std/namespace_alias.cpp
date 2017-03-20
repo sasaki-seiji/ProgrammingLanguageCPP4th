@@ -32,6 +32,23 @@ namespace ATT = American_Telephone_and_Telegram;
 ATT::String s5 = "Grieg";
 ATT::String s6 = "Nielsen";
 
+namespace Foundation_library_v2r11 {
+	class set {
+	public:
+		set() { std::cout << "Foundation_library_v2r11::set()\n"; }
+	};
+	class String {
+	public:
+		String(const char* p) { std::cout << "Foundation_library_v2r11::String(" << p << ")\n"; }
+	};
+}
+
+namespace Lib = Foundation_library_v2r11;
+
+Lib::set s;
+Lib::String s7 = "Sibelius";
+
+
 int main()
 {
 
