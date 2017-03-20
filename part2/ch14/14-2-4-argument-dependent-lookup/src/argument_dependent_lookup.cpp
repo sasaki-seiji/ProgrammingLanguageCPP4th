@@ -6,6 +6,7 @@
  */
 
 #include <string>
+#include <iostream>
 
 namespace Chrono {
 	class Date { };
@@ -15,13 +16,17 @@ namespace Chrono {
 
 void f(Chrono::Date d, int i)
 {
+	std::cout << "-- f(Chrono::Date,int) --\n";
+
 	std::string s = format(d);
 	//std::string t = format(i);
-		// 'format' was not declared in this scope
+		// error: 'format' was not declared in this scope
 }
 
 void f(Chrono::Date d, std::string s)
 {
+	std::cout << "-- f(Chrono::Date,string) --\n";
+
 	if (d == s) {
 
 	}
@@ -45,10 +50,12 @@ struct D : Base {
 	void mf(N::S);
 	void g(N::S x)
 	{
+		std::cout << "-- D::Base::g(N::S) --\n";
+
 		f(x);
 		mf(x);
 		//h(1);
-			// 'h' was not declared in this scope
+			// error: 'h' was not declared in this scope
 	}
 };
 
@@ -64,6 +71,8 @@ namespace N2 {
 	void f(N::X, unsigned);
 	void g()
 	{
+		std::cout << "-- N2::g() --\n";
+
 		f(x, 1);
 	}
 }
@@ -74,14 +83,13 @@ int main()
 	f(Chrono::Date{}, "string");
 
 	D d;
-	N::S s;
+	N::S s{123};
 	d.g(s);
 
 	N2::g();
 }
 
 // undefs
-#include <iostream>
 std::string Chrono::format(const Date& d)
 {
 	std::cout << "Chrono::format(const Date&)\n";
@@ -89,7 +97,7 @@ std::string Chrono::format(const Date& d)
 }
 bool Chrono::operator==(const Date& d, const std::string& s)
 {
-	std::cout << "Chrono::operator==(const Date&, " << s << ")\n";
+	std::cout << "Chrono::operator==(const Date&, \"" << s << "\")\n";
 	return false;
 }
 
