@@ -8,11 +8,14 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
-vector<std::string> split(const string& s)
+vector<string> split(const string& s)
 {
+	cout << "-- split(\"" << s << "\") --\n";
+
 	vector<string> res;
 	istringstream iss(s);
 	for (string buf; iss >> buf; )
@@ -20,7 +23,6 @@ vector<std::string> split(const string& s)
 	return res;
 }
 
-#include <iostream>
 template<typename T>
 ostream& operator<<(ostream&os, const vector<T>& v)
 {
@@ -67,7 +69,7 @@ Glyph gl;
 vector<Shape*> vs;
 
 //Text txt;
-	// reference to 'Text' is ambiguous
+	// error: reference to 'Text' is ambiguous
 //File* fp = open("my_precious_data");
-	// call of overloaded 'open(const char [17])' is ambiguous
+	// error: call of overloaded 'open(const char [17])' is ambiguous
 
