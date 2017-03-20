@@ -15,7 +15,7 @@ namespace His_string {
 		std::string	s;
 	public:
 		String(const char* p) :s{p}
-			{ std::cout << "His_string::String::String(" << p << ")\n"; }
+			{ std::cout << "His_string::String::String(\"" << p << "\")\n"; }
 		std::string& str() { return s; }
 		const std::string& str() const { return s; }
 	};
@@ -50,6 +50,8 @@ namespace My_lib {
 
 void f()
 {
+	std::cout << "-- f() --\n";
+
 	My_lib::String s = "Byron";
 	// ...
 }
@@ -58,12 +60,16 @@ using namespace My_lib;
 
 void g(Vector<String>& vs)
 {
+	std::cout << "-- g(Vector<String>&) --\n";
+
 	my_fct(vs[5]);
 }
 
 int main()
 {
 	f();
+
+	std::cout << "-- define Vector<String> vs --\n";
 	Vector<String> vs {"this", "is", "a", "some", "meaningless", "string" };
 	g(vs);
 
@@ -78,11 +84,11 @@ void My_lib::fill(char c)
 
 }
 #endif
-	// 'void His_string::fill(char)' should have been declared inside 'My_lib'
+	// error: 'void His_string::fill(char)' should have been declared inside 'My_lib'
 
 void His_string::fill(char c)
 {
-	std::cout << "His_string::fill(" << c << ")\n";
+	std::cout << "His_string::fill('" << c << "')\n";
 }
 
 void My_lib::my_fct(String& s)
