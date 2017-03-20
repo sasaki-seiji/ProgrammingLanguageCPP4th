@@ -5,6 +5,9 @@
  *      Author: sasaki
  */
 
+#include <iostream>
+using namespace std;
+
 namespace X {
 	int i, j, k;
 }
@@ -13,21 +16,25 @@ int k;
 
 void f1()
 {
+	cout << "-- f1() --\n";
+
 	int i = 0;
 	using namespace X;
 	i++;
 	j++;
 	//k++;
-		// 'k' is ambiguous
+		// error: reference to ‘k’ is ambiguous
 	::k++;
 	X::k++;
 }
 
 void f2()
 {
+	cout << "-- f2() --\n";
+
 	int i = 0;
 	//using X::i;
-		// 'i' is already declared in this scope
+		// error: 'i' is already declared in this scope
 	using X::j;
 	using X::k;
 
@@ -36,8 +43,6 @@ void f2()
 	k++;
 }
 
-#include <iostream>
-using namespace std;
 
 void print()
 {
