@@ -15,7 +15,7 @@ namespace His_lib {
 		std::string	s;
 	public:
 		String(const char* p) :s{p}
-			{ std::cout << "His_string::String::String(" << p << ")\n"; }
+			{ std::cout << "His_lib::String::String(\"" << p << "\")\n"; }
 		std::string& str() { return s; }
 		const std::string& str() const { return s; }
 	};
@@ -27,7 +27,10 @@ namespace His_lib {
 	}
 
 	template<typename T>
-	class Vector { };
+	class Vector {
+	public:
+		Vector() { std::cout << "His_lib::Vector::Vector()\n"; }
+	};
 }
 
 namespace Her_lib {
@@ -36,14 +39,17 @@ namespace Her_lib {
 		std::vector<T> v;
 	public:
 		Vector(std::initializer_list<T>list) : v{list}
-			{ std::cout << "Her_vector::Vector<T>::Vector<initializer_list>()\n" ;}
+			{ std::cout << "Her_lib::Vector<T>::Vector<initializer_list>()\n" ;}
 		T& operator[](size_t i)
-			{ 	std::cout << "Her_vector::Vector<T>::operator[]("<< i << ")\n";
+			{ 	std::cout << "Her_lib::Vector<T>::operator[]("<< i << ")\n";
 				return v[i];
 			}
 	};
 
-	class String { };
+	class String {
+	public:
+		String() { std::cout << "Her_lib::String::String()\n"; }
+	};
 	// ...
 }
 
@@ -62,29 +68,18 @@ namespace My_lib {
 		using His_vec = His_lib::Vector<T>;
 }
 
-using namespace std;
-using namespace My_lib;
 
 int main()
 {
-	//String s = "this is a string";
-		// 'String' is ambiguous '
-		// Candidates are:
-	 	 // String(const His_lib::String &)
-	 	 // String(const char *)
-	 	 // String(const His_lib::String &)
-	 	 // String(const char *)
-	 	 // String()
-	 	 // String(const Her_lib::String &)
 	My_lib::String s = "this is a string";
 
-	cout << "s: " << s << '\n';
+	std::cout << "s: " << s << '\n';
 
 	My_lib::Vector<My_lib::String> v {"this", "is", "a", "string"};
-	cout << "v[2]: " << v[2] << '\n';
+	std::cout << "v[2]: " << v[2] << '\n';
 
-	Her_string hs;
-	His_vec<int> hv;
+	My_lib::Her_string hs;
+	My_lib::His_vec<int> hv;
 }
 
 
