@@ -8,9 +8,12 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 std::vector<std::string> split(const std::string& s)
 {
+	std::cout << "-- split(const std::string&) --\n";
+
 	std::vector<std::string> res;
 	std::istringstream iss(s);
 	for (std::string buf; iss >> buf; )
@@ -22,6 +25,8 @@ using std::string;
 
 std::vector<string> split2(const string& s)
 {
+	std::cout << "-- split2(const string&) --\n";
+
 	std::vector<string> res;
 	std::istringstream iss(s);
 	for (string buf; iss >> buf; )
@@ -36,12 +41,13 @@ namespace N {
 
 void g()
 {
+	std::cout << "-- g() --\n";
+
 	using N::f;
 	f(789);
 	f("Bruce");
 }
 
-#include <iostream>
 template<typename T>
 std::ostream& operator<<(std::ostream&os, const std::vector<T>& v)
 {
@@ -51,6 +57,7 @@ std::ostream& operator<<(std::ostream&os, const std::vector<T>& v)
 	std::cout << "]";
 	return os;
 }
+
 int main()
 {
 	std::vector<std::string> v = split("this is a pen");
