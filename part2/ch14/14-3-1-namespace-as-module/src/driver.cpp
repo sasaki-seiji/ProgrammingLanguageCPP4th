@@ -15,8 +15,8 @@ using namespace std;
 #include "error.h"
 
 using Table::table;
-using namespace Parser;
-using namespace Error;
+using Parser::expr;
+using Error::no_of_errors;
 using namespace Lexer;
 
 void Driver::calculate()
@@ -38,6 +38,4 @@ int main()
 
 	return no_of_errors;
 }
-
-
 

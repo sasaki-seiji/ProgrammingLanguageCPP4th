@@ -5,7 +5,6 @@
  *      Author: sasaki
  */
 
-#include <iostream>
 #include "lexer.h"
 #include "error.h"
 using Error::error;
