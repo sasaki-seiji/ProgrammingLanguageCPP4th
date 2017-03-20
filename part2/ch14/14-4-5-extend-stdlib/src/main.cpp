@@ -10,14 +10,13 @@
 #include "Estd.h"
 
 using namespace Estd;
-using namespace std;
 
 template<typename T>
-void print(const vector<T>& v)
+void print(const std::vector<T>& v)
 {
 	for (auto& x : v)
-		cout << x << ' ';
-	cout << '\n';
+		std::cout << x << ' ';
+	std::cout << '\n';
 }
 
 void f()

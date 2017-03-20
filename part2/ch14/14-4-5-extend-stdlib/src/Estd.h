@@ -10,11 +10,11 @@
 
 #include <algorithm>
 namespace Estd {
-	using namespace std;
+	//using namespace std;
 	template<typename C>
-		void sort(C& c) { sort(c.begin(), c.end()); }
+		void sort(C& c) { std::sort(c.begin(), c.end()); }
 	template<typename C, typename P>
-		void sort(C& c, P p) { sort(c.begin(), c.end(), p); }
+		void sort(C& c, P p) { std::sort(c.begin(), c.end(), p); }
 }
 
 
