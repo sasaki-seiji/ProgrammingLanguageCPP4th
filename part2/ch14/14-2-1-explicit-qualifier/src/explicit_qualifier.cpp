@@ -5,6 +5,8 @@
  *      Author: sasaki
  */
 
+#include <iostream>
+using namespace std;
 
 namespace Parser {
 	double expr(bool);
@@ -20,11 +22,11 @@ double Parser::expr(bool)
 }
 
 //void Parser::logical(bool);
-	// 'void Parser::logical(bool)' should have been declared inside 'Parser'
+	// error: 'void Parser::logical(bool)' should have been declared inside 'Parser'
 //double Parser::trem(bool);
-	// 'double Parser::trem(bool)' should have been declared inside 'Parser'
+	// error: 'double Parser::trem(bool)' should have been declared inside 'Parser'
 //double Parser::prim(int);
-	// 'double Parser::prim(int)' should have been declared inside 'Parser'
+	// error: 'double Parser::prim(int)' should have been declared inside 'Parser'
 
 int f();
 
@@ -32,12 +34,18 @@ int g()
 {
 	int f;
 	//f();
-		// 'f' cannot be used as a function
-	::f();
+		// error: 'f' cannot be used as a function
+	return ::f();
 }
 
 // undefs
 int f()
 {
 	return 1;
+}
+
+int main()
+{
+	cout << "val = " << val << endl;
+	cout << "g() returns " << g() << endl;
 }
