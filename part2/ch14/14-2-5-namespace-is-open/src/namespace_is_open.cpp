@@ -38,15 +38,11 @@ int main()
 #include <iostream>
 using namespace std;
 
-namespace A {
-	int f() { cout << "A::f()\n"; return 0; }
-	int g() { cout << "A::g()\n"; return 0; }
-}
+int A::f() { cout << "A::f()\n"; return 0; }
+int A::g() { cout << "A::g()\n"; return 0; }
 
-namespace Mine {
-	void mf() { cout << "Mine::mf()\n"; }
-	void mg() { cout << "Mine::mg()\n"; }
-}
+void Mine::mf() { cout << "Mine::mf()\n"; }
+void Mine::mg() { cout << "Mine::mg()\n"; }
 
 void yf() { cout << "::yf()\n"; }
 
