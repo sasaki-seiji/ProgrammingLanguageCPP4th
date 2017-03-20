@@ -6,10 +6,11 @@
  */
 
 #include "parser_impl.h"
-using namespace Parser_impl;
 
 double Parser::expr(bool get)
 {
+	using namespace Parser_impl;
+
 	double left = term(get);
 
 	for (;;) {
