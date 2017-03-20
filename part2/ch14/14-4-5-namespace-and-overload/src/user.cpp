@@ -9,7 +9,11 @@
 #include "A.h"
 #include "B.h"
 
+#include <iostream>
+using namespace std;
+
 void g()
 {
+	cout << "-- old g() --\n";
 	f('a');
 }

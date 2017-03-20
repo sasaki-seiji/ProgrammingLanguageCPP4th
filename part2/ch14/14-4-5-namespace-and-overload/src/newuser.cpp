@@ -12,8 +12,13 @@
 using namespace A;
 using namespace B;
 
+#include <iostream>
+using namespace std;
+
 void newg()
 {
+	cout << "-- new g() --\n";
+
 	f('a');
 }
 

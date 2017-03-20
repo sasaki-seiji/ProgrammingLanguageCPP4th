@@ -12,5 +12,5 @@ using namespace std;
 
 void f(char c)
 {
-	cout << "f(char: " << c << ")\n";
+	cout << "f(char: '" << c << "')\n";
 }

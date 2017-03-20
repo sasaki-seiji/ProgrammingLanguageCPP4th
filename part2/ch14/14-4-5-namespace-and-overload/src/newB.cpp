@@ -14,7 +14,7 @@ namespace B {
 
 void f(char c)
 {
-	cout << "B::f(char: " << c << ")\n";
+	cout << "B::f(char: '" << c << "')\n";
 }
 
 }
