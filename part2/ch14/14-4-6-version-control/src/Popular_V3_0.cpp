@@ -11,11 +11,9 @@
 
 using namespace std;
 
-#if 0
 double Popular::V3_0::f(double d)
 {
 	cout << "Popular::V3_0::f(double: " << d << ")\n";
 }
-#endif
 	// Member declaration not found
 
