@@ -48,7 +48,9 @@
 
 【14.4.6　namespace内のテンプレートクラスの特殊化】
 
-日付：　2016.05.28
+日付：　2016.05.28、2017.03.21
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	テキストの例題で、Popularネームスペースのテンプレートクラスclass　Cの
@@ -56,7 +58,7 @@
 	
 	template<typename T>
 	class Popular::C<T*> { };
-		// specialization of 'template<class T> class Popular::V3_2::C' in different namespace [-fpermissive]
+		// error: specialization of 'template<class T> class Popular::V3_2::C' in different namespace [-fpermissive]
 
 	ネームスペースに入って、特殊化を行うとコンパイルできる
 	
@@ -65,10 +67,14 @@
 		class C<T*> { };
 	}
 
+
 【14.4.6　#include の繰り返し】
 
-日付：2016.05.28
-コメント：
+日付：2016.05.28,2017.03.21
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+追記：　2017.03.21　Unbutu/g++5.4.0環境では動作する
+コメント：	
 
 	double Popular::V3_0::f(double d) がコンパイルエラー
 	
