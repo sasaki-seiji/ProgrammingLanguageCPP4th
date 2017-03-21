@@ -20,11 +20,11 @@ void f()
 #if 0
 template<typename T>
 class Popular::C<T*> { };
-	// specialization of 'template<class T> class Popular::V3_2::C' in different namespace [-fpermissive]
+	// error: specialization of 'template<class T> class Popular::V3_2::C' in different namespace [-fpermissive]
 #else
 namespace Popular {
 	template<typename T>
-	class C<T*> { };
+		class C<T*> { };
 }
 #endif
 

@@ -21,13 +21,13 @@ namespace Popular {
 	namespace V3_0 {
 		double f(double);
 		template<typename T>
-		class C { };
+			class C { };
 	}
 
 	namespace V2_4_2 {
 		double f(double);
 		template<typename T>
-		class C { };
+			class C { };
 	}
 }
 
