@@ -69,8 +69,10 @@ namespace My_lib {
 }
 
 
-int main()
+void f()
 {
+	std::cout << "-- no using name space My_lib; --\n";
+
 	My_lib::String s = "this is a string";
 
 	std::cout << "s: " << s << '\n';
@@ -80,6 +82,32 @@ int main()
 
 	My_lib::Her_string hs;
 	My_lib::His_vec<int> hv;
+}
+
+using namespace My_lib;
+
+void g()
+{
+	std::cout << "-- using name space My_lib; --\n";
+
+	//String s = "this is a string";
+		// error: reference to ‘String’ is ambiguous
+	//std::cout << "s: " << s << '\n';
+		// error: ‘s’ was not declared in this scope
+
+	//Vector<String> v {"this", "is", "a", "string"};
+		// error: reference to ‘Vector’ is ambiguous
+	//std::cout << "v[2]: " << v[2] << '\n';
+		// error: ‘v’ was not declared in this scope
+
+	Her_string hs;
+	His_vec<int> hv;
+}
+
+int main()
+{
+	f();
+	g();
 }
 
 

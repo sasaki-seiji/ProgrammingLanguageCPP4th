@@ -1,3 +1,50 @@
+【14.4.4　using指令で指定した名前空間内のusing宣言とusing指令間で曖昧さが指定】
+
+日付：　2017.03.21
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	using指令で指定した名前空間内のusing宣言とusing指令間で名前の曖昧さが指定される。
+
+		namespace My_lib {
+			using namespace His_lib;　//この中でVectorが定義されている
+			using namespace Her_lib;　//この中でStringが定義されている
+
+			using His_lib::String;
+			using Her_lib::Vector;
+
+			template<typename T>
+			class List { };
+
+			using Her_string = Her_lib::String;
+			template<typename T>
+				using His_vec = His_lib::Vector<T>;
+		}
+
+		using namespace My_lib;
+		
+		void g()
+		{
+			std::cout << "-- using name space My_lib; --\n";
+
+			//String s = "this is a string";
+				// error: reference to ‘String’ is ambiguous
+			・・・
+		}
+
+
+	一方で、My_libで明示的に名前空間を指定すると、エラーとならない
+
+
+		void f()
+		{
+			std::cout << "-- no using name space My_lib; --\n";
+
+			My_lib::String s = "this is a string";
+
+			・・・
+		}
+
 
 【14.4.6　namespace内のテンプレートクラスの特殊化】
 
