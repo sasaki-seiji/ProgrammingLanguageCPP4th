@@ -31,7 +31,7 @@ void X::g()
 	cout << "X::g()\n";
 
 	//f();
-		// 'f' was not declared in this scope
+		// error: 'f' was not declared in this scope
 	Y::f();
 }
 
@@ -40,11 +40,11 @@ void h()
 	cout << "::h()\n";
 
 	//f();
-		// 'f' was not declared in this scope
+		// error: 'f' was not declared in this scope
 	//Y::f();
-		// 'Y' has not been declared
+		// error: 'Y' has not been declared
 	//X::f();
-		// 'f' is not a member of 'X'
+		// error: 'f' is not a member of 'X'
 	X::Y::f();
 }
 
