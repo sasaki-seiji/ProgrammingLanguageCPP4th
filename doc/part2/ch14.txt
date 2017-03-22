@@ -48,7 +48,7 @@
 
 【14.4.6　namespace内のテンプレートクラスの特殊化】
 
-日付：　2016.05.28、2017.03.21
+日付：　2016.05.28、2017.03.21、2017.03.22
 バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
 バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
@@ -65,6 +65,44 @@
 	namespace Popular {
 		template<typename T>
 		class C<T*> { };
+	}
+
+
+（追記）2017.03.22
+
+	Popularネームスペースに、予め特殊化テンプレートメンバを宣言しておけば、
+	上記問題は発生しない
+
+	//Popular.h
+	namespace Popular {
+
+		inline namespace V3_2 {
+			double f(double);
+			int f(int);
+			template<typename T>
+				class C { };
+		}
+		・・・
+
+		// 2017.03.22 add: declare namespace member
+		template<typename T>
+		class Popular::C<T*>;
+	}
+
+	//user.cpp
+	using namespace Popular;
+	・・・
+	template<typename T>
+	class Popular::C<T*>
+	{
+	public:
+		C() { std::cout << "Popular::C<T*>::C()\n"; }
+	};
+
+	int main()
+	{
+		・・・
+		C<char*> c;
 	}
 
 
