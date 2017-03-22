@@ -6,6 +6,7 @@
  */
 
 
+#include <iostream>
 #include "Popular.h"
 
 using namespace Popular;
@@ -17,14 +18,16 @@ void f()
 	V2_4_2::f(1);
 }
 
-namespace Popular {
-	template<typename T>
-	class C<T*> { };
-}
+template<typename T>
+class Popular::C<T*> {
+public:
+	C() { std::cout << "Popular::C<T*>::C()\n"; }
+};
 
 int main()
 {
 	f();
+	Popular::C<char*> c;
 }
 
 
