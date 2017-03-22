@@ -7,6 +7,7 @@
 
 
 int x;
+	// `x' が複数定義されています
 extern double b;
 extern int c;
 
@@ -18,4 +19,5 @@ int main()
 	cout << "x : " << x << '\n'; // multiple definition of `x'
 	cout << "b : " << b << '\n';
 	cout << "c : " << c << '\n'; // undefined reference to `c'
+		// `c' に対する定義されていない参照です
 }
