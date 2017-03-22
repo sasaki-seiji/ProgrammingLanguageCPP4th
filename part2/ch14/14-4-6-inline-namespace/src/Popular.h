@@ -29,6 +29,11 @@ namespace Popular {
 		template<typename T>
 			class C { };
 	}
+
+	// 2017.03.22 add: declare namespace member
+	template<typename T>
+	class Popular::C<T*>;
+
 }
 
 
