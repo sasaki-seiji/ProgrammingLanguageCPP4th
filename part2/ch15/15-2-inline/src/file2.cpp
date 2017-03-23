@@ -11,6 +11,7 @@ inline int f(int i) { return i+1; }
 extern inline int g(int i) { return i+1; }
 
 int h(int);
+int h2(int);
 
 // add main
 #include <iostream>
@@ -20,4 +21,5 @@ int main()
 	cout << "f(2) : " << f(2) << '\n';
 	cout << "g(2) : " << g(2) << '\n';
 	cout << "h(2) : " << h(2) << '\n';
+	cout << "h2(2) : " << h2(2) << '\n';
 }
