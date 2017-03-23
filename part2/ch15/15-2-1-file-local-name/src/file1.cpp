@@ -6,11 +6,18 @@
  */
 
 #include <iostream>
+#include <typeinfo>
+using namespace std;
 
 namespace {
 	class X { };
-	int i;
-	void f() { std::cout << "f() called, i=" << i << "\n"; }
+	int i = 1;
+	void f()
+	{
+		cout << "-- file1.f() --\n";
+		cout << "i = " << i << endl;
+		cout << "typeid(X) = " << typeid(X).name() << endl;
+	}
 }
 
 void call_unnamed_namespace() { f(); }
