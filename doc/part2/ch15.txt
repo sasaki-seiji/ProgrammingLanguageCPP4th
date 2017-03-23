@@ -1,3 +1,27 @@
+【15.2:他の翻訳単位で定義されたextern inline 関数を呼び出すことができる】
+
+日付：　2017.03.23
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	テキストの記述と異なり、他の翻訳単位で定義されたextern inline 関数(g(int)）を
+	呼び出すことができる
+
+	//file1.cpp
+	extern inline int g(int i);
+	int h(int i) { return g(i); }
+
+
+	//file2.cpp
+	extern inline int g(int i) { return i+1; }
+	int h(int);
+	int main()
+	{
+		・・・
+		cout << "h(2) : " << h(2) << '\n';
+	}
+
+
 
 【15.4.3　at_quick_exit, quick_exit】
 
