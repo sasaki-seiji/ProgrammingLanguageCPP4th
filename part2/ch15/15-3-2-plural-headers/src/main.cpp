@@ -15,7 +15,6 @@ using Table::table;
 using namespace Error;
 
 #include <sstream>
-#include <iostream>
 using namespace std;
 
 namespace Driver {
