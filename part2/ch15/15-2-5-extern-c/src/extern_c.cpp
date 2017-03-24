@@ -27,7 +27,7 @@ extern "C" { int g4; }
 void f2()
 {
 	std::printf("Hello, ");
-	printf("world!\n");
+	printf("world!\n"); // no error
 }
 
 
@@ -39,12 +39,12 @@ int main()
 	g();
 
 	g1 = 10;
-	cout << "g1: " << g1 << '\n';
-	cout << "g2: " << g2 << '\n';
+	cout << "g1 = " << g1 << '\n';
+	cout << "g2 = " << g2 << '\n';
 
-	cout << "g3: " << g3 << '\n';
+	cout << "g3 = " << g3 << '\n';
 	g4 = 3;
-	cout << "g4: " << g4 << '\n';
+	cout << "g4 = " << g4 << '\n';
 
 	f2();
 }
