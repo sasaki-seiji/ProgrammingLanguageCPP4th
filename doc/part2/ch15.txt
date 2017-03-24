@@ -25,7 +25,9 @@
 
 【15.4.3　at_quick_exit, quick_exit】
 
-日付：2016.07.15
+日付：2016.07.15、2017.03.25
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	at_quick_exit, quick_exit が以下のメッセージでコンパイルエラーとなる
@@ -33,4 +35,7 @@
 	'at_quick_exit' was not declared in this scope
 	'quick_exit' was not declared in this scope
 
+（追記）2017.03.25
+	Linux/g++5.4.0環境では正しく動作する
 
+	
