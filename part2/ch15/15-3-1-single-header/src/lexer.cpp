@@ -6,8 +6,6 @@
  */
 
 #include "dc.h"
-using Error::error;
-
 #include <cctype>
 #include <iostream>
 
@@ -52,7 +50,7 @@ Lexer::Token Lexer::Token_stream::get()
 			return ct;
 		}
 
-		error("bad token");
+		Error::error("bad token");
 		return ct={Kind::print};
 	}
 }

@@ -7,8 +7,6 @@
 
 #include "dc.h"
 using namespace Lexer;
-using Table::table;
-using Error::error;
 
 double Parser::expr(bool get)
 {
@@ -42,7 +40,7 @@ double Parser::term(bool get)
 				left /= d;
 				break;
 			}
-			return error("divide by 0");
+			return Error::error("divide by 0");
 		default:
 			return left;
 		}
@@ -62,7 +60,7 @@ double Parser::prim(bool get)
 	}
 	case Kind::name:
 	{
-		double& v = table[ts.current().string_value];
+		double& v = Table::table[ts.current().string_value];
 		if (ts.get().kind == Kind::assign) v = expr(true);
 		return v;
 	}
@@ -71,12 +69,12 @@ double Parser::prim(bool get)
 	case Kind::lp:
 	{
 		auto e = expr(true);
-		if (ts.current().kind != Kind::rp) return error("')' expected");
+		if (ts.current().kind != Kind::rp) return Error::error("')' expected");
 		ts.get();
 		return e;
 	}
 	default:
-		return error("primary expected");
+		return Error::error("primary expected");
 	}
 }
 
