@@ -6,11 +6,15 @@
  */
 
 #include "Date.h"
+#include <iostream>
+using namespace std;
 
 Date my_birthday;
 
 void f()
 {
+	cout << "-- copy-initialize Date objects --\n";
+
 	my_birthday.init(30,12,1950);
 
 	Date d1 = my_birthday;
@@ -22,6 +26,7 @@ void f()
 
 void f(Date& d)
 {
+	cout << "-- copy-assign Date object --\n";
 	d = my_birthday;
 }
 
