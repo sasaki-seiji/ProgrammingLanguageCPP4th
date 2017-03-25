@@ -11,7 +11,7 @@
 void timewarp(Date& d)
 {
 	//d.y -= 200;
-		// 'int Date::y' is private
+		// error: 'int Date::y' is private
 }
 
 Date my_birthday;
