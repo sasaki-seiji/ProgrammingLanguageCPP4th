@@ -13,6 +13,7 @@ Date d1 {};
 Date d2 {25};
 Date d3 {25,12};
 Date d4 {25,12,1959};
+Date d5 {"26 mar 2017"};
 
 int main()
 {
@@ -23,6 +24,7 @@ int main()
 	d2.print();
 	d3.print();
 	d4.print();
+	d5.print();
 
 	cout << "in user.cpp - &date_initializer: " << &date_initializer << '\n';
 	print_initializer_address();

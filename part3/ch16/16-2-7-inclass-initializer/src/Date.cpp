@@ -20,6 +20,9 @@ Date::Date() { }
 Date::Date(const char* str)
 {
 	// dummy
+	d = date_initializer.d;
+	m = date_initializer.m;
+	y = date_initializer.y;
 }
 
 void Date::print()
