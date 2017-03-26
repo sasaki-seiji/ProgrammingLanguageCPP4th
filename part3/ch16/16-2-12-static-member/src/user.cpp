@@ -11,6 +11,7 @@ using namespace std;
 
 void f()
 {
+	cout << "-- f() --\n";
 	Date::set_default(4,5,1945);
 }
 
@@ -21,6 +22,7 @@ void f(Date);
 
 void g()
 {
+	cout << "-- g() --\n";
 	f(Date{});
 }
 
@@ -30,6 +32,7 @@ void f2(int);
 
 void h()
 {
+	cout << "-- h() --\n";
 	f1({});
 	f2({});
 	f2(Date{});
