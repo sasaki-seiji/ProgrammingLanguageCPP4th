@@ -19,16 +19,16 @@ Date::Date(int dd, int mm, int yy)
 }
 
 //int Date::year()
-	// prototype for 'int Date::year()' does not match any in class 'Date'
+	// error: prototype for 'int Date::year()' does not match any in class 'Date'
 int Date::year() const
 {
 	//return ++y;
-		// increment of member 'Date::y' in read-only object
+		// error: increment of member 'Date::y' in read-only object
 
 	return y;
 }
 
-void Date::print()
+void Date::print() const
 {
 	cout << y << '.' << m << '.' << d << '\n';
 }

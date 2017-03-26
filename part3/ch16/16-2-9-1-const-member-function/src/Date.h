@@ -20,7 +20,7 @@ public:
 	void add_month(int n) { m += n; }
 	void add_year(int n);
 
-	void print();
+	void print() const;
 private:
 	int d, m, y;
 };

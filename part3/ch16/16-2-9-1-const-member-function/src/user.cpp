@@ -11,14 +11,19 @@ using namespace std;
 
 void f(Date& d, const Date& cd)
 {
+	cout << "-- f(Date&,const Date&) --\n";
+
 	int i = d.year();
 	d.add_year(1);
 	int j = cd.year();
 	//cd.add_year(1);
-		// passing 'const Date' as 'this' argument discards qualifiers [-fpermissive]
+		// error: passing 'const Date' as 'this' argument discards qualifiers [-fpermissive]
 
-	cout << "i: " << i << '\n';
-	cout << "j: " << j << '\n';
+	cout << "i = " << i << '\n';
+	cout << "j = " << j << '\n';
+
+	d.print();
+	cd.print();
 }
 
 // add main
