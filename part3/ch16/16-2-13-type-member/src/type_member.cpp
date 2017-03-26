@@ -19,9 +19,6 @@ class Tree {
 	public:
 		void f(Tree*);
 
-		// 2016.07.19 add
-		void add_node(value_type val);
-
 		// 2016.07.18 add
 		Node(value_type v, Node* r=nullptr, Node* l=nullptr)
 		: right{r}, left{l}, value{v} { }
@@ -31,20 +28,23 @@ class Tree {
 
 public:
 	void g(Node*);
-	void g() { g(top); }
-
-	// 2016.07.19 add
-	void add_node(value_type val);
 
 	// 2016.07.18 add
-	Tree() : top{nullptr} { }
+	Tree();
 };
+
+template<typename T>
+Tree<T>::Tree()
+{
+	top = new Node(T{}, new Node(T{}), new Node(T{}));
+	g(top);
+}
 
 template<typename T>
 void Tree<T>::Node::f(Tree* p)
 {
 	//top = right;
-		// invalid use of non-static data member 'Tree<int>::top'
+		// error: invalid use of non-static data member 'Tree<int>::top'
 	p->top = right;
 	value_type v = left->value;
 
@@ -55,40 +55,10 @@ template<typename T>
 void Tree<T>::g(Node* p)
 {
 	//value_type val = right->value;
-		//  'right' was not declared in this scope
+		//  error: request for member ‘value’ in ‘std::right->’, which is of non-class type ‘std::ios_base&(std::ios_base&)’
 	//value_type v = p->right->value;
-		// 'Tree<int>::value_type Tree<int>::Node::value' is private
+		// error: 'Tree<int>::value_type Tree<int>::Node::value' is private
 	p->f(this);
-}
-
-// 2016.07.19 add
-template<typename T>
-void Tree<T>::add_node(value_type val)
-{
-	if (top) {
-		top->add_node(val);
-	}
-	else {
-		top = new Node{val} ;
-	}
-}
-
-// 2016.07.19 add
-template<typename T>
-void Tree<T>::Node::add_node(value_type val)
-{
-	if (val < value) {
-		if (left)
-			left->add_node(val);
-		else
-			left = new Node{val};
-	}
-	else {
-		if (right)
-			right->add_node(val);
-		else
-			right = new Node{val};
-	}
 }
 
 
@@ -96,10 +66,5 @@ void Tree<T>::Node::add_node(value_type val)
 int main()
 {
 	Tree<int> tree;
-
-	tree.add_node(20);
-	tree.add_node(10);
-	tree.add_node(30);
-
-	tree.g();
+	return 0;
 }
