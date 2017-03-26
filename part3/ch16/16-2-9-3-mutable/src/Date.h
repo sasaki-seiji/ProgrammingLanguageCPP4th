@@ -19,8 +19,8 @@ public:
 	int month() const { return m; }
 	int year() const ;
 
-	void add_day(int n) { d += n; }
-	void add_month(int n) { m += n; }
+	void add_day(int n) { d += n; cache_valid = false; }
+	void add_month(int n) { m += n; cache_valid = false; }
 	void add_year(int n);
 
 	string string_rep() const;
@@ -35,6 +35,7 @@ private:
 inline void Date::add_year(int n)
 {
 	y += n;
+	cache_valid = false;
 }
 
 #endif /* DATE_H_ */

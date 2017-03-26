@@ -9,13 +9,17 @@
 #include <iostream>
 using namespace std;
 
-void f(Date d, const Date cd)
+void f(Date& d, const Date& cd)
 {
+	cout << "-- f(Date&,const Date&) --\n";
+
 	string s1 = d.string_rep();
 	string s2 = cd.string_rep();
 
-	cout << "s1: " << s1 << '\n';
-	cout << "s2: " << s2 << '\n';
+	cout << "s1 = " << s1 << '\n';
+	cout << "s2 = " << s2 << '\n';
+
+	cout << "-- return f(Date&,const Date&) --\n";
 }
 
 // add main
@@ -25,4 +29,13 @@ int main()
 	const Date d2{25, 12, 1959};
 
 	f(d1, d2);
+
+	cout << "-- d1.add_day(1) --\n";
+	d1.add_day(1);
+
+	string s1 = d1.string_rep();
+	string s2 = d2.string_rep();
+
+	cout << "s1 = " << s1 << '\n';
+	cout << "s2 = " << s2 << '\n';
 }
