@@ -17,7 +17,7 @@ Date::Date(int dd, int mm, int yy)
 	m = mm ? mm : date_initializer.m;
 	y = yy ? yy : date_initializer.y;
 
-	c = new cache{false, ""};
+	c = new cache{false};
 }
 
 int Date::year() const
