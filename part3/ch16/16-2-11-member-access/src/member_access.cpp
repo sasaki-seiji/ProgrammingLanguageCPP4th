@@ -15,18 +15,21 @@ struct X {
 
 void user(X x, X* px)
 {
+	cout << "-- user(X,X*) --\n";
+
 	//m = 1;
-		// 'm' was not declared in this scope
+		// error: 'm' was not declared in this scope
 	x.m = 1;
 	//x->m = 1;
-		// base operand of '->' has non-pointer type 'X'
+		// error: base operand of '->' has non-pointer type 'X'
 	px->m = 1;
 	//px.m = 1;
-		// request for member 'm' in 'px', which is of pointer type 'X*' (maybe you meant to use '->' ?)
+		// error: request for member 'm' in 'px', which is of pointer type 'X*' (maybe you meant to use '->' ?)
 }
 
 void X::f()
 {
+	cout << "-- X::f() --\n";
 	m = 1;
 }
 
@@ -44,7 +47,7 @@ struct S {
 int S::f() { return m; }
 int S::sm {7};
 //int (S::*) pmf() {&S::f};
-	// expected initializer before 'pmf'
+	// error: expected initializer before 'pmf'
 int (S::*pmf)() {&S::f};
 
 // add main
