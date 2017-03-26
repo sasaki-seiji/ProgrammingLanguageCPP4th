@@ -1,7 +1,9 @@
 
 【16.2.6　静的クラス変数の初期化】
 
-日付：2016.07.16
+日付：2016.07.16、2017.03.26
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	大域のDateインスタンスを初期化するとき、Dateのコンストラクタが参照する
 	static変数との初期化順により、正しく初期化されない
@@ -20,12 +22,32 @@
 		y = yy ? yy : today.y;
 	}
 
+（追記）2017.03.26
+	Ubuntu/g++5.4.0では、正しく初期化される
+
+
 【16.2.7　静的データの複製】
 
-日付：2016.07.16
+日付：2016.07.16、2017.03.26
+バージョン：　g++ (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	初期値を持つ変数date_initializerをヘッダに記載すると、
 	それをインクルードする全てのcppファイルに変数が複製されてしまう
+
+（追記）2017.03.26
+	無名構造体は、内部結合をもつと考えられる。
+	例えば、ヘッダに宣言を、Date.cppにデータ定義を与えるとエラーとなる
+
+	// Date.h
+	extern struct { int d, m, y; } date_initializer ;
+		// error: ‘<anonymous struct> date_initializer’, declared using anonymous type, 
+		// is used but never defined [-fpermissive]
+
+	// Date.cpp
+	struct { int d, m, y; } date_initializer = {1, 1, 1970};
+		// error: conflicting declaration ‘<anonymous struct> date_initializer’
+
 
 【16.2.12　多重定義解決】
 
