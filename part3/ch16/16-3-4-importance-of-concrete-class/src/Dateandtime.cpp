@@ -14,7 +14,7 @@ namespace Chrono {
 
 ostream& operator<<(ostream& os, const Date_and_time& dt)
 {
-	os << dt.year() << '/' << (int)dt.month() << '/' << dt.day() << ' '
+	os << dt.year() << '/' << static_cast<int>(dt.month()) << '/' << dt.day() << ' '
 			<< dt.hour() << ':' << dt.minute() << ':' << dt.second();
 
 	return os;

@@ -7,15 +7,15 @@
 
 #include "Date.h"
 
-namespace Chrono {
+namespace {
+	const int ndays_tbl[][13] = {
+			//  jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
+			{ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+			{ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+	};
+}
 
-const int Date::ndays_tbl[][13] = {
-	//  jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec
-	{ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-	{ 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
-};
-
-Date::Date(int dd, Month mm, int yy)
+Chrono::Date::Date(int dd, Month mm, int yy)
 	:d{dd}, m{mm}, y{yy}
 {
 	if (y == 0) y = default_date().year();
@@ -25,13 +25,13 @@ Date::Date(int dd, Month mm, int yy)
 	if (!is_valid()) throw Bad_date();
 }
 
-const Date& default_date()
+const Chrono::Date& Chrono::default_date()
 {
 	static Date d {1, Month::jan, 1970};
 	return d;
 }
 
-Date& Date::add_year(int n)
+Chrono::Date& Chrono::Date::add_year(int n)
 {
 	y += n;
 	if (y < 1) throw Bad_date{};
@@ -48,7 +48,7 @@ Date& Date::add_year(int n)
 	return *this;
 }
 
-Date& Date::add_month(int n)
+Chrono::Date& Chrono::Date::add_month(int n)
 {
 	if (n==0) return *this;
 
@@ -93,7 +93,7 @@ Date& Date::add_month(int n)
 	}
 }
 
-Date& Date::add_day(int n)
+Chrono::Date& Chrono::Date::add_day(int n)
 {
 	if (n == 0) return *this;
 
@@ -137,29 +137,31 @@ Date& Date::add_day(int n)
 	return *this;
 }
 
-bool Date::is_valid()
+bool Chrono::Date::is_valid()
 {
 	return is_date(d,m,y);
 }
 
-bool is_date(int d, Month m, int y)
+bool Chrono::is_date(int d, Month m, int y)
 {
 	int mm = static_cast<int>(m);
 	if (d < 1 || mm < 1 || y < 1) return false;
 
+	if (mm > 12) return false;
+
 	bool leap = is_leapyear(y);
-	int ndays = Date::ndays_tbl[leap][mm];
+	int ndays = ndays_tbl[leap][mm];
 	if (d > ndays) return false;
 
 	return true;
 }
 
-bool is_leapyear(int y)
+bool Chrono::is_leapyear(int y)
 {
 	return y%400 == 0 || ( y%100 != 0 && y%4 == 0);
 }
 
-bool operator<(Date a, Date b)
+bool Chrono::operator<(Date a, Date b)
 {
 	if (a.year() < b.year()) {
 		return true;
@@ -183,37 +185,18 @@ bool operator<(Date a, Date b)
 	}
 }
 
-bool operator>(Date a, Date b)
+bool Chrono::operator>(Date a, Date b)
 {
-	if (a.year() > b.year()) {
-		return true;
-	}
-	else if (a.year() < b.year()) {
-		return false;
-	}
-
-	if (a.month() > b.month()) {
-		return true;
-	}
-	else if (a.month() < b.month()) {
-		return false ;
-	}
-
-	if (a.day() > b.day()) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return !( a==b || a<b );
 }
 
-ostream& operator<<(ostream& os, const Date& d)
+ostream& Chrono::operator<<(ostream& os, const Date& d)
 {
 	os << d.year() << '.' << static_cast<int>(d.month()) << '.' << d.day();
 	return os;
 }
 
-istream& operator>>(istream& is, Date&d)
+istream& Chrono::operator>>(istream& is, Date&d)
 {
 	string s;
 	int year, month, day;
@@ -226,4 +209,3 @@ istream& operator>>(istream& is, Date&d)
 	return is;
 }
 
-} // Chrono
