@@ -31,5 +31,34 @@ void test_constructor()
 	} catch (Date::Bad_date&) {
 		cout << "Bad_date: Date{-1, Month::jan, 1970}\n";
 	}
+
+	try {
+		Date d4{10, static_cast<Month>(-1), 1970};
+		cout << "d4: " << d4 << '\n';
+	} catch (Date::Bad_date&) {
+		cout << "Bad_date: Date{10, static_cast<Month>(-1), 1970}\n";
+	}
+
+	try {
+		Date d4{10, Month::jan, -1};
+		cout << "d4: " << d4 << '\n';
+	} catch (Date::Bad_date&) {
+		cout << "Bad_date: Date{10, Month::jan, -1}\n";
+	}
+
+	try {
+		Date d4{10, static_cast<Month>(13), 1970};
+		cout << "d4: " << d4 << '\n';
+	} catch (Date::Bad_date&) {
+		cout << "Bad_date: Date{10, static_cast<Month>(13), 1970}\n";
+	}
+
+	try {
+		Date d4{31, Month::apr, 2017};
+		cout << "d4: " << d4 << '\n';
+	} catch (Date::Bad_date&) {
+		cout << "Bad_date: Date{31, Month:apr, 2017}\n";
+	}
+
 }
 

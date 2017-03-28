@@ -15,6 +15,10 @@ void test_add_year()
 {
 	cout << "\n--- test_add_year ---\n";
 
+	Date d0{29, Month::feb, 2016};
+	cout << "original date: " << d0 << '\n';
+	cout << "after add_year(0): " << d0.add_year(0) << '\n';
+
 	Date d1{29, Month::feb, 2016};
 	cout << "original date: " << d1 << '\n';
 	cout << "after add_year(1): " << d1.add_year(1) << '\n';
@@ -41,6 +45,10 @@ void test_add_year()
 void test_add_month()
 {
 	cout << "\n--- test_add_month ---\n";
+
+	Date d0{31, Month::jan, 1900};
+	cout << "original date: " << d0 << '\n';
+	cout << "after add_month(0): " << d0.add_month(0) << '\n';
 
 	Date d1{31, Month::jan, 1900};
 	cout << "original date: " << d1 << '\n';
@@ -80,6 +88,10 @@ void test_add_month()
 void test_add_day()
 {
 	cout << "\n--- test_add_day ---\n";
+
+	Date d0{1, Month::jan, 2016};
+	cout << "original date: " << d0 << '\n';
+	cout << "after add_day(0): " << d0.add_day(0) << '\n';
 
 	Date d1{1, Month::jan, 2016};
 	cout << "original date: " << d1 << '\n';

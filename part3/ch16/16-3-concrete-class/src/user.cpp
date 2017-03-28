@@ -29,6 +29,7 @@ void f(Date& d)
 
 	cout << "day after:" << d+1 << '\n';
 
+	cout << "enter date > ";
 	Date dd;
 	cin>>dd;
 	if (dd==d) cout << "Hurray!\n";
@@ -41,7 +42,9 @@ void fill(vector<Date>& aa)
 	while (cin) {
 		Date d;
 		try {
-			cin >> d;
+			cout << "enter date > ";
+			if (cin >> d)
+				aa.push_back(d);
 		}
 		//catch (Date::Bad_date) {
 		catch (Date::Bad_date&) {
@@ -49,7 +52,6 @@ void fill(vector<Date>& aa)
 			cout << "Bad_date: illegal date\n";
 			continue;
 		}
-		aa.push_back(d);
 	}
 }
 

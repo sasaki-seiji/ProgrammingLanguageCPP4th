@@ -39,9 +39,6 @@ namespace Chrono {
 		int d;
 		Month m;
 		int y;
-
-	public:
-		static const int ndays_tbl[][13];
 	};
 
 	inline int Date::day() const { return d; }
