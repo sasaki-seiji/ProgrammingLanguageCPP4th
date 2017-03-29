@@ -18,11 +18,12 @@ int main()
 {
 	string s1 {"Adams"};
 	s1 = ident(s1);
+	cout << "s1 = " << s1 << '\n';
 
 	string s2 {"Pratchett"};
 	s1 = s2;
 
-	cout << "s1: " << s1 << '\n';
-	cout << "s2: " << s2 << '\n';
+	cout << "s1 = " << s1 << '\n';
+	cout << "s2 = " << s2 << '\n';
 }
 
