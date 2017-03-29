@@ -12,11 +12,11 @@ using namespace std;
 struct S {
 	S();
 	//void S(int);
-		// return type specification for constructor invalid
+		// error: return type specification for constructor invalid
 	//int S;
-		// field 'int S::S' with same name as class [-fpermissive]
+		// error: field 'int S::S' with same name as class [-fpermissive]
 	//enum S { foo, bar };
-		// 'S::S' has the same name as the class in which it is declared
+		// error: 'S::S' has the same name as the class in which it is declared
 };
 
 int main()
