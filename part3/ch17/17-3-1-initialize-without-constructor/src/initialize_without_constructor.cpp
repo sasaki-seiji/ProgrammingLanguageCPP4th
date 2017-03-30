@@ -30,6 +30,8 @@ Work alpha;
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	Work beta;
 
 	cout << "alpha.author: " << alpha.author << '\n'
@@ -50,6 +52,8 @@ Buf buf0;
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	Buf buf1;
 	Buf buf2 {};
 	int* p1 = new int;
@@ -57,15 +61,19 @@ void g()
 	int* p3 = new int{7};
 
 	cout << "buf0.count: " << buf0.count <<
-			", int(buf0.buf[0]): " << int(buf0.buf[0]) << '\n';
+			", int(buf0.buf[1000]): " << int(buf0.buf[1000]) << '\n';
 	cout << "buf1.count: " << buf1.count <<
-			", int(buf1.buf[0]): " << int(buf1.buf[0]) << '\n';
+			", int(buf1.buf[1000]): " << int(buf1.buf[1000]) << '\n';
 	cout << "buf2.count: " << buf2.count <<
-			", int(buf2.buf[0]): " << int(buf2.buf[0]) << '\n';
+			", int(buf2.buf[1000]): " << int(buf2.buf[1000]) << '\n';
 
 	cout << "*p1: " << *p1 << '\n';
 	cout << "*p2: " << *p2 << '\n';
 	cout << "*p3: " << *p3 << '\n';
+
+	delete p1;
+	delete p2;
+	delete p3;
 }
 
 template<typename T>
