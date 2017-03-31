@@ -22,6 +22,8 @@ struct S2 {
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	//S1 x11(1,2);
 		// error: no matching function for call to 'S1::S1(int, int)'
 	S1 x12 {1,2};
