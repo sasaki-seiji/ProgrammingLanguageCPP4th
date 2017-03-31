@@ -1,8 +1,9 @@
 
 【17.3.3　定数参照のクラス内初期化ができていない】
 
-日付：　2016.07.26
+日付：　2016.07.26、2017.03.31
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	定数参照のクラス内初期化で、9に初期化したメンバが0となっている
@@ -19,11 +20,14 @@
 	
 	ここで、x.rが0となる
 
+（追記）2017.03.31　Linux/g++5.4.0では、x.rが32767となった
+
 
 【17.3.3　並び初期化子による初期化が動作しない】
 
 日付：　2016.07.26
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストの記述と異なり、S2クラス（string引数のコンストラクタを持つ）の
 	配列とvectorを、文字列定数の並び初期化子で初期化することができない
@@ -34,8 +38,24 @@
 	vector<S2> v3 { "alpha", "beta" };
 		→ no matching function for call to 'S2::S2(const char&)'
 
-	vector<S2> v22(10, "");
+	vector<S2> v4(10, "");
 		→ error: no matching function for call to 'std::vector<S2>::vector(int, const char [1])'
+
+（追記）2017.03.31
+
+	この問題は、struct S2 のコンストラクタがstringを引数とするため、
+		S2 a3[] { "alpha", "beta" };
+　　などの解釈では、	const　char*　→　string　→　S2
+	と、2回のユーザ定義変換を施す必要があるためである。
+	struct S2 のコンストラクタ引数を const char*とすれば問題が解決する
+
+		struct S3 { S3(const char*); };
+
+		S3 a3[] { "alpha", "beta" };
+		vector<S3> v3 { "alpha", "beta" };
+		vector<S3> v4(10, "");
+		vector<S3> v5;
+
 
 【17.3.4　mapp::insertがコンパイルエラー】
 
