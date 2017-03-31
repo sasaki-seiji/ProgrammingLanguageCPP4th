@@ -13,34 +13,6 @@
 #include <initializer_list>
 using namespace std;
 
-vector<double> v = { 1, 2, 3.456, 99.99 };
-
-list<pair<string,string>> languages = {
-	{"Nygaard", "Simula"}, {"Richards", "BCPL"}, {"Ritchie", "C"}
-};
-
-map<vector<string>, vector<int>> years = {
-	{ {"Maurice", "Vincent", "Wilkes"}, {1913, 1945, 1951, 1967, 2000} },
-	{ {"Martin", "Richards"}, {1982, 2003, 2007} },
-	{ {"David", "John", "Wheeler"}, {1927, 1947, 1951, 2004} }
-};
-
-
-void f(initializer_list<int>);
-
-void g()
-{
-	f({1,2});
-	f({23,345,4567,56789});
-	f({});
-	//f{1,2};
-		// error: expected ';' before '{' token
-
-	//years.insert({{"Bjane", "Stroustrup"}, {1950, 1975, 1985}});
-		// Invalid arguments '
-	//cout << years << endl;
-}
-
 
 // utilities
 
@@ -81,8 +53,20 @@ ostream& operator<<(ostream& os, const map<K,V>& m)
 	return os;
 }
 
+vector<double> v = { 1, 2, 3.456, 99.99 };
 
-// add undef func
+list<pair<string,string>> languages = {
+	{"Nygaard", "Simula"}, {"Richards", "BCPL"}, {"Ritchie", "C"}
+};
+
+map<vector<string>, vector<int>> years = {
+	{ {"Maurice", "Vincent", "Wilkes"}, {1913, 1945, 1951, 1967, 2000} },
+	{ {"Martin", "Richards"}, {1982, 2003, 2007} },
+	{ {"David", "John", "Wheeler"}, {1927, 1947, 1951, 2004} }
+};
+
+
+void f(initializer_list<int>);
 
 void f(initializer_list<int> il)
 {
@@ -92,13 +76,32 @@ void f(initializer_list<int> il)
 	cout << "})\n";
 }
 
+void g()
+{
+	cout << "-- g() --\n";
+
+	f({1,2});
+	f({23,345,4567,56789});
+	f({});
+	//f{1,2};
+		// error: expected ';' before '{' token
+
+	years.insert({{"Bjane", "Stroustrup"}, {1950, 1975, 1985}});
+		// Invalid arguments '
+	cout << "years: " << years << endl;
+}
+
+
+
+// add undef func
+
 
 // add main
 
 int main()
 {
-	cout << v << endl;
-	cout << languages << endl;
-	cout << years << endl;
+	cout << "v: " << v << endl;
+	cout << "languages: " << languages << endl;
+	cout << "years: " << years << endl;
 	g();
 }
