@@ -34,25 +34,29 @@ X g {1};
 
 void f(int i)
 {
+	cout << "-- f(" << i << ") --\n";
+
 	//X def {};
 		// error: no matching function for call to 'X::X(<brace-enclosed initializer list>)'
-	cout << "- Y def2 { }\n";
+	cout << "- Y def2 { } -\n";
 	Y def2 {};
 
-	cout << "- X* p {nullptr}\n";
+	cout << "- X* p {nullptr} -\n";
 	X* p {nullptr};
 
-	cout << "- X var {2}\n";
+	cout << "- X var {2} -\n";
 	X var {2};
 
-	cout << "- p = new X{4}\n";
+	cout << "- p = new X{4} -\n";
 	p = new X{4};
 
-	cout << "- X a[] {1,2,3}\n";
+	cout << "- X a[] {1,2,3} -\n";
 	X a[] {1,2,3};
 
-	cout << "- vector<X> v {1,2,3,4}\n";
+	cout << "- vector<X> v {1,2,3,4} -\n";
 	vector<X> v {1,2,3,4};
+
+	delete p;
 }
 
 struct Y2 : X {
@@ -63,6 +67,8 @@ struct Y2 : X {
 
 void h(int i)
 {
+	cout << "-- h(" << i << ") --\n";
+
 	X def();
 	X* p {nullptr};
 	X var = 2;
@@ -80,7 +86,7 @@ struct S {
 };
 
 S s1 {"Napier"};
-S s2 {new double{1.0}};
+S s2 {new double{1.0}};	 // memory leak
 //S s3 {nullptr};
 	// error: call of overloaded 'S(<brace-enclosed initializer list>)' is ambiguous
 
@@ -94,7 +100,7 @@ X::X(int i)
 
 S::S(const char* s)
 {
-	cout << "S::S(const char* \"" << s << "\")\n";
+	cout << "S::S(const char*: \"" << s << "\")\n";
 }
 
 S::S(double* p)
@@ -106,6 +112,7 @@ S::S(double* p)
 int main()
 {
 	f(10);
+	h(10);
 }
 
 
