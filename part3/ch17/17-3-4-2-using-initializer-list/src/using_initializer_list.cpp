@@ -13,18 +13,24 @@ using namespace std;
 
 void f(initializer_list<int> args)
 {
+	cout << "-- f(initializer_list<int>) --\n";
+
 	for (int i = 0; i != args.size(); ++i)
 		cout << args.begin()[i] << "\n";
 }
 
 void f2(initializer_list<int> args)
 {
+	cout << "-- f2(initializer_list<int>) --\n";
+
 	for (auto p = args.begin(); p != args.end(); ++p)
 		cout << *p << "\n";
 }
 
 void f3(initializer_list<int> args)
 {
+	cout << "-- f3(initializer_list<int>) --\n";
+
 	for (auto x : args)
 		cout << x << "\n";
 }
@@ -47,17 +53,19 @@ template<typename E>
 class Vector {
 public:
 	Vector(initializer_list<E> s);
-	~Vector() { allocator<E>().deallocate(elem, sz+space); }
+	~Vector() { a.deallocate(elem, sz); }
 	void print(ostream& os);
 private:
-	void reserve(int n) { elem = allocator<E>().allocate(n); }
+	allocator<E> a;
+	void reserve(int n)
+	{ a.deallocate(elem, sz) ; elem = a.allocate(n); }
+
 	int sz;
-	int space;
-	E* elem;
+	E* elem {nullptr};
 };
 
 template<typename E>
-Vector<E>::Vector(initializer_list<E> s) :sz{s.size()}, space{0}
+Vector<E>::Vector(initializer_list<E> s) :sz{s.size()}
 {
 	reserve(sz);
 	uninitialized_copy(s.begin(), s.end(), elem);
@@ -71,6 +79,7 @@ void Vector<E>::print(ostream& os)
 		os << elem[i] << ',';
 	os << "]\n";
 }
+
 // add main
 
 int main()
@@ -80,9 +89,11 @@ int main()
 	f3({11,22,33});
 	g();
 
+	cout << "- vector<int> -\n";
 	Vector<int> vi = {1,2,3,4};
 	vi.print(cout);
 
+	cout << "- vector<string> -\n";
 	Vector<string> vs = {"abc", "XYZ", "123"};
 	vs.print(cout);
 }
