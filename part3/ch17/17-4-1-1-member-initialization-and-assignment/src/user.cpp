@@ -9,14 +9,17 @@
 #include <iostream>
 using namespace std;
 
+
 class X {
 	const int i;
 	Club cl;
 	Club& rc;
 
 public:
-	X(int ii, const string& n, Date d, Club& c) : i{ii}, cl{n,d}, rc{c} {}
+	X(int ii, const string& n, Date d, Club& c) : i{ii}, cl{n,d}, rc{c}
+	{ cout << "X::X(" << ii << "," << n << "," << d << ",Club&)\n"; }
 };
+
 
 class Person {
 	string name;
@@ -36,7 +39,7 @@ Person::Person(const string& n, const string& a)
 
 void Person::print(ostream& os)
 {
-	os << "Person(" << name << ", " << address << ")\n";
+	os << "Person(name=" << name << ", address=" << address << ")\n";
 }
 
 int main()

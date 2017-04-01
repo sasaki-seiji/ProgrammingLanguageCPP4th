@@ -14,7 +14,7 @@ using std::ostream;
 class Date {
 	int d,m,y;
 public:
-	Date(int dd, int mm, int yy) : d{dd}, m{mm}, y{yy} { }
+	Date(int dd, int mm, int yy) : d{dd}, m{mm}, y{yy} { } ;
 	int year() const { return y; }
 	int month() const { return m; }
 	int day() const { return d; }

@@ -12,7 +12,7 @@ using namespace std;
 Club::Club(const string& n, Date fd)
 	: name{n}, members{}, officers{}, founded{fd}
 {
-	cout << "Club::Club(const string&, Date)\n";
+	cout << "Club::Club(" << n << "," << founded << ")\n";
 }
 
 void Club::print(ostream& os)
