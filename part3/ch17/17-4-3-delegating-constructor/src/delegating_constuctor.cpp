@@ -47,8 +47,7 @@ public:
 
 ostream& operator<<(ostream& os, X x)
 {
-	os << x.get_a();
-	return os;
+	return os << x.get_a();
 }
 
 class X2 {
@@ -62,8 +61,7 @@ public:
 
 ostream& operator<<(ostream& os, X2 x)
 {
-	os << x.get_a();
-	return os;
+	return os << x.get_a();
 }
 
 class X3 {
@@ -88,19 +86,48 @@ public:
 int main()
 {
 	X x1(10);
-	X x2;
-	X x3("21");
+	cout << "x1 = " << x1 << '\n';
 
-	cout << "x1: " << x1 << '\n';
-	cout << "x2: " << x2 << '\n';
-	cout << "x3: " << x3 << '\n';
+	X x2;
+	cout << "x2 = " << x2 << '\n';
+
+	X x3("21");
+	cout << "x3 = " << x3 << '\n';
+
+	try {
+		X x4(101);
+	}
+	catch(...) {
+		cout << "X x4(101) fail\n";
+	}
+
+	try {
+		X x5("42ax");
+	}
+	catch(...) {
+		cout << "X x5(\"42ax\") fail\n";
+	}
 
 	X2 x21(10);
+	cout << "x21 = " << x21 << '\n';
+
 	X2 x22;
+	cout << "x22 = " << x22 << '\n';
+
 	X2 x23("21");
+	cout << "x23 = " << x23 << '\n';
 
-	cout << "x21: " << x21 << '\n';
-	cout << "x22: " << x22 << '\n';
-	cout << "x23: " << x23 << '\n';
+	try {
+		X2 x24(101);
+	}
+	catch(...) {
+		cout << "X2 x24(101) fail\n";
+	}
 
+	try {
+		X2 x25("42ax");
+	}
+	catch(...) {
+		cout << "X2 x25(\"42ax\") fail\n";
+	}
 }
