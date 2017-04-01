@@ -49,16 +49,17 @@ public:
 
 int main()
 {
-	cout << "Node::node_count==" << Node::node_count << '\n';
+	cout << "Node::node_count = " << Node::node_count << '\n';
 
-	cout << "Curious::c1==" << Curious::c1 << '\n';
-	cout << "Curious::c4==" << Curious::c4 << '\n';
+	cout << "Curious::c1 = " << Curious::c1 << '\n';
+	cout << "Curious::c4 = " << Curious::c4 << '\n';
 
-	cout << "&Curiouse::c1==" << &Curious::c1 << '\n';
+	cout << "&Curiouse::c1 = " << &Curious::c1 << '\n';
+	cout << "::p = " << p << '\n';
 
-	cout << "Fixed<int,10>::max==" << Fixed<int,10>::max << '\n';
+	cout << "Fixed<int,10>::max = " << Fixed<int,10>::max << '\n';
 
-	cout << "X::c1==" << X::c1 << ", X::c2==" << X::c2
-			<< ", X::c3==" << X::c3 << ", X::c4==" << X::c4 << '\n';
+	cout << "X::c1 = " << X::c1 << ", X::c2 = " << X::c2
+			<< ", X::c3 = " << X::c3 << ", X::c4 = " << X::c4 << '\n';
 }
 
