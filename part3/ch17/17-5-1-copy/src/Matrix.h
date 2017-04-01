@@ -13,12 +13,7 @@
 #include <memory>
 #include <utility>
 #include <stdexcept>
-using std::array;
-using std::uninitialized_copy;
-using std::copy;
-using std::swap;
-using std::runtime_error;
-using std::ostream;
+using namespace std;
 
 template<typename T>
 class Matrix {
@@ -36,8 +31,9 @@ public:
 
 	Matrix(const Matrix&);
 	Matrix& operator=(const Matrix&);
-	//Matrix& assign(const Matrix&);
+	Matrix& safe_assign(const Matrix&);
 
+	// not yet implement
 	Matrix(Matrix&&);
 	Matrix& operator=(Matrix&&);
 
@@ -50,7 +46,9 @@ inline Matrix<T>::Matrix(const Matrix& m)
 	: dim{m.dim},
 	  elem{new T[m.size()]}
 {
-	uninitialized_copy(m.elem, m.elem+m.size(), elem);
+	// 2017.04.01 memory leak!
+	//uninitialized_copy(m.elem, m.elem+m.size(), elem);
+	copy(m.elem, m.elem+m.size(), elem);
 }
 
 template<typename T>
@@ -63,15 +61,15 @@ inline Matrix<T>& Matrix<T>::operator=(const Matrix& m)
 	return *this;
 }
 
-#if 0 // need move constructor/assign
 template<typename T>
-inline Matrix<T>& Matrix<T>::assign(const Matrix& m)
+inline Matrix<T>& Matrix<T>::safe_assign(const Matrix& m)
 {
 	Matrix tmp{m};
-	swap(tmp, *this);
+	//swap(tmp, *this); not use move-construct, move-assignment
+	swap(tmp.dim, this->dim);
+	swap(tmp.elem, this->elem);
 	return *this;
 }
-#endif
 
 // add utilities
 
