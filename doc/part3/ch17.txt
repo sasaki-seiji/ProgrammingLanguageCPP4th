@@ -99,6 +99,42 @@
 		}
 
 
+【17.5.1.　Matrixのコピー初期化でメモリリークが発生】
+
+日付：　2017.04.01
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	コピー初期化で、elemメンバをnew T[m.size()]で初期化しているが、
+	この時、elemが指す配列の要素は、Tのデフォルト値で初期化される
+	この後、コンストラクタ本体で、uninitialized_copyを使って、
+	配列要素を初期化すると、最初にデフォルト初期化された配列要素の
+	デストラクタが呼び出されない。
+	配列要素は初期済みなので、copyを使う必要がある
+
+		template<typename T>
+		inline Matrix<T>::Matrix(const Matrix& m)
+			: dim{m.dim},
+			  elem{new T[m.size()]}
+		{
+			// 2017.04.01 memory leak!
+			//uninitialized_copy(m.elem, m.elem+m.size(), elem);
+			copy(m.elem, m.elem+m.size(), elem);
+		}
+
+	要素型として、以下の構造体を用いると問題が発生する(valgrindで確認）
+
+		struct X {
+			int *p;
+			X(int i=123) : p{new int{i}} { }
+			~X() { delete p; }
+			X(const X& x) : p{new int{*x.p}} { }
+			X* operator=(const X& x) {
+				*p = *x.p;
+			}
+		};
+
+
 【17.6,3,3　デフォルトコピーコンストラクタ生成がワーニングとならない】
 
 日付：　2016.08.01
