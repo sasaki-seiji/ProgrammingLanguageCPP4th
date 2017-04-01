@@ -22,6 +22,18 @@ public:
 	A1() : a{7}, b{77} { }
 };
 
+void test_inclass_initializer()
+{
+	cout << "-- test_inclass_initializer() --\n";
+
+	A a0;
+	cout << "a0.a: " << a0.a << '\n';
+	cout << "a0.b: " << a0.b << '\n';
+
+	A1 a1;
+	cout << "a1.a: " << a1.a << '\n';
+	cout << "a1.b: " << a1.b << '\n';
+}
 
 struct HashFunction {
 	string func;
@@ -52,8 +64,8 @@ private:
 
 void A2::print(ostream& os)
 {
-	os << "a: " << a << ", b: " << b
-		<< ", algorithm: " << algorithm.func << ", state: " << state << '\n';
+	os << "A2(a=" << a << ", b=" << b
+		<< ", algorithm=" << algorithm.func << ", state=" << state << ")\n";
 }
 
 class A3 {
@@ -70,8 +82,8 @@ private:
 
 void A3::print(ostream& os)
 {
-	os << "a: " << a << ", b: " << b
-		<< ", algorithm: " << algorithm.func << ", state: " << state << '\n';
+	os << "A3(a=" << a << ", b=" << b
+		<< ", algorithm=" << algorithm.func << ", state=" << state << ")\n";
 }
 
 class A4 {
@@ -89,8 +101,34 @@ private:
 
 void A4::print(ostream& os)
 {
-	os << "a: " << a << ", b: " << b
-		<< ", algorithm: " << algorithm.func << ", state: " << state << '\n';
+	os << "A4(a: " << a << ", b: " << b
+		<< ", algorithm: " << algorithm.func << ", state: " << state << ")\n";
+}
+
+void test_common_initializer()
+{
+	cout << "-- test_common_initializer() --\n";
+
+	A2 a21;
+	A2 a22 {10};
+	A2 a23 {D{3}};
+	cout << "A2 a21: "; a21.print(cout);
+	cout << "A2 a22{10}: "; a22.print(cout);
+	cout << "A2 a23{D{3}}: "; a23.print(cout);
+
+	A3 a31;
+	A3 a32 {10};
+	A3 a33 {D{3}};
+	cout << "A3 a31: "; a31.print(cout);
+	cout << "A3 a32{10}: "; a32.print(cout);
+	cout << "A3 a33{D{3}}: "; a33.print(cout);
+
+	A4 a41;
+	A4 a42 {10};
+	A4 a43 {D{3}};
+	cout << "A4 a41: "; a41.print(cout);
+	cout << "A4 a42{10}: "; a42.print(cout);
+	cout << "A4 a43{D{3}}: "; a43.print(cout);
 }
 
 int count = 0;
@@ -104,44 +142,21 @@ struct S {
 	S() { ++count2; }
 };
 
+void test_initializer_depending_globalvar()
+{
+	cout << "-- test_initializer_depending_globalvar() --\n";
+	S s1;
+	++count;
+	S s2;
+	cout << "s1.m1: " << s1.m1 << ", s1.m2: " << s1.m2 << '\n';
+	cout << "s2.m1: " << s2.m1 << ", s2.m2: " << s2.m2 << '\n';
+}
 
 // add main
 
 int main()
 {
-	A a0;
-	cout << "a0.a: " << a0.a << '\n';
-	cout << "a0.b: " << a0.b << '\n';
-
-	A1 a1;
-	cout << "a1.a: " << a1.a << '\n';
-	cout << "a1.b: " << a1.b << '\n';
-
-	A2 a21;
-	A2 a22 {10};
-	A2 a23 {D{3}};
-	cout << "a21: "; a21.print(cout);
-	cout << "a22: "; a22.print(cout);
-	cout << "a23: "; a23.print(cout);
-
-	A3 a31;
-	A3 a32 {10};
-	A3 a33 {D{3}};
-	cout << "a31: "; a31.print(cout);
-	cout << "a32: "; a32.print(cout);
-	cout << "a33: "; a33.print(cout);
-
-	A4 a41;
-	A4 a42 {10};
-	A4 a43 {D{3}};
-	cout << "a41: "; a41.print(cout);
-	cout << "a42: "; a42.print(cout);
-	cout << "a43: "; a43.print(cout);
-
-	S s1;
-	++count;
-	S s2;
-
-	cout << "s1.m1: " << s1.m1 << ", s1.m2: " << s1.m2 << '\n';
-	cout << "s2.m1: " << s2.m1 << ", s2.m2: " << s2.m2 << '\n';
+	test_inclass_initializer();
+	test_common_initializer();
+	test_initializer_depending_globalvar();
 }
