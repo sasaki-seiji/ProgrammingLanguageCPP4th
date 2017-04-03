@@ -69,11 +69,15 @@ void Y::print(ostream& os)
 
 int main()
 {
+	cout << "- miss coping a memeber s2 -\n";
+
 	X x1{"aaa", "xyz", {"123", "abc", "ABC"}};
 	x1.print(cout) ;
 
 	X x2{x1};
 	x2.print(cout);
+
+	cout << "- use default copy constructor -\n";
 
 	Y y1{"aaa", "xyz", {"123", "abc", "ABC"}};
 	y1.print(cout) ;
