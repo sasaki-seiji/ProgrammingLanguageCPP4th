@@ -24,11 +24,15 @@ struct Derived : Base {
 
 void naive(Base* p)
 {
+	cout << "-- naive() --\n";
 	Base b2 = *p;
+	cout << "-- return from naive() --\n";
 }
 
 void user()
 {
+	cout << "-- user() --\n";
+
 	Derived d;
 	naive(&d);
 	Base bb = d;
@@ -48,7 +52,7 @@ Base::Base(const Base& x)
 Derived::Derived()
 	:Base{}, d{0}
 {
-	cout << "Derived::Derived(const Derived&)\n";
+	cout << "Derived::Derived()\n";
 }
 Derived::Derived(const Derived& x)
 	:Base(x), d{x.d}
