@@ -38,15 +38,15 @@ void print(const Z& z)
 int main()
 {
 	Z v0;
-	cout << "v0: "; print(v0);
+	cout << "Z v0; "; print(v0);
 
 	Z val {{1,2,3},1,&val.elem[2]};
-	cout << "val: "; print(val);
+	cout << "Z val {{1,2,3},1,&val.elem[2]}; "; print(val);
 
 	Z v2 = val;
-	cout << "v2: "; print(v2);
+	cout << "Z v2 = val; "; print(v2);
 
 	Z v3 = move(val);
-	cout << "v3: "; print(v3);
+	cout << "Z v3 = move(val); "; print(v3);
 	cout << "val: "; print(val);
 }
