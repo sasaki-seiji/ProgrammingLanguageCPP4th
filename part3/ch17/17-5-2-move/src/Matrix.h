@@ -13,12 +13,7 @@
 #include <memory>
 #include <utility>
 #include <stdexcept>
-using std::array;
-using std::uninitialized_copy;
-using std::copy;
-using std::swap;
-using std::runtime_error;
-using std::ostream;
+using namespace std;
 
 template<typename T>
 class Matrix {
@@ -48,15 +43,15 @@ public:
 
 
 template<typename T>
-inline Matrix<T>::Matrix(const Matrix& m)
+Matrix<T>::Matrix(const Matrix& m)
 	: dim{m.dim},
 	  elem{new T[m.size()]}
 {
-	uninitialized_copy(m.elem, m.elem+m.size(), elem);
+	copy(m.elem, m.elem+m.size(), elem);
 }
 
 template<typename T>
-inline Matrix<T>::Matrix(Matrix&& a)
+Matrix<T>::Matrix(Matrix&& a)
 	:dim{a.dim}, elem{a.elem}
 {
 	a.dim = {0,0};
@@ -64,7 +59,7 @@ inline Matrix<T>::Matrix(Matrix&& a)
 }
 
 template<typename T>
-inline Matrix<T>& Matrix<T>::operator=(const Matrix& m)
+Matrix<T>& Matrix<T>::operator=(const Matrix& m)
 {
 	if (dim[0] != m.dim[0] || dim[1] != m.dim[1])
 		throw runtime_error("bad size in Matrix =");
@@ -74,7 +69,7 @@ inline Matrix<T>& Matrix<T>::operator=(const Matrix& m)
 }
 
 template<typename T>
-inline Matrix<T>& Matrix<T>::operator=(Matrix&& a)
+Matrix<T>& Matrix<T>::operator=(Matrix&& a)
 {
 	swap(dim, a.dim);
 	swap(elem, a.elem);
@@ -82,7 +77,7 @@ inline Matrix<T>& Matrix<T>::operator=(Matrix&& a)
 }
 
 template<typename T>
-inline Matrix<T> operator+(const Matrix<T>& a, const Matrix<T>& b)
+Matrix<T> operator+(const Matrix<T>& a, const Matrix<T>& b)
 {
 	if (a.dim[0] != b.dim[0] || a.dim[1] != b.dim[1])
 		throw std::runtime_error("unequal Matrix sizes in +");
@@ -90,6 +85,7 @@ inline Matrix<T> operator+(const Matrix<T>& a, const Matrix<T>& b)
 	Matrix<T> res{a.dim[0], a.dim[1]};
 	//constexpr auto n = a.size();
 	auto n = a.size();
+		// error: call to non-constexpr function ‘int Matrix<T>::size() const [with T = int]’
 	for (int i = 0; i != n; ++i)
 		res.elem[i] = a.elem[i]+b.elem[i];
 	return res;
@@ -98,7 +94,7 @@ inline Matrix<T> operator+(const Matrix<T>& a, const Matrix<T>& b)
 // add utilities
 
 template<typename T>
-inline ostream& operator<<(ostream& os, const Matrix<T>& m)
+ostream& operator<<(ostream& os, const Matrix<T>& m)
 {
 	for (int i=0; i < m.rows(); ++i) {
 		os << "[ ";
