@@ -17,13 +17,13 @@ struct S {
 S f(S arg)
 {
 	S s0 {};
-	cout << "s0.a: " << s0.a << ", s0.b: " << s0.b << '\n';
+	cout << "S s0{}; s0.a = " << s0.a << ", s0.b = " << s0.b << '\n';
 
 	S s1 {s0};
-	cout << "s1.a: " << s1.a << ", s1.b: " << s1.b << '\n';
+	cout << "S s1{s0}; s1.a = " << s1.a << ", s1.b = " << s1.b << '\n';
 
 	s1 = arg;
-	cout << "s1.a: " << s1.a << ", s1.b: " << s1.b << '\n';
+	cout << "s1 = arg; s1.a = " << s1.a << ", s1.b = " << s1.b << '\n';
 
 	return s1;
 }
@@ -33,6 +33,6 @@ S f(S arg)
 int main()
 {
 	S s = f(S{"string", 10});
-	cout << "s.a: " << s.a << ", s.b: " << s.b << '\n';
+	cout << "S s = f(S{\"string\",10}); s.a = " << s.a << ", s.b = " << s.b << '\n';
 
 }
