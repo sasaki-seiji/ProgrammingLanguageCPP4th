@@ -11,13 +11,15 @@ using namespace std;
 template<typename T> class Handle {
 	T*p;
 public:
-	Handle(T* pp) : p{pp} { }
+	Handle(T* pp) : p{pp} { cout << "Handle(T*)\n"; }
 	T& operator*() { return *p; }
-	~Handle() { delete p; }
+	~Handle() { cout << "~Handle()\n"; delete p; }
 };
 
 void f1()
 {
+	cout << "-- f1() --\n";
+
 	Handle<int> h {new int{99}};
 	cout << "*h: " << *h << '\n';
 }
@@ -30,6 +32,8 @@ void f2()
 
 void f3()
 {
+	cout << "-- f3() --\n";
+
 	Handle<int> h1{new int{7}};
 	//Handle<int> h2{h1}; // no-warning
 
@@ -41,15 +45,17 @@ template<typename T>
 class Handle2 {
 	T*p;
 public:
-	Handle2(T* pp) : p{pp} { }
-	Handle2(const Handle2& a) :p{new T{*a.p}}{ }
+	Handle2(T* pp) : p{pp} { cout << "Handle2(T*)\n"; }
+	Handle2(const Handle2& a) :p{new T{*a.p}}{ cout << "Handle2(const Handle2&)\n"; }
 	T& operator*() { return *p; }
-	~Handle2() { delete p; }
+	~Handle2() { cout << "~Handle2()\n"; delete p; }
 
 };
 
 void f4()
 {
+	cout << "-- f4() --\n";
+
 	Handle2<int> h1{new int{7}};
 	Handle2<int> h2{h1};
 
