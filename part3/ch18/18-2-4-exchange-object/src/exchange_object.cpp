@@ -35,6 +35,7 @@ int main()
 {
 	Point a{10,20};
 	Point delta{3, -5};
+	cout << "a: " << a << ", delta: " << delta << endl;
 
 	a += delta;
 	cout << "a+=delta: " << a << '\n';

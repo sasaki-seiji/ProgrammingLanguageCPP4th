@@ -16,7 +16,8 @@ Matrix::Matrix(const Matrix& m)
 	: dim{m.dim},
 	  elem{new double[m.size()]}
 {
-	uninitialized_copy(m.elem, m.elem+m.size(), elem);
+	//uninitialized_copy(m.elem, m.elem+m.size(), elem);
+	copy(m.elem, m.elem+m.size(), elem);
 }
 
 Matrix::Matrix(Matrix&& a)
