@@ -11,15 +11,17 @@ using namespace std;
 
 class X {
 public:
-	void operator+(int);
-	X(int);
+	void operator+(int x) { 	cout << "X::operator(int: " << x << ")\n"; }
+	X(int x) { cout << "X::X(int: " << x << ")\n"; }
 };
 
-void operator+(X,X);
-void operator+(X,double);
+void operator+(X,X) { cout << "::operator+(X,X)\n"; }
+void operator+(X,double d) { cout << "::operator+(X, double: " << d << ")\n"; }
 
 void f(X a)
 {
+	cout << "-- f(X) --\n";
+
 	a+1;
 	1+a;
 	a+1.0;
@@ -28,18 +30,18 @@ void f(X a)
 
 class Y {
 public:
-	Y* operator&();
-	Y operator&(Y);
-	Y operator++(int);
+	Y* operator&() { cout << "Y::operator&()\n"; return nullptr; }
+	Y operator&(Y) { cout << "Y::operator&(Y)\n"; return *this; }
+	Y operator++(int) { cout << "Y::operator++(int)\n"; return *this; }
 	//Y operator&(Y,Y);
 		// error: 'Y Y::operator&(Y, Y)' must take either zero or one argument
 	//Y operator/();
 		// error: 'Y Y::operator/()' must take exactly one argument
 };
 
-Y operator-(Y);
-Y operator-(Y,Y);
-Y operator--(Y&,int);
+Y operator-(Y y) { cout << "::operator-(Y)\n"; return y; }
+Y operator-(Y y1,Y y2) { cout << "::operator-(Y,Y)\n"; return y1; }
+Y operator--(Y& y,int) { cout << "::operator--(Y&,int)\n"; return y; }
 //Y operator-();
 	// error: 'Y operator-()' must have an argument of class or enumerated type
 //Y operator-(Y,Y,Y);
@@ -47,27 +49,17 @@ Y operator--(Y&,int);
 //Y operator%(Y);
 	// error: 'Y operator%(Y)' must take exactly two arguments
 
-
-// add undef func
-
-X::X(int x)
+void test_Y()
 {
-	cout << "X::X(int: " << x << ")\n";
-}
+	cout << "-- test_Y() --\n";
 
-void X::operator+(int x)
-{
-	cout << "X::operator(int: " << x << ")\n";
-}
-
-void operator+(X x1, X x2)
-{
-	cout << "::operator+(X,X)\n";
-}
-
-void operator+(X x, double d)
-{
-	cout << "::operator+(X, double: " << d << ")\n";
+	Y y1,y2;
+	Y* p = &y1;
+	Y y3 = y1 & y2;
+	Y y4 = y1++;
+	Y y5 = -y1;
+	Y y6 = y1 - y2;
+	Y y7 = y1--;
 }
 
 // add main
@@ -76,4 +68,6 @@ int main()
 {
 	X a(10);
 	f(a);
+
+	test_Y();
 }
