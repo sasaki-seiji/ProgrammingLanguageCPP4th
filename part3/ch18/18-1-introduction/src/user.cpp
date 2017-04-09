@@ -11,6 +11,7 @@ using namespace std;
 
 void f()
 {
+	cout << "-- f() --\n";
 	complex a = complex{1, 3.1};
 	complex b {1.2, 2};
 	complex c {b};
@@ -19,8 +20,8 @@ void f()
 	cout << "b: " << b << '\n';
 	cout << "c: " << c << '\n';
 
-	cout << "a+b" << a+b << '\n';
-	cout << "a*b" << a*b << '\n';
+	cout << "a+b: " << a+b << '\n';
+	cout << "a*b: " << a*b << '\n';
 
 	a = a+c;
 	cout << "a=a+c: " << a << '\n';
