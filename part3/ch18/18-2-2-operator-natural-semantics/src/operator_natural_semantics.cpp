@@ -17,9 +17,11 @@ public:
 
 void f(X a, X b)
 {
+	cout << "-- f(X,X) --\n";
+
 	//a = b;
 		// error: use of deleted function 'void X::operator=(const X&)'
-	// &a;
+	//&a;
 		// error: use of deleted function 'void X::operator&()'
 	//a,b;
 		// error: use of deleted function 'void X::operator,(const X&)'
@@ -33,17 +35,19 @@ struct Y {
 
 void f(Y x, Y y)
 {
+	cout << "-- f(Y,Y) --\n";
+
 	cout << "x.v: " << x.v << '\n';
 	cout << "y.v: " << y.v << '\n';
 
 	x = y;
-	cout << "x=y; x.v: " << x.v << '\n';
+	cout << "x = y; x.v: " << x.v << '\n';
 
 	Y* p = &x;
-	cout << "Y*p=&x; p: " << p << '\n';
+	cout << "Y *p = &x; p: " << p << '\n';
 
 	Y z = (x,y);
-	cout << "Y z = x,y; z.v: " << z.v << '\n';
+	cout << "Y z = (x,y); z.v: " << z.v << '\n';
 }
 
 // add main
