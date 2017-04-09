@@ -5,6 +5,9 @@
  *      Author: sasaki
  */
 
+#include <string>
+#include <iostream>
+
 struct X
 {
 	bool val;
@@ -19,20 +22,22 @@ struct Z {
 	int f(int x) { return !x; }
 };
 
-#include <string>
-#include <iostream>
-
 int main()
 {
 	const char* p = "Hello";
 	std::string s = "world";
 	std::cout << p << ", " << s << "!\n";
 
+	std::cout << std::boolalpha;
+
 	X x{false};
+	std::cout << "X x{false}; x.val: " << x.val << '\n';
+
 	Z z;
 	X x2 = z.f(x);
-	std::cout << "x2 = z.f(x); x2.val: " << x2.val << '\n';
+	std::cout << "X x2 = z.f(x); x2.val: " << x2.val << '\n';
+
 	int i = z.f(10);
-	std::cout << "i = z.f(10); i: " << i << '\n';
+	std::cout << "int i = z.f(10); i: " << i << '\n';
 }
 
