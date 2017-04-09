@@ -14,7 +14,7 @@ complex b {3};
 
 void comp(complex x)
 {
-	cout << "comp():\n";
+	cout << "-- comp() --\n";
 
 	x = 4;
 	cout << "x: " << x << '\n';
@@ -22,16 +22,19 @@ void comp(complex x)
 
 void f()
 {
-	cout << "f():\n";
+	cout << "-- f() --\n";
 
 	complex z;
-	complex x {1,2};
-	complex y {x};
-	z = x;
+	cout << "complex z; " << z << '\n';
 
-	cout << "x: " << x << '\n';
-	cout << "y: " << y << '\n';
-	cout << "z: " << z << '\n';
+	complex x {1,2};
+	cout << "complex x{1,2}; " << x << '\n';
+
+	complex y {x};
+	cout << "complex y{x}; " << y << '\n';
+
+	z = x;
+	cout << "z = x; " << z << '\n';
 }
 
 // add main
