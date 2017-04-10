@@ -12,10 +12,11 @@ using namespace std;
 
 void f(complex x, complex y)
 {
-	cout << "f(complex, complex):\n";
+	cout << "-- f(complex, complex) --\n";
 	cout << "x: " << x << '\n';
 	cout << "y: " << y << '\n';
 
+	cout << boolalpha;
 	cout << "x==y: " << (x==y) << '\n';
 	cout << "x==3: " << (x==3) << '\n';
 	cout << "3==y: " << (3==y) << '\n';
@@ -24,7 +25,11 @@ void f(complex x, complex y)
 
 void g(complex z)
 {
-	3+z;
+	cout << "-- g(complex: " << z << ") --\n";
+
+	complex ans = 3+z;
+	cout << "3+z: " << ans << endl;
+
 	//3.operator+=(z);
 		// error: unable to find numeric literal operator 'operator""operator'
 	//3+=z;
@@ -40,7 +45,6 @@ int main()
 	f(x2, y2);
 
 	g(x2);
-
 
 	complex x {4,5};
 	complex z {sqrt(x)+={1,2}};
