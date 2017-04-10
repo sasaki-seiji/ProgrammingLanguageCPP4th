@@ -20,10 +20,9 @@ int main()
 	cout << "z1: " << z1 << '\n';
 	cout << "z2: " << z2 << '\n';
 
-	if (z == z1) cout << "z == z1" << '\n';
-	else cout << "!(z == z1)" << '\n';
-	if (z == z2) cout << "z == z2" << '\n';
-	else cout << "!(z == z2)" << '\n';
+	cout << boolalpha;
+	cout << "z == z1: " << (z == z1) << '\n';
+	cout << "z == z2: " << (z == z2) << '\n';
 
 	z1.real(-2);
 	cout << "z1.real(-2); z1: " << z1 << '\n';
