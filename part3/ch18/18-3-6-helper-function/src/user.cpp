@@ -12,7 +12,7 @@ using namespace std;
 
 void test_minus_assign()
 {
-	cout << "test_minus_assign():\n";
+	cout << "-- test_minus_assign() --\n";
 	complex z{1,-3};
 	complex z1{2, 1};
 
@@ -26,8 +26,7 @@ void test_minus_assign()
 
 void test_mul_assign()
 {
-	cout << '\n';
-	cout << "test_mul_assign():\n";
+	cout << "-- test_mul_assign() --\n";
 	complex z{1,1};
 	complex z1{2, 1};
 
@@ -41,8 +40,7 @@ void test_mul_assign()
 
 void test_div_assign()
 {
-	cout << '\n';
-	cout << "test_div_assign():\n";
+	cout << "-- test_div_assign() --\n";
 	complex z{3,1};
 	complex z1{1, 1};
 
@@ -56,8 +54,7 @@ void test_div_assign()
 
 void test_binary_minus()
 {
-	cout << '\n';
-	cout << "test_binary_minus():\n";
+	cout << "-- test_binary_minus() --\n";
 	complex z{3,1};
 	complex z1{1, 2};
 
@@ -72,8 +69,7 @@ void test_binary_minus()
 
 void test_mul()
 {
-	cout << '\n';
-	cout << "test_mul():\n";
+	cout << "-- test_mul() --\n";
 	complex z{3,1};
 	complex z1{1, 2};
 
@@ -87,8 +83,7 @@ void test_mul()
 
 void test_div()
 {
-	cout << '\n';
-	cout << "test_div():\n";
+	cout << "-- test_div() --\n";
 	complex z{3,1};
 	complex z1{1, 2};
 
@@ -102,8 +97,7 @@ void test_div()
 
 void test_unary_operator()
 {
-	cout << '\n';
-	cout << "test_unary_operator():\n";
+	cout << "-- test_unary_operator() --\n";
 	complex z{3,-11};
 
 	cout << "z: " << z << '\n';
@@ -114,8 +108,7 @@ void test_unary_operator()
 
 void test_equality()
 {
-	cout << '\n';
-	cout << "test_equality():\n";
+	cout << "-- test_equality() --\n";
 	complex z{3,-1};
 	complex z1{3, -1}, z2{3, 1};
 
@@ -123,6 +116,7 @@ void test_equality()
 	cout << "z1: " << z1 << '\n';
 	cout << "z2: " << z2 << '\n';
 
+	cout << boolalpha;
 	cout << "z == z1:" << (z == z1) << '\n';
 	cout << "z == z2: " << (z == z2) << '\n';
 	cout << "z != z1: " << (z != z1) << '\n';
@@ -131,8 +125,7 @@ void test_equality()
 
 void test_stream()
 {
-	cout << '\n';
-	cout << "test_stream():\n";
+	cout << "-- test_stream() --\n";
 
 	istringstream iss("(10, -3.2)");
 	complex z;
@@ -141,11 +134,24 @@ void test_stream()
 	cout << "z: " << z << '\n';
 }
 
+void test_sqrt()
+{
+	cout << "-- test_sqrt() --\n";
+
+	complex z1, z2{2}, z3{2.0i};
+	cout << "z1: " << z1 << '\n';
+	cout << "z2: " << z2 << '\n';
+	cout << "z3: " << z3 << '\n';
+
+	cout << "sqrt(z1): " << sqrt(z1) << '\n';
+	cout << "sqrt(z2): " << sqrt(z2) << '\n';
+	cout << "sqrt(z3): " << sqrt(z3) << '\n';
+
+}
 const double pi = 3.14159265358979323846;
 void test_polar()
 {
-	cout << '\n';
-	cout << "test_polar():\n";
+	cout << "-- test_polar() --\n";
 
 	complex z1, z2, z3;
 	z1 = polar(2, 0);
@@ -159,8 +165,7 @@ void test_polar()
 
 void test_conj()
 {
-	cout << '\n';
-	cout << "test_conj():\n";
+	cout << "-- test_conj() --\n";
 
 	complex z1{1,2}, z2{2, -3};
 	cout << "z1: " << z1 << '\n';
@@ -172,8 +177,7 @@ void test_conj()
 
 void test_abs()
 {
-	cout << '\n';
-	cout << "test_abs():\n";
+	cout << "-- test_abs() --\n";
 
 	complex z1{1,2}, z2{1, -1};
 	cout << "z1: " << z1 << '\n';
@@ -185,8 +189,7 @@ void test_abs()
 
 void test_arg()
 {
-	cout << '\n';
-	cout << "test_arg():\n";
+	cout << "-- test_arg() --\n";
 
 	complex z1{-1, 0}, z2{1, 1};
 	cout << "z1: " << z1 << '\n';
@@ -198,8 +201,7 @@ void test_arg()
 
 void test_norm()
 {
-	cout << '\n';
-	cout << "test_norm():\n";
+	cout << "-- test_norm() --\n";
 
 	complex z1{1,2}, z2{1, -1};
 	cout << "z1: " << z1 << '\n';
@@ -211,8 +213,7 @@ void test_norm()
 
 void test_real_imag()
 {
-	cout << '\n';
-	cout << "test_real_imag():\n";
+	cout << "-- test_real_imag() --\n";
 
 	complex z1{-1, 0}, z2{1, 2};
 	cout << "z1: " << z1 << '\n';
@@ -224,8 +225,7 @@ void test_real_imag()
 
 void test_acos()
 {
-	cout << '\n';
-	cout << "test_acos():\n";
+	cout << "-- test_acos() --\n";
 
 	complex z1, z2{1}, z3{1.0i};
 	cout << "z1: " << z1 << '\n';
@@ -239,8 +239,7 @@ void test_acos()
 
 void test_asin()
 {
-	cout << '\n';
-	cout << "test_asin():\n";
+	cout << "-- test_asin() --\n";
 
 	complex z1, z2{1}, z3{1.0i};
 	cout << "z1: " << z1 << '\n';
@@ -254,8 +253,7 @@ void test_asin()
 
 void test_atan()
 {
-	cout << '\n';
-	cout << "test_atan():\n";
+	cout << "-- test_atan() --\n";
 
 	complex z1, z2{1}, z3{1.0i};
 	cout << "z1: " << z1 << '\n';
@@ -278,6 +276,7 @@ int main()
 	test_unary_operator();
 	test_equality();
 	test_stream();
+	test_sqrt();
 	test_polar();
 	test_conj();
 	test_abs();
