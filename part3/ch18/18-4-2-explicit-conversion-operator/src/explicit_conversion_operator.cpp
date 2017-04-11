@@ -22,6 +22,7 @@ void use(unique_ptr<Record> p, unique_ptr<int> q)
 	//int x = p+q;
 		// error: no match for 'operator+' (operand types are 'std::unique_ptr<Record>' and 'std::unique_ptr<int>')
 
+	cout << boolalpha;
 	bool bp {p};
 	cout << "bp: " << bp << '\n';
 	bool bq {q};
@@ -33,6 +34,13 @@ void use(unique_ptr<Record> p, unique_ptr<int> q)
 int main()
 {
 	Record* prec = new Record;
+	int *p = new int{10};
 
 	use(unique_ptr<Record>{prec}, unique_ptr<int>{nullptr});
+	try {
+		use(unique_ptr<Record>{nullptr}, unique_ptr<int>(p));
+	}
+	catch (const Invalid_unique_ptr&) {
+		cout << "Invalid_unique_ptr!\n";
+	}
 }
