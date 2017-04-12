@@ -10,27 +10,30 @@ using namespace std;
 
 class X {
 public:
-	X(int);
-	X(const char*);
+	X(int i) { cout << "X::X(int " << i << ")\n"; }
+	X(const char* s) { cout << "X::X(const char* \"" << s << "\")\n"; }
 };
 
 class Y {
 public:
-	Y(int);
+	Y(int i) { cout << "Y::Y(int " << i << ")\n"; }
 };
 
 class Z {
 public:
-	Z(X);
+	Z(X) { cout << "Z::Z(X)\n"; }
 };
 
-X f(X);
-Y f(Y);
+X f(X x) { cout << "f(X)\n"; return x; }
+Y f(Y y) { cout << "f(Y)\n"; return y; }
 
-Z g(Z);
+Z g(Z z) { cout << "g(Z)\n"; return z; }
+
 
 void k1()
 {
+	cout << "-- k1() --\n";
+
 	//f(1);
 		// error: call of overloaded 'f(int)' is ambiguous
 	f(X{1});
@@ -45,10 +48,15 @@ void k1()
 class Quad {
 public:
 	long double ld;
-	Quad(double);
+	Quad(double d) :ld{d} { cout << "Quad::Quad(double " << d << ")\n"; }
 };
 
-Quad operator+(Quad,Quad);
+Quad operator+(Quad q1, Quad q2)
+{
+	cout << "::operator+(Quad " << q1.ld << ", Quad " << q2.ld << ")\n";
+	q1.ld += q2.ld;
+	return q1;
+}
 
 ostream& operator<<(ostream& os, Quad q)
 {
@@ -58,6 +66,8 @@ ostream& operator<<(ostream& os, Quad q)
 
 void f(double a1, double a2)
 {
+	cout << "-- f(double " << a1 << ",double " << a2 << ") --\n";
+
 	Quad r1 = a1+a2;
 	Quad r2 = Quad{a1}+a2;
 
@@ -68,14 +78,16 @@ void f(double a1, double a2)
 class Real {
 	double d;
 public:
-	operator double();
-	operator int();
+	operator double() { cout << "Real::operator double() -> " << d << "\n"; return d; }
+	operator int() { cout << "Real::operator int() -> " << (int)d << "\n"; return (int)d; }
 
 	Real(double dd) :d{dd} { }
 };
 
 void g(Real a)
 {
+	cout << "-- g(Real) --\n";
+
 	double d = a;
 	int i = a;
 
@@ -84,72 +96,6 @@ void g(Real a)
 
 	cout << "d: " << d << '\n';
 	cout << "i: " << i << '\n';
-}
-
-// add undef
-
-X::X(int i)
-{
-	cout << "X::X(int " << i << ")\n";
-}
-
-X::X(const char* s)
-{
-	cout << "X::X(const char* \"" << s << "\")\n";
-}
-
-Y::Y(int i)
-{
-	cout << "Y::Y(int " << i << ")\n";
-}
-
-Z::Z(X x)
-{
-	cout << "Z::Z(X)\n";
-}
-
-X f(X x)
-{
-	cout << "f(X)\n";
-	return x;
-}
-
-Y f(Y y)
-{
-	cout << "f(Y)\n";
-	return y;
-}
-
-Z g(Z z)
-{
-	cout << "g(Z)\n";
-	return z;
-}
-
-
-Quad::Quad(double d)
-	:ld{d}
-{
-	cout << "Quad::Quad(double " << d << ")\n";
-}
-
-Quad operator+(Quad q1, Quad q2)
-{
-	cout << "::operator+(Quad " << q1.ld << ", Quad " << q2.ld << ")\n";
-	q1.ld += q2.ld;
-	return q1;
-}
-
-Real::operator double()
-{
-	cout << "Real::operator double() -> " << d << "\n";
-	return d;
-}
-
-Real::operator int()
-{
-	cout << "Real::operator int() -> " << (int)d << "\n";
-	return (int)d;
 }
 
 // add main
