@@ -14,7 +14,7 @@ void update(const string& s)
 	Disk_ptr<Rec> p {s};
 
 	p->name = "Rescoe";
-	++ p->count;
+	++p->count;
 }
 
 

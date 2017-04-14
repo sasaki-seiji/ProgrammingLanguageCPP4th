@@ -35,7 +35,7 @@ private:
 };
 
 template<typename T>
-inline void Disk_ptr<T>::write_to_disk(T* p, const string& s)
+void Disk_ptr<T>::write_to_disk(T* p, const string& s)
 {
 	ofstream ofs{s};
 	if (ofs)
@@ -43,7 +43,7 @@ inline void Disk_ptr<T>::write_to_disk(T* p, const string& s)
 }
 
 template<typename T>
-inline T* Disk_ptr<T>::read_from_disk(const string& s)
+T* Disk_ptr<T>::read_from_disk(const string& s)
 {
 	T *p = new T;
 	ifstream ifs{s};
