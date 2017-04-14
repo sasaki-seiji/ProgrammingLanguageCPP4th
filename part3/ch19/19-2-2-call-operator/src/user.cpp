@@ -17,6 +17,8 @@ using namespace std;
 
 void f(Action act)
 {
+	cout << "--f(Action) --\n";
+
 	int x = act(2);
 	auto y = act(2,4);
 	double z = act(2.3);
@@ -29,12 +31,16 @@ void f(Action act)
 
 void h(vector<complex<double>>& vec, list<complex<double>>& lst, complex<double> z)
 {
+	cout << "--h(vector<complex<double>>&,list<comple<double>>&,complex) --\n";
+
 	for_each(vec.begin(), vec.end(), Add{2,3});
 	for_each(lst.begin(), lst.end(), Add{z});
 }
 
 void h2(vector<complex<double>>& vec, list<complex<double>>& lst, complex<double> z)
 {
+	cout << "-- h2(vector<complex<double>>&,list<complex<double>>&,complex) --\n";
+
 	//for_each(vec.begin(), vec.end(),[](complex<double>& a){ a+={2,3}; });
 	for_each(vec.begin(), vec.end(),[](complex<double>& a){ a+=complex<double>{2,3}; });
 		// error: no match for 'operator+=' (operand types are 'std::complex<double>' and '<brace-enclosed initializer list>')
@@ -77,8 +83,8 @@ int main()
 		lst.push_back(z);
 	}
 	h(vec, lst, {0,1});
-	cout << vec << '\n';
-	cout << lst << '\n';
+	cout << "vec: " << vec << '\n';
+	cout << "list: " << lst << '\n';
 
 	h2(vec, lst, {0,1});
 	cout << vec << '\n';
