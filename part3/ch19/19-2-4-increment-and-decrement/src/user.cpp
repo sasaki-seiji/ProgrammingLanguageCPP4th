@@ -15,10 +15,13 @@ struct X {
 
 void f1(X a)
 {
+	cout << "-- f1(X) --\n";
+
 	X v[200];
 	X* p = &v[0];
 	p--;
-	*p = a;	// error but not catch
+	//*p = a;	// error but not catch on MinGW
+		// terminated (exit value:-1) on Ubuntu/g++ 5.4.0
 	++p;
 	*p = a;
 
@@ -27,6 +30,8 @@ void f1(X a)
 
 void f2(X a)
 {
+	cout << "-- f2(X) --\n";
+
 	X v[200];
 	Ptr<X> p(&v[0], v);
 	p--;
@@ -39,17 +44,18 @@ void f2(X a)
 	++p;
 	try {
 		*p = a;
+		cout << "p->x: " << p->x << '\n';
 	}
 	catch (out_of_range& e) {
 		cout << e.what() << '\n';
 	}
-
-	cout << "p->x: " << p->x << '\n';
 }
 
 
 void f3(X a)
 {
+	cout << "-- f3(X) --\n";
+
 	X v[200];
 	Ptr<X> p(&v[0], v);
 	p.operator--(0);
@@ -62,12 +68,11 @@ void f3(X a)
 	p.operator++();
 	try {
 		p.operator*() = a;
+		cout << "p->x: " << (p.operator->())->x << '\n';
 	}
 	catch (out_of_range& e) {
 		cout << e.what() << '\n';
 	}
-
-	cout << "p->x: " << (p.operator->())->x << '\n';
 }
 
 

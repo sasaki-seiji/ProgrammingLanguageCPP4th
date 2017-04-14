@@ -35,7 +35,7 @@ public:
 };
 
 template<typename T>
-inline Ptr<T>& Ptr<T>::operator++()
+Ptr<T>& Ptr<T>::operator++()
 {
 	if (sz == 0) throw out_of_range{ "increment to single object pointer : operator++()" };
 	++ptr;
@@ -43,7 +43,7 @@ inline Ptr<T>& Ptr<T>::operator++()
 }
 
 template<typename T>
-inline Ptr<T> Ptr<T>::operator++(int)
+Ptr<T> Ptr<T>::operator++(int)
 {
 	if (sz == 0) throw out_of_range{ "increment to single object pointer : operator++(int)" };
 	Ptr<T> old {ptr,array,sz};
@@ -52,7 +52,7 @@ inline Ptr<T> Ptr<T>::operator++(int)
 }
 
 template<typename T>
-inline Ptr<T>& Ptr<T>::operator--()
+Ptr<T>& Ptr<T>::operator--()
 {
 	if (sz == 0) throw out_of_range{ "decrement to single object pointer : operator--()" };
 	--ptr;
@@ -60,7 +60,7 @@ inline Ptr<T>& Ptr<T>::operator--()
 }
 
 template<typename T>
-inline Ptr<T> Ptr<T>::operator--(int)
+Ptr<T> Ptr<T>::operator--(int)
 {
 	if (sz == 0) throw out_of_range{ "decrement to single object pointer : operator--(int)" };
 	Ptr<T> old {ptr,array,sz};
@@ -69,7 +69,7 @@ inline Ptr<T> Ptr<T>::operator--(int)
 }
 
 template<typename T>
-inline T& Ptr<T>::operator*()
+T& Ptr<T>::operator*()
 {
 	if (sz==0) return *ptr;
 
@@ -78,7 +78,7 @@ inline T& Ptr<T>::operator*()
 }
 
 template<typename T>
-inline T* Ptr<T>::operator->()
+T* Ptr<T>::operator->()
 {
 	if (sz==0) return ptr;
 
