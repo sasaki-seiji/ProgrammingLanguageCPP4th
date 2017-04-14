@@ -1,7 +1,8 @@
 【19.2.1　添え字演算子：ローカルコピーの参照を返している】
 
-日付：　2016.08.11
+日付：　2016.08.11、2017.04.14
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 	テキストのAssoc::operator[]のコードは、vectorの要素のローカルコピーを
 	返しているため、実行時、システムエラーとなる
@@ -10,6 +11,8 @@
 	for (auto& x : vec)
 		// warning: reference to local variable 'x' returned [-Wreturn-local-addr]
 		if (s == x.first) return x.second;
+
+（追記）2017.04.14　Linug/g++環境では、-1でterminatededする
 
 
 【19.2.2　関数呼び出し演算子：｛｝並びを右辺に持つ+=演算子】
