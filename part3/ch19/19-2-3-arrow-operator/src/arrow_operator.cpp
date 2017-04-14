@@ -22,12 +22,15 @@ public:
 
 void f(Ptr p)
 {
+	cout << "-- f(Ptr) --\n";
 	p->m = 7;
 }
 
 void g(Ptr p)
 {
-	// X* q1 = p->;
+	cout << "-- g(Ptr) --\n";
+
+	//X* q1 = p->;
 		// error: expected unqualified-id before ';' token
 	X* q2 = p.operator->();
 
@@ -47,7 +50,7 @@ public:
 
 void h(Ptr2<X> p)
 {
-	cout << "-- h(Ptr2<X>):\n";
+	cout << "-- h(Ptr2<X>) --\n";
 
 	cout << "p->m: " << p->m << '\n';
 	cout << "(*p).m: " << (*p).m << '\n';
@@ -62,7 +65,6 @@ int main()
 
 	Ptr ptr{&x};
 	f(ptr);
-
 	cout << "x.m: " << x.m << '\n';
 
 	g(ptr);
