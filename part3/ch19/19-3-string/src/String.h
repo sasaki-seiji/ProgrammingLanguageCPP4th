@@ -57,7 +57,7 @@ private:
 	}
 
 	void copy_from(const String& x);
-	void move_from(String&& x);
+	void move_from(String& x);
 };
 
 std::ostream& operator<<(std::ostream&, const String&);

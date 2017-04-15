@@ -9,10 +9,11 @@
 #include "String.h"
 #include <iostream>
 #include <vector>
-using std::cout;
-using std::cin;
-using std::flush;
 using std::vector;
+using std::cin;
+using std::cout;
+using std::flush;
+using std::endl;
 
 // 19.3.2: [] and at() member function
 int hash(const String& s)
@@ -32,6 +33,8 @@ void print_in_order(const String& s, const vector<int>& index)
 
 void test_hash()
 {
+	cout << "-- test_hash() --\n";
+
 	String hs1 = "abcdef", hs2 = "01234";
 	int h1 = hash(hs1), h2 = hash(hs2);
 	cout << "hash(\"" << hs1 << "\"): " << h1 << '\n';
@@ -41,8 +44,10 @@ void test_hash()
 
 void test_print_in_order()
 {
+	cout << "-- test_print_in_order() --\n";
+
 	String s = "01234";
-	vector<int> vi {4,3,2,1,0};
+	vector<int> vi {4,1,2,0};
 	print_in_order(s, vi);
 }
 
@@ -53,6 +58,8 @@ void f(const String&);
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	f("Madden's");
 	f("Christopher's"_s);
 }
@@ -73,7 +80,7 @@ void f(const String& s)
 
 void test_19_3_6()
 {
-	cout << "-- total test\n";
+	cout << "-- test_19_3_6() --\n";
 
 	String s ("abcdefghij");
 	cout << s << '\n';
@@ -100,10 +107,61 @@ void test_19_3_6()
 		cout << buf << " " << buf.size() << " " << buf.capacity() << '\n' << flush;
 }
 
+void test_begin_end()
+{
+	cout << "-- test_begin_end() --\n";
+
+	String s{"abcdefg"};
+	cout << "initially, s=" << s << endl;
+
+	for (auto& x : s)
+		x = toupper(x);
+
+	cout << "after toupper(), s=" << s << endl;
+}
+
+String make_string(const char* p)
+{
+	String s{p};
+	return s;
+}
+
+void test_move()
+{
+	cout << "-- test_move() --\n";
+
+	String s = make_string("short string");
+	cout << "s=" << s << endl;
+
+	s = make_string("a little bit long string");
+	cout << "s=" << s << endl;
+
+	String s1{std::move(s)};
+	cout << "String s1{move(s)}; s1:" << s1 << ", s:" << s << endl;
+}
+
+void test_assign()
+{
+	cout << "-- test_assign() --\n";
+
+	String s1;
+	String ss{"short string"};
+	String sl{"a little bit long string"};
+
+	s1 = ss;
+	cout << "s1=ss; s1:" << s1 << endl;
+	s1 = sl;
+	cout << "s1=sl; s1:" << s1 << endl;
+}
+
 int main()
 {
 	test_hash();
 	test_print_in_order();
 	g();
+	test_begin_end();
+	test_move();
+	test_assign();
+
 	test_19_3_6();
 }

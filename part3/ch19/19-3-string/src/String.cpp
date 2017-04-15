@@ -29,7 +29,7 @@ void String::copy_from(const String& x)
 	}
 }
 
-void String::move_from(String&& x)
+void String::move_from(String& x)
 {
 	if (x.sz<=short_max) {
 		memcpy(this, &x, sizeof(x));
@@ -66,9 +66,7 @@ String::String(const String& x)
 
 String::String(String&& x)
 {
-	//move_from(x);
-	move_from(move(x));
-		// error: cannot bind 'String' lvalue to 'String&&'
+	move_from(x);
 }
 
 String& String::operator=(const String& x)
@@ -84,9 +82,7 @@ String& String::operator=(String&& x)
 {
 	if (this==&x) return *this;
 	if (short_max < sz) delete[] ptr;
-	//move_from(x);
-	move_from(move(x));
-		// error: cannot bind 'String' lvalue to 'String&&'
+	move_from(x);
 	return *this;
 }
 
