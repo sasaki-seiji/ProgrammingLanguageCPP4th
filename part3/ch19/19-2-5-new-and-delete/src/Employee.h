@@ -14,9 +14,9 @@ using std::size_t;
 class Employee {
 	int id;
 public:
-	Employee(int i) : id{i} { }
-
+	Employee(int i);
 	virtual ~Employee();
+
 	void* operator new(size_t);
 	void operator delete(void*, size_t);
 

@@ -9,6 +9,16 @@
 #include <iostream>
 using namespace std;
 
+Employee::Employee(int i) : id{i}
+{
+	cout << "Employee::Employee(" << i << ")\n";
+}
+
+Employee::~Employee()
+{
+	cout << "Employee::~Employee()\n";
+}
+
 void* Employee::operator new(size_t s)
 {
 	cout << "Employee::operator new(" << s << ")\n";
@@ -21,9 +31,4 @@ void Employee::operator delete(void* p, size_t s)
 	//::operator delete(p, s);
 		// error: invalid conversion from 'std::size_t {aka long long unsigned int}' to 'void*' [-fpermissive]
 	::operator delete(p);
-}
-
-Employee::~Employee()
-{
-	cout << "Employee::~Employee()\n";
 }

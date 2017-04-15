@@ -15,7 +15,7 @@ using std::string;
 class Manager: public Employee {
 	string dep;
 public:
-	Manager(const string& d, int id) : Employee{id}, dep{d} { }
+	Manager(const string& d, int id);
 	~Manager();
 };
 
