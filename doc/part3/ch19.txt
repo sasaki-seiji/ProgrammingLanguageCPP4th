@@ -43,10 +43,12 @@
 	for_each(lst.begin(), lst.end(),[z](complex<double>& a){ a+=z; });
 		// error: 'z' is not captured
 
+
 【19.2.5 大域のdelete演算子の引数】
 
 日付：　2016.08.15
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	テキストの記述と異なり、大域のdelete演算子には、size_t引数を指定しない
