@@ -29,6 +29,8 @@ template<typename T> void f(const T& v)
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	f("Hello");
 	f("Hello"s);
 	f("Hello\n"s);
@@ -50,7 +52,10 @@ Bignum operator"" x(const char* p)
 	return Bignum(p);
 }
 
-void f(Bignum);
+void f(Bignum bn)
+{
+	cout << "f(Bignum)\n";
+}
 
 string operator "" SS(const char* p);
 
@@ -59,12 +64,6 @@ string operator "" SS(const char* p);
 string s13 = 13SS;
 
 
-// add undef
-
-void f(Bignum bn)
-{
-	cout << "f(Bignum)\n";
-}
 
 string operator "" SS(const char* p)
 {
@@ -83,4 +82,8 @@ int main()
 	string s22 = "two\ntwo"s;
 	string sxx = R"(two\ntwo)"s;
 
+	cout << "s12=" << s12 << endl;
+	cout << "s22=" << s22 << endl;
+	cout << "sxx=" << sxx << endl;
+	cout << "s13=" << s13 << endl;
 }
