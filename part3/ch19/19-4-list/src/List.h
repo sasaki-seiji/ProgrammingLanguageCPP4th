@@ -24,9 +24,8 @@ class List {
 	List* next;
 public:
 	List(int v) : value{v}, next{nullptr} { }
-
-	List* add_head(List* link);
-	List* add_tail(List* link);
+	List(int v, List* suc) : value{v}, next{suc} { }
+	~List() { delete next; }
 
 	friend int* List_iterator::next();
 };

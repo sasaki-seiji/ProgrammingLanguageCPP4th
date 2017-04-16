@@ -16,22 +16,3 @@ int* List_iterator::next()
 	return p;
 }
 
-
-List* List::add_head(List* link)
-{
-	List **p_next = &link->next;
-	while (*p_next)
-		p_next = &(*p_next)->next;
-	*p_next = this;
-	return link;
-}
-
-List* List::add_tail(List* link)
-{
-	List **p_next = &this->next;
-	while (*p_next)
-		p_next = &(*p_next)->next;
-	*p_next = link;
-	return link;
-
-}
