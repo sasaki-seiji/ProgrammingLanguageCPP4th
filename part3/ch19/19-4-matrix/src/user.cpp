@@ -20,6 +20,7 @@ int main()
 	};
 
 	cout << "v: " << v << '\n';
+	cout << "m: " << m << '\n';
 
 	Vector r = m * v;
 	cout << "r: " << r << '\n';

@@ -11,22 +11,17 @@ using namespace std;
 
 Vector::Vector()
 {
-	for (int i = 0 ; i < rc_max; ++i)
-		v[i] = 0;
+	fill_n(v, rc_max, 0.0F);
 }
 Vector::Vector(initializer_list<float> lst)
 {
 	if (lst.size()!=rc_max) throw invalid_argument("incorrect initializer list - Vector::Vector()");
-	auto it = lst.begin();
-	for (int i = 0; i < rc_max; ++i, ++it)
-		v[i] = *it;
+	copy(lst.begin(), lst.end(), v);
 }
 Vector& Vector::operator =(initializer_list<float> lst)
 {
 	if (lst.size()!=rc_max) throw invalid_argument("incorrect initializer list - Vector::operator=()");
-	auto it = lst.begin();
-	for (int i = 0; i < rc_max; ++i, ++it)
-		v[i] = *it;
+	copy(lst.begin(), lst.end(), v);
 	return *this;
 }
 
@@ -42,16 +37,14 @@ ostream& operator<<(ostream& os, const Vector& v)
 Matrix::Matrix(initializer_list<initializer_list<float>> lst)
 {
 	if (lst.size()!=rc_max) throw invalid_argument("incorrect initializer list - Matrix::Matrix()");
-	auto it = lst.begin();
-	for (int i = 0; i < rc_max; ++i, ++it)
-		v[i] = *it;
+	copy(lst.begin(), lst.end(), v);
 }
 
 ostream& operator<<(ostream& os, const Matrix& m)
 {
 	os << "[\n";
 	for (int i = 0; i < rc_max; ++i)
-		os << '\t' << m.v[i] << '\n';
+		os << "    " << m.v[i] << '\n';
 	os << "]\n";
 	return os;
 }
