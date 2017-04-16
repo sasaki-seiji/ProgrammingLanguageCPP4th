@@ -30,11 +30,16 @@ struct Manager : public Employee {
 
 void f(Manager m1, Employee e1)
 {
+	cout << "-- f(Manager,Employee) --\n";
+
 	list<Employee*> elist {&m1, &e1};
+	cout << "elist.size(): " << elist.size() << endl;
 }
 
 void g(Manager mm, Employee ee)
 {
+	cout << "-- g(Manager,Employee) --\n";
+
 	Employee* pe = &mm;
 	Manager* pm;
 
