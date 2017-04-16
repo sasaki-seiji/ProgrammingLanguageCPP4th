@@ -33,6 +33,8 @@ void g()
 
 void h()
 {
+	cout << "-- h() --\n";
+
 	//f1(99);
 		// error: invalid initialization of non-const reference of type 'X&' from an rvalue of type 'X'
 	f2(99);
