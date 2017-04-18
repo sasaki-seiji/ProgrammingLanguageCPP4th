@@ -29,9 +29,9 @@ struct D : B5 {
 };
 
 struct Base {
-	virtual void f(int) const;
-	virtual void f();
-	virtual void g();
+	virtual void f(int) const { cout << "Base::f(int)\n"; }
+	virtual void f() { cout << "Base::f()\n"; }
+	virtual void g() { cout << "Base::g()\n"; }
 };
 
 class Derived : public Base {
@@ -40,17 +40,28 @@ public:
 	//override void f(int) const noexcept;
 		// error: 'override' does not name a type
 	//void f(int) override const noexcept;
+		// error: expected ‘;’ at end of member declaration
 		// error: 'void Derived::f(int)' marked 'override', but does not override
 
 	void f() override;
 	void g() override;
 };
 
+void Derived::f(int) const noexcept
+{
+	cout << "Derived::f(int) const noexcept\n";
+}
+
 //void Derived::f() override
 	// error: virt-specifiers in 'f' not allowed outside a class definition
 void Derived::f()
 {
 	cout << "Derived::f()\n";
+}
+
+void Derived::g()
+{
+	cout << "Derived::g()\n";
 }
 
 // contextual keyword
@@ -70,17 +81,6 @@ struct Dx : Base2 {
 	}
 };
 
-// add undefs
-
-void Derived::g()
-{
-	cout << "Derived::g()\n";
-}
-
-void Derived::f(int) const noexcept
-{
-	cout << "Derived::f(int) const noexcept\n";
-}
 
 // add main
 
