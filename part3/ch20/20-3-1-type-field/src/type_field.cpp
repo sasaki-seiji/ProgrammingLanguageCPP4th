@@ -55,6 +55,8 @@ void print_employee(const Employee* e)
 
 void print_list(const list<Employee*>& elist)
 {
+	cout << "-- print_list(const list<Employee*>&) --\n";
+
 	for (auto x : elist)
 		print_employee(x);
 }
@@ -71,6 +73,8 @@ void print_employee2(const Employee* e)
 
 void print_list2(const list<Employee*>& elist)
 {
+	cout << "-- print_list2(const list<Employee*>&) --\n";
+
 	for (auto x : elist)
 		print_employee2(x);
 }
