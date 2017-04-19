@@ -42,16 +42,18 @@ struct D2 : B1 {
 
 void test()
 {
+	std::cout << "-- test() --\n";
+
 	D1 d {6};
 	//D1 e;
 		// error: use of deleted function 'D1::D1()'
 
-	std::cout << "d.s: \"" << d.s << "\"\n";
-	std::cout << "d.x: " << d.x << '\n';
+	std::cout << "d.s = \"" << d.s << "\"\n";
+	std::cout << "d.x = " << d.x << '\n';
 
 	D2 d2 {6};
-	std::cout << "d2.s: \"" << d2.s << "\"\n";
-	std::cout << "d2.x: " << d2.x << '\n';
+	std::cout << "d2.s = \"" << d2.s << "\"\n";
+	std::cout << "d2.x = " << d2.x << '\n';
 
 }
 
@@ -71,10 +73,10 @@ int main()
 		// error: no matching function for call to 'Vector<int>::Vector(<brace-enclosed initializer list>)'
 
 	Vector2<int> v2 { 1, 2, 3, 5, 8 };
-	std::cout << "v2: " << v2 << '\n';
+	std::cout << "v2 = " << v2 << '\n';
 
 	v2[3] = 100;
-	std::cout << "after v2[3]=100, v2: " << v2 << '\n';
+	std::cout << "v2[3]=100; v2 = " << v2 << '\n';
 
 	try {
 		v2[5] = 10;
