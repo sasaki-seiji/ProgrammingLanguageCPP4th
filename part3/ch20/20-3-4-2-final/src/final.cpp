@@ -20,6 +20,10 @@ class If_statement : public Node {
 public:
 	Type type() override final;
 };
+Type If_statement::type()
+{
+	return Type{"if_statement"};
+}
 
 class Modified_if_statement : public If_statement {
 public:
@@ -32,6 +36,10 @@ class For_statement final : public Node {
 public:
 	Type type() override;
 };
+Type For_statement::type()
+{
+	return Type{"for_statement"};
+}
 
 #if 0
 class Modified_for_statement : public For_statement {
@@ -85,17 +93,6 @@ struct Dx : Base2 {
 	}
 };
 
-// add undef
-
-Type If_statement::type()
-{
-	return Type{"if_statement"};
-}
-
-Type For_statement::type()
-{
-	return Type{"for_statement"};
-}
 
 // add main
 
