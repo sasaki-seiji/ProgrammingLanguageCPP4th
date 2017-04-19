@@ -9,15 +9,21 @@
 #include "Expr.h"
 #include "Cond.h"
 #include "Addition.h"
+#include <iostream>
+using namespace std;
 
 void user(Expr* p)
 {
+	cout << "-- user(Expr*) --\n";
+
 	Expr* p2 = p->new_expr();
 	p2->print();
 }
 
 void user2(Cond* pc, Addition* pa)
 {
+	cout << "-- user2(Cond*,Additon*) --\n";
+
 	Cond* p1 = pc->clone();
 	Addition* p2 = pa->clone();
 
@@ -27,6 +33,8 @@ void user2(Cond* pc, Addition* pa)
 
 void user3(Cond* pc, Expr* pe)
 {
+	cout << "-- user3(Cond*,Expr*) --\n";
+
 	Cond* p1 = pc->clone();
 	//Cond* p2 = pe->clone();
 		//error: invalid conversion from 'Expr*' to 'Cond*' [-fpermissive]
