@@ -7,7 +7,9 @@
 
 #include "Shape.h"
 
-Shape::~Shape() {
-	// TODO Auto-generated destructor stub
+ostream& operator<<(ostream& os, Point pt)
+{
+	os << "(" << pt.x << "," << pt.y << ")";
+	return os;
 }
 

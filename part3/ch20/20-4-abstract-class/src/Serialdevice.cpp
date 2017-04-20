@@ -17,22 +17,22 @@ Serial_device::Serial_device(int u)
 
 int Serial_device::open(int opt)
 {
-	cout << "Serial_device::open()\n";
+	cout << "Serial_device::open(" << opt << ")\n";
 	return 0;
 }
 int Serial_device::close(int opt)
 {
-	cout << "Serial_device::close()\n";
+	cout << "Serial_device::close(" << opt << ")\n";
 	return 0;
 }
 int Serial_device::read(char* p, int n)
 {
-	cout << "Serial_device::read()\n";
+	cout << "Serial_device::read(" << (void*)p << "," << n << ")\n";
 	return 0;
 }
 int Serial_device::write(const char* p, int n)
 {
-	cout << "Serial_device::write()\n";
+	cout << "Serial_device::write(" << (const void*)p << "," << n << ")\n";
 	return 0;
 }
 int Serial_device::ioctl(int ...)

@@ -16,7 +16,7 @@ public:
 	virtual int write(const char* p, int n) = 0;
 	virtual int ioctl(int ...) = 0;
 
-	virtual ~Character_device();
+	virtual ~Character_device() { }
 };
 
 #endif /* CHARACTERDEVICE_H_ */

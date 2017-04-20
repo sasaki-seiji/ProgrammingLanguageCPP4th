@@ -16,6 +16,7 @@ Circle::Circle(Point p, int r)
 
 void Circle::draw() const
 {
-	cout << "Circle::draw()\n";
+	cout << "Circle::draw(): "
+			<< "center=" << center << ", radius=" << radius << "\n";
 }
 
