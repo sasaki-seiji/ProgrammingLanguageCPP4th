@@ -48,6 +48,10 @@ void test_cross_derived_access()
 	Circular_buffer2 cbuf2;
 	Linked_buffer2 rbuf2;
 	cbuf2.f(&rbuf2);
+
+	// 2017.04.22 add
+	Circular_buffer2 another;
+	cbuf2.g(&another);
 }
 
 int main()
