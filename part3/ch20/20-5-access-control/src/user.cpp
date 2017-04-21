@@ -26,6 +26,8 @@ void would_be_meddler(List<T>* p)
 
 void use()
 {
+	cout << "-- use() --\n";
+
 	List<int> ilist;
 	ilist.insert(10);
 	ilist.insert(20);
@@ -43,6 +45,8 @@ void use()
 
 void use2()
 {
+	cout << "-- use2() --\n";
+
 	List2<int> ilist;
 	ilist.insert(10);
 	ilist.insert(20);
@@ -60,6 +64,8 @@ void use2()
 
 void use3()
 {
+	cout << "-- use3() --\n";
+
 	List3<int> ilist;
 	ilist.insert(10);
 	ilist.insert(20);
