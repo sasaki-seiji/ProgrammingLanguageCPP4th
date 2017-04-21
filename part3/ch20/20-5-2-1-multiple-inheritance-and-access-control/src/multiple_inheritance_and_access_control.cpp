@@ -33,8 +33,8 @@ int main()
 	cout << "pd: " << pd << '\n';
 	cout << "pb: " << pb << '\n';
 	cout << "pd->m: " << i1 << '\n';
-	i1 = pd->m = 10;
-	cout << "pd->m: " << i1 << '\n';
+	pd->m = 10;
+	cout << "pd->m: " << pd->m << '\n';
 
 	XX* pxx = new XX;
 	//int j1 = pxx->m;
