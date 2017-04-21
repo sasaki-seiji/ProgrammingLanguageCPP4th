@@ -12,8 +12,10 @@
 #include <iostream>
 using namespace std;
 
-int main()
+void test_Circular_buffer()
 {
+	cout << "-- test_Circular_buffer() --\n";
+
 	Circular_buffer buf;
 
 	for (char c = 'a'; c <= 'z'; ++c)
@@ -37,8 +39,19 @@ int main()
 	for (int i = 0; i < buf.length(); ++i)
 		cout << buf[i] << ' ';
 	cout << '\n';
+}
+
+void test_cross_derived_access()
+{
+	cout << "-- test_cross_derived_access() --\n";
 
 	Circular_buffer2 cbuf2;
 	Linked_buffer2 rbuf2;
 	cbuf2.f(&rbuf2);
+}
+
+int main()
+{
+	test_Circular_buffer();
+	test_cross_derived_access();
 }
