@@ -40,8 +40,7 @@ int main()
 
 	BB bb;
 	bb.b = 34;
-	//bb.c = 45;
-		// error: 'int B::c' is inaccessible
+//	bb.c = 45;
 	cout << "bb.b: " << bb.b << '\n';
 }
 
