@@ -14,6 +14,8 @@ using namespace std;
 
 void f(Std_interface* p)
 {
+	cout << "-- f(Std_interface*) --\n";
+
 	Pstd_mem s = &Std_interface::suspend;
 	p->suspend();
 	//p->*s();
@@ -27,14 +29,17 @@ map<string,Pstd_mem> operation;
 void call_member(string var, string oper)
 {
 #if 0
-	cout << "var: " << var << ", address: " << variable[var] << flush << '\n';
-	cout << "oper: " << oper << ", address: " << operation[oper] << flush << '\n';
+	cout << "var: " << var << ", address: " << variable[var] << endl;
+	cout << "oper: " << oper << ", address: " << operation[oper] << endl;
 #endif
+
 	(variable[var]->*operation[oper])();
 }
 
 void interpreter()
 {
+	cout << "-- interpreter() --\n";
+
 	Window win1("w1"), win2("w2"), win3("w3");
 	variable["win1"] = &win1;
 	variable["win2"] = &win2;
