@@ -29,6 +29,14 @@ private:
 void (Text::*pmt)() = &Std_interface::start;
 
 
+// add main
+
+int main()
+{
+	Text text;
+	(text.*pmt)();
+}
+
 // add undefs
 
 void Text::start()
@@ -59,14 +67,6 @@ void Text::small()
 void Text::print()
 {
 	cout << "Text::print()\n";
-}
-
-// add main
-
-int main()
-{
-	Text text;
-	(text.*pmt)();
 }
 
 
