@@ -11,10 +11,11 @@ using namespace std;
 
 void Popup_ival_slider::prompt()
 {
-	cout << "enter value into Popup_ival_slider: " << flush ;
+	cout << "Popup_ival_slider: down/down/up/up" << endl ;
 
-	int v;
-	cin >> v;
-	set_value(v);
+	on_down();
+	on_down();
+	on_up();
+	on_up();
 }
 

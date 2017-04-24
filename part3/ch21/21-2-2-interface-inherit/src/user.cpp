@@ -33,7 +33,7 @@ void some_fct()
 {
 	unique_ptr<Ival_box> p1 { new Ival_slider{0,5} };
 	interact(p1.get());
-	unique_ptr<Ival_box> p2 { new Ival_dial{1,12} };
+	unique_ptr<Ival_box> p2 { new Ival_dial{0,12} };
 	interact(p2.get());
 	unique_ptr<Ival_box> p3 { new Flashing_ival_slider{0,10} };
 	interact(p3.get());

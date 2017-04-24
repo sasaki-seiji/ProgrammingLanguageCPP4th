@@ -9,6 +9,9 @@
 #define BBWIDGET_H_
 
 class BBwidget {
+public:
+	virtual void on_up() { }
+	virtual void on_down() { }
 };
 
 #endif /* BBWIDGET_H_ */

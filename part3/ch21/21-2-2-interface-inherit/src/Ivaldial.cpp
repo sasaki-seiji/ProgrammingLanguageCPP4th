@@ -26,6 +26,8 @@ int Ival_dial::get_value()
 
 void Ival_dial::set_value(int i)
 {
+	if (i < low || high < i ) return;
+
 	changed = true;
 	val = i;
 }
@@ -38,11 +40,12 @@ void Ival_dial::reset_value(int i)
 
 void Ival_dial::prompt()
 {
-	cout << "enter value into Ival_dial: " << flush ;
+	cout << "Ival_dial: down/up/up/down" << endl;
 
-	int v;
-	cin >> v;
-	set_value(v);
+	on_down();
+	on_up();
+	on_up();
+	on_down();
 }
 
 bool Ival_dial::was_changed() const
@@ -50,3 +53,14 @@ bool Ival_dial::was_changed() const
 	return changed;
 }
 
+void Ival_dial::on_up()
+{
+	int i = get_value();
+	set_value(i+1);
+}
+
+void Ival_dial::on_down()
+{
+	int i = get_value();
+	set_value(i-1);
+}

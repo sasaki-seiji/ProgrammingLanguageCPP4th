@@ -11,9 +11,10 @@ using namespace std;
 
 void Flashing_ival_slider::prompt()
 {
-	cout << "enter value into Flashing_ival_slider: " << flush ;
+	cout << "Flashing_ival_slider: up/up/up/down" << endl ;
 
-	int v;
-	cin >> v;
-	set_value(v);
+	on_up();
+	on_up();
+	on_up();
+	on_down();
 }

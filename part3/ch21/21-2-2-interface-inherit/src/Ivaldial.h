@@ -9,8 +9,9 @@
 #define IVALDIAL_H_
 
 #include "Ivalbox.h"
+#include "BBwidget.h"
 
-class Ival_dial : public Ival_box{
+class Ival_dial : public Ival_box, protected BBwidget {
 public:
 	Ival_dial(int, int);
 	~Ival_dial() override;
@@ -20,6 +21,10 @@ public:
 	void reset_value(int i) override;
 	void prompt() override;
 	bool was_changed() const override;
+
+protected:
+	void on_up();
+	void on_down();
 
 private:
 	int val;

@@ -22,6 +22,10 @@ public:
 	void prompt() override;
 	bool was_changed() const override;
 
+protected:
+	void on_up();
+	void on_down();
+
 private:
 	int val;
 	int low, high;

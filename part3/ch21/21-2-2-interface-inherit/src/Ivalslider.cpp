@@ -26,6 +26,8 @@ int Ival_slider::get_value()
 
 void Ival_slider::set_value(int i)
 {
+	if (i < low || high < i ) return;
+
 	changed = true;
 	val = i;
 }
@@ -38,15 +40,28 @@ void Ival_slider::reset_value(int i)
 
 void Ival_slider::prompt()
 {
-	cout << "enter value into Ival_slider: " << flush ;
+	cout << "Ival_slider: up/up/down/up" << endl;
 
-	int v;
-	cin >> v;
-	set_value(v);
+	on_up();
+	on_up();
+	on_down();
+	on_up();
 }
 
 bool Ival_slider::was_changed() const
 {
 	return changed;
+}
+
+void Ival_slider::on_up()
+{
+	int i = get_value();
+	set_value(i+1);
+}
+
+void Ival_slider::on_down()
+{
+	int i = get_value();
+	set_value(i-1);
 }
 
