@@ -9,8 +9,8 @@
 #include <iostream>
 using namespace std;
 
-Ival_dial::Ival_dial(int ll, int hh)
-	: val{ll}, low{ll}, high{hh}
+Ival_dial::Ival_dial(int init)
+	: val{init}
 {
 }
 
@@ -26,8 +26,6 @@ int Ival_dial::get_value()
 
 void Ival_dial::set_value(int i)
 {
-	if (i < low || high < i ) return;
-
 	changed = true;
 	val = i;
 }
@@ -40,10 +38,10 @@ void Ival_dial::reset_value(int i)
 
 void Ival_dial::prompt()
 {
-	cout << "Ival_dial: down/up/up/down" << endl;
+	cout << "Ival_dial: down/down/up/down" << endl;
 
 	on_down();
-	on_up();
+	on_down();
 	on_up();
 	on_down();
 }

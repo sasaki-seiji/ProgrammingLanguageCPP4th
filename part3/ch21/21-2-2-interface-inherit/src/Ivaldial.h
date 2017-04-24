@@ -13,7 +13,7 @@
 
 class Ival_dial : public Ival_box, protected BBwidget {
 public:
-	Ival_dial(int, int);
+	Ival_dial(int init = 0);
 	~Ival_dial() override;
 
 	int get_value() override;
@@ -28,7 +28,6 @@ protected:
 
 private:
 	int val;
-	int low, high;
 	bool changed {false};
 };
 
