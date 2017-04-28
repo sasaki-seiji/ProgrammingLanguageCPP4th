@@ -9,8 +9,9 @@
 #include <iostream>
 using namespace std;
 
-Ival_slider::Ival_slider(int ll,int hh)
-	: val{ll}, low{ll}, high{hh}
+Ival_slider::Ival_slider(int low,int high, int t, int l, int w, int h)
+	: BBwidget{t,l,(w?w:default_width),(h?h:default_height)},
+	  val{low}, low{low}, high{high}
 {
 }
 
@@ -40,12 +41,10 @@ void Ival_slider::reset_value(int i)
 
 void Ival_slider::prompt()
 {
-	cout << "Ival_slider: up/up/down/up" << endl;
+	cout << "Ival_slider: hit(80,10),hit(50,5)" << endl;
 
-	on_up();
-	on_up();
-	on_down();
-	on_up();
+	on_mouse1hit(80,10);
+	on_mouse1hit(50,5);
 }
 
 bool Ival_slider::was_changed() const
@@ -53,15 +52,12 @@ bool Ival_slider::was_changed() const
 	return changed;
 }
 
-void Ival_slider::on_up()
+void Ival_slider::on_mouse1hit(int x, int y)
 {
-	int i = get_value();
-	set_value(i+1);
-}
+	cout << "Ival_slider::on_mouse1hit(" << x << "," << y << ")\n";
 
-void Ival_slider::on_down()
-{
-	int i = get_value();
-	set_value(i-1);
+	double xx = (double)x / width();
+	int new_val = xx * (high-low) + low;
+	set_value(new_val);
 }
 

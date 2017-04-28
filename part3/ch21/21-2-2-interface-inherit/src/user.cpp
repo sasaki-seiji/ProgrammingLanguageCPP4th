@@ -31,13 +31,13 @@ void interact(Ival_box* pb)
 
 void some_fct()
 {
-	unique_ptr<Ival_box> p1 { new Ival_slider{0,5} };
+	unique_ptr<Ival_box> p1 { new Ival_slider{0,100,100,50} };
 	interact(p1.get());
-	unique_ptr<Ival_box> p2 { new Ival_dial{0} };
+	unique_ptr<Ival_box> p2 { new Ival_dial{0, 100, 100, 150} };
 	interact(p2.get());
-	unique_ptr<Ival_box> p3 { new Flashing_ival_slider{0,10} };
+	unique_ptr<Ival_box> p3 { new Flashing_ival_slider{0,100, 200,50} };
 	interact(p3.get());
-	unique_ptr<Ival_box> p4 { new Popup_ival_slider{0,10} };
+	unique_ptr<Ival_box> p4 { new Popup_ival_slider{0,100, 200, 150} };
 	interact(p4.get());
 }
 

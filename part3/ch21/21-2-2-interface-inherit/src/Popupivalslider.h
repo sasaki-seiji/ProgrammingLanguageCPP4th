@@ -12,7 +12,7 @@
 
 class Popup_ival_slider : public Ival_slider {
 public:
-	Popup_ival_slider(int ll, int hh) : Ival_slider{ll,hh} { }
+	Popup_ival_slider(int low, int high, int t, int l, int w=0, int h = 0);
 
 	void prompt() override;
 };

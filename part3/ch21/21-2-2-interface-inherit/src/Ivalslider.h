@@ -13,7 +13,7 @@
 
 class Ival_slider : public Ival_box, protected BBwidget {
 public:
-	Ival_slider(int,int);
+	Ival_slider(int low,int high, int t, int l, int w=0, int h=0);
 	~Ival_slider() override;
 
 	int get_value() override;
@@ -23,10 +23,10 @@ public:
 	bool was_changed() const override;
 
 protected:
-	void on_up();
-	void on_down();
+	void on_mouse1hit(int x, int y) override;
 
 private:
+	static const int default_width = 100, default_height = 20;
 	int val;
 	int low, high;
 	bool changed {false};

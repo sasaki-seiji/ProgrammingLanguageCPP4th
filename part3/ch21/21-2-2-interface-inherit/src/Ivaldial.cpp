@@ -7,10 +7,12 @@
 
 #include "Ivaldial.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-Ival_dial::Ival_dial(int init)
-	: val{init}
+Ival_dial::	Ival_dial(int low, int high, int t, int l, int w, int h)
+	: BBwidget{t,l,(w?w:default_width),(h?h:default_height)},
+	  low{low}, high{high}, val{low}
 {
 }
 
@@ -38,12 +40,10 @@ void Ival_dial::reset_value(int i)
 
 void Ival_dial::prompt()
 {
-	cout << "Ival_dial: down/down/up/down" << endl;
+	cout << "Ival_dial: hit(40,40)/hit(50,10)" << endl;
 
-	on_down();
-	on_down();
-	on_up();
-	on_down();
+	on_mouse1hit(40,40);
+	on_mouse1hit(50,10);
 }
 
 bool Ival_dial::was_changed() const
@@ -51,14 +51,17 @@ bool Ival_dial::was_changed() const
 	return changed;
 }
 
-void Ival_dial::on_up()
+void Ival_dial::on_mouse1hit(int x, int y)
 {
-	int i = get_value();
-	set_value(i+1);
+	cout << "Ival_dial::on_mouse1hit(" << x << "," << y << ")\n";
+	int center_x = width() / 2;
+	int center_y = height();
+	int yy = center_y - y;
+	int xx = center_x - x;
+	double xxx = xx / sqrt(xx*xx+yy*yy);
+	double theta = acos(xxx);
+	int new_val = static_cast<int>(theta / M_PI * (high-low) + low);
+
+	set_value(new_val);
 }
 
-void Ival_dial::on_down()
-{
-	int i = get_value();
-	set_value(i-1);
-}

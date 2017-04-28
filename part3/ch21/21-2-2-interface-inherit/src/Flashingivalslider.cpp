@@ -11,10 +11,8 @@ using namespace std;
 
 void Flashing_ival_slider::prompt()
 {
-	cout << "Flashing_ival_slider: up/up/up/down" << endl ;
+	cout << "Flashing_ival_slider: hit(20,5)/hit(75,4)" << endl ;
 
-	on_up();
-	on_up();
-	on_up();
-	on_down();
+	on_mouse1hit(20,5);
+	on_mouse1hit(75,4);
 }
