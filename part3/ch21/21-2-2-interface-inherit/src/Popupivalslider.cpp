@@ -9,16 +9,13 @@
 #include <iostream>
 using namespace std;
 
-Popup_ival_slider::Popup_ival_slider(int low, int high, int t, int l, int w, int h)
-	: Ival_slider{low,high,t,l,w,h}
+Popup_ival_slider::Popup_ival_slider(int low, int high, int l, int t, int w, int h)
+	: Ival_slider{low,high,l,t,w,h}
 {
 }
 
 void Popup_ival_slider::prompt()
 {
-	cout << "Popup_ival_slider: hit(20,10)/hit(50,15)" << endl ;
-
-	on_mouse1hit(20,10);
-	on_mouse1hit(50,15);
+	cout << "Popup_ival_slider::prompt()\n" ;
 }
 

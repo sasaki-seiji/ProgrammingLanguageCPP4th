@@ -8,19 +8,14 @@
 #ifndef BBWIDGET_H_
 #define BBWIDGET_H_
 
-class BBwidget {
-private:
-	int t, l, w, h;
-public:
-	BBwidget(int tt, int ll, int ww, int hh)
-		:t(tt), l(ll), w(ww), h(hh) { }
-	int top() const { return t; }
-	int left() const { return l; }
-	int width() const { return w; }
-	int height() const { return h; }
+#include "WinMgr.h"
 
-protected:
-	virtual void on_mouse1hit(int x, int y) { }
+class BBwidget : public Window {
+public:
+	BBwidget(int l=-1, int t=-1, int w=-1, int h=-1, bool visible=true);
+private:
+	static const int default_left = 50, default_top = 20,
+		default_width = 100, default_height = 60;
 };
 
 #endif /* BBWIDGET_H_ */

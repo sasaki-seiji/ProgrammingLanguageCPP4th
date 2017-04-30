@@ -10,9 +10,9 @@
 #include <cmath>
 using namespace std;
 
-Ival_dial::	Ival_dial(int low, int high, int t, int l, int w, int h)
-	: BBwidget{t,l,(w?w:default_width),(h?h:default_height)},
-	  low{low}, high{high}, val{low}
+Ival_dial::	Ival_dial(int low, int high, int l, int t, int w, int h)
+	: BBwidget{l,t,w,h},
+	  val{low}, low{low}, high{high}
 {
 }
 
@@ -38,12 +38,25 @@ void Ival_dial::reset_value(int i)
 	val = i;
 }
 
+void Ival_dial::turn_left()
+{
+	if (low < val) {
+		changed = true;
+		val--;
+	}
+}
+
+void Ival_dial::turn_right()
+{
+	if (val < high) {
+		changed = true;
+		val++;
+	}
+}
+
 void Ival_dial::prompt()
 {
-	cout << "Ival_dial: hit(40,40)/hit(50,10)" << endl;
-
-	on_mouse1hit(40,40);
-	on_mouse1hit(50,10);
+	cout << "Ival_dial::prompt()\n" ;
 }
 
 bool Ival_dial::was_changed() const
@@ -65,3 +78,11 @@ void Ival_dial::on_mouse1hit(int x, int y)
 	set_value(new_val);
 }
 
+void Ival_dial::display_info() const
+{
+	cout << boolalpha;
+	cout << "Ival_dial(left=" << left() << ",top=" << top()
+			<< ",width=" << width() << ",height=" << height()
+			<< ",visible=" << is_visible() << endl;
+	cout << "  value=" << val << ",changed=" << changed << endl;
+}

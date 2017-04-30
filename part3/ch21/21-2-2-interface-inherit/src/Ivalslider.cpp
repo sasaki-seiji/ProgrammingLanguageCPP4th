@@ -9,8 +9,8 @@
 #include <iostream>
 using namespace std;
 
-Ival_slider::Ival_slider(int low,int high, int t, int l, int w, int h)
-	: BBwidget{t,l,(w?w:default_width),(h?h:default_height)},
+Ival_slider::Ival_slider(int low,int high, int l, int t, int w, int h)
+	: BBwidget{l,t,w,h},
 	  val{low}, low{low}, high{high}
 {
 }
@@ -39,12 +39,25 @@ void Ival_slider::reset_value(int i)
 	val = i;
 }
 
+void Ival_slider::incr()
+{
+	if (val < high) {
+		changed = true;
+		val++;
+	}
+}
+
+void Ival_slider::decr()
+{
+	if (low < val) {
+		changed = true;
+		val--;
+	}
+}
+
 void Ival_slider::prompt()
 {
-	cout << "Ival_slider: hit(80,10),hit(50,5)" << endl;
-
-	on_mouse1hit(80,10);
-	on_mouse1hit(50,5);
+	cout << "Ival_slider:prompt()\n";
 }
 
 bool Ival_slider::was_changed() const
@@ -61,3 +74,11 @@ void Ival_slider::on_mouse1hit(int x, int y)
 	set_value(new_val);
 }
 
+void Ival_slider::display_info() const
+{
+	cout << boolalpha;
+	cout << "Ival_slider(left=" << left() << ",top=" << top()
+			<< ",width=" << width() << ",height=" << height()
+			<< ",visible=" << is_visible() << endl;
+	cout << "  value=" << val << ",changed=" << changed << endl;
+}

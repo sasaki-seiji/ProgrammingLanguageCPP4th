@@ -9,10 +9,12 @@
 #include <iostream>
 using namespace std;
 
+Flashing_ival_slider::Flashing_ival_slider(int low, int high, int l, int t, int w, int h)
+	:Ival_slider(low,high,l,t,w,h)
+{
+}
+
 void Flashing_ival_slider::prompt()
 {
-	cout << "Flashing_ival_slider: hit(20,5)/hit(75,4)" << endl ;
-
-	on_mouse1hit(20,5);
-	on_mouse1hit(75,4);
+	cout << "Flashing_ival_slider::prompt()\n" ;
 }
