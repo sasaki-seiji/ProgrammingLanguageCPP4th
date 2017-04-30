@@ -9,15 +9,9 @@
 #include <iostream>
 using namespace std;
 
-BBwidget_with_bells_and_whistles::BBwidget_with_bells_and_whistles(int ll, int hh)
-	: BBslider{ll,hh}
+BBwidget_with_bells_and_whistles::BBwidget_with_bells_and_whistles(int low, int high, int l, int t, int w, int h)
+	: BBslider{low,high,l,t,w,h}
 {
-}
-
-void BBwidget_with_bells_and_whistles::prompt(const char* name)
-{
-	flash();
-	BBslider::prompt(name);
 }
 
 void BBwidget_with_bells_and_whistles::flash()

@@ -13,17 +13,25 @@
 
 class CW_ival_slider : public Ival_slider, protected CWslider {
 public:
-	CW_ival_slider(int ll, int hh) :CWslider{ll,hh} { }
+	CW_ival_slider(int low, int high, int l=0, int t=0, int w=0, int h=0);
 	~CW_ival_slider() { }
 
-	int get_value() override { return CWslider::get_value(); }
-	void set_value(int i) override { CWslider::set_value(i); }
-	void reset_value(int i) override { CWslider::reset_value(i); }
-	void prompt() override { CWslider::prompt("CW_ival_slider"); }
-	bool was_changed() const override { return CWslider::was_changed(); }
+	int get_value() override;
+	void set_value(int i) override;
+	void reset_value(int i) override;
+	void prompt() override;
+	bool was_changed() const override;
 
-	void up() override { CWslider::up(); }
-	void down() override { CWslider::down(); }
+	void incr() override;
+	void decr() override;
+
+	void display_info() const override;
+
+protected:
+	virtual void on_updated(int i) override;
+
+private:
+	bool changed;
 };
 
 #endif /* CWIVALSLIDER_H_ */

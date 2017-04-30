@@ -12,22 +12,19 @@
 
 class CWslider : public CWwidget {
 public:
-	CWslider(int ll, int hh);
+	CWslider(int low, int high, int l=0, int t=0, int w=0, int h=0);
 	~CWslider() { }
 
-	virtual int get_value() { changed = false; return val; }
-	virtual void set_value(int i) { changed = true; val = i; }
-	virtual void reset_value(int i) { changed = false; val = i; }
-	virtual void prompt(const char*);
-	virtual bool was_changed() const { return changed; }
+	int value() const { return val; }
+	void value(int i) { val = i; }
 
-	virtual void up(){ changed = true; ++val; }
-	virtual void down(){ changed = true; --val; }
+protected:
+	void on_mouse1hit(int x, int y) override;
+	virtual void on_updated(int i) { }
 
 private:
 	int val;
 	int low, high;
-	bool changed;
 };
 
 #endif /* CWSLIDER_H_ */

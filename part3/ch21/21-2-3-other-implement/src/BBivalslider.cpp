@@ -6,9 +6,11 @@
  */
 
 #include "BBivalslider.h"
+#include <iostream>
+using namespace std;
 
-BB_ival_slider::BB_ival_slider(int ll, int hh)
-	: BBslider(ll, hh)
+BB_ival_slider::BB_ival_slider(int low, int high, int l, int t, int w, int h)
+	: BBslider{low,high,l,t,w,h}, changed{false}
 {
 }
 
@@ -20,30 +22,48 @@ int BB_ival_slider::get_value()
 void BB_ival_slider::set_value(int i)
 {
 	BBslider::value(i);
+	changed = true;
 }
 
 void BB_ival_slider::reset_value(int i)
 {
-	BBslider::reset(i);
+	BBslider::value(i);
+	changed = false;
 }
 
 void BB_ival_slider::prompt()
 {
-	BBslider::prompt("BB_ival_slider");
+	cout << "BB_ival_slider::prompt()\n";
 }
 
 bool BB_ival_slider::was_changed() const
 {
-	return BBslider::was_changed();
+	return changed;
 }
 
-void BB_ival_slider::up()
+void BB_ival_slider::incr()
 {
-	BBslider::incr();
+	BBslider::value(BBslider::value()+1);
+	changed = true;
 }
 
-void BB_ival_slider::down()
+void BB_ival_slider::decr()
 {
-	BBslider::decr();
+	BBslider::value(BBslider::value()-1);
+	changed = true;
 }
 
+void BB_ival_slider::on_changed(int i)
+{
+	set_value(i);
+}
+
+void BB_ival_slider::display_info() const
+{
+	cout << boolalpha;
+	cout << "BB_ival_slider(left=" << left() << ",top=" << top()
+			<< ",width=" << width() << ",height=" << height()
+			<< ",visible=" << is_visible() << endl;
+	cout << "  value=" << BBslider::value()
+			<< ",changed=" << changed << endl;
+}

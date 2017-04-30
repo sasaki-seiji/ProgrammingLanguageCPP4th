@@ -14,7 +14,7 @@
 class BB_flashing_ival_slider : public Flashing_ival_slider,
 		protected BBwidget_with_bells_and_whistles {
 public:
-	BB_flashing_ival_slider(int, int);
+	BB_flashing_ival_slider(int low, int high, int l=0, int t=0, int w=0, int h=0);
 	~BB_flashing_ival_slider() { }
 
 	int get_value() override;
@@ -23,10 +23,18 @@ public:
 	void prompt() override;
 	bool was_changed() const override;
 
-	void up() override;
-	void down() override;
+	void incr() override;
+	void decr() override;
 
 	void flash() override;
+
+	void display_info() const override;
+
+protected:
+	void on_changed(int i) override;
+
+private:
+	bool changed;
 };
 
 #endif /* BBFLASHINGIVALSLIDER_H_ */

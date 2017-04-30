@@ -9,17 +9,21 @@
 #include <iostream>
 using namespace std;
 
-CWslider::CWslider(int ll, int hh)
-	: val{ll}, low{ll}, high{hh}, changed{false}
+CWslider::CWslider(int low, int high, int l, int t, int w, int h)
+	: CWwidget{l,t,w,h}, val{low}, low{low}, high{high}
 {
 }
 
-void CWslider::prompt(const char* name)
+void CWslider::on_mouse1hit(int x, int y)
 {
-	cout << "Enter value into " << name << ": " << flush ;
+	cout << "CWslider::on_mouse1hit(" << x << "," << y << ")\n";
 
-	int v;
-	cin >> v;
-	set_value(v);
+	double xx = (double)x / width();
+	int new_val = xx * (high-low) + low;
+	if (low <= new_val && new_val <= high) {
+		val = new_val;
+		on_updated(val);
+	}
 }
+
 

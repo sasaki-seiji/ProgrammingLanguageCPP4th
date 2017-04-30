@@ -16,6 +16,9 @@ public:
 	virtual void prompt() = 0;
 	virtual bool was_changed() const = 0;
 	virtual ~Ival_box() { }
+
+	// 2017.04.30 add
+	virtual void display_info() const = 0;
 };
 
 #endif /* IVALBOX_H_ */

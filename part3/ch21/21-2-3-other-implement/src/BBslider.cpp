@@ -9,28 +9,19 @@
 #include <iostream>
 using namespace std;
 
-BBslider::BBslider(int ll, int hh)
-	:val{ll}, low{ll}, high{hh}, changed{false}
+BBslider::BBslider(int low, int high, int l, int t, int w, int h)
+	:BBwidget{l,t,w,h}, val{low}, low{low}, high{high}
 {
 }
 
-void BBslider::prompt(const char* name)
+void BBslider::on_mouse1hit(int x, int y)
 {
-	cout << "enter value into " << name << ": " << flush ;
+	cout << "BBslider::on_mouse1hit(" << x << "," << y << ")\n";
 
-	int v;
-	cin >> v;
-	value(v);
-}
-
-void BBslider::incr()
-{
-	int old = value();
-	value(old+1);
-}
-void BBslider::decr()
-{
-	int old = value();
-	value(old-1);
-
+	double xx = (double)x / width();
+	int new_val = xx * (high-low) + low;
+	if (low <= new_val && new_val <= high) {
+		val = new_val;
+		on_changed(val);
+	}
 }
