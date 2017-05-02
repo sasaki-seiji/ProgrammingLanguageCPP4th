@@ -13,7 +13,7 @@
 
 class Ival_slider : public Ival_box, protected BBwidget {
 public:
-	Ival_slider(int low,int high, int l=-1, int t=-1, int w=-1, int h=-1);
+	Ival_slider(int low,int high, int l=-1, int t=-1, int w=-1, int h=-1, bool visible=true);
 	~Ival_slider() override;
 
 	int get_value() override;
@@ -30,7 +30,7 @@ public:
 protected:
 	void on_mouse1hit(int x, int y) override;
 
-private:
+protected:
 	int val;
 	int low, high;
 	bool changed {false};

@@ -18,3 +18,18 @@ void Flashing_ival_slider::prompt()
 {
 	cout << "Flashing_ival_slider::prompt()\n" ;
 }
+
+void Flashing_ival_slider::display_info() const
+{
+	cout << boolalpha;
+	cout << "Flashing_ival_slider(left=" << left() << ",top=" << top()
+			<< ",width=" << width() << ",height=" << height()
+			<< ",visible=" << is_visible() << endl;
+	cout << "  value=" << val << ",changed=" << changed << endl;
+}
+
+void Flashing_ival_slider::flash()
+{
+	cout << "Flashing_ival_slider::flash()\n";
+}
+

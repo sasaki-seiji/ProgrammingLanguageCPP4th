@@ -15,6 +15,11 @@ public:
 	Popup_ival_slider(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1);
 
 	void prompt() override;
+	void display_info() const override;
+
+	void popup();
+	void popdown();
+
 };
 
 #endif /* POPUPIVALSLIDER_H_ */

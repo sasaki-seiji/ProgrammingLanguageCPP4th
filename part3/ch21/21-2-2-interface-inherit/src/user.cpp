@@ -17,19 +17,24 @@ using namespace std;
 
 void interact(Ival_box* pb)
 {
+	bool changed;
+	int i;
+
 	pb->prompt();
 
 	cout << "old value: " << pb->get_value() << endl;
 
 	pb->set_value(5);
-	bool changed = pb->was_changed();
-	int i = pb->get_value();
-	cout << "new value: " << i << ", changed: " << changed << endl;
+	changed = pb->was_changed();
+	i = pb->get_value();
+	cout << "after set_value(5): " << i << ", changed: " << changed << endl;
+	cout << "after get_value(), changed: " << pb->was_changed() << endl;
 
+	pb->set_value(2);
 	pb->reset_value(7);
 	changed = pb->was_changed();
 	i = pb->get_value();
-	cout << "reset value: " << i << ", changed: " << changed << endl;
+	cout << "set_value(2), reset_value(7): " << i << ", changed: " << changed << endl;
 }
 
 void some_fct()
@@ -116,6 +121,14 @@ void test_turn_left_right()
 	turn_left_right(p1.get());
 }
 
+void test_flash()
+{
+	cout << "-- test_flash() --" << endl;
+
+	unique_ptr<Flashing_ival_slider> p1 { new Flashing_ival_slider{0, 10} };
+	p1.get()->flash();
+}
+
 void hittest()
 {
 	cout << "-- hittest() --\n";
@@ -146,6 +159,39 @@ void hittest()
 	p2.get()->display_info();
 	p3.get()->display_info();
 	p4.get()->display_info();
+
+}
+
+void test_popup_down()
+{
+	cout << "-- test_poupu_down() --\n";
+
+	unique_ptr<Popup_ival_slider> p1 { new Popup_ival_slider{0, 10, 0, 0, 100, 20} };
+
+	cout << "- original state -\n";
+	p1.get()->display_info();
+
+	Window_manager* mgr = Window_manager::get_instance();
+
+	cout << "mouse1hit: (30,10)\n";
+	mgr->mouse1hit(30,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
+
+	cout << "popup(), mouse1hit: (30,10)\n";
+	p1.get()->popup();
+	mgr->mouse1hit(30,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
+
+	cout << "popdown(), mouse1hit: (70,10)\n";
+	p1.get()->popdown();
+	mgr->mouse1hit(70,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
 }
 
 //  add main
@@ -155,5 +201,7 @@ int main()
 	some_fct();
 	test_incr_decr();
 	test_turn_left_right();
+	test_flash();
 	hittest();
+	test_popup_down();
 }

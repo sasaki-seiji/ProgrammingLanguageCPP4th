@@ -9,8 +9,8 @@
 #include <iostream>
 using namespace std;
 
-Ival_slider::Ival_slider(int low,int high, int l, int t, int w, int h)
-	: BBwidget{l,t,w,h},
+Ival_slider::Ival_slider(int low,int high, int l, int t, int w, int h, bool visible)
+	: BBwidget{l,t,w,h,visible},
 	  val{low}, low{low}, high{high}
 {
 }

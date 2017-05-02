@@ -40,6 +40,7 @@ public:
 
 	void add_window(Window* p) { win_list.push_front(p); }
 	void remove_window(Window* p) { win_list.remove(p); }
+	void bring_top(Window* p);
 
 private:
 	static Window_manager* inst;
