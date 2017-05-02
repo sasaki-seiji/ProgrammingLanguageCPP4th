@@ -9,8 +9,8 @@
 #include <iostream>
 using namespace std;
 
-BBslider::BBslider(int low, int high, int l, int t, int w, int h)
-	:BBwidget{l,t,w,h}, val{low}, low{low}, high{high}
+BBslider::BBslider(int low, int high, int l, int t, int w, int h, bool visible)
+	:BBwidget{l,t,w,h,visible}, val{low}, low{low}, high{high}
 {
 }
 

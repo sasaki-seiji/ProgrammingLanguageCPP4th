@@ -10,7 +10,7 @@
 using namespace std;
 
 BB_popup_ival_slider::BB_popup_ival_slider(int low, int high, int l, int t, int w, int h)
-	: BBslider{low,high,l,t,w,h}, changed{false}
+	: BBslider{low,high,l,t,w,h,false}, changed{false}
 {
 }
 
@@ -67,12 +67,14 @@ void BB_popup_ival_slider::on_changed(int i)
 
 void BB_popup_ival_slider::popup()
 {
-	cout << "BB_popup_ival_slider::popup()\n";
+	Window_manager* mgr = Window_manager::get_instance();
+	mgr->bring_top(this);
+	show();
 }
 
 void BB_popup_ival_slider::popdown()
 {
-	cout << "BB_popup_ival_slider::popdown()\n";
+	hide();
 }
 
 void BB_popup_ival_slider::display_info() const

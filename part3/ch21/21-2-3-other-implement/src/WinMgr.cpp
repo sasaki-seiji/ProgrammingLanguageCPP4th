@@ -45,6 +45,12 @@ void Window_manager::mouse1hit(int x, int y)
 	}
 }
 
+void Window_manager::bring_top(Window* p)
+{
+	win_list.remove(p);
+	win_list.push_front(p);
+}
+
 Window_manager* Window_manager::inst = nullptr;
 
 

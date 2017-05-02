@@ -91,20 +91,6 @@ void test_incr_decr()
 	incr_decr(p4.get());
 }
 
-void popup_down(Popup_ival_slider* pivs)
-{
-	pivs->popup();
-	pivs->popdown();
-}
-
-void test_popup_down()
-{
-	cout << "-- test_popup_down() --\n";
-
-	unique_ptr<Popup_ival_slider> p1 { new BB_popup_ival_slider{0,10} };
-	popup_down(p1.get());
-}
-
 void flash(Flashing_ival_slider* fivs)
 {
 	fivs->flash();
@@ -150,14 +136,46 @@ void hittest()
 	p4.get()->display_info();
 }
 
+void test_popup_down()
+{
+	cout << "-- test_poupu_down() --\n";
+
+	unique_ptr<BB_popup_ival_slider> p1 { new BB_popup_ival_slider{0, 10, 0, 0, 100, 20} };
+
+	cout << "- original state -\n";
+	p1.get()->display_info();
+
+	Window_manager* mgr = Window_manager::get_instance();
+
+	cout << "mouse1hit: (30,10)\n";
+	mgr->mouse1hit(30,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
+
+	cout << "popup(), mouse1hit: (30,10)\n";
+	p1.get()->popup();
+	mgr->mouse1hit(30,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
+
+	cout << "popdown(), mouse1hit: (70,10)\n";
+	p1.get()->popdown();
+	mgr->mouse1hit(70,10);
+
+	cout << "- after hittest -\n";
+	p1.get()->display_info();
+}
+
 // add main
 
 int main()
 {
 	some_fct();
 	test_incr_decr();
-	test_popup_down();
 	test_flash();
 	hittest();
+	test_popup_down();
 }
 

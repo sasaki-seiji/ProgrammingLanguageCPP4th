@@ -12,7 +12,7 @@
 
 class BBslider : public BBwidget {
 public:
-	BBslider(int low, int high, int l=0, int t=0, int w=0, int h=0);
+	BBslider(int low, int high, int l=0, int t=0, int w=0, int h=0,bool visible=false);
 	~BBslider() { }
 
 	int value() const { return val; }
