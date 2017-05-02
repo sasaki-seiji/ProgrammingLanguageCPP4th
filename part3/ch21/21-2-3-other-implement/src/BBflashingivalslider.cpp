@@ -47,7 +47,7 @@ bool BB_flashing_ival_slider::was_changed() const
 void BB_flashing_ival_slider::incr()
 {
 	int val = value();
-	if (val < get_high()) {
+	if (val < high()) {
 		value(val+1);
 		changed = true;
 	}
@@ -56,7 +56,7 @@ void BB_flashing_ival_slider::incr()
 void BB_flashing_ival_slider::decr()
 {
 	int val = value();
-	if (get_low() < val) {
+	if (low() < val) {
 		value(val-1);
 		changed = true;
 	}

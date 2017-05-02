@@ -16,9 +16,9 @@ public:
 	~CWslider() { }
 
 	int value() const { return val; }
-	void value(int i) { if (low <= i && i <= high ) val = i; }
-	int get_low() const { return low; }
-	int get_high() const { return high; }
+	void value(int i) { if (lo <= i && i <= hi ) val = i; }
+	int low() const { return lo; }
+	int high() const { return hi; }
 
 protected:
 	void on_mouse1hit(int x, int y) override;
@@ -26,7 +26,7 @@ protected:
 
 private:
 	int val;
-	int low, high;
+	int lo, hi;
 };
 
 #endif /* CWSLIDER_H_ */

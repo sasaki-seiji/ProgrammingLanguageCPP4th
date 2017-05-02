@@ -45,7 +45,7 @@ bool CW_ival_slider::was_changed() const
 
 void CW_ival_slider::incr()
 {
-	if (value() < get_high()) {
+	if (value() < high()) {
 		value(value()+1);
 		changed = true;
 	}
@@ -53,7 +53,7 @@ void CW_ival_slider::incr()
 
 void CW_ival_slider::decr()
 {
-	if (get_low() < value()) {
+	if (low() < value()) {
 		value(value()-1);
 		changed = true;
 	}
