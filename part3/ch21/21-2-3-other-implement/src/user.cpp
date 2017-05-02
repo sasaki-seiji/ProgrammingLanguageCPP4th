@@ -16,17 +16,24 @@ using namespace std;
 
 void interact(Ival_box* pb)
 {
+	bool changed;
+	int i;
+
 	pb->prompt();
 
+	cout << "old value: " << pb->get_value() << endl;
+
 	pb->set_value(5);
+	changed = pb->was_changed();
+	i = pb->get_value();
+	cout << "after set_value(5): " << i << ", changed: " << changed << endl;
+	cout << "after get_value(), changed: " << pb->was_changed() << endl;
 
-	int i = pb->get_value();
-	cout << "new value: " << i << '\n';
-	cout << "was_changed? " << pb->was_changed() << endl;
-
-	pb->reset_value(10);
-	cout << "after reset to 10, new value: " << pb->get_value()
-			<< ", was_changed? " << pb->was_changed() << endl;
+	pb->set_value(2);
+	pb->reset_value(7);
+	changed = pb->was_changed();
+	i = pb->get_value();
+	cout << "set_value(2), reset_value(7): " << i << ", changed: " << changed << endl;
 }
 
 void some_fct()
@@ -45,16 +52,26 @@ void some_fct()
 
 void incr_decr(Ival_slider* ivs)
 {
+	int v;
+	bool changed;
+
 	cout << boolalpha;
 
 	ivs->prompt();
-	cout << "original value: " << ivs->get_value() << endl;
-	ivs->incr(); ivs->incr();
-	cout << "after incr() twice, value: " << ivs->get_value()
-			<< ", changed: " << ivs->was_changed() << endl;
+	changed = ivs->was_changed(); v = ivs->get_value();
+	cout << "original value: " << v << ", changed: " << changed <<  endl;
+
 	ivs->decr();
-	cout << "after decr(), value: " << ivs->get_value()
-			<< ", changed: " << ivs->was_changed() << endl;
+	changed = ivs->was_changed(); v = ivs->get_value();
+	cout << "after decr(), value: " << v << ", changed: " << changed << endl;
+
+	ivs->incr(); ivs->incr();
+	changed = ivs->was_changed(); v = ivs->get_value();
+	cout << "after incr() twice, value: " << v << ", changed: " << changed << endl;
+
+	ivs->decr();
+	changed = ivs->was_changed(); v = ivs->get_value();
+	cout << "after decr(), value: " << v << ", changed: " << changed << endl;
 }
 
 void test_incr_decr()

@@ -16,7 +16,9 @@ CW_ival_slider::CW_ival_slider(int low, int high, int l, int t, int w, int h)
 
 int CW_ival_slider::get_value()
 {
-	return CWslider::value();
+	int val = CWslider::value();
+	changed = false;
+	return val;
 }
 
 void CW_ival_slider::set_value(int i)
@@ -43,14 +45,18 @@ bool CW_ival_slider::was_changed() const
 
 void CW_ival_slider::incr()
 {
-	CWslider::value(CWslider::value()+1);
-	changed = true;
+	if (value() < get_high()) {
+		value(value()+1);
+		changed = true;
+	}
 }
 
 void CW_ival_slider::decr()
 {
-	CWslider::value(CWslider::value()-1);
-	changed = true;
+	if (get_low() < value()) {
+		value(value()-1);
+		changed = true;
+	}
 }
 
 void CW_ival_slider::on_updated(int i)

@@ -18,7 +18,7 @@ BB_flashing_ival_slider::BB_flashing_ival_slider(int low, int high, int l, int t
 int BB_flashing_ival_slider::get_value()
 {
 	int val = BBwidget_with_bells_and_whistles::value();
-	changed = true;
+	changed = false;
 	return val;
 }
 
@@ -46,14 +46,20 @@ bool BB_flashing_ival_slider::was_changed() const
 
 void BB_flashing_ival_slider::incr()
 {
-	int val = BBwidget_with_bells_and_whistles::value();
-	BBwidget_with_bells_and_whistles::value(val+1);
+	int val = value();
+	if (val < get_high()) {
+		value(val+1);
+		changed = true;
+	}
 }
 
 void BB_flashing_ival_slider::decr()
 {
-	int val = BBwidget_with_bells_and_whistles::value();
-	BBwidget_with_bells_and_whistles::value(val-1);
+	int val = value();
+	if (get_low() < val) {
+		value(val-1);
+		changed = true;
+	}
 }
 
 void BB_flashing_ival_slider::on_changed(int i)

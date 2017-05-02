@@ -16,19 +16,21 @@ BB_ival_slider::BB_ival_slider(int low, int high, int l, int t, int w, int h)
 
 int BB_ival_slider::get_value()
 {
-	return BBslider::value();
+	int val = BBslider::value();
+	changed = false;
+	return val;
 }
 
 void BB_ival_slider::set_value(int i)
 {
-	BBslider::value(i);
 	changed = true;
+	BBslider::value(i);
 }
 
 void BB_ival_slider::reset_value(int i)
 {
-	BBslider::value(i);
 	changed = false;
+	BBslider::value(i);
 }
 
 void BB_ival_slider::prompt()
@@ -43,14 +45,18 @@ bool BB_ival_slider::was_changed() const
 
 void BB_ival_slider::incr()
 {
-	BBslider::value(BBslider::value()+1);
-	changed = true;
+	if (value() < get_high()) {
+		value(value()+1);
+		changed = true;
+	}
 }
 
 void BB_ival_slider::decr()
 {
-	BBslider::value(BBslider::value()-1);
-	changed = true;
+	if (get_low() < value()) {
+		value(value()-1);
+		changed = true;
+	}
 }
 
 void BB_ival_slider::on_changed(int i)

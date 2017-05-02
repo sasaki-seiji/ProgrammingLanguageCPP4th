@@ -16,7 +16,9 @@ BB_popup_ival_slider::BB_popup_ival_slider(int low, int high, int l, int t, int 
 
 int BB_popup_ival_slider::get_value()
 {
-	return BBslider::value();
+	int val = BBslider::value();
+	changed = false;
+	return val;
 }
 
 void BB_popup_ival_slider::set_value(int i)
@@ -43,14 +45,18 @@ bool BB_popup_ival_slider::was_changed() const
 
 void BB_popup_ival_slider::incr()
 {
-	BBslider::value(BBslider::value()+1);
-	changed = true;
+	if (value() < get_high()) {
+		value(value()+1);
+		changed = true;
+	}
 }
 
 void BB_popup_ival_slider::decr()
 {
-	BBslider::value(BBslider::value()-1);
-	changed = true;
+	if (get_low() < value()) {
+		value(value()-1);
+		changed = true;
+	}
 }
 
 
