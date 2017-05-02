@@ -138,9 +138,9 @@ void hittest()
 
 void test_popup_down()
 {
-	cout << "-- test_poupu_down() --\n";
+	cout << "-- test_popup_down() --\n";
 
-	unique_ptr<BB_popup_ival_slider> p1 { new BB_popup_ival_slider{0, 10, 0, 0, 100, 20} };
+	unique_ptr<Popup_ival_slider> p1 { new BB_popup_ival_slider{0, 10, 0, 0, 100, 20} };
 
 	cout << "- original state -\n";
 	p1.get()->display_info();
