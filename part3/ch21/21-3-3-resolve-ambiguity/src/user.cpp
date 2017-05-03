@@ -36,12 +36,12 @@ void g(Comm_sat2& cs2)
 	cs2.draw();
 }
 
-void window(Window& w)
+void draw(Window& w)
 {
 	w.draw();
 }
 
-void cowboy(Cowboy& c)
+void draw(Cowboy& c)
 {
 	c.draw();
 }
@@ -60,6 +60,8 @@ int main()
 	g(ts2);
 
 	Cowboy_window cw;
-	window(cw);
-	cowboy(cw);
+	Window &w = cw;
+	Cowboy &c = cw;
+	draw(w);
+	draw(c);
 }
