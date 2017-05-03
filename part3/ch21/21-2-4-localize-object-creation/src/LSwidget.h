@@ -8,9 +8,14 @@
 #ifndef LSWIDGET_H_
 #define LSWIDGET_H_
 
-class LSwidget {
+#include "WinMgr.h"
+
+class LSwidget : public Window {
+private:
+	static const int default_left = 50, default_top = 50,
+				default_width = 100, default_height = 60;
 public:
-	virtual ~LSwidget() { }
+	LSwidget(int l=-1, int t=-1, int w=-1, int h=-1, bool visible=true);
 };
 
 #endif /* LSWIDGET_H_ */

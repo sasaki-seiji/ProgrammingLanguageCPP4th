@@ -13,7 +13,7 @@
 
 class BB_popup_ival_slider : public Popup_ival_slider, protected BBslider {
 public:
-	BB_popup_ival_slider(int, int);
+	BB_popup_ival_slider(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1);
 	~BB_popup_ival_slider() { }
 
 	int get_value() override;
@@ -22,11 +22,19 @@ public:
 	void prompt() override;
 	bool was_changed() const override;
 
-	void up() override;
-	void down() override;
+	void incr() override;
+	void decr() override;
 
 	void popup() override ;
 	void popdown() override ;
+
+	void display_info() const override;
+
+protected:
+	void on_changed(int i) override;
+
+private:
+	bool changed;
 };
 
 #endif /* BBPOPUPIVALSLIDER_H_ */

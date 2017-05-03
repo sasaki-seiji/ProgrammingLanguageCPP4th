@@ -9,53 +9,84 @@
 #include <iostream>
 using namespace std;
 
-BB_popup_ival_slider::BB_popup_ival_slider(int ll, int hh)
-	: BBslider{ll,hh}
+BB_popup_ival_slider::BB_popup_ival_slider(int low, int high, int l, int t, int w, int h)
+	: BBslider{low,high,l,t,w,h,false}, changed{false}
 {
 }
 
 int BB_popup_ival_slider::get_value()
 {
-	return BBslider::value();
+	int val = value();
+	changed = false;
+	return val;
 }
 
 void BB_popup_ival_slider::set_value(int i)
 {
-	BBslider::value(i);
+	if (low() <= i && i <= high()) {
+		value(i);
+		changed = true;
+	}
 }
 
 void BB_popup_ival_slider::reset_value(int i)
 {
-	BBslider::reset(i);
+	if (low() <= i && i <= high()) {
+		value(i);
+		changed = false;
+	}
 }
 
 void BB_popup_ival_slider::prompt()
 {
-	BBslider::prompt("BB_popup_ival_slider");
+	cout << "BB_popup_ival_slider::prompt()\n";
 }
 
 bool BB_popup_ival_slider::was_changed() const
 {
-	return BBslider::was_changed();
+	return changed;
 }
 
-void BB_popup_ival_slider::up()
+void BB_popup_ival_slider::incr()
 {
-	BBslider::incr();
+	if (value() < high()) {
+		value(value()+1);
+		changed = true;
+	}
 }
 
-void BB_popup_ival_slider::down()
+void BB_popup_ival_slider::decr()
 {
-	BBslider::decr();
+	if (low() < value()) {
+		value(value()-1);
+		changed = true;
+	}
+}
+
+
+void BB_popup_ival_slider::on_changed(int i)
+{
+	set_value(i);
 }
 
 void BB_popup_ival_slider::popup()
 {
-	cout << "BB_popup_ival_slider::popup()\n";
+	Window_manager* mgr = Window_manager::get_instance();
+	mgr->bring_top(this);
+	show();
 }
 
 void BB_popup_ival_slider::popdown()
 {
-	cout << "BB_popup_ival_slider::popdown()\n";
+	hide();
 }
 
+void BB_popup_ival_slider::display_info() const
+{
+	cout << boolalpha;
+	cout << "BB_popup_ival_slider: left=" << left()
+			<< ",top=" << top() << ",width=" << width() << ",height=" << height()
+			<< ",visible=" << is_visible()
+			<< ",value=" << value() << ",changed=" << changed << endl;
+
+}

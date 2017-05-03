@@ -12,22 +12,22 @@
 
 class LSdial : public LSwidget {
 public:
-	LSdial(int ll, int hh) : val{ll}, low{ll}, high{ll}, changed{false} { }
+	LSdial(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1,bool visible=true);
 	~LSdial() { }
 
-	virtual int get_value() { changed = false; return val; }
-	virtual void set_value(int i) { changed = true; val = i; }
-	virtual void reset_value(int i) { changed = false; val = i; }
-	virtual void prompt(const char*);
-	virtual bool was_changed() const { return changed; }
+	int value() const { return val; }
+	void value(int i) { if (lo <= i && i <= hi) val = i; }
+	int low() const { return lo; }
+	int high() const { return hi; }
 
-	virtual void right(int n) { changed = true; val+=n; }
-	virtual void left(int n) { changed = true; val+=n; }
+protected:
+	void on_mouse1hit(int x, int y) override;
+	virtual void on_changed(int i) { }
 
 private:
 	int val;
-	int low, high;
-	bool changed;
+	int lo, hi;
 };
+
 
 #endif /* LSDIAL_H_ */
