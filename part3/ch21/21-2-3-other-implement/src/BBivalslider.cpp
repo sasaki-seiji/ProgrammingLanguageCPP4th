@@ -23,14 +23,18 @@ int BB_ival_slider::get_value()
 
 void BB_ival_slider::set_value(int i)
 {
-	changed = true;
-	BBslider::value(i);
+	if (low() <= i && i <= high()) {
+		changed = true;
+		value(i);
+	}
 }
 
 void BB_ival_slider::reset_value(int i)
 {
-	changed = false;
-	BBslider::value(i);
+	if (low() <= i && i <= high()) {
+		changed = false;
+		value(i);
+	}
 }
 
 void BB_ival_slider::prompt()
