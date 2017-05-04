@@ -15,9 +15,9 @@ Popup_ival_slider* popup_slider_factory(int ll, int hh)
 	return new BB_popup_ival_slider(ll, hh);
 }
 
-void interact(Ival_slider* pb)
+void interact(Ival_box* pb)
 {
-	cout << "-- interact(Ival_slider*) --\n";
+	cout << "-- interact(Ival_box*) --\n";
 
 	bool changed;
 	int i;
