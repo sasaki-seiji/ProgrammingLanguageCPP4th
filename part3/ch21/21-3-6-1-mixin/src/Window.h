@@ -16,6 +16,7 @@ class Window {
 public:
 	virtual void set_color(Color) = 0;
 	virtual void prompt() = 0;
+	virtual ~Window() { }
 };
 
 #endif /* WINDOW_H_ */
