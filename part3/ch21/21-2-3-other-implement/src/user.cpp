@@ -19,6 +19,8 @@ void interact(Ival_box* pb)
 	bool changed;
 	int i;
 
+	pb->display_info(); // 2017.05.06 add
+
 	pb->prompt();
 
 	cout << "old value: " << pb->get_value() << endl;
@@ -54,6 +56,8 @@ void incr_decr(Ival_slider* ivs)
 {
 	int v;
 	bool changed;
+
+	ivs->display_info(); // 2017.05.06 add
 
 	cout << boolalpha;
 
@@ -93,6 +97,8 @@ void test_incr_decr()
 
 void flash(Flashing_ival_slider* fivs)
 {
+	fivs->display_info(); // 2017.05.06 add
+
 	fivs->flash();
 }
 
