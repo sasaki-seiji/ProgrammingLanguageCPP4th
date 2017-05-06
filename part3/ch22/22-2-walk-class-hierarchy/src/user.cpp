@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-void my_event_handler(BBwindow* pw)
+void my_event_handler(BBwidget* pw)
 {
 	if (auto pb = dynamic_cast<Ival_box*>(pw)) {
 		int x = pb->get_value();
