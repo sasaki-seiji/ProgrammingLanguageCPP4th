@@ -84,9 +84,9 @@ void BB_popup_ival_slider::popdown()
 void BB_popup_ival_slider::display_info() const
 {
 	cout << boolalpha;
-	cout << "BB_popup_ival_slider(left=" << left()
+	cout << "BB_popup_ival_slider: left=" << left()
 			<< ",top=" << top() << ",width=" << width() << ",height=" << height()
-			<< ",visible=" << is_visible() << endl;
-	cout << "  value=" << value() << ",changed=" << changed << endl;
+			<< ",visible=" << is_visible()
+			<< ",value=" << value() << ",changed=" << changed << endl;
 
 }
