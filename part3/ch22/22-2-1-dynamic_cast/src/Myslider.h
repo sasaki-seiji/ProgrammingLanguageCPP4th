@@ -18,8 +18,10 @@ public:
 	void prompt() override { }
 	bool was_changed() const override { return false; }
 
-	void up() override { }
-	void down() override { }
+	void incr() override { }
+	void decr() override { }
+
+	void display_info() const;
 };
 
 #endif /* MYSLIDER_H_ */

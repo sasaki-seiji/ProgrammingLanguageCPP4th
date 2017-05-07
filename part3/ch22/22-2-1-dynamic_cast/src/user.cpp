@@ -15,11 +15,14 @@ using namespace std;
 
 void f(BB_ival_slider* p)
 {
+	cout << "-- f(BB_ival_slider*) --\n";
+	p->display_info();
+
 	Ival_slider* pi1 = p;
 	Ival_slider* pi2 = dynamic_cast<Ival_slider*>(p);
-	cout << "p: " << p << '\n';
+	cout << "p(BB_ival_slider*): " << p << '\n';
 	cout << "pi1(Ival_slider* pi1 = p): " << pi1 << '\n';
-	cout << "pi2(dynamic_cast<Ival_slider*>(p): " << pi2 << '\n';
+	cout << "pi2(dynamic_cast<Ival_slider*>(p)): " << pi2 << '\n';
 
 	//BBslider* pbb1 = p;
 		// error: 'BBslider' is an inaccessible base of 'BB_ival_slider'
@@ -29,6 +32,8 @@ void f(BB_ival_slider* p)
 
 void g(Ival_box* pb, Date* pd)
 {
+	cout << "-- g(Ival_box*, Date*) --\n";
+
 	My_slider* pb1 = dynamic_cast<My_slider*>(pb);
 	//My_date* pd1 = dynamic_cast<My_date*>(pd);
 		// error: cannot dynamic_cast 'pd' (of type 'struct Date*') to type 'class My_date*' (source type is not polymorphic)
@@ -37,17 +42,19 @@ void g(Ival_box* pb, Date* pd)
 	//void* pd2 = dynamic_cast<void*>(pd);
 		// error: cannot dynamic_cast 'pd' (of type 'struct Date*') to type 'void*' (source type is not polymorphic)
 
-	cout << "pb: " << pb << '\n';
-	cout << "pb1(dynamic_cast<My_slider*>(pb): " << pb1 << '\n';
+	cout << "pb(Ival_box*): " << pb << '\n';
+	cout << "pb1(dynamic_cast<My_slider*>(pb)): " << pb1 << '\n';
 	cout << "pb1(dynamic_cast<void*>(pb): " << pb2 << '\n';
 }
 
 void f(Io_obj* pio)
 {
+	cout << "-- f(Io_obj*) --\n";
+
 	Date* pd = dynamic_cast<Date*>(pio);
 
-	cout << "pio: " << pio << '\n';
-	cout << "pd(dynamic_cast<Date*>(pio): " << pd << '\n';
+	cout << "pio(Io_obj*): " << pio << '\n';
+	cout << "pd(dynamic_cast<Date*>(pio)): " << pd << '\n';
 }
 
 // add main
