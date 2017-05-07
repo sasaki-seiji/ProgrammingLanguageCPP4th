@@ -42,6 +42,7 @@ int main()
 	try {
 		user("circle.txt");
 		user("triangle.txt");
+		user("other.txt");
 	}
 	catch (const exception& e) {
 		cout << e.what() << '\n';
