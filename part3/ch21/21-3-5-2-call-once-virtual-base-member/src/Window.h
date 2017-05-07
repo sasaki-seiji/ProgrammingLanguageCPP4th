@@ -11,6 +11,7 @@
 class Window {
 public:
 	virtual void draw();
+	virtual ~Window() { }
 };
 
 #endif /* WINDOW_H_ */

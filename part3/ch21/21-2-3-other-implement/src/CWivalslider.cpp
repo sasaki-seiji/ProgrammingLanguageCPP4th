@@ -67,9 +67,9 @@ void CW_ival_slider::on_updated(int i)
 void CW_ival_slider::display_info() const
 {
 	cout << boolalpha;
-	cout << "CW_ival_slider(left=" << left() << ",top=" << top()
+	cout << "CW_ival_slider: left=" << left() << ",top=" << top()
 			<< ",width=" << width() << ",height=" << height()
-			<< ",visible=" << is_visible() << endl;
-	cout << "  value=" << CWslider::value()
+			<< ",visible=" << is_visible()
+			<< ",value=" << value()
 			<< ",changed=" << changed << endl;
 }

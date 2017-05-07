@@ -1,7 +1,8 @@
 【22.2.4:　関数ポインタの型別名のコンパイルエラー】
 
-日付：　2016.09.04
+日付：　2016.09.04、2017.05.07
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	テキストの記載の、Io_objを返す関数ポインタ別名の定義が意図通り認識されない
@@ -13,15 +14,16 @@
 	利用箇所
 	io_map[string("Io_circle")] = &Io_circle::new_circle;
 		↓
-cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<char>&)}' to 'std::map<std::__cxx11::basic_string<char>, Io_obj*(std::basic_istream<char>&)>::mapped_type {aka Io_obj*(std::basic_istream<char>&)}' in assignment
+cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basi c_istream<char>&)}' to 'std::map<std::__cxx11::basic_string<char>, Io_obj*(std::basic_istream<char>&)>::mapped_type {aka Io_obj*(std::basic_istream<char>&)}' in assignment
 	関数ポインタ別名定義を以下のように変更：
 	using Pf = Io_obj*(*)(istream&);
 
 
 【22.2.4:　Ioテンプレートクラスの静的関数の戻り値】
 
-日付：　2016.09.04
+日付：　2016.09.04、2017.05.07
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	Ioテンプレートクラスのnew_io関数の戻り値を、Io_obj*としないと、
@@ -35,8 +37,9 @@ cannot convert 'Io_obj* (*)(std::istream&) {aka Io_obj* (*)(std::basic_istream<c
 
 【22.2.4:　テンプレート関数の宣言】
 
-日付：　2016.09.04
+日付：　2016.09.04、2017.05.07
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	get_va<T>テンプレート関数定義時に関数名にテンプレート修飾子をつけている

@@ -13,20 +13,28 @@
 
 class LS_popup_ival_slider : public Popup_ival_slider, protected LSslider {
 public:
-	LS_popup_ival_slider(int ll, int hh) : LSslider{ll, hh} { }
+	LS_popup_ival_slider(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1);
 	~LS_popup_ival_slider() { }
 
-	int get_value() override { return LSslider::get_value(); }
-	void set_value(int i) override { LSslider::set_value(i); }
-	void reset_value(int i) override { LSslider::reset_value(i); }
-	void prompt() override { LSslider::prompt("LS_popup_ival_slider"); }
-	bool was_changed() const override { return LSslider::was_changed(); }
+	int get_value() override;
+	void set_value(int i) override;
+	void reset_value(int i) override;
+	void prompt() override;
+	bool was_changed() const override;
 
-	void up() override { LSslider::up(); }
-	void down() override { LSslider::down(); }
+	void incr() override;
+	void decr() override;
 
 	void popup() override ;
 	void popdown() override ;
+
+	void display_info() const override;
+
+protected:
+	void on_changed(int i) override;
+
+private:
+	bool changed;
 };
 
 #endif /* LSPOPUPIVALSLIDER_H_ */

@@ -11,6 +11,8 @@ using namespace std;
 
 void h1(Radio& r)
 {
+	cout << "-- h1(Radio&: " << &r << ")\n";
+
 	Storable* ps = &r;
 	cout << "ps (Storable* ps = &r): " << ps << '\n';
 

@@ -12,8 +12,8 @@
 
 class Ival_slider : public Ival_box{
 public:
-	virtual void up() = 0;
-	virtual void down() = 0;
+	virtual void incr() = 0;
+	virtual void decr() = 0;
 };
 
 #endif /* IVALSLIDER_H_ */

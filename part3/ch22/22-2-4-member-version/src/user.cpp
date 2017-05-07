@@ -16,6 +16,8 @@ using namespace std;
 
 void user(const char* name)
 {
+	cout << "-- user(\"" << name << "\") --\n";
+
 	ifstream ss;
 	ss.open(name);
 
@@ -31,7 +33,7 @@ void user(const char* name)
 		cout << "int: " << *sp << '\n';
 	}
 	else {
-		cout << "not shape!\n";
+		cout << "unknown object!\n";
 	}
 }
 
@@ -48,6 +50,7 @@ int main()
 		user("circle.txt");
 		user("triangle.txt");
 		user("int.txt");
+		user("other.txt");
 	}
 	catch (const exception& e) {
 		cout << e.what() << '\n';

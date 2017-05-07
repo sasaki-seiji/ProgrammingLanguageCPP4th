@@ -23,14 +23,18 @@ int BB_ival_slider::get_value()
 
 void BB_ival_slider::set_value(int i)
 {
-	changed = true;
-	BBslider::value(i);
+	if (low() <= i && i <= high()) {
+		changed = true;
+		value(i);
+	}
 }
 
 void BB_ival_slider::reset_value(int i)
 {
-	changed = false;
-	BBslider::value(i);
+	if (low() <= i && i <= high()) {
+		changed = false;
+		value(i);
+	}
 }
 
 void BB_ival_slider::prompt()
@@ -67,9 +71,9 @@ void BB_ival_slider::on_changed(int i)
 void BB_ival_slider::display_info() const
 {
 	cout << boolalpha;
-	cout << "BB_ival_slider(left=" << left() << ",top=" << top()
+	cout << "BB_ival_slider: left=" << left() << ",top=" << top()
 			<< ",width=" << width() << ",height=" << height()
-			<< ",visible=" << is_visible() << endl;
-	cout << "  value=" << BBslider::value()
+			<< ",visible=" << is_visible()
+			<< ",value=" << BBslider::value()
 			<< ",changed=" << changed << endl;
 }

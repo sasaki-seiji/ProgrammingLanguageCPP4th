@@ -1,7 +1,7 @@
 /*
  * BBivalslider.h
  *
- *  Created on: 2016/09/02
+ *  Created on: 2016/08/28
  *      Author: sasaki
  */
 
@@ -13,7 +13,8 @@
 
 class BB_ival_slider : public virtual Ival_slider, protected BBslider {
 public:
-	BB_ival_slider(int ll, int hh) : BBslider{ll, hh} { }
+	BB_ival_slider(int low, int high, int l=0, int t=0, int w=0, int h=0);
+	~BB_ival_slider() { }
 
 	int get_value() override;
 	void set_value(int i) override;
@@ -21,8 +22,16 @@ public:
 	void prompt() override;
 	bool was_changed() const override;
 
-	void up() override;
-	void down() override;
+	void incr() override;
+	void decr() override;
+
+	void display_info() const override;
+
+protected:
+	void on_changed(int i) override;
+
+private:
+	bool changed;
 };
 
 #endif /* BBIVALSLIDER_H_ */

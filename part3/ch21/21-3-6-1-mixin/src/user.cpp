@@ -11,7 +11,7 @@ using namespace std;
 
 void f0(Window* w)
 {
-	cout << "f(Window*):\n";
+	cout << "-- f0(Window*) --\n";
 
 	Color color{100,200,50};
 	w->set_color(color);
@@ -20,7 +20,7 @@ void f0(Window* w)
 
 void f1(Window_with_border* w)
 {
-	cout << "f(Window_with_border*):\n";
+	cout << "-- f1(Window_with_border*) --\n";
 
 	Color color{100,200,50};
 	w->set_color(color);
@@ -29,7 +29,7 @@ void f1(Window_with_border* w)
 
 void f2(Window_with_menu* w)
 {
-	cout << "f(Window_with_menu*):\n";
+	cout << "-- f2(Window_with_menu*) --\n";
 
 	Color color{100,200,50};
 	w->set_color(color);
@@ -38,7 +38,7 @@ void f2(Window_with_menu* w)
 
 void f3(My_window* w)
 {
-	cout << "f(My_window*):\n";
+	cout << "-- f3(My_window*) --\n";
 
 	Color color{100,200,50};
 	w->set_color(color);

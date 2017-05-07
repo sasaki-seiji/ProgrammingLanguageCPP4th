@@ -12,7 +12,7 @@
 
 class CWslider : public CWwidget {
 public:
-	CWslider(int low, int high, int l=0, int t=0, int w=0, int h=0);
+	CWslider(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1);
 	~CWslider() { }
 
 	int value() const { return val; }

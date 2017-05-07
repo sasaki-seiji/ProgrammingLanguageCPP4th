@@ -75,10 +75,10 @@ void BB_flashing_ival_slider::flash()
 void BB_flashing_ival_slider::display_info() const
 {
 	cout << boolalpha;
-	cout << "BB_flashing_ival_slider(left=" << left()
+	cout << "BB_flashing_ival_slider: left=" << left()
 			<< ",top=" << top() << ",width=" << width() << ",height=" << height()
-			<< ",visible=" << is_visible() << endl;
-	cout << "  value=" << BBwidget_with_bells_and_whistles::value()
+			<< ",visible=" << is_visible()
+			<< ",value=" << value()
 			<< ",changed=" << changed << endl;
 
 }

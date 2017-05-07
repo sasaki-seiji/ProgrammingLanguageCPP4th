@@ -14,9 +14,9 @@ BB_window_system* BB_window_system::get_instance()
 	return instance;
 }
 
-void BB_window_system::add_event_handler(BBwindow* w, Callback cb)
+void BB_window_system::add_event_handler(BBwidget* w, Callback cb)
 {
-	handlers.push_back(pair<BBwindow*,Callback>(w,cb));
+	handlers.push_back(pair<BBwidget*,Callback>(w,cb));
 }
 
 void BB_window_system::fire_event()

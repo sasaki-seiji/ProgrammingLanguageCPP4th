@@ -1,7 +1,7 @@
 /*
- * Popupibvalslider.h
+ * Popupivalslider.h
  *
- *  Created on: 2016/09/02
+ *  Created on: 2016/08/28
  *      Author: sasaki
  */
 

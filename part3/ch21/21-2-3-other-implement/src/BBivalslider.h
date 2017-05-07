@@ -13,7 +13,7 @@
 
 class BB_ival_slider : public Ival_slider, protected BBslider {
 public:
-	BB_ival_slider(int low, int high, int l=0, int t=0, int w=0, int h=0);
+	BB_ival_slider(int low, int high, int l=-1, int t=-1, int w=-1, int h=-1);
 	~BB_ival_slider() { }
 
 	int get_value() override;
