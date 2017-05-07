@@ -15,7 +15,10 @@ using std::istream;
 using std::string;
 using std::map;
 
-class Unknown_class { };
+class Unknown_class : public std::runtime_error {
+public:
+	Unknown_class(const char* p) : std::runtime_error(p) {};
+};
 
 class Io_obj {
 public:
