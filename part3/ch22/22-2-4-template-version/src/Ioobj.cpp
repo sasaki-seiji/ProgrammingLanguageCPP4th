@@ -21,5 +21,5 @@ Io_obj* get_obj(istream& is)
 	string str = get_word(is);
 	if (auto f = io_map[str])
 		return f(is);
-	throw Unknown_class{};
+	throw Unknown_class{"unknown class"};
 }

@@ -16,6 +16,8 @@ using namespace std;
 
 void user(const char* name)
 {
+	cout << "-- user(\"" << name << "\") --\n";
+
 	ifstream ss;
 	ss.open(name);
 
@@ -40,6 +42,8 @@ int main()
 	try {
 		user("circle.txt");
 		user("triangle.txt");
+		user("other.txt");
+		user("not-exist.txt");
 	}
 	catch (const exception& e) {
 		cout << e.what() << '\n';
