@@ -16,6 +16,8 @@ using namespace std;
 
 void user(const char* name)
 {
+	cout << "-- user(\"" << name << "\") --\n";
+
 	ifstream ss;
 	ss.open(name);
 
