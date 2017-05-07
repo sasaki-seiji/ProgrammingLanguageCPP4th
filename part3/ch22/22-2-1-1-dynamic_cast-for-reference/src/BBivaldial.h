@@ -13,16 +13,25 @@
 
 class BB_ival_dial : public Ival_dial, protected BBdial {
 public:
-	BB_ival_dial(int ll, int hh) : BBdial{ll,hh} { }
+	BB_ival_dial(int ll, int hh, int l=-1, int t=-1, int w=-1, int h=-1);
 
-	int get_value() { return BBdial::value(); }
-	void set_value(int i) { BBdial::value(i); }
-	void reset_value(int i) { BBdial::reset(i); }
-	void prompt() { BBdial::prompt("BB_ival_dial"); }
-	bool was_changed() const { return BBdial::was_changed(); }
+	int get_value() override;
+	void set_value(int i) override;
+	void reset_value(int i) override;
+	void prompt() override;
+	bool was_changed() const override;
 
-	void right(int n) { BBdial::right(n); }
-	void left(int n) { BBdial::left(n); }
+	void turn_right() override;
+	void turn_left() override;
+
+	void display_info() const override;
+
+protected:
+	void on_changed(int i) override;
+
+
+private:
+	bool changed;
 };
 
 #endif /* BBIVALDIAL_H_ */

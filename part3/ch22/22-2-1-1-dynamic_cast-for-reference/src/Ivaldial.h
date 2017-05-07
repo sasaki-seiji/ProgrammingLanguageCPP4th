@@ -12,8 +12,8 @@
 
 class Ival_dial : public Ival_box {
 public:
-	virtual void right(int) = 0;
-	virtual void left(int) = 0;
+	virtual void turn_right() = 0;
+	virtual void turn_left() = 0;
 };
 
 #endif /* IVALDIAL_H_ */
