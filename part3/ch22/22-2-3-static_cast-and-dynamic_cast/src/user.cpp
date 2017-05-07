@@ -13,7 +13,9 @@ using namespace std;
 
 void g(Radio& r)
 {
-	cout << "Radio* &r: " << &r << '\n';
+	cout << "-- g(Radio& r) --\n";
+
+	cout << "&r: " << &r << '\n';
 
 	Receiver* prec = &r;
 	cout << "Receiver* prec = &r: " << prec << '\n';
@@ -36,12 +38,16 @@ void g(Radio& r)
 
 Radio* f1(void* p)
 {
+	cout << "-- f1(void*) --\n";
+
 	Storable* ps = static_cast<Storable*>(p);
 	return dynamic_cast<Radio*>(ps);
 }
 
 void f2(Users* pu, const Receiver* pcr)
 {
+	cout << "-- f2(Users*, const Receiver*) --\n";
+
 	//static_cast<set<Person>*>(pu);
 		// error: 'std::set<Person>' is an inaccessible base of 'Users'
 	//dynamic_cast<set<Person>*>(pu);
