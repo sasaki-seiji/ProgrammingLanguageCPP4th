@@ -14,6 +14,8 @@ using namespace std;
 
 void f(Shape& r, Shape* p)
 {
+	cout << "-- f(Shape&, Shape*) --\n";
+
 	const type_info &ti_r = typeid(r);
 	const type_info &ti_derefence_p = typeid(*p);
 	const type_info &ti_p = typeid(p);
@@ -25,6 +27,7 @@ void f(Shape& r, Shape* p)
 
 struct Poly {
 	virtual void f() { }
+	virtual ~Poly() { }
 };
 
 struct Non_poly { };
@@ -40,6 +43,8 @@ void f(Non_poly& npr, Poly& pr)
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	D1 d1;
 	D2 d2;
 	f(d2,d1);
@@ -76,6 +81,7 @@ int main()
 	Transmitter trans;
 	Radio rad;
 
+	cout << "-- g(Component*) --\n";
 	g(&comp);
 	g(&rec);
 	g(&trans);
