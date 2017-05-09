@@ -28,6 +28,8 @@ void f(Storable* p)
 
 void layout_table_test()
 {
+	cout << "-- loyout_table_test() --\n";
+
 	Component comp;
 	Receiver rec;
 	Transmitter trans;
@@ -58,6 +60,8 @@ void g(Storable* p)
 
 void icon_table_test()
 {
+	cout << "-- icon_table_test() --\n";
+
 	Component comp;
 	Receiver rec;
 	Transmitter trans;
