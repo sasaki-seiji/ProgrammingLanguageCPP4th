@@ -33,7 +33,9 @@ bool intersect_triangle_triangle(const Shape& s1, const Shape& s2)
 	return true;
 }
 
-Shape::PFN_INTERSECT Shape::intersect_tbl[] =
+typedef bool (*PFN_INTERSECT)(const Shape&, const Shape&);
+
+PFN_INTERSECT intersect_tbl[] =
 {
 	intersect_circle_circle,
 	intersect_circle_triangle,
@@ -41,8 +43,13 @@ Shape::PFN_INTERSECT Shape::intersect_tbl[] =
 	intersect_triangle_triangle
 };
 
-bool Shape::intersect(const Shape& s1, const Shape& s2)
+int index(const Shape& s1, const Shape& s2)
 {
-	auto i = s1.type_id()*N_TID+s2.type_id();
+	return s1.type_id() * Shape::N_TID + s2.type_id();
+}
+
+bool intersect(const Shape& s1, const Shape& s2)
+{
+	auto i = index(s1,s2);
 	return intersect_tbl[i](s1,s2);
 }

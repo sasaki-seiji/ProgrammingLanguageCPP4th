@@ -14,7 +14,7 @@ void test(Triangle& t, Circle& c)
 {
 	vector<pair<Shape*,Shape*>> vs { {&t,&t}, {&t,&c}, {&c,&t}, {&c,&c} };
 	for (auto p : vs)
-		Shape::intersect(*p.first, *p.second);
+		intersect(*p.first, *p.second);
 }
 
 // add main
