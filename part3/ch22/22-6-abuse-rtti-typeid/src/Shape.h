@@ -11,6 +11,7 @@
 class Shape {
 public:
 	virtual void draw() = 0;
+	virtual void rotate() = 0;
 	virtual ~Shape() { }
 };
 
@@ -21,6 +22,7 @@ struct Point {
 class Circle : public Shape {
 public:
 	void draw() override;
+	void rotate() override;
 
 	Circle(Point cc={0,0}, int rr={0}) : c{cc}, r{rr} { }
 	Point center() const { return c; }
@@ -35,6 +37,7 @@ private:
 class Triangle : public Shape {
 public:
 	void draw() override;
+	void rotate() override;
 
 	Triangle(Point p1={0,0}, Point p2={0,0}, Point p3={0,0})
 		: pt1{p1}, pt2{p2}, pt3{p3} { }
@@ -52,6 +55,7 @@ private:
 class Square : public Shape {
 public:
 	void draw() override;
+	void rotate() override;
 
 	Square(int x, int y, int w, int h)
 		: left{x}, top{y}, width{w}, height{h} { }

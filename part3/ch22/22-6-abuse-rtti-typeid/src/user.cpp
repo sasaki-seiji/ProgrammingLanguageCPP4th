@@ -11,25 +11,27 @@
 #include <iostream>
 using namespace std;
 
-void rotate(const Shape& r)
+void rotate(Shape& r)
 {
 	if (typeid(r) == typeid(Circle)) {
-		cout << "rotate Circle\n";
+		static_cast<Circle&>(r).rotate();
 	}
 	else if (typeid(r) == typeid(Triangle)) {
-		cout << "rotate Triangle\n";
+		static_cast<Triangle&>(r).rotate();
 	}
 	else if(typeid(r) == typeid(Square))
 	{
-		cout << "rotate Square\n";
+		static_cast<Square&>(r).rotate();
 	}
 }
 
 
 void test_shape(Shape& s)
 {
+	cout << "-- test_shape(Shape&) --\n";
 	s.draw();
 	rotate(s);
+	s.draw();
 }
 
 // add main
