@@ -26,6 +26,8 @@ class Ship : public Object { };
 
 Ship* f(Ship* ps, Container* c)
 {
+	cout << "-- f(Ship*, Container*) --\n";
+
 	c->put(ps);
 
 	Object* p = c->get();
@@ -40,6 +42,8 @@ Ship* f(Ship* ps, Container* c)
 
 Ship* f(Ship* ps, vector<Ship*>& c)
 {
+	cout << "-- f(Ship*, vector<Ship*>&) --\n";
+
 	c.push_back(ps);
 
 	Ship* p = c.back();
@@ -54,6 +58,7 @@ int main()
 	Container c;
 	Ship s;
 	Ship* p = f(&s, &c);
+	cout << boolalpha;
 	cout << "f(&s,Container*) == &s ? " << (p == &s) << '\n';
 
 	vector<Ship*> v;
