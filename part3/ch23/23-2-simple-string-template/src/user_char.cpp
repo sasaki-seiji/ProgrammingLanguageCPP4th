@@ -13,7 +13,7 @@ using namespace std;
 
 void test_19_3_6_for_char()
 {
-	cout << "-- total test for String<char>\n" << flush;
+	cout << "-- total test for String<char>\n";
 
 	String<char> s ("abcdefghij");
 	cout << s << '\n';
