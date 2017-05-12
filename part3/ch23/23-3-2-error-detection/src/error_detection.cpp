@@ -31,10 +31,12 @@ void f(const List<int>&li, const List<Rec>& lr)
 	lr.print_all();
 }
 
+
 // add main
 
 int main()
 {
+	List<int> li0;
 	List<int> li(10);
 	li.add_head(20);
 	li.add_head(-5);
@@ -43,6 +45,5 @@ int main()
 	lr.add_head(Rec{"seiji", "hiroshima"});
 
 	f(li, lr);
-	//li.print_all();
 }
 
