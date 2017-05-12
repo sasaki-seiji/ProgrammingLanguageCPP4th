@@ -18,7 +18,6 @@ public:
 		//virtual bool intersect(const T&) const = 0;
 			// error: templates may not be 'virtual'
 		bool intersect(const T&) const;
-			// error: templates may not be 'virtual'
 };
 
 class Circle : public Shape {
