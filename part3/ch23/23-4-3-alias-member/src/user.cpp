@@ -11,11 +11,11 @@
 using namespace std;
 
 template<typename T>
-T sum(Vector<T>& v)
+T sum(const Vector<T>& v)
 {
 	typename Vector<T>::value_type ans = T{};
 
-	for (typename Vector<T>::iterator it = v.begin(); it!=v.end(); ++it)
+	for (typename Vector<T>::const_iterator it = v.begin(); it!=v.end(); ++it)
 		ans += *it;
 
 	return ans;

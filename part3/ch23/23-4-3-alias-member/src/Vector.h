@@ -12,29 +12,20 @@
 #include <algorithm>
 
 template<typename T>
-class Vector_iter {
-	T* cur;
-public:
-	Vector_iter(T* p) : cur{p} { }
-	T& operator*() { return *cur; }
-	T* operator->() { return cur; }
-	bool operator==(Vector_iter other) { return cur == other.cur; }
-	bool operator!=(Vector_iter other) { return !(*this==other); }
-	Vector_iter& operator++() { ++cur; return *this; }
-};
-
-template<typename T>
 class Vector {
-	int sz;
+	size_t sz;
 	T* elem;
 public:
 	using value_type = T;
-	using iterator = Vector_iter<T>;
+	using iterator = T*;
+	using const_iterator = const T*;
 
 	Vector(std::initializer_list<T>);
 
-	Vector_iter<T> begin() { return Vector_iter<T>(elem); }
-	Vector_iter<T> end() { return Vector_iter<T>(elem+sz); }
+	iterator begin() { return elem; }
+	iterator end() { return elem+sz; }
+	const_iterator begin() const { return elem; }
+	const_iterator end() const { return elem+sz; }
 };
 
 template<typename T>
