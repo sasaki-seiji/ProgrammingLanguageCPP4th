@@ -50,7 +50,6 @@ int* p = &Y<int>::a;
 template<typename T>
 int Y<T>::a = 123;
 
-
 // add main
 
 int main()
@@ -64,6 +63,7 @@ int main()
 	cout << "X<string>::m3: " << X<string>::m3 << '\n';
 
 	X<int>::m3 = 100;
+	cout << "- after X<int>::m3 = 100;\n";
 	cout << "X<int>::m3: " << X<int>::m3 << '\n';
 	cout << "X<string>::m3: " << X<string>::m3 << '\n';
 
@@ -73,6 +73,6 @@ int main()
 	X<int>::f2();
 	X<string>::f2();
 
-	cout << "p: " << p << '\n';
+	cout << "p: " << p << ", *p: " << *p << endl;
 }
 
