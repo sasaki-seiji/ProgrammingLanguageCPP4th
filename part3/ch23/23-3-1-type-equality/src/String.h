@@ -12,6 +12,8 @@
 #include <iostream>
 #include <utility>
 #include <cstring>
+#include <cctype>
+#include <cwctype>
 
 template<typename C>
 class String {
@@ -64,30 +66,174 @@ private:
 	}
 
 	void copy_from(const String& x);
-	void move_from(String&& x);
+	void move_from(String& x);
 };
+
+
+// internal functions
+
+// 2017.05.11 change
+template<typename C>
+C* expand(const C* ptr, int old_sz, int new_sz)
+{
+	C* p = new C[new_sz];
+	memcpy(p, ptr, sizeof(C)*old_sz);
+	return p;
+}
+
+
+template<typename C>
+void String<C>::copy_from(const String& x)
+{
+	if (x.sz<short_max) {
+		memcpy(this, &x, sizeof(x));
+		ptr = ch;
+	}
+	else {
+		ptr = expand(x.ptr, x.sz+1, x.sz+1);
+		sz = x.sz;
+		space = 0;
+	}
+}
+
+template<typename C>
+void String<C>::move_from(String& x)
+{
+	if (x.sz<=short_max) {
+		memcpy(this, &x, sizeof(x));
+		ptr = ch;
+	}
+	else {
+		ptr = x.ptr;
+		sz = x.sz;
+		space = x.space;
+		x.ptr = x.ch;
+		x.sz = 0;
+		x.ch[0] = 0;
+	}
+}
+
+
+// template member functions
+
+template<typename C>
+String<C>::String()
+	: sz{0}, ptr{ch}
+{
+	ch[0] = 0;
+}
+
+template<typename C>
+String<C>::String(const C* p)
+{
+	int len;
+	for (len = 0; p[len]; ++len)
+		;
+	sz = len;
+	if (sz <=short_max) {
+		ptr = ch;
+	}
+	else {
+		ptr = new C[sz+1];
+		space = 0;
+	}
+
+	std::memcpy(ptr, p, sizeof(C)*(sz+1));
+}
+
+template<typename C>
+String<C>::String(const String& x)
+{
+	copy_from(x);
+}
+
+template<typename C>
+String<C>::String(String&& x)
+{
+	move_from(x);
+}
+
+template<typename C>
+String<C>& String<C>::operator=(const String& x)
+{
+	if (this==&x) return *this;
+	C* p = (short_max<sz) ? ptr : 0;
+	copy_from(x);
+	delete[] p;
+	return *this;
+}
+
+template<typename C>
+String<C>& String<C>::operator=(String&& x)
+{
+	if (this==&x) return *this;
+	if (short_max < sz) delete[] ptr;
+	move_from(x);
+	return *this;
+}
+
+template<typename C>
+String<C>& String<C>::operator+=(C c)
+{
+	if (sz==short_max) {
+		int n = sz+sz+2;
+		ptr = expand(ptr,sz+1,n);
+		space = n-sz-2;
+	}
+	else if (short_max<sz) {
+		if (space==0) {
+			int n = sz+sz+2;
+			C* p = expand(ptr, sz+1, n);
+			delete[] ptr;
+			ptr = p;
+			space = n-sz-2;
+		}
+		else
+			--space;
+	}
+
+	ptr[sz] = c;
+	ptr[++sz] = 0;
+
+	return *this;
+}
 
 
 // template global operators
 
 template<typename C>
-std::ostream& operator<<(std::ostream& os, const String<C>& s)
+std::basic_ostream<C>& operator<<(std::basic_ostream<C>& os, const String<C>& s)
 {
 	return os << s.c_str();
 
 }
 
+
+
+// 2017.05.11 change, but does not work for wcin
+
+#if 0
 template<typename C>
-std::istream& operator>>(std::istream& is, String<C>& s)
+bool temp_isspace(C ch);
+#endif
+
+inline bool temp_isspace(char ch)
+{
+	return isspace(ch);
+}
+
+inline bool temp_isspace(wchar_t ch)
+{
+	return iswspace(ch);
+}
+
+template<typename C>
+std::basic_istream<C>& operator>>(std::basic_istream<C>& is, String<C>& s)
 {
 	s.clear();
 	is >> std::ws;
-#if 0
 	C ch;
-#else
-	char ch;
-#endif
-	while(is.get(ch) && !isspace(ch))
+	while(is.get(ch) && !temp_isspace(ch))
 		s += ch;
 	return is;
 }
@@ -228,135 +374,6 @@ String<C> operator"" _s(const char* p, size_t)
 }
 #endif
 
-
-// template member functions
-
-template<typename C>
-String<C>::String()
-	: sz{0}, ptr{ch}
-{
-	ch[0] = 0;
-}
-
-template<typename C>
-String<C>::String(const C* p)
-{
-	int len;
-	for (len = 0; p[len]; ++len)
-		;
-	sz = len;
-	if (sz <=short_max) {
-		ptr = ch;
-	}
-	else {
-		ptr = new C[sz+1];
-		space = 0;
-	}
-
-	std::memcpy(ptr, p, sizeof(C)*(sz+1));
-}
-
-template<typename C>
-String<C>::String(const String& x)
-{
-	copy_from(x);
-}
-
-template<typename C>
-String<C>::String(String&& x)
-{
-	//move_from(x);
-	move_from(std::move(x));
-		// error: cannot bind 'String' lvalue to 'String&&'
-}
-
-template<typename C>
-String<C>& String<C>::operator=(const String& x)
-{
-	if (this==&x) return *this;
-	C* p = (short_max<sz) ? ptr : 0;
-	copy_from(x);
-	delete[] p;
-	return *this;
-}
-
-template<typename C>
-String<C>& String<C>::operator=(String&& x)
-{
-	if (this==&x) return *this;
-	if (short_max < sz) delete[] ptr;
-	//move_from(x);
-	move_from(std::move(x));
-		// error: cannot bind 'String' lvalue to 'String&&'
-	return *this;
-}
-
-template<typename C>
-C* expand(const C* ptr, int n)
-{
-	C* p = new C[n];
-	//strcpy(p,ptr);
-	memcpy(p, ptr, sizeof(C)*n);
-	return p;
-}
-
-
-template<typename C>
-void String<C>::copy_from(const String& x)
-{
-	if (x.sz<short_max) {
-		memcpy(this, &x, sizeof(x));
-		ptr = ch;
-	}
-	else {
-		ptr = expand(x.ptr, x.sz+1);
-		sz = x.sz;
-		space = 0;
-	}
-}
-
-template<typename C>
-void String<C>::move_from(String&& x)
-{
-	if (x.sz<=short_max) {
-		memcpy(this, &x, sizeof(x));
-		ptr = ch;
-	}
-	else {
-		ptr = x.ptr;
-		sz = x.sz;
-		space = x.space;
-		x.ptr = x.ch;
-		x.sz = 0;
-		x.ch[0] = 0;
-	}
-}
-
-template<typename C>
-String<C>& String<C>::operator+=(C c)
-{
-	if (sz==short_max) {
-		int n = sz+sz+2;
-		ptr = expand(ptr,n);
-		space = n-sz-2;
-	}
-	else if (short_max<sz) {
-		if (space==0) {
-			int n = sz+sz+2;
-			C* p = expand(ptr, n);
-			delete[] ptr;
-			ptr = p;
-			space = n-sz-2;
-		}
-		else
-			--space;
-	}
-
-	ptr[sz] = c;
-	ptr[++sz] = 0;
-
-	return *this;
-}
 
 
 #endif /* STRING_H_ */

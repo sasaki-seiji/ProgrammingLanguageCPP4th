@@ -22,7 +22,7 @@ String<uchar> s5;
 String<char> s6;
 
 template<typename T, int N>
-class Buffer { };
+class Buffer { T buf[N]; };
 
 Buffer<String<char>, 10> b1;
 Buffer<char, 10> b2;
