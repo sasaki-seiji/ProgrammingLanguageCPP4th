@@ -43,8 +43,8 @@ int main()
 	cout << "X<int>::a: " << X<int>::a << '\n';
 	cout << "X<int>::b: " << X<int>::b << '\n';
 
-	cout << "X<int>::E3::a: " << (int)X<int>::E3::a << '\n';
-	cout << "X<int>::E3::b: " << (int)X<int>::E3::b << '\n';
+	cout << "(int)X<int>::E3::a: " << (int)X<int>::E3::a << '\n';
+	cout << "(int)X<int>::E3::b: " << (int)X<int>::E3::b << '\n';
 		// need cast to (int)
 
 	cout << "X<int>::x: " << X<int>::x << '\n';
