@@ -212,8 +212,10 @@ std::basic_ostream<C>& operator<<(std::basic_ostream<C>& os, const String<C>& s)
 
 // 2017.05.11 change, but does not work for wcin
 
+#if 0
 template<typename C>
 bool temp_isspace(C ch);
+#endif
 
 inline bool temp_isspace(char ch)
 {
