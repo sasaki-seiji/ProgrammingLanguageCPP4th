@@ -10,19 +10,17 @@
 #include <iostream>
 #include <utility>
 #include <functional>
-#include <string.h>
-using std::vector;
-using std::string;
-using std::cout;
-using std::swap;
+#include <cstring>
+#include <strings.h> // for linux
+using namespace std;
 
-// 2016.09.13 add
+// 2017.05.13 change
 template<typename T>
-void print(const vector<T>& v)
+ostream& operator<<(ostream& os, const vector<T>& v)
 {
 	for (auto& x : v)
 		cout << x << ' ';
-	cout << '\n';
+	return os;
 }
 
 // version 1
@@ -32,9 +30,9 @@ template<typename T> void sort(vector<T>&);
 void f(vector<int>& vi, vector<string>& vs)
 {
 	sort(vi);
-	print(vi);
+	cout << "vi: " << vi << endl;
 	sort(vs);
-	print(vs);
+	cout << "vs: " << vs << endl;
 }
 
 template<typename T>
@@ -58,9 +56,9 @@ template<typename T> void sort2(vector<T>&);
 void f2(vector<int>& vi, vector<string>& vs)
 {
 	sort2(vi);
-	print(vi);
+	cout << "vi: " << vi << endl;
 	sort2(vs);
-	print(vs);
+	cout << "vs: " << vs << endl;
 }
 
 template<typename T>
@@ -86,14 +84,14 @@ struct No_case {
 void f3(vector<int>& vi, vector<string>& vs)
 {
 	sort3(vi);
-	print(vi);
-	sort3<int,std::greater<int>>(vi);
-	print(vi);
+	cout << "vi: " << vi << endl;
+	sort3<int,greater<int>>(vi);
+	cout << "sort<int,greater<int>> vi: " << vi << endl;
 
 	sort3(vs);
-	print(vs);
+	cout << "vs: " << vs << endl;
 	sort3<string,No_case>(vs);
-	print(vs);
+	cout << "sort<string,No_case> vs: " << vs << endl;
 }
 
 template<typename T, typename Compare>
@@ -111,26 +109,24 @@ void sort3(vector<T>& v)
 
 bool No_case::operator()(const string& a, const string& b) const
 {
-	return stricmp(a.c_str(), b.c_str()) < 0;
+	//return stricmp(a.c_str(), b.c_str()) < 0;		// for Windows
+	return strcasecmp(a.c_str(), b.c_str()) < 0;	// for Linux
 }
 
 // add main
 
 int main()
 {
-	cout << "-- f(vi,vs):\n";
-	vector<int> vi { 2,3,1,40, 20, 30, 3, 2, 5};
+	vector<int> vi { 2, 3, 1, 40, 20, 30, 3, 2, 5};
 	vector<string> vs { "abc", "ABC", "xyz", "123", "XYZ" };
+
+	cout << "-- f(vi,vs):\n";
 	f(vi, vs);
 
 	cout << "\n-- f2(vi,vs):\n";
-	vi = { 2,3,1,40, 20, 30, 3, 2, 5};
-	vs = { "abc", "ABC", "xyz", "123", "XYZ" };
 	f2(vi, vs);
 
 	cout << "\n-- f3(vi,vs):\n";
-	vi = { 2,3,1,40, 20, 30, 3, 2, 5};
-	vs = { "abc", "ABC", "xyz", "123", "XYZ" };
 	f3(vi, vs);
 }
 
