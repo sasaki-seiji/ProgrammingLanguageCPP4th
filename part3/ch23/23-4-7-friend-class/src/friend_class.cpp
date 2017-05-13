@@ -22,8 +22,10 @@ class My_class {
 		// error: 'C3' does not name a type
 	friend class C4;
 
+	int val {-100};
+
 public:
-	int get_other_val(My_other_class<T>& o)
+	int get_my_other_val(My_other_class<T>& o)
 	{
 		return o.val;
 	}
@@ -41,17 +43,20 @@ class My_other_class {
 
 class C {
 public:
-	int get_other_val(My_other_class<C>& o)
-	{ return o.val; }
+	template<typename T>
+		int get_my_val(My_class<T>& o) { return o.val; }
+	int get_my_other_val(My_other_class<C>& o) { return o.val; }
 };
+
 // add main
 
 int main()
 {
 	My_other_class<C> other;
 	C c;
-	cout << "access My_other_class<C> from C: " << c.get_other_val(other) << '\n';
+	cout << "access My_other_class<C> from C: " << c.get_my_other_val(other) << '\n';
 	My_class<C> mycls;
-	cout << "access My_ohter_class<C> from My_class<C>: " << mycls.get_other_val(other) << '\n';
+	cout << "access My_ohter_class<C> from My_class<C>: " << mycls.get_my_other_val(other) << '\n';
+	cout << "access My_class<C> from C: " << c.get_my_val(mycls) << endl;
 }
 
