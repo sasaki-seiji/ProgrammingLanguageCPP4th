@@ -28,6 +28,7 @@ T& lookup(Buffer<T,max>& b, const T& v);
 
 string& f(Buffer<string, 128>& buf, const string& v)
 {
+	cout << "-- f(Buffer<string, 28>&, const string&) --\n";
 	return lookup(buf, v);
 }
 
@@ -81,12 +82,14 @@ T* create();
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	vector<int> v;
 	int* p = create<int>();
 	//int* q = create();
 		// error: no matching function for call to 'create()'
 
-	cout << "*p: " << *p << '\n';
+	cout << "p = " << p << ", *p = " << *p << endl;
 }
 
 // add undef
@@ -111,8 +114,8 @@ int main()
 	f(buf, "this") = "that";
 	buf.print(cout);
 
-	cout << "x: " << typeid(x).name() << '\n';
-	cout << "y: " << typeid(y).name() << '\n';
+	cout << "typeid(x): " << typeid(x).name() << '\n';
+	cout << "typeid(y): " << typeid(y).name() << '\n';
 
 	f();
 }
