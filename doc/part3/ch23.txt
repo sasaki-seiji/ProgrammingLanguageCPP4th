@@ -1,0 +1,14 @@
+【23.5:　大文字・小文字を区別しない文字列比較】
+
+日付：2017.05.13
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+参考：　http://kazmax.zpp.jp/cmd/s/strcasecmp.3.html
+コメント：
+
+	Linux環境では、大文字と小文字を区別しない文字列比較では、stricmpではなく
+	strcasecmp関数を利用する
+
+	#include <strings.h>
+
+	int strcasecmp(const char *s1, const char *s2);
+
