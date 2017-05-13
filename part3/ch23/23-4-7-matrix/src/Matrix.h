@@ -105,7 +105,7 @@ ostream& operator<<(ostream& os, const Matrix<T>& m)
 {
 	os << "[\n";
 	for (int i = 0; i < rc_max; ++i)
-		os << '\t' << m.v[i] << '\n';
+		os << "    " << m.v[i] << '\n';
 	os << "]\n";
 	return os;
 }
