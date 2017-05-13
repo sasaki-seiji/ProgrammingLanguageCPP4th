@@ -9,23 +9,19 @@
 #define ALLOCATOR_H_
 
 #include <cstddef>
-using std::size_t;
+#include <cstdlib>
+using namespace std;
 
 class My_allocator {
 public:
-	void* allocate(size_t sz) { return new char[sz]; }
-	void deallocate(void* p, size_t sz)
-	{ delete [ ] static_cast<char*>(p); }
+	void* allocate(size_t sz) { return ::operator new(sz); }
+	void deallocate(void* p, size_t) { ::operator delete(p); }
 };
 
 class Your_allocator {
-	constexpr static int max = 1000;
-	char buf[max];
-	int free;
 public:
-	Your_allocator() : free{0} { }
-	void* allocate(size_t);
-	void deallocate(void*, size_t) { }
+	void* allocate(size_t sz) { return malloc(sz); }
+	void deallocate(void* p, size_t) { free(p); }
 };
 
 #endif /* ALLOCATOR_H_ */

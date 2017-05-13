@@ -11,18 +11,24 @@
 #include <iostream>
 using namespace std;
 
+template<typename Iter, typename T>
+Iter find(Iter b, Iter e, const T& v)
+{
+	for ( ;b != e; ++b) {
+		if (*b == v) return b;
+	}
+	return e;
+}
+
 
 void fct(List<int, My_allocator>::Iterator b, List<int, My_allocator>::Iterator e)
 {
-	//auto p = find(b,e,17);
-		// error: no matching function for call to 'find(List<int, My_allocator>::Iterator&, List<int, My_allocator>::Iterator&, int)'
-		// note:   couldn't deduce template parameter 'A'
-	auto p = find<int,My_allocator>(b,e,17);
+	auto p = find(b,e,17);
 
 	if (p!=e)
-		cout << "found\n";
+		cout << "found: 17\n";
 	else
-		cout << "not found\n";
+		cout << "not found: 17\n";
 }
 
 void user(List<int, My_allocator>& lm, List<int, Your_allocator>& ly)
@@ -35,13 +41,13 @@ void user(List<int, My_allocator>& lm, List<int, Your_allocator>& ly)
 int main()
 {
 	List<int, My_allocator> lim;
-	lim.add_head(10);
-	lim.add_head(17);
-	lim.add_head(20);
+	lim.push_front(10);
+	lim.push_front(17);
+	lim.push_front(20);
 
 	List<int, Your_allocator> liy;
-	liy.add_head(10);
-	liy.add_head(20);
+	liy.push_front(10);
+	liy.push_front(20);
 
 	user(lim, liy);
 }
