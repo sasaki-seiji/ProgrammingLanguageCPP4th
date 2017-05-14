@@ -37,6 +37,8 @@ double sqrt(double);
 
 void f(complex<double> z)
 {
+	cout << "-- f(complex<double>) --\n";
+
 	sqrt(2);
 	sqrt(2.0);
 	sqrt(z);
@@ -52,6 +54,8 @@ const int s = 7;
 
 void k()
 {
+	cout << "-- k() --\n";
+
 	max(1,2);
 	max('a','b');
 	max(2.7,4.9);
