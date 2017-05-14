@@ -10,16 +10,16 @@
 using namespace std;
 
 template<typename T>
-class B { };
+class B { int x{100}; };
 
 template<typename T>
-class D : public B<T> { };
+class D : public B<T> { int y{200}; };
 
 template<typename T> void f(B<T>*);
 
 void g(B<int>* pb, D<int>* pd)
 {
-	f(pd);
+	f(pb);
 	f(pd);
 }
 
