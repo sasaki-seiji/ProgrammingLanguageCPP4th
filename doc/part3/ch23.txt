@@ -12,3 +12,38 @@
 
 	int strcasecmp(const char *s1, const char *s2);
 
+
+【23.5.2.1:　参照の導出の流れ】
+
+日付：2017.05.14
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+①	auto p1 = make_unique<Xref<string>>(17,"Here");
+
+	では、make_uniqueのテンプレート引数Aは、const char*&と導出される
+
+		auto p3 = make_unique<Xref<string>,string>(27,"Here");
+
+	のように、明示的にテンプレート引数を指定する必要がある
+
+②	auto p3 = make_unique<Xref<string>,string>(27,"Here");
+
+	とした場合は、make_uniqueのテンプレート引数Aはstring、関数引数aは、
+	string("Here")となる。
+	但し、make_unique関数の中では、関数引数aのスコープが有効となるので、
+	aは左辺値として扱われる
+	この結果、foward<A>(a)、つまりfoward<string>(a)は、aが左辺値あるため
+	最初のforwardがマッチする
+	forwardの中で、static_cast<T&&>(t)、つまりstatic_cast<string&&>(t)により
+	stringの値tが右辺値に変換され、new TT{i, forward<A>(a)}、つまり
+	new Xref{i, forward<string>(string("Here")} は、コンストラクタ呼び出し
+	Xref(int,string&&)にマッチする
+
+③	最初の①では、make_unique内で、new TT{i, forward<A>(a)}は、
+	new Xref{i, forward<const char*&>("Here")}と解釈され、
+	最初のfowardにより、new Xref{i, "Here"}と解釈され、"Here"からテンポラリの
+	stringオブジェクトが作られることにより、Xref(int,string&&)にマッチする
+	
+	
+	
