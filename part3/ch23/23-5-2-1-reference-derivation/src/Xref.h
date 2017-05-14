@@ -8,26 +8,27 @@
 #ifndef XREF_H_
 #define XREF_H_
 
-#include <ostream>
-using std::ostream;
+#include <iostream>
+using namespace std;
 
 template<typename T>
 class Xref {
 public:
 	Xref(int i, T* p)
 		:index{i}, elem{p}, owned{true}
-	{}
+	{ cout << "Xref(int:" << index <<",T*:" << *elem << ")\n"; }
 
 	Xref(int i, T& r)
 		:index{i}, elem{&r}, owned{false}
-	{}
+	{ cout << "Xref(int:" << index << ",T&:" << *elem << ")\n"; }
 
 	Xref(int i, T&& r)
 		:index{i}, elem{new T{move(r)}}, owned{true}
-	{}
+	{ cout << "Xref(int:" << index << ",T&&:" << *elem << ")\n"; }
 
 	~Xref()
 	{
+		cout << "~Xref(): index=" << index << ",*elem=" << *elem << ",owned=" << owned << "\n";
 		if (owned) delete elem;
 	}
 

@@ -16,7 +16,8 @@ template<typename T>
 T&& my_forward(typename remove_reference<T>::type& t)
 {
 	cout << "my_forward(typename remove_reference<"
-			<< typeid(T).name() << ">::type&)\n";
+			<< typeid(T).name() << ">::type&)\n"
+			<< "  is_lvalue_reference<T>: " << std::is_lvalue_reference<T>::value << endl;
 	return static_cast<T&&>(t);
 }
 
@@ -24,7 +25,8 @@ template<typename T>
 T&& my_forward(typename remove_reference<T>::type&& t)
 {
 	cout << "my_forward(typename remove_reference<"
-			<< typeid(T).name() << ">::type&&)\n";
+			<< typeid(T).name() << ">::type&&)\n"
+			<< "  is_lvalue_reference<T>: " << std::is_lvalue_reference<T>::value << endl;
 	return static_cast<T&&>(t);
 }
 

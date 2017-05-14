@@ -28,10 +28,13 @@ int main()
 	r2.print(cout);
 	r3.print(cout);
 
-	auto p1 = make_unique<Xref<string>>(7,"Here");
+	auto p1 = make_unique<Xref<string>>(17,"Here");
 	p1.get()->print(cout);
 
-	auto p2 = make_unique<Xref<string>>(9,x);
+	auto p2 = make_unique<Xref<string>>(19,x);
 	p2.get()->print(cout);
+
+	auto p3 = make_unique<Xref<string>,string>(27,"Here");
+	p3.get()->print(cout);
 }
 
