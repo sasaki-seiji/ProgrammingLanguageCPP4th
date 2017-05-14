@@ -19,6 +19,8 @@ T max(T a,T b)
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	max<int>('a', 1);
 	max<double>(2.7, 4);
 }
@@ -30,6 +32,8 @@ inline double max(double d1, double d2) { return max<double>(d1,d2); }
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	max('a', 1);
 	max(2.7, 4);
 }
