@@ -11,6 +11,7 @@ namespace MyLib {
 }
 
 //#define std MyLib
+	// error: conflicting declaration ‘MyLib::ostream MyLib::cerr’
 	// extern ostream cerr;  /// Linked to standard error (unbuffered)
 #include "out.h"
 
