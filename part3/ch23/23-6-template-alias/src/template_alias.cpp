@@ -5,7 +5,7 @@
  *      Author: sasaki
  */
 
-//#include <vector>
+#include <vector>
 #include <iostream>
 #include <memory>
 using namespace std;
@@ -19,33 +19,9 @@ struct My_alloc {
 	My_alloc() { }
 
 	T* allocate(size_t n)
-		{return reinterpret_cast<T*>(new char[n*sizeof(T)]);}
+		{ return reinterpret_cast<T*>(::operator new(n*sizeof(T))); }
 	void deallocate(T* p, size_t n)
-		{ delete[] reinterpret_cast<char*>(p); }
-};
-
-// custom vector
-
-template<typename T, typename Allocator=std::allocator<T>>
-class vector {
-	int sz;
-	T* elem;
-	Allocator alloc;
-
-public:
-	vector(initializer_list<T> il)
-	{
-		sz = il.size();
-		elem = alloc.allocate(sz);
-		uninitialized_copy(il.begin(), il.end(), elem);
-	}
-
-	~vector() { alloc.deallocate(elem, sz); }
-
-	T* begin() { return elem; }
-	const T* begin() const { return elem; }
-	T* end() { return elem+sz; }
-	const T* end() const { return elem+sz; }
+		{ ::operator delete(p); }
 };
 
 // type alias
@@ -59,6 +35,9 @@ template<typename T>
 using Vec = vector<T,My_alloc<T>>;
 
 Vec<int> fib = {0, 1, 1, 2, 3, 5, 8, 13};
+
+vector<char,allocator<char>> vc2 = vc;
+vector<int,My_alloc<int>> verbose = fib;
 
 // equality between original template and template alias
 
@@ -98,10 +77,15 @@ ostream& operator<<(ostream& os, const vector<T,A>& v)
 
 int main()
 {
-	cout << vc << '\n';
-	cout << fib << '\n';
+	cout << boolalpha;
+	cout << "vc: " << vc << '\n';
+	cout << "fib: " << fib << '\n';
+	cout << "vc2: " << vc2 << endl;
+	cout << "verbose: " << verbose << endl;
+	cout << "vc2 == vc ? " << (vc2 == vc) << endl;
+	cout << "verbose == fib ? " << (verbose == fib) << endl;
 
 	cout << "typeid(a): " << typeid(a).name() << '\n';
-	cout << "a: " << a << '\n';
+	cout << "(int)a: " << (int)a << '\n';
 }
 
