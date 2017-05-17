@@ -5,31 +5,10 @@
  *      Author: sasaki
  */
 
-#include <type_traits>
+#include "Smart_pointer.h"
 #include <complex>
 #include <iostream>
 using namespace std;
-
-template<bool B, typename T =void>
-using Enable_if = typename std::enable_if<B,T>::type;
-
-template<typename T>
-constexpr bool Is_class()
-{
-	return std::is_class<T>::value;
-}
-
-template<typename T>
-class Smart_pointer {
-	T *p;
-public:
-	Smart_pointer(T* pp) : p{pp} { }
-	T& operator*() { return *p; }
-	template<typename U=T>
-		//Enable_if<Is_class<T>(),T>* operator->() { return p; }
-		Enable_if<Is_class<U>(),U>* operator->() { return p; }
-			//error: no type named 'type' in 'struct std::enable_if<false, double>'
-};
 
 void f(Smart_pointer<double> p, Smart_pointer<complex<double>> q)
 {
@@ -48,9 +27,7 @@ void f(Smart_pointer<double> p, Smart_pointer<complex<double>> q)
 
 int main()
 {
-	double pp = 1.2;
-	complex<double> qq = {2.3, 4.5};
-	Smart_pointer<double> p(&pp);
-	Smart_pointer<complex<double>> q(&qq);
+	Smart_pointer<double> p(new double{1.2});
+	Smart_pointer<complex<double>> q(new complex<double>{2.3, 4.5});
 	f(p,q);
 }
