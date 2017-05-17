@@ -7,42 +7,13 @@
 
 #include <type_traits>
 #include <iostream>
+using namespace std;
 
-struct substitution_failure { };
-
-template<typename T>
-struct substitution_succeeded : std::true_type
-{ };
-
-template<>
-struct substitution_succeeded<substitution_failure> : std::false_type
-{ };
-
-int f(int i);
-
-template<typename T>
-struct get_f_result {
-private:
-	template<typename X>
-		static auto check(X const& x) -> decltype(f(x));
-	static substitution_failure check(...);
-public:
-	using type = decltype(check(std::declval<T>()));
-};
-
-template<typename T>
-struct has_f : substitution_succeeded<typename get_f_result<T>::type>
-{ };
-
-template<typename T>
-constexpr bool Has_f()
-{
-	return has_f<T>::value;
-}
+int f(int i); // put this before the following #include
+#include "has_f.h"
 
 template<bool B, typename T=void>
 using Enable_if = typename std::enable_if<B,T>::type;
-
 
 template<typename T>
 class X {
@@ -56,7 +27,7 @@ public:
 
 int f(int i)
 {
-	std::cout << "f(int)\n";
+	cout << "f(int)\n";
 	return i;
 }
 
@@ -64,12 +35,14 @@ int f(int i)
 
 int main()
 {
+	cout << boolalpha;
+
 	X<int> xi;
-	std::cout << Has_f<int>() << '\n';
+	cout << "Has_f<int>(): " << Has_f<int>() << endl;
 	xi.use_f(10);
 
-	X<std::string> xs;
+	X<string> xs;
+	cout << "Has_f<string>(): " << Has_f<string>() << endl;
 	//xs.use_f("string");
 		// error: no matching function for call to 'X<std::__cxx11::basic_string<char> >::use_f(const char [7])'
-	std::cout << Has_f<std::string>() << '\n';
 }
