@@ -10,7 +10,6 @@
 
 #include <initializer_list>
 #include <algorithm>
-#include <iostream>
 
 template<typename T>
 class Vector_iter {
@@ -22,21 +21,15 @@ public:
 	T* operator->() { return cur; }
 
 	// 2016.10.10 add const
-	bool operator==(Vector_iter other) const
-	{
-		return cur == other.cur;
-	}
-	bool operator!=(Vector_iter other) const
-	{
-		return !(*this==other);
-	}
+	bool operator==(Vector_iter other) const { return cur == other.cur; }
+	bool operator!=(Vector_iter other) const { return !(*this==other); }
 
 	Vector_iter& operator++() { ++cur; return *this; }
 };
 
 template<typename T>
 class Vector {
-	int sz;
+	size_t sz;
 	T* elem;
 public:
 	using value_type = T;
