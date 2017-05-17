@@ -8,6 +8,7 @@
 #ifndef HAS_NOT_EQUALS_H_
 #define HAS_NOT_EQUALS_H_
 
+#include <type_traits>
 
 struct substitution_failure { };
 

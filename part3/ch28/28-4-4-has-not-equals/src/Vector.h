@@ -29,7 +29,7 @@ public:
 
 template<typename T>
 class Vector {
-	int sz;
+	size_t sz;
 	T* elem;
 public:
 	using value_type = T;

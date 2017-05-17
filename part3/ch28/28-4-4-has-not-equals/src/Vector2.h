@@ -23,14 +23,13 @@ public:
 
 	// 2016.10.10 add const
 	bool operator==(Vector2_iter other) const { return cur == other.cur; }
-	//bool operator!=(Vector2_iter other) const { return !(*this==other); }
 
 	Vector2_iter& operator++() { ++cur; return *this; }
 };
 
 template<typename T>
 class Vector2 {
-	int sz;
+	size_t sz;
 	T* elem;
 public:
 	using value_type = T;
