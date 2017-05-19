@@ -11,7 +11,7 @@
 #include <iostream>
 using namespace std;
 
-#include "concept.h"
+#include "ordered.h"
 using namespace Estd;
 
 
@@ -42,23 +42,24 @@ int main()
 	vector<complex<int>> vc {{1, -1}, {-2, 0}, {2, -1}};
 	f(vi,vc);
 
+	cout << boolalpha;
 	cout << "--- concept<int> ---\n" ;
 	cout << "Ordered<int>()? " << Ordered<int>() << '\n';
 	cout << "Regular<int>()? " << Regular<int>() << '\n';
 	cout << "Semiregular<int>()? " << Semiregular<int>() << '\n';
-	cout << "Equality_comparable<int,int>()? " << Equality_comparable<int,int>() << '\n';
-	cout << "Has_equals<int,int>()? " << Has_equals<int,int>() << '\n';
-	cout << "Has_not_equals<int,int>()? " << Has_not_equals<int,int>() << '\n';
-	cout << "Totally_ordered<int,int>()? " << Totally_ordered<int,int>() << '\n';
-	cout << "Has_less_than<int,int>()? " << Has_less_than<int,int>() << '\n';
+	cout << "Equality_comparable<int>()? " << Equality_comparable<int>() << '\n';
+	cout << "Has_equal<int>()? " << Has_equal<int>() << '\n';
+	cout << "Has_not_equal<int>()? " << Has_not_equal<int>() << '\n';
+	cout << "Totally_ordered<int>()? " << Totally_ordered<int>() << '\n';
+	cout << "Has_less<int>()? " << Has_less<int>() << '\n';
 
 	cout << "--- concept<complex<int>> ---\n" ;
 	cout << "Ordered<complex<int>>()? " << Ordered<complex<int>>() << '\n';
 	cout << "Regular<complex<int>>()? " << Regular<complex<int>>() << '\n';
 	cout << "Semiregular<complex<int>>()? " << Semiregular<complex<int>>() << '\n';
-	cout << "Equality_comparable<complex<int>,complex<int>>()? " << Equality_comparable<complex<int>,complex<int>>() << '\n';
-	cout << "Has_equals<complex<int>,complex<int>>()? " << Has_equals<complex<int>,complex<int>>() << '\n';
-	cout << "Has_not_equals<complex<int>,complex<int>>()? " << Has_not_equals<complex<int>,complex<int>>() << '\n';
-	cout << "Totally_ordered<complex<int>,complex<int>>()? " << Totally_ordered<complex<int>,complex<int>>() << '\n';
-	cout << "Has_less_than<complex<int>,complex<int>>()? " << Has_less_than<complex<int>,complex<int>>() << '\n';
+	cout << "Equality_comparable<complex<int>>()? " << Equality_comparable<complex<int>>() << '\n';
+	cout << "Has_equal<complex<int>>()? " << Has_equal<complex<int>>() << '\n';
+	cout << "Has_not_equal<complex<int>>()? " << Has_not_equal<complex<int>>() << '\n';
+	cout << "Totally_ordered<complex<int>>()? " << Totally_ordered<complex<int>>() << '\n';
+	cout << "Has_less<complex<int>>()? " << Has_less<complex<int>>() << '\n';
 }
