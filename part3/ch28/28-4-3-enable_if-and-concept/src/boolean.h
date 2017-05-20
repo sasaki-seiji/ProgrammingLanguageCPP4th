@@ -8,7 +8,7 @@
 #ifndef BOOLEAN_H_
 #define BOOLEAN_H_
 
-#include "etypetraits.h"
+#include "type_relation.h"
 
 namespace Estd {
 

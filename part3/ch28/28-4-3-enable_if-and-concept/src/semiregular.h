@@ -8,7 +8,7 @@
 #ifndef SEMIREGULAR_H_
 #define SEMIREGULAR_H_
 
-#include "etypetraits.h"
+#include "type_property_predicate.h"
 
 namespace Estd {
 // Semiregular<>()
