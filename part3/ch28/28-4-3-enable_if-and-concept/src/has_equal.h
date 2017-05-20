@@ -17,7 +17,7 @@ template<typename T>
 struct get_equal_result {
 private:
 	template<typename X>
-		static auto check(X x) -> decltype(x==x);
+		static auto check(const X& x) -> decltype(x==x);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<T>()));
