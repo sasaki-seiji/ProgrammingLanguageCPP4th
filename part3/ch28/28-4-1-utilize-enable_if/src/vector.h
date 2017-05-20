@@ -8,6 +8,10 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
+#include "type_converter.h"
+#include "input_iterator.h"
+using namespace Estd;
+
 #include <iostream>
 using namespace std;
 

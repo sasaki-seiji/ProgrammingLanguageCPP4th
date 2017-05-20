@@ -5,8 +5,6 @@
  *      Author: sasaki
  */
 
-#include "input_iterator.h"
-using namespace Estd;
 #include "vector.h"
 
 #include <list>
