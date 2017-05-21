@@ -24,7 +24,7 @@ public:
 };
 
 template<typename T>
-struct has_not_equal : substitution_succeeded<typename get_equal_result<T>::type>
+struct has_not_equal : substitution_succeeded<typename get_not_equal_result<T>::type>
 { };
 
 template<typename T>
