@@ -8,15 +8,9 @@
 #ifndef SMART_POINTER_H_
 #define SMART_POINTER_H_
 
-#include <type_traits>
-
 #include "my_enable_if.h"
-
-template<typename T>
-constexpr bool Is_class()
-{
-	return std::is_class<T>::value;
-}
+#include "primary_type_predicate.h"
+using namespace Estd;
 
 template<typename T>
 class Smart_pointer {

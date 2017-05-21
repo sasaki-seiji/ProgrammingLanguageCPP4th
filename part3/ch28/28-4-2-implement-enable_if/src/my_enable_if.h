@@ -8,6 +8,8 @@
 #ifndef MY_ENABLE_IF_H_
 #define MY_ENABLE_IF_H_
 
+#include <type_traits>
+
 template<bool B, typename T = void>
 struct my_enable_if {
 	typedef T type;
