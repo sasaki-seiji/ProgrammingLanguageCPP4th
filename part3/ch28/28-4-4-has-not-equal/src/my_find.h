@@ -11,12 +11,6 @@
 #include "has_not_equal.h"
 #include "type_converter.h" // Enable_if
 using namespace Estd;
-//#include <type_traits>
-
-#if 0
-template<bool B, typename T=void>
-using Enable_if = typename std::enable_if<B,T>::type;
-#endif
 
 #include <iostream>
 

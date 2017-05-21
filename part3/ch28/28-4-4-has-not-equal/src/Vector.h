@@ -20,6 +20,7 @@ public:
 	using iterator = T*;
 
 	Vector(std::initializer_list<T>);
+	~Vector() { delete [] elem; }
 
 	iterator begin() { return elem; }
 	iterator end() { return elem+sz; }
