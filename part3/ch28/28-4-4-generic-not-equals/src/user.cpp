@@ -7,14 +7,13 @@
 
 
 #include "Vector.h"
-#include "Vector2.h"
+#include "List.h"
 #include "my_find.h"
-#include <iostream>
-#include <type_traits>
-using namespace std;
+#include "has_not_equal.h"
+using namespace Estd;
 
-template<bool B, typename T=void>
-using Enable_if = typename std::enable_if<B,T>::type;
+#include <iostream>
+using namespace std;
 
 template<typename T>
 auto operator!=(const T& a, const T& b) -> decltype(!(a==b))
@@ -27,15 +26,20 @@ auto operator!=(const T& a, const T& b) -> decltype(!(a==b))
 
 int main()
 {
-	Vector<int> v1 { 2, 3, 10, 5, 7, 8};
-	Vector_iter<int> it11 = my_find(v1.begin(),v1.end(),7);
-	if (it11!=v1.end()) cout << "found: " << *it11 << '\n';
-	Vector_iter<int> it12 = my_find(v1.begin(),v1.end(),9);
-	if (it12!=v1.end()) cout << "found: " << *it12 << '\n';
+	cout << boolalpha;
 
-	Vector2<int> v2 { 2, 3, 10, 5, 7, 8};
-	Vector2_iter<int> it21 = my_find(v2.begin(),v2.end(),7);
-	if (!(it21==v2.end())) cout << "found: " << *it21 << '\n';
-	Vector2_iter<int> it22 = my_find(v2.begin(),v2.end(),9);
-	if (!(it22==v2.end())) cout << "found: " << *it22 << '\n';
+	cout << "Has_not_equal<Vector<int>::iterator>(): " << Has_not_equal<Vector<int>::iterator>() << '\n';
+	Vector<int> v { 2, 3, 10, 5, 7, 8};
+	Vector<int>::iterator vi1 = my_find(v.begin(),v.end(),7);
+	Vector<int>::iterator vi2 = my_find(v.begin(),v.end(),9);
+	cout << "vi1!=vi2: " << (vi1!=vi2) << '\n';
+	if (vi1!=v.end()) cout << "found: " << *vi1 << '\n';
+	if (vi2!=v.end()) cout << "found: " << *vi2 << '\n';
+
+	cout << "Has_not_equal<List<int>::iterator>(): " << Has_not_equal<List<int>::iterator>() << endl;
+	List<int> list { 2, 3, 10, 5, 7, 8 };
+	List<int>::iterator li1 = my_find(list.begin(), list.end(), 7);
+	List<int>::iterator li2 = my_find(list.begin(), list.end(), 9);
+	if (!(li1==list.end())) cout << "found: " << *li1 << '\n';
+	if (!(li2==list.end())) cout << "found: " << *li2 << '\n';
 }
