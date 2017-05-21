@@ -8,6 +8,7 @@
 #ifndef HAS_F_H_
 #define HAS_F_H_
 
+#include <type_traits>
 
 struct substitution_failure { };
 

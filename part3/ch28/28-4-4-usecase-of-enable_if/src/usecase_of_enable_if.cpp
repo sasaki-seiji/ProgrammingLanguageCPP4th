@@ -5,15 +5,14 @@
  *      Author: sasaki
  */
 
-#include <type_traits>
-#include <iostream>
-using namespace std;
-
 int f(int i); // put this before the following #include
 #include "has_f.h"
 
-template<bool B, typename T=void>
-using Enable_if = typename std::enable_if<B,T>::type;
+#include "type_converter.h" // for Enable_if
+using namespace Estd;
+
+#include <iostream>
+using namespace std;
 
 template<typename T>
 class X {
