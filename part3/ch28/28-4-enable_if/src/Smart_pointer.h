@@ -8,16 +8,9 @@
 #ifndef SMART_POINTER_H_
 #define SMART_POINTER_H_
 
-#include <type_traits>
-
-template<bool B, typename T =void>
-using Enable_if = typename std::enable_if<B,T>::type;
-
-template<typename T>
-constexpr bool Is_class()
-{
-	return std::is_class<T>::value;
-}
+#include "primary_type_predicate.h"
+#include "type_converter.h"
+using namespace Estd;
 
 template<typename T>
 class Smart_pointer {
@@ -35,9 +28,7 @@ public:
 
 	T& operator*() { return *p; }
 	template<typename U=T>
-		//Enable_if<Is_class<T>(),T>* operator->() { return p; }
 		Enable_if<Is_class<U>(),U>* operator->() { return p; }
-			//error: no type named 'type' in 'struct std::enable_if<false, double>'
 };
 
 template<typename T>
