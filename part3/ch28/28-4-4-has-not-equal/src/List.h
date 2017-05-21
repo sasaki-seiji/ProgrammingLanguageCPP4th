@@ -22,7 +22,7 @@ struct List_iterator {
 
 	T& operator*() { return pos->val; }
 	List_iterator& operator++() { pos = pos->next; return *this; }
-	bool operator==(const List_iterator& o) { return pos == o.pos; }
+	bool operator==(const List_iterator& o) const { return pos == o.pos; }
 };
 
 template<typename T>
