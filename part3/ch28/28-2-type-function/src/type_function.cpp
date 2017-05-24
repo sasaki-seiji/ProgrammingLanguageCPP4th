@@ -5,6 +5,9 @@
  *      Author: sasaki
  */
 
+#include "select.h"
+using namespace Estd;
+
 #include <type_traits>
 #include <typeinfo>
 #include <iostream>
@@ -27,29 +30,12 @@ using Array = Array_type<int,3>;
 Array::type xx;
 constexpr int s = Array::dim;
 
-// 28.3.1.3
-
-template<unsigned N, typename... Cases>
-struct select;
-
-template<unsigned N, typename T, typename... Cases>
-struct select<N,T,Cases...> : select<N-1,Cases...> {
-};
-
-template<typename T, typename... Cases>
-struct select<0,T,Cases...> {
-	using type = T;
-};
-
-template<unsigned N, typename... Cases>
-using Select = typename select<N,Cases...>::type;
-
-
 template<int N>
 struct Integer {
 	using Error = void;
-	//using type = Select<N,Error,signed char,short,Error,int,Error,Error,Error,long>;
-	using type = Select<N,Error,signed char,short,Error,int,Error,Error,Error,long long>;
+	using type = Select<N,Error,signed char,short,Error,int,Error,Error,Error,long>;
+	//using type = Select<N,Error,signed char,short,Error,int,Error,Error,Error,long long>;
+		// for windows
 };
 
 typename Integer<4>::type i4 = 8;
@@ -76,5 +62,4 @@ int main()
 	cout << "typeid(i8).name(): " << typeid(i8).name()
 			<< ", sizeof(i8): " << sizeof(i8) << '\n';
 }
-
 
