@@ -15,6 +15,9 @@ namespace Estd {
 template<bool B, typename X=void>
 using Enable_if = typename std::enable_if<B,X>::type;
 
+template<bool C, typename T, typename F>
+using Conditional = typename std::conditional<C,T,F>::type;
+
 }
 
 #endif /* TYPE_CONVERTER_H_ */

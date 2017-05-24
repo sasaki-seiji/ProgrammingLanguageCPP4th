@@ -8,6 +8,7 @@
 #ifndef OBJHOLDER_H_
 #define OBJHOLDER_H_
 
+#include "type_converter.h"
 #include <string>
 
 constexpr int on_stack_max = sizeof(std::string);
@@ -41,12 +42,9 @@ private:
 	T x;
 };
 
-template<bool C, typename T, typename F>
-using Conditional = typename std::conditional<C,T,F>::type;
-
 template<typename T>
 struct Obj_holder {
-	using type = Conditional<(sizeof(T)<=on_stack_max),Scoped<T>,On_heap<T>>;
+	using type = Estd::Conditional<(sizeof(T)<=on_stack_max),Scoped<T>,On_heap<T>>;
 };
 
 template<typename T>
