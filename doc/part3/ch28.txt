@@ -1,3 +1,26 @@
+【28.2.1.1:　conditionalの条件が不成立でも第2引数が評価される】
+
+日付：　2016.10.05、2017.05.17
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	テキストの記述と異なり、make_unsigned<T>::typeを直接使う場合、
+	Delay関数を挟む場合でも、conditionalの条件が不成立でも第2引数が
+	評価され、エラーとなる
+
+	// (1)original
+	template<typename T>
+	using Make_unsigned_for_integral = typename conditional<
+			is_integral<T>::value,
+			typename make_unsigned<T>::type,
+			Error
+		>::type;
+
+	Make_unsigned_for_integral<int> u1;
+	//Make_unsigned_for_integral<string> s1;
+		// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
+
+
 【28.4:　Enable_if呼び出しでテンプレート引数を使用】
 
 日付：　2016.10.05、2017.05.17
