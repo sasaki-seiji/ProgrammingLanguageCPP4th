@@ -1,6 +1,6 @@
 【28.2.1.1:　conditionalの条件が不成立でも第2引数が評価される】
 
-日付：　2016.10.05、2017.05.17
+日付：　2017.05.25
 バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
@@ -19,6 +19,17 @@
 	Make_unsigned_for_integral<int> u1;
 	//Make_unsigned_for_integral<string> s1;
 		// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
+
+
+【28.2.2:　std::is_poid<T>()がコンパイルエラーとならない】
+
+日付：　2017.05.25
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	テキストの記述と異なり、
+	Conditional<(std::is_pod<T>()),On_heap<T>,Scoped<T>> x;
+	がコンパイルエラーとならない（正しく実行される）
 
 
 【28.4:　Enable_if呼び出しでテンプレート引数を使用】
