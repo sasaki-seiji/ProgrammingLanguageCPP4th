@@ -13,6 +13,13 @@
 namespace Estd {
 // type property predicate
 
+template<typename T>
+constexpr bool Is_polymorphic()
+{
+	return std::is_polymorphic<T>::value;
+}
+
+
 template<typename X>
 constexpr bool Default_constructible()
 {

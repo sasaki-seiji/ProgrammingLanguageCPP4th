@@ -5,26 +5,23 @@
  *      Author: sasaki
  */
 
+#include "type_converter.h"
+#include "type_property_predicate.h"
+using namespace Estd;
+
 #include <iostream>
 #include <type_traits>
 using namespace std;
 
 struct X {
 	void operator()(int x) { cout << "X" << x << "!\n"; }
+	virtual ~X() { }
 };
 
 struct Y {
 	void operator()(int x) { cout << "Y" << x << "!\n"; }
+	virtual ~Y() { }
 };
-
-template<bool B, typename T, typename F>
-using Conditional = typename conditional<B,T,F>::type;
-
-template<typename T>
-constexpr bool Is_polymorphic()
-{
-	return is_polymorphic<T>::value;
-}
 
 void f()
 {
