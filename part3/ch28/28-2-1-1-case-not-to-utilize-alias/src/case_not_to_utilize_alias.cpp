@@ -23,12 +23,13 @@ using Make_unsigned_for_integral = typename conditional<
 
 Make_unsigned_for_integral<int> u1;
 //Make_unsigned_for_integral<string> s1;
-	// required by substitution of 'template<class T> using Make_unsigned_for_integral = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, void>::type [with T = std::__cxx11::basic_string<char>]'
+	// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
+
+// (2)template alias
 
 template<typename T>
 using Make_unsigned = typename make_unsigned<T>::type;
 
-// (2)template alias
 template<typename T>
 using Make_unsigned_for_integral2 = typename conditional<
 		is_integral<T>::value,
@@ -38,16 +39,13 @@ using Make_unsigned_for_integral2 = typename conditional<
 
 Make_unsigned_for_integral2<int> u2;
 //Make_unsigned_for_integral2<string> s2;
-	// required by substitution of 'template<class T> using Make_unsigned_for_integral2 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
+	// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
 
-
-template<typename T>
-using Make_unsigned = typename make_unsigned<T>::type;
+// (3)Delay evaluation
 
 template<template<typename...> class F, typename... Args>
 using Delay = F<Args...>;
 
-// (3)Delay evaluation
 template<typename T>
 using Make_unsigned_for_integral3 = typename conditional<
 		is_integral<T>::value,
@@ -57,7 +55,7 @@ using Make_unsigned_for_integral3 = typename conditional<
 
 Make_unsigned_for_integral3<int> u3;
 //Make_unsigned_for_integral3<string> s3;
-	// required by substitution of 'template<class T> using Make_unsigned_for_integral3 = typename std::conditional<std::is_integral<_Tp>::value, typename std::make_unsigned<_Tp>::type, Error>::type [with T = std::__cxx11::basic_string<char>]'
+	// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
 
 // add main
 
