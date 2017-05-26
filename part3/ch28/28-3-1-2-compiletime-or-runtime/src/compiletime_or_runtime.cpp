@@ -5,12 +5,13 @@
  *      Author: sasaki
  */
 
-#include <type_traits>
+#include "type_converter.h" // for Conditional
+#include "type_property_predicate.h" // for Is_polymorphic
+using namespace Estd;
+
 #include <iostream>
 using namespace std;
 
-template<bool B, typename T, typename F>
-using Conditional = typename std::conditional<B,T,F>::type;
 
 struct Square {
 	constexpr int operator()(int i) { return i*i; }
@@ -23,7 +24,7 @@ struct Cube {
 template<typename T>
 constexpr bool My_cond()
 {
-	return std::is_polymorphic<T>::value;
+	return Is_polymorphic<T>();
 }
 
 struct X { };
