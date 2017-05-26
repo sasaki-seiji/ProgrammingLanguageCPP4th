@@ -11,21 +11,21 @@
 class Nil { };
 
 template<int I, typename T1 =Nil, typename T2 =Nil, typename T3 =Nil, typename T4 =Nil>
-struct select;
+struct myselect;
 
 template<int I, typename T1 =Nil, typename T2 =Nil, typename T3 =Nil, typename T4 =Nil>
-using Select = typename select<I,T1,T2,T3,T4>::type;
+using Select = typename myselect<I,T1,T2,T3,T4>::type;
 
 template<typename T1, typename T2, typename T3, typename T4>
-struct select<0,T1,T2,T3,T4> { using type = T1; };
+struct myselect<0,T1,T2,T3,T4> { using type = T1; };
 
 template<typename T1, typename T2, typename T3, typename T4>
-struct select<1,T1,T2,T3,T4> { using type = T2; };
+struct myselect<1,T1,T2,T3,T4> { using type = T2; };
 
 template<typename T1, typename T2, typename T3, typename T4>
-struct select<2,T1,T2,T3,T4> { using type = T3; };
+struct myselect<2,T1,T2,T3,T4> { using type = T3; };
 
 template<typename T1, typename T2, typename T3, typename T4>
-struct select<3,T1,T2,T3,T4> { using type = T4; };
+struct myselect<3,T1,T2,T3,T4> { using type = T4; };
 
 #endif /* SELECT_H_ */

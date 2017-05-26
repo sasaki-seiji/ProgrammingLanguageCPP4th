@@ -17,7 +17,7 @@ Select<2,int,double,char> x2;
 Select<3,int,double,char> x3;
 
 //Select<5,int,double,char> x5;
-	// error: invalid use of incomplete type 'struct select<5, int, double, char, Nil>'
+	// error: invalid use of incomplete type ‘struct myselect<5, int, double, char, Nil>’
 
 // add main
 
