@@ -7,6 +7,8 @@
 
 
 #include "select.h"
+using namespace Estd;
+
 #include <typeinfo>
 #include <iostream>
 using namespace std;
@@ -15,10 +17,10 @@ Select<0,int,double,char> x0;
 Select<1,int,double,char> x1;
 Select<2,int,double,char> x2;
 //Select<3,int,double,char> x3;
-	// error: no type named 'type' in 'struct select<3u, int, double, char>'
+	// error: no type named ‘type’ in ‘struct Estd::select<3u, int, double, char>’
 
 //Select<5,int,double,char> x5;
-	// error: invalid use of incomplete type 'struct select<5, int, double, char, Nil>'
+	// error: invalid use of incomplete type ‘struct Estd::select<2u>’
 
 // add main
 
