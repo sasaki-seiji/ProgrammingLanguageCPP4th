@@ -20,5 +20,8 @@ int main()
 	cout << "xx: " << xx << "\n";
 	auto x = make_tuple(1223);
 	cout << "x: " << x << "\n";
+
+	auto null_tuple = make_tuple();
+	cout << "null: " << null_tuple << endl;
 }
 

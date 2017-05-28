@@ -169,4 +169,8 @@ Tuple<T1> make_tuple(const T1& t1)
 	return Tuple<T1>{t1};
 }
 
+inline Tuple<> make_tuple()
+{
+	return Tuple<>();
+}
 #endif /* TUPLE_H_ */
