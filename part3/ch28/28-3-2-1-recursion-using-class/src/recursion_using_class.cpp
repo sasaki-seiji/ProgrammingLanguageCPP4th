@@ -5,20 +5,12 @@
  *      Author: sasaki
  */
 
+#include "Fac.h"
 #include <iostream>
 using namespace std;
 
-template<int N>
-struct Fac {
-	static const int value = N*Fac<N-1>::value;
-};
-
-template<>
-struct Fac<1> {
-	static const int value = 1;
-};
-
 constexpr int x7 = Fac<7>::value;
+static_assert(x7 == 5040, "compile time check fails");
 
 // add main
 
