@@ -8,9 +8,26 @@
 #ifndef PRINTF_H_
 #define PRINTF_H_
 
+#include "primary_type_predicate.h"
+#include "type_relation.h"
+using namespace Estd;
+
 #include <iostream>
 #include <stdexcept>
-#include "concept.h"
+// Is_string, Is_C_style_string : 28.6.1
+
+template<typename X>
+constexpr bool Is_string()
+{
+	return Is_same<X,std::string>();
+}
+
+template<typename X>
+constexpr bool Is_C_style_string()
+{
+	return Is_same<X,const char*>()
+			|| Is_same<X, char*>();
+}
 
 inline void vt_printf(const char* s)
 {
@@ -35,14 +52,14 @@ void vt_printf(const char* s, T value, Args... args)
 				std::cout << *s++;
 				continue;
 			case 's':
-				if (!Estd::Is_C_style_string<T>()&& !Estd::Is_string<T>())
+				if (!Is_C_style_string<T>()&& !Is_string<T>())
 					throw std::runtime_error("Bad printf() format");
 				break;
 			case 'd':
-				if (!Estd::Is_integral<T>()) throw std::runtime_error("Bad printf() format");
+				if (!Is_integral<T>()) throw std::runtime_error("Bad printf() format");
 				break;
 			case 'g':
-				if (!Estd::Is_floating_point<T>()) throw std::runtime_error("Bad printf() format");
+				if (!Is_floating_point<T>()) throw std::runtime_error("Bad printf() format");
 				break;
 			}
 			std::cout << value;
