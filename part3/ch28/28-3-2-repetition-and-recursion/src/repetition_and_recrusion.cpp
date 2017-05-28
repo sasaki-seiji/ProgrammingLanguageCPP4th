@@ -5,29 +5,15 @@
  *      Author: sasaki
  */
 
+#include "fac.h"
 #include <iostream>
 using namespace std;
 
-template<int N>
-constexpr int fac()
-{
-	return N*fac<N-1>();
-}
-
-template<>
-constexpr int fac<1>()
-{
-	return 1;
-}
-
 constexpr int x5 = fac<5>();
-
-constexpr int fac2(int i)
-{
-	return (i<2)?1:i*fac2(i-1);
-}
+static_assert(x5 == 120, "compile time check fails");
 
 constexpr int x6 = fac2(6);
+static_assert(x6 == 720, "compile time check fails");
 
 // add main
 int main()
