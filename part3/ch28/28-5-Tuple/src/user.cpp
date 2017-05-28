@@ -24,6 +24,7 @@ typedef Tuple<int*,F0,F0,F0> T3;
 
 int main()
 {
+	cout << "&t: " << &t << ", &(t.x): " << &(t.x) << endl;
 	cout << "sizeof(T0): " << sizeof(T0) << '\n';
 	cout << "sizeof(T1): " << sizeof(T1) << '\n';
 	cout << "sizeof(T2): " << sizeof(T2) << '\n';
