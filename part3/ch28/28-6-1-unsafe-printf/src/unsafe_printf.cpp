@@ -20,6 +20,7 @@ int main()
 	string name = "target";
 	printf("The value of %s is %P\n", name, Point{34,200});
 
-	// crash
-	//printf("The value of %s is %g\n", 7);
+	// crash on Windows
+	// terminated with exit value: -1, on Linux
+	printf("The value of %s is %g\n", 7);
 }
