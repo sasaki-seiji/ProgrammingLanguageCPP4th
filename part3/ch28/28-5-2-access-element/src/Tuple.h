@@ -10,6 +10,9 @@
 
 #include <ostream>
 #include "select.h"
+using namespace Estd;
+
+struct Nil { };
 
 template<typename T1=Nil, typename T2=Nil, typename T3=Nil, typename T4=Nil>
 struct Tuple : Tuple<T2,T3,T4> {
