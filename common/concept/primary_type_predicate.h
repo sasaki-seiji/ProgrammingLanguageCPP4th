@@ -13,6 +13,18 @@
 namespace Estd {
 
 template<typename T>
+constexpr bool Is_integral()
+{
+	return std::is_integral<T>::value;
+}
+
+template<typename T>
+constexpr bool Is_floating_point()
+{
+	return std::is_floating_point<T>::value;
+}
+
+template<typename T>
 constexpr bool Is_class()
 {
 	return std::is_class<T>::value;
