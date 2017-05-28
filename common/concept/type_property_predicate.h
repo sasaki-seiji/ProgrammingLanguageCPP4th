@@ -14,6 +14,12 @@ namespace Estd {
 // type property predicate
 
 template<typename T>
+constexpr bool Is_pod()
+{
+	return std::is_pod<T>::value;
+}
+
+template<typename T>
 constexpr bool Is_polymorphic()
 {
 	return std::is_polymorphic<T>::value;
