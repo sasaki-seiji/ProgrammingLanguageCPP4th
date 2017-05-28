@@ -31,18 +31,19 @@ int main()
 		vt_printf("The value of %s is %g\n", 7);
 
 	} catch (runtime_error& e) {
-		cout << '\n' << e.what() << '\n' << flush;
+		cout << endl << e.what() << endl;
+	}
+
+	try {
+		vt_printf("ends with %", 10);
+		cout << endl;
+	} catch (runtime_error& e) {
+		cout << endl << e.what() << endl;
 	}
 
 	try {
 		vt_printf("ends with %", 10, 20);
-	} catch (runtime_error& e) {
-		cout << '\n' << e.what() << '\n'<< flush;
-	}
-
-	try {
-		vt_printf("ends with %", 10, 20, 30);
 	} catch( runtime_error& e) {
-		cout << '\n' << e.what() << '\n'<< flush;
+		cout << endl << e.what() << endl;
 	}
 }
