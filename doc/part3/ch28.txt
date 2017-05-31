@@ -21,7 +21,7 @@
 		// error: invalid use of incomplete type ‘class std::__make_unsigned_selector<std::__cxx11::basic_string<char>, false, false>’
 
 
-【28.2.2:　std::is_poid<T>()がコンパイルエラーとならない】
+【28.2.2:　std::is_pod<T>()がコンパイルエラーとならない】
 
 日付：　2017.05.25
 バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
