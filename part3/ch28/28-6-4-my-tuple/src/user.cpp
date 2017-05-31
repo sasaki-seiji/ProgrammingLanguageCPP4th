@@ -39,9 +39,9 @@ void test_head_tail()
 	cout << "cd: " << cd << endl;
 }
 
-void test_make_tuple()
+void test_my_make_tuple()
 {
-	cout << "-- test_make_tuple() --\n";
+	cout << "-- test_my_make_tuple() --\n";
 
 	auto t = my_make_tuple("Hello tuple", 43, 3.15);
 	double d = my_get<2>(t);
@@ -61,6 +61,6 @@ void user()
 int main()
 {
 	test_head_tail();
-	test_make_tuple();
+	test_my_make_tuple();
 	user();
 }

@@ -9,8 +9,9 @@
 #define MY_TUPLE_H_
 
 #include "select.h"
+#include "type_converter.h"
 using namespace Estd;
-#include <type_traits>
+
 
 template<typename Ret, int N> struct getNth;
 template<typename... Values> class my_tuple;
@@ -92,23 +93,10 @@ const Select<N, T...>& my_get(const my_tuple<T...>& t)
 	return getNth<Select<N, T...>, N>::get(t);
 }
 
-inline my_tuple<> my_make_tuple()
-{
-	return my_tuple<>();
-}
-
-#if 1
 template<typename... Types>
-my_tuple<typename std::decay<Types>::type...> my_make_tuple(Types&&... t)
+my_tuple<Decay<Types>...> my_make_tuple(Types&&... t)
 {
-	return my_tuple<typename std::decay<Types>::type...>(t...);
+	return my_tuple<Decay<Types>...>(t...);
 }
-#else
-template<typename... Types>
-my_tuple<Types...> my_make_tuple(const Types&... t)
-{
-	return my_tuple<Types...>(t...);
-}
-#endif
 
 #endif /* MY_TUPLE_H_ */

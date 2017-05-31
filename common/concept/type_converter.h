@@ -12,6 +12,9 @@
 
 namespace Estd {
 
+template<typename T>
+using Decay = typename std::decay<T>::type;
+
 template<bool B, typename X=void>
 using Enable_if = typename std::enable_if<B,X>::type;
 
