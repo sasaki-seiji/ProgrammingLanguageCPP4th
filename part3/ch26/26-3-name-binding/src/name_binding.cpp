@@ -5,25 +5,14 @@
  *      Author: sasaki
  */
 
+#include "sum.h"
+#include "quad.h"
+
 #include <vector>
 #include <iostream>
 using namespace std;
 
 bool tracing;
-
-template<typename T>
-T sum(std::vector<T>& v)
-{
-	T t {};
-	if (tracing)
-		cerr << "sum(" << &v << ")\n";
-	//for (int i = 0; i!=v.size(); ++i)
-	for (size_t i = 0; i!=v.size(); ++i)
-		t = t + v[i];
-	return t;
-}
-
-#include "quad.h"
 
 void f(std::vector<Quad>& v)
 {
