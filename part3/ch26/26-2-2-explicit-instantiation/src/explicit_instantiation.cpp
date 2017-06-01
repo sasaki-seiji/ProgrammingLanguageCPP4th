@@ -20,26 +20,27 @@ T convert(S s)
 {
 	return static_cast<T>(s);
 }
-//template int convert<int,double>(double);
-template int convert<int>(double);
+template int convert<int,double>(double);
+template long convert<long>(double);
 
 // add main
 
 int main()
 {
 	vector<int> vi{1,2,3,4,5};
-
 	for (auto x : vi)
 		cout << x << ' ';
-	cout << '\n';
+	cout << endl;
 
 	vector<char> vc{'A', 'B', 'C', 'D'};
 	for (size_t i = 0; i!=vc.size(); ++i)
 		cout << vc[i] << ' ';
-	cout << '\n';
+	cout << endl;
 
 	double	d = 12.3;
 	int i = convert<int>(d);
-	cout << "i: " << i << '\n';
+	cout << "i: " << i << endl;
+	long l = convert<long>(d);
+	cout << "l: " << l << endl;
 }
 
