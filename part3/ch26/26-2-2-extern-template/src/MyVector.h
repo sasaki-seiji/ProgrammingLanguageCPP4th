@@ -17,6 +17,7 @@ template<typename T>
 class MyVector {
 	T* v;
 	size_t sz;
+
 public:
 	MyVector();
 	explicit MyVector(size_t);
@@ -24,13 +25,11 @@ public:
 	MyVector(const MyVector&) = delete;
 	MyVector& operator=(const MyVector&) = delete ;
 
-	~MyVector() { delete []v; }
+	~MyVector() { delete [] v; }
 
 	size_t	size() const { return sz; }	// 2016.09.22 add
 	T& elem(size_t i) { return v[i]; }
 	T& operator[](size_t i) { return v[i];}
-
-	void swap(MyVector&);
 
 	T* begin() { return v; }
 	const T* begin() const { return v; }
@@ -51,7 +50,8 @@ MyVector<T>::MyVector(size_t s) : v{new T[s]}, sz{s}
 }
 
 template<typename T>
-MyVector<T>::MyVector(std::initializer_list<T> il) : v{new T[il.size()]}, sz{il.size()}
+MyVector<T>::MyVector(std::initializer_list<T> il)
+	: v{new T[il.size()]}, sz{il.size()}
 {
 	std::cout << "MyVector<T>::MyVector(std::initializer_list<T>)\n";
 	std::copy(il.begin(), il.end(), v);
