@@ -5,9 +5,8 @@
  *      Author: sasaki
  */
 
+#include "List.h"
 #include <string>
-#include <vector>
-#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -16,40 +15,27 @@ X* p;
 //X a;
 	// error: aggregate 'X a' has incomplete type and cannot be defined
 
-template<typename T>
-class Link {
-	Link* suc;
-};
-
 Link<int>* pl;
 
 Link<int> lnk;
 
-template<typename T>
-class List {
-	vector<T> arr;
-public:
-	void sort() { std::sort(arr.begin(), arr.end()); }
-
-	List() { }
-	List(initializer_list<T> il) : arr{il} { }
-	void print(ostream& os)
-	{
-		os << "[ ";
-		for (auto& x : arr)
-			os << x << ' ';
-		os << "]\n";
-	}
-};
-
 class Glob {
-
+	int v;
+public:
+	Glob(int i) : v{i} { }
+	int value() const { return v; }
 };
+ostream& operator<<(ostream& os, Glob b)
+{
+	return os << b.value();
+}
 
 void f(List<Glob>& lb, List<string>& ls)
 {
-	ls.sort();
+	lb.print(cout);
+	ls.print(cout);
 
+	ls.sort();
 	ls.print(cout);
 }
 
@@ -57,7 +43,7 @@ void f(List<Glob>& lb, List<string>& ls)
 
 int main()
 {
-	List<Glob> lb;
+	List<Glob> lb {1,2,3,4};
 	List<string> ls {"this", "is", "a", "string", "list"};
 	f(lb,ls);
 }
