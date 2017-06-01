@@ -12,7 +12,7 @@ using namespace std;
 
 extern template class MyVector<int>;
 
-void f(MyVector<int>&v)
+void foo(MyVector<int>&v)
 {
 	cout << v << endl;;
 }

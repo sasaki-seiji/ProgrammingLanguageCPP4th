@@ -10,18 +10,18 @@
 
 extern template class MyVector<int>;
 
-void f(MyVector<int>&v);
+void foo(MyVector<int>&v);
 
-void g(MyVector<int>& v);
+void bar(MyVector<int>& v);
 
 // add main
 
 int main()
 {
 	MyVector<int> vi{10,11,12,13,14,15};
-	f(vi);
-	g(vi);
-	f(vi);
+	foo(vi);
+	bar(vi);
+	foo(vi);
 }
 
 
