@@ -35,7 +35,10 @@ public:
 
 	List() :head{nullptr} { }
 	List(std::initializer_list<T> il);
+	~List() { clear(); }
+
 	void print(std::ostream& os);
+	void clear();
 };
 
 template<typename T>
@@ -46,6 +49,17 @@ List<T>::List(std::initializer_list<T> il)
 	for (auto x : il) {
 		*last = new Link<T>{x};
 		last = &((*last)->suc);
+	}
+}
+
+template<typename T>
+void List<T>::clear()
+{
+	Link<T> *cur = head;
+	while (cur) {
+		Link<T> *p = cur;
+		cur = cur->suc;
+		delete p;
 	}
 }
 
