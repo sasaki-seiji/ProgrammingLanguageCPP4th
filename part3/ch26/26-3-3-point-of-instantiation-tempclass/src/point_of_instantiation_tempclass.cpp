@@ -25,6 +25,8 @@ public:
 
 void f()
 {
+	cout << "-- f() --\n";
+
 	Container<int> c;
 	c.push_back(10); c.push_back(5); c.push_back(20); c.push_back(1);
 
@@ -38,6 +40,8 @@ void f()
 
 void fff()
 {
+	cout << "-- fff() --\n";
+
 	struct S { int a, b; };
 	vector<S> vs { {1,2}, {2,3}, {4,5} };
 	for (auto& x : vs)
