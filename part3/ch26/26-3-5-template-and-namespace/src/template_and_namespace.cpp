@@ -13,7 +13,7 @@ namespace N {
 	char f(A) { cout << "N::f(A)\n"; return 'A'; }
 }
 
-char f(int i) { cout << "::f(int:" << i << ")\n"; return 'i'; }
+char f(int i) { cout << "::f(int:" << i << ")\n"; return 'A'+i; }
 
 template<typename T>
 char g(T t)
