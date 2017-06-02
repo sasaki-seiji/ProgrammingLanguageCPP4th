@@ -19,13 +19,13 @@ class Quad
 	long double val;
 public:
 	Quad(long double v=0) :val{v} { }
-	operator long double() { return val; }
+	long double value() const { return val; }
 };
 
 int g(Quad q)
 {
-	cout << "g(Quad: " << q << ")\n";
-	return q;
+	cout << "g(Quad: " << q.value() << ")\n";
+	return q.value();
 }
 
 int z = f(Quad{2});
@@ -36,7 +36,7 @@ int ff(T a)
 {
 	//return gg(Quad{1});
 		// error: there are no arguments to 'gg' that depend on a template parameter, so a declaration of 'gg' must be available [-fpermissive]
-	return g(Quad{1});
+	return a.value();
 }
 
 int gg(Quad);
