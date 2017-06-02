@@ -8,10 +8,12 @@
 // ADL
 
 #include <valarray>
+#include <iostream>
 using std::valarray;
 
 valarray<double> fct(valarray<double> v1, valarray<double>v2, double d)
 {
+	std::cout << "-- fct(valarray<double>,valarray<double>,double>) -- \n";
 	return v1+v2*d;
 }
 
@@ -34,12 +36,15 @@ namespace User {
 
 	void copy(const Index& i1, Index& i2, int deep)
 	{
-		std::cout << "copy(const Index&, Index&, int)\n";
+		std::cout << "User::copy(const Index&, Index&, int)\n";
 	}
 
 	void algo(Index& x, Index& y)
 	{
+		std::cout << "-- User::algo(Index&,Index&) --\n";
+
 		//copy(x,y,false);
+			// error: no type named ‘value_type’ in ‘struct std::iterator_traits<std::vector<User::Customer*> >’
 		User::copy(x,y,false);
 	}
 }
@@ -122,6 +127,12 @@ int main()
 
 	std::cout << "-- apply3(vector<double>&)\n";
 	apply3(vd, Display<double>());
+	std::cout << "-- apply3(int (&)[3])\n";
+	//apply3(arr, Display<int>());
+		// error: ‘begin’ was not declared in this scope
+
+	std::cout << "-- apply4(vector<double>&)\n";
+	apply4(vd, Display<double>());
 	std::cout << "-- apply4(int (&)[3])\n";
 	apply4(arr, Display<int>());
 }
