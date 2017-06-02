@@ -12,6 +12,8 @@ using namespace std;
 template<typename Container>
 void fct(Container& c)
 {
+	cout << "-- fct(Container&) --\n";
+
 	//Container::value_type v1 = c[7];
 		// error: need 'typename' before 'Container:: value_type' because 'Container' is a dependent scope
 	typename Container::value_type v2 = c[9];
@@ -28,6 +30,8 @@ using Value_type = typename T::value_type;
 template<typename Container>
 void fct2(Container& c)
 {
+	cout << "-- fct2(Container&) --\n";
+
 	Value_type<Container> v1 = c[7];
 	auto v3 = c[11];
 
