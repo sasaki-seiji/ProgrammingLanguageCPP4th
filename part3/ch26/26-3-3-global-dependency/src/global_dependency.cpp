@@ -20,6 +20,8 @@ void print_sorted(vector<T>& v)
 
 void use(vector<string>& vec)
 {
+	cout << "-- use(vector<string>&) --\n";
+
 	print_sorted(vec);
 }
 
@@ -33,6 +35,8 @@ void print_sorted(vector<T>& v, S sort, ostream& os)
 
 void fct(vector<string>& vec)
 {
+	cout << "-- fct(vector<string>&) --\n";
+
 	using Iter = decltype(vec.begin());
 	print_sorted(vec, std::sort<Iter>, std::cout);
 }
@@ -43,8 +47,6 @@ int main()
 {
 	vector<string> vs { "this", "is", "a", "string", "vector" };
 
-	cout << "-- depend global info\n";
 	use(vs);
-	cout << "-- not depend to global info\n";
 	fct(vs);
 }
