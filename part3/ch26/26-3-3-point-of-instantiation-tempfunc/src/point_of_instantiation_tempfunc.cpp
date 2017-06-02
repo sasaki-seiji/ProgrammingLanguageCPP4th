@@ -20,6 +20,8 @@ void f(T a)
 
 void h(int i)
 {
+	cout << "-- h(int: " << i << ") --\n";
+
 	extern void g(double);
 	f(i);
 }
@@ -38,20 +40,15 @@ void f2(T a)
 enum Count { one=1, two, three };
 void h2(Count i)
 {
+	cout << "-- h2(Count: " << i << ") --\n";
+
 	f2(i);
 }
 
 // add undef
 
-void g(int i)
-{
-	cout << "g(int: " << i << ")\n";
-}
-
-void g2(int i)
-{
-	cout << "g2(int: " << i << ")\n";
-}
+void g(int i) { cout << "g(int: " << i << ")\n"; }
+void g2(int i) { cout << "g2(int: " << i << ")\n"; }
 
 // add main
 
