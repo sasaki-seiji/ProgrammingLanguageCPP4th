@@ -18,7 +18,7 @@ struct B {
 template<typename T>
 class X : public B {
 public:
-	void h(int) { cout << "X<>::h(int)\n"; }
+	void h(int) { cout << "X<B>::h(int)\n"; }
 	void f()
 	{
 		g(2);
