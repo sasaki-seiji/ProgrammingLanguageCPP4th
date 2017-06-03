@@ -204,6 +204,7 @@
 
 	2016.09.23、2016.09.24	26.2:テンプレート具現化
 	2016.09.24、2016.09.25	26.3:名前バインド
+	2017.06.01、2017.06.02、2017.06.03	Linux環境に対応
 	
 第27章　テンプレートと階層
 
@@ -339,7 +340,7 @@
 	
 ＠＠　参考　＠＠	
 
-	cpluspluc.com Referecne
+	cplusplus.com Referecne
 	http://www.cplusplus.com/reference/
 
 	cpprefjp - C++日本語リファレンス   リファレンス
