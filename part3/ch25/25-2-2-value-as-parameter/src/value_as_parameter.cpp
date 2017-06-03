@@ -19,8 +19,6 @@ class Buffer {
 	T v[max];
 public:
 	Buffer() { }
-
-	T& operator[](int i) { return v[i]; }
 };
 
 
@@ -30,21 +28,17 @@ Buffer<Record,8> rbuf;
 
 void test_Buffer()
 {
-	cbuf[0] = 'A';
-	cout << "cbuf[0]: " << cbuf[0] << '\n';
-	ibuf[1000] = 100;
-	cout << "ibuf[1000]: " << ibuf[1000] << '\n';
-	rbuf[5].name = "sasaki";
-	rbuf[5].phone = 1234567;
-	cout << "rbuf[5].name: " << rbuf[5].name << '\n';
-	cout << "rbuf[5].phone: " << rbuf[5].phone << '\n';
+	cout << "-- test_Buffer() --\n";
+
+	cout << "sizeof(Buffer<char,128>): " << sizeof(cbuf) << endl;
+	cout << "sizeof(Buffer<int,5000>): " << sizeof(ibuf) << endl;
+	cout << "sizeof(Buffer<Record,8>): " << sizeof(rbuf) << endl;
 }
 
 template<typename T, char* label>
 class X {
 public:
-	const char* get_label() const { return label; }
-	T get_default() const { return T{}; }
+	static constexpr const char* s_label = label;
 };
 
 //X<int,"BWM323Ci"> x1;
@@ -52,19 +46,23 @@ public:
 char lx2[] = "BWM323Ci";
 X<int,lx2> x2;
 
+void test_X()
+{
+	cout << "-- test_X() --\n";
+	cout << "x2.s_label: " << x2.s_label << endl;
+}
 
-//constexpr int max = 200;
-constexpr int sz = 200;
+constexpr int max = 200;
 
 void f(int i)
 {
+	cout << "-- f(int: " << i << ") --\n";
+
 	//Buffer<int,i> bx;
 		// error: 'i' is not a constant expression
-	//Buffer<int,max> bm;
-	Buffer<int,sz> bm;
+	Buffer<int,::max> bm;
 
-	bm[sz-1] = 123;
-	cout << "bm[sz-1]: " << bm[sz-1] << '\n';
+	cout << "sizeof(Buffer<int, ::max>): " << sizeof(bm) << endl;
 }
 
 
@@ -75,12 +73,12 @@ public:
 	//Buffer2(int i) { max = i; }
 		// error: lvalue required as left operand of assignment
 };
-
+//Buffer2<int,100> temp(1000);
 
 template<typename T, T default_value>
 class Vec {
 public:
-	T get_default() const { return default_value; }
+	static constexpr T def = default_value;
 };
 
 int foo = 1;
@@ -93,34 +91,33 @@ Vec<int*,&foo> c2;
 template<typename T, T default_value = T{}>
 class Vec2 {
 public:
-	T get_default() const { return default_value; }
+	static constexpr T def = default_value;
 };
 
-Vec2<int, 42> c3;
-Vec2<int>	c33;
-Vec2<int*,&foo>	c4;
-Vec2<int*>	c44;
+Vec2<int, 42> d11;
+Vec2<int>	d12;
+Vec2<int*,&foo>	d21;
+Vec2<int*>	d22;
 
+void test_Vec()
+{
+	cout << "-- test_Vec() --\n";
+
+	cout << "Vec<int,42> c1; c1.def: " << c1.def << endl;
+	cout << "Vec<int*,&foo> c2; c2.def: " << c2.def << endl;
+
+	cout << "Vec2<int,42> d11; d11.def: " << d11.def << endl;
+	cout << "Vec2<int>	d12; d12.def: " << d12.def << endl;
+	cout << "Vec2<int*,&foo> d21; d21.def: " << d21.def << endl;
+	cout << "Vec2<int*>	d22; d22.def: " << d22.def << endl;
+}
 
 // add main
 
 int main()
 {
 	test_Buffer();
-
-	cout << x2.get_label() << '\n';
-	cout << x2.get_default() << '\n';
-
+	test_X();
 	f(100);
-
-	//Buffer2<int,10> b2(20);
-		// error: lvalue required as left operand of assignment
-
-	cout << c1.get_default() << '\n';
-	cout << c2.get_default() << '\n';
-
-	cout << c3.get_default() << '\n';
-	cout << c33.get_default() << '\n';
-	cout <<	c4.get_default() << '\n';
-	cout << c44.get_default() << '\n';
+	test_Vec();
 }
