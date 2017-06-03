@@ -22,6 +22,8 @@ public:
 
 void test()
 {
+	cout << "-- test() --\n";
+
 	f(1);
 	f<double>(1);
 	X<double> x1;
@@ -40,6 +42,8 @@ public:
 
 void g()
 {
+	cout << "-- g() --\n";
+
 	struct S { };
 	vector<S> vs;
 	//vector<Y::M> vm;
@@ -48,6 +52,8 @@ void g()
 
 void Y::mf()
 {
+	cout << "-- Y::mf() --\n";
+
 	//vector<S> vs;
 		// error: 'S' was not declared in this scope
 	vector<M> vm;
