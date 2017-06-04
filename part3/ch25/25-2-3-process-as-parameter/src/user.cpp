@@ -70,7 +70,10 @@ void test_Map(M& m, const char* title)
 	}
 
 	cout << title << endl;
-	m.print(cout);
+
+	for (auto x : m)
+		cout << ' ' << x.first << ':' << x.second;
+	cout << endl;
 }
 
 // add main
@@ -79,11 +82,11 @@ int main()
 {
 	print_typeids();
 
-	test_Map(m1, "m1: Map<string,int>");
-	test_Map(m2, "m2: Map<string,int,std::greater<string>>");
-	test_Map(m3, "m3{f3}: Map<string,int,Complex_compare>");
-	test_Map(m4, "m4{insensitive}: Map<string,int,Cmp>");
-	test_Map(m5, "m5{lambda}: Map<string,int,Cmp>");
-	test_Map(c4, "c4{cmp}: Map<string,int,decltype(cmp)>");
+	test_Map(m1, "m1: Map<string,int>: ");
+	test_Map(m2, "m2: Map<string,int,std::greater<string>>: ");
+	test_Map(m3, "m3{f3}: Map<string,int,Complex_compare>: ");
+	test_Map(m4, "m4{insensitive}: Map<string,int,Cmp>: ");
+	test_Map(m5, "m5{lambda}: Map<string,int,Cmp>: ");
+	test_Map(c4, "c4{cmp}: Map<string,int,decltype(cmp)>: ");
 }
 
