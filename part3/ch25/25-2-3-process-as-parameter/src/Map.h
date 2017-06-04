@@ -19,10 +19,10 @@ struct assoc_link {
 };
 
 template<typename Key, typename V, typename Compare = std::less<Key>>
-class map {
+class Map {
 public:
-	map() :root{nullptr} { }
-	map(Compare c) :cmp{c},root{nullptr} { }
+	Map() :root{nullptr} { }
+	Map(Compare c) :cmp{c},root{nullptr} { }
 
 	V& operator[](const Key& key) { return find_or_insert(key)->val; }
 	void print(std::ostream& os) { print_recursive(os, root); os << '\n'; }
@@ -37,7 +37,7 @@ private:
 };
 
 template<typename Key, typename V, typename Compare>
-assoc_link<Key,V>* map<Key,V,Compare>::find_or_insert(const Key& key)
+assoc_link<Key,V>* Map<Key,V,Compare>::find_or_insert(const Key& key)
 {
 	Link **pp;
 	pp = &root;
@@ -59,7 +59,7 @@ assoc_link<Key,V>* map<Key,V,Compare>::find_or_insert(const Key& key)
 }
 
 template<typename Key, typename V, typename Compare>
-void map<Key,V,Compare>::print_recursive(std::ostream& os, Link* entry)
+void Map<Key,V,Compare>::print_recursive(std::ostream& os, Link* entry)
 {
 	if (!entry) return ;
 
