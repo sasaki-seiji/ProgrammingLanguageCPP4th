@@ -26,6 +26,12 @@ struct Record {
 	int phone;
 	std::string addr;
 };
+std::ostream& operator<<(std::ostream& os, const Record& e)
+{
+	return os << "id=" << e.id << ",name=" << e.name
+			<< ",phone=" << e.phone << ",addr=" << e.addr;
+}
+
 
 
 template<typename Rec>
@@ -37,8 +43,16 @@ struct Comp_by_name {
 	bool operator()(const Rec* p1, const Rec* p2)
 		{ return p1->name < p2->name; }
 };
-
-
+template<typename Rec>
+struct Comp_by_phone {
+	bool operator()(const Rec* p1, const Rec* p2)
+		{ return p1->phone < p2->phone; }
+};
+template<typename Rec>
+struct Comp_by_addr {
+	bool operator()(const Rec* p1, const Rec* p2)
+		{ return p1->addr < p2->addr; }
+};
 
 
 #endif /* ENTRY_H_ */
