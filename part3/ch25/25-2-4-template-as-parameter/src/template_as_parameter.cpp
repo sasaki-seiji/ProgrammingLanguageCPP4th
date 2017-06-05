@@ -6,6 +6,7 @@
  */
 
 #include "Xrefd.h"
+#include "Xrefd2.h"
 #include "Entry.h"
 #include <vector>
 #include <string>
@@ -97,16 +98,26 @@ void test_Xrefd()
 		cout << *e << endl;
 }
 
-template<typename C, typename C2>
-class Xrefd2 {
-	C mems;
-	C2 refs;
-};
-Xrefd2<vector<Entry>, set<Entry*>> x;
+Xrefd2<vector<Entry>, set<Entry*,Comp_by_id<Entry>>> x;
+
+
+void test_Xrefd2()
+{
+	cout << "-- test_Xrefd2() --\n";
+
+	for (const auto& e : entries)
+		x.add(e);
+	x.make_ref();
+
+	cout << "- initial x -\n";
+	for (auto e : x)
+		cout << *e << endl;
+}
 
 // add main
 
 int main()
 {
 	test_Xrefd();
+	test_Xrefd2();
 }
