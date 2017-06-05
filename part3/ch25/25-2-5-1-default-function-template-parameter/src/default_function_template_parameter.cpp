@@ -33,15 +33,16 @@ auto x4 = to(1.2);
 
 int main()
 {
-	cout << "x1: " << x1 << '\n';
-	cout << "x2: " << x2 << '\n';
-	cout << "x3: " << x3 << '\n';
-	cout << "x4: " << x4 << '\n';
+	cout << "x1 = to<string,double>(1.2): " << x1 << '\n';
+	cout << "x2 = to<string>(1.2): " << x2 << '\n';
+	cout << "x3 = to<>(1.2): " << x3 << '\n';
+	cout << "x4 = to(1.2): " << x4 << '\n';
 
 	auto d1 = to<double>(10);
-	cout << "d1: " << d1 << '\n';
+	cout << "d1 = to<double>(10): " << d1 << '\n';
 
 	try {
+		cout << "try to<char>(100)\n";
 		auto c1 = to<char>(100);
 		cout << "c1: " << c1 << '\n';
 	}
