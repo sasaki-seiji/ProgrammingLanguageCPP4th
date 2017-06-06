@@ -15,10 +15,11 @@
 template<typename T>
 class Vector {
 	T* v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
+	explicit Vector(size_t);
 	Vector(std::initializer_list<T>);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
@@ -43,27 +44,28 @@ Vector<T>::Vector() : v{nullptr}, sz{0}
 }
 
 template<typename T>
-Vector<T>::Vector(int s) : v{new T[s]}, sz{s}
+Vector<T>::Vector(size_t s) : v{new T[s]}, sz{s}
 {
 	std::cout << "Vector<T>::Vector(int)\n";
-	std::uninitialized_fill(v,v+s,T{});
+	std::fill(v,v+s,T{});
 }
 
 template<typename T>
 Vector<T>::Vector(std::initializer_list<T> il) : v{new T[il.size()]}, sz{il.size()}
 {
 	std::cout << "Vector<T>::Vector(std::initializer_list<T>)\n";
-	std::uninitialized_copy(il.begin(), il.end(), v);
+	std::copy(il.begin(), il.end(), v);
 }
 
 
 template<>
 class Vector<void*> {
 	void** v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
+	explicit Vector(size_t);
 	Vector(std::initializer_list<void*>);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
@@ -81,18 +83,18 @@ public:
 
 //template<>
 	// error: template-id 'Vector<>' for 'Vector<void*>::Vector()' does not match any template declaration
-Vector<void*>::Vector() : v{nullptr}, sz{0}
+inline Vector<void*>::Vector() : v{nullptr}, sz{0}
 {
 	std::cout << "Vector<void*>::Vector()\n";
 }
 
-Vector<void*>::Vector(int s) : v{new void*[s]}, sz{s}
+inline Vector<void*>::Vector(size_t s) : v{new void*[s]}, sz{s}
 {
 	std::cout << "Vector<void*>::Vector(int)\n";
 	std::uninitialized_fill(v,v+s,nullptr);
 }
 
-Vector<void*>::Vector(std::initializer_list<void*> il) : v{new void*[il.size()]}, sz{il.size()}
+inline Vector<void*>::Vector(std::initializer_list<void*> il) : v{new void*[il.size()]}, sz{il.size()}
 {
 	std::cout << "Vector<void*>::Vector(std::initializer_list<void*>)\n";
 	std::uninitialized_copy(il.begin(), il.end(), v);
@@ -123,9 +125,8 @@ template<typename T>
 Vector<T*>::Vector(std::initializer_list<T*> il)
 	:Base(il.size())
 {
-	auto it = il.begin();
-	for (int i = 0; it != il.end(); ++it, ++i)
-		Base::elem(i) = *it;
+	std::cout << "Vector<T*>::Vector(std::initializer_list<T*>)\n";
+	std::copy(il.begin(), il.end(), begin());
 }
 
 #endif /* VECTOR_H_ */
