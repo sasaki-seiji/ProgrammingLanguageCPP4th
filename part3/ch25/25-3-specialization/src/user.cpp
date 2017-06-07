@@ -21,6 +21,10 @@ Vector<Node*> vpn;
 
 Vector<void*> vpv;
 
+Vector<const Shape*> vpcs;
+Vector<const char*> vpcc;
+Vector<const Node*> vpcn;
+
 // add main
 
 void test_vector_int()
@@ -79,6 +83,43 @@ void test_vector_pnode()
 	cout << '\n';
 }
 
+void test_vector_pcshape()
+{
+	cout << "-- test_vector_pcshape() --\n";
+
+	Vector<const Shape*> vps2 = { new Circle(0, -2, 5), new Rectangle(1, -2, 3, 4),
+							new Circle(-3, 3, 4), new Rectangle(-3, 3, 2, 2) };
+	for (auto& x : vps2) {
+		x->draw();
+		delete x;
+		x = nullptr;
+	}
+}
+
+
+void test_vector_pcchar()
+{
+	cout << "-- test_vector_pcchar() --\n";
+
+	Vector<const char*> vpc2 = {"this", "is", "a", "char*"};
+	for (auto x : vpc2)
+		cout << x << '|';
+	cout << '\n';
+}
+
+void test_vector_pcnode()
+{
+	cout << "-- test_vector_pcnode() --\n";
+
+	Vector<const Node*> vpcn = { new Expr, new Stmt, new Stmt, new Expr };
+	for (auto& x : vpcn) {
+		cout << x->what() << ' ';
+		delete x;
+		x = nullptr;
+	}
+	cout << '\n';
+}
+
 int main()
 {
 	test_vector_int();
@@ -86,5 +127,9 @@ int main()
 	test_vector_string();
 	test_vector_pchar();
 	test_vector_pnode();
+
+	test_vector_pcshape();
+	test_vector_pcchar();
+	test_vector_pcnode();
 }
 

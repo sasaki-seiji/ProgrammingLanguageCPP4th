@@ -12,7 +12,7 @@
 
 class Shape {
 public:
-	virtual void draw() = 0;
+	virtual void draw() const = 0;
 	virtual ~Shape() { }
 };
 
@@ -22,7 +22,7 @@ class Circle : public Shape {
 	int radius;
 public:
 	Circle(int x, int y, int r) :center_x{x}, center_y{y}, radius{r} { }
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "Circle(" << center_x << "," << center_y <<
 				"," << radius << ")\n";
@@ -35,7 +35,7 @@ class Rectangle : public Shape {
 public:
 	Rectangle(int x, int y, int w, int h)
 		:left{x}, top{y}, width{w}, height{h} { }
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "Rectangle(" << left << "," << top <<
 				"," << width << "," << height << ")\n";

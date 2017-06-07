@@ -11,18 +11,18 @@
 
 class Node {
 public:
-	virtual const char* what() = 0;
+	virtual const char* what() const = 0;
 	virtual ~Node() { }
 };
 
 class Expr : public Node {
 public:
-	const char* what() override { return "Expr"; }
+	const char* what() const override { return "Expr"; }
 };
 
 class Stmt : public Node {
 public:
-	const char* what() override { return "Stmt"; }
+	const char* what() const override { return "Stmt"; }
 };
 
 #endif /* NODE_H_ */
