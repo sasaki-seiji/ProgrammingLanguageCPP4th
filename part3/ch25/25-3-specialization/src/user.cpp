@@ -39,8 +39,11 @@ void test_vector_pshape()
 
 	Vector<Shape*> vps2 = { new Circle(0, -2, 5), new Rectangle(1, -2, 3, 4),
 							new Circle(-3, 3, 4), new Rectangle(-3, 3, 2, 2) };
-	for (auto x : vps2)
+	for (auto& x : vps2) {
 		x->draw();
+		delete x;
+		x = nullptr;
+	}
 }
 
 void test_vector_string()
@@ -68,8 +71,11 @@ void test_vector_pnode()
 	cout << "-- test_vector_pnode() --\n";
 
 	Vector<Node*> vpn2 = { new Expr, new Stmt, new Stmt, new Expr };
-	for (auto x : vpn2)
+	for (auto& x : vpn2) {
 		cout << x->what() << ' ';
+		delete x;
+		x = nullptr;
+	}
 	cout << '\n';
 }
 
