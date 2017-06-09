@@ -31,12 +31,12 @@ class Matrix<T,1> {
 		// member order is important!
 public:
 	explicit Matrix(int s) : sz{s}, elem{new T[sz]}
-		{ std::uninitialized_fill(elem, elem+sz, T{}); }
+		{ std::fill(elem, elem+sz, T{}); }
 	Matrix(std::initializer_list<T> il) : sz{il.size()},elem{new T[sz]}
-		{ std::uninitialized_copy(il.begin(), il.end(), elem); }
+		{ std::copy(il.begin(), il.end(), elem); }
 
 	Matrix(const Matrix& s) : sz{s.sz}, elem{new T[sz]}
-		{ std::uninitialized_copy(s.elem, s.elem+sz, elem); }
+		{ std::copy(s.elem, s.elem+sz, elem); }
 	Matrix(Matrix&& s) : sz{s.sz}
 		{ elem = s.elem; s.elem = nullptr; }
 	Matrix& operator=(const Matrix&) = delete;
@@ -57,13 +57,15 @@ class Matrix<T,2> {
 
 public:
 	explicit Matrix(int s1, int s2) : dim1{s1}, dim2{s2}, elem{new T[s1*s2]}
-		{ std::uninitialized_fill(elem, elem+dim1*dim2, T{}); }
+		{ std::fill(elem, elem+dim1*dim2, T{}); }
 	Matrix(std::initializer_list<std::initializer_list<T>> il);
 
 	Matrix(const Matrix& s) : dim1{s.dim1}, dim2{s.dim2}, elem{new T[dim1*dim2]}
-		{ std::uninitialized_copy(s.elem, s.elem+dim1*dim2, elem); }
+		{ std::copy(s.elem, s.elem+dim1*dim2, elem); }
 	Matrix(Matrix&& s) : dim1{s.dim1}, dim2{s.dim2}
 		{ elem = s.elem; s.elem = nullptr; }
+	~Matrix() { delete [] elem; }
+
 	Matrix& operator=(const Matrix&) = delete;
 	Matrix& operator=(Matrix&&) = delete;
 
@@ -122,7 +124,7 @@ Matrix<T,2>::Matrix(std::initializer_list<std::initializer_list<T>> il)
 	auto it = il.begin();
 	for( ; it != il.end(); ++it, row+=dim2) {
 		if (it->size()!=dim2) throw std::runtime_error{"size mismatch"};
-		std::uninitialized_copy(it->begin(), it->end(), row);
+		std::copy(it->begin(), it->end(), row);
 	}
 }
 
