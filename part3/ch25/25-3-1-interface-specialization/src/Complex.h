@@ -19,9 +19,10 @@ public:
 	template<typename X>
 		Complex(const Complex<X>&);
 
-	Complex& operator=(const Complex&);
-	Complex& operator=(const T&);
-	Complex& operator+=(const T&);
+	Complex& operator=(const Complex&) = default;
+	Complex& operator=(const T& o) { r = o; i = T{}; return *this; }
+	Complex& operator+=(const T& o) { r += o; return *this; }
+
 	// ...
 	template<typename X>
 		Complex& operator=(const Complex<X>&);
@@ -29,71 +30,10 @@ public:
 		Complex& operator+=(const Complex<X>&);
 	// ...
 
-	T real() const { return r; }
-	T imag() const { return i; }
+	constexpr T real() const { return r; }
+	constexpr T imag() const { return i; }
 };
 
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const Complex<T>& z)
-{
-	os << '(' << z.real() << ',' << z.imag() << ')';
-	return os;
-}
-
-template<typename T>
-template<typename X>
-Complex<T>::Complex(const Complex<X>& s)
-	:r{s.real()},i{s.imag()}
-{
-	std::cout << "complex<T>::complex(const complex<X>&)\n";
-}
-
-template<typename T>
-Complex<T>& Complex<T>::operator=(const Complex& s)
-{
-	std::cout << "complex<T>::operator=(const complex&)\n";
-	r = s.r;
-	i = s.i;
-	return *this;
-}
-
-template<typename T>
-Complex<T>& Complex<T>::operator=(const T& x)
-{
-	std::cout << "complex<T>::operator=(const T&)\n";
-	r = x;
-	i = T{};
-	return *this;
-}
-
-template<typename T>
-Complex<T>& Complex<T>::operator+=(const T& x)
-{
-	std::cout << "complex<T>::operator+=(const T&)\n";
-	r += x;
-	return *this;
-}
-
-template<typename T>
-template<typename X>
-Complex<T>& Complex<T>::operator=(const Complex<X>& s)
-{
-	std::cout << "complex<T>::operator=(const complex<X>&)\n";
-	r = s.real();
-	i = s.imag();
-	return *this;
-}
-
-template<typename T>
-template<typename X>
-Complex<T>& Complex<T>::operator+=(const Complex<X>& s)
-{
-	std::cout << "complex<T>::operator+=(const complex<X>&)\n";
-	r += s.real();
-	i += s.imag();
-	return *this;
-}
 
 template<>
 class Complex<float> {
@@ -101,12 +41,14 @@ class Complex<float> {
 public:
 	constexpr Complex(float re = 0, float im = 0) :r{re},i{im} { }
 	constexpr Complex(const Complex&) = default;
+	explicit constexpr Complex(const Complex<double>& o);
+	explicit constexpr Complex(const Complex<long double>&);
 	template<typename X>
 		Complex(const Complex<X>&);
 
-	Complex& operator=(const Complex&);
-	Complex& operator=(float);
-	Complex& operator+=(float);
+	Complex& operator=(const Complex&) = default;
+	Complex& operator=(float o) { r = o; i = 0; return *this; }
+	Complex& operator+=(float o) { r += o; return *this; }
 	// ...
 	template<typename X>
 		Complex& operator=(const Complex<X>&);
@@ -117,29 +59,6 @@ public:
 	constexpr float real() const { return r; }
 	constexpr float imag() const { return i; }
 };
-
-Complex<float>& Complex<float>::operator=(const Complex& s)
-{
-	std::cout << "complex<float>::operator=(const complex&)\n";
-	r = s.r;
-	i = s.i;
-	return *this;
-}
-
-Complex<float>& Complex<float>::operator=(float x)
-{
-	std::cout << "complex<float>::operator=(float)\n";
-	r = x;
-	i = 0;
-	return *this;
-}
-
-Complex<float>& Complex<float>::operator+=(float x)
-{
-	std::cout << "complex<float>::operator+=(float)\n";
-	r += x;
-	return *this;
-}
 
 template<>
 class Complex<double> {
@@ -153,9 +72,10 @@ public:
 	template<typename X>
 		Complex(const Complex<X>&);
 
-	Complex& operator=(const Complex&);
-	Complex& operator=(double);
-	Complex& operator+=(double);
+	Complex& operator=(const Complex& o) = default;
+	Complex& operator=(double o) { r = o; i = 0; return *this; }
+	Complex& operator+=(double o) 	{ r += o; return *this; }
+
 	// ...
 	template<typename X>
 		Complex& operator=(const Complex<X>&);
@@ -167,33 +87,33 @@ public:
 	constexpr double imag() const { return i; }
 };
 
-Complex<double>& Complex<double>::operator=(const Complex& s)
-{
-	std::cout << "complex<double>::operator=(const complex&)\n";
-	r = s.r;
-	i = s.i;
-	return *this;
-}
 
-Complex<double>& Complex<double>::operator=(double x)
-{
-	std::cout << "complex<double>::operator=(double)\n";
-	r = x;
-	i = 0;
-	return *this;
-}
+// impl for Complex<float>
 
-Complex<double>& Complex<double>::operator+=(double x)
+constexpr Complex<float>::Complex(const Complex<double>& o)
+	:r{o.real()}, i{o.imag()} { }
+
+template<typename X>
+Complex<float>& Complex<float>::operator=(const Complex<X>& o)
 {
-	std::cout << "complex<doube>::operator+=(double)\n";
-	r += x;
+	r = o.real();
+	i = o.imag();
 	return *this;
 }
 
 template<typename X>
+Complex<float>& Complex<float>::operator+=(const Complex<X>& o)
+{
+	r += o.real();
+	i += o.imag();
+	return *this;
+}
+
+// impl for Complex<double>
+
+template<typename X>
 Complex<double>& Complex<double>::operator=(const Complex<X>& s)
 {
-	std::cout << "complex<doube>::operator=(const complex<X>&)\n";
 	r = s.real();
 	i = s.imag();
 	return *this;
@@ -202,10 +122,47 @@ Complex<double>& Complex<double>::operator=(const Complex<X>& s)
 template<typename X>
 Complex<double>& Complex<double>::operator+=(const Complex<X>& s)
 {
-	std::cout << "complex<doube>::operator+=(const complex<X>&)\n";
 	r += s.real();
 	i += s.imag();
 	return *this;
 }
+
+// impl for Complex<X>
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Complex<T>& z)
+{
+	os << '(' << z.real() << ',' << z.imag() << ')';
+	return os;
+}
+
+template<typename T>
+template<typename X>
+Complex<T>::Complex(const Complex<X>& s)
+	:r{s.real()},i{s.imag()}
+{
+}
+
+
+template<typename T>
+template<typename X>
+Complex<T>& Complex<T>::operator=(const Complex<X>& s)
+{
+	r = s.real();
+	i = s.imag();
+	return *this;
+}
+
+template<typename T>
+template<typename X>
+Complex<T>& Complex<T>::operator+=(const Complex<X>& s)
+{
+	r += s.real();
+	i += s.imag();
+	return *this;
+}
+
+
+
 
 #endif /* COMPLEX_H_ */
