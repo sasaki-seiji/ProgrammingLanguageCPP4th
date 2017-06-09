@@ -20,8 +20,8 @@ class Matrix<T,0> {
 
 public:
 	explicit Matrix(const T& val) : elem{val} { }
-	T& val() { return elem; }
-	const T& val() const { return elem; }
+	T& operator()() { return elem; }
+	const T& operator()() const { return elem; }
 };
 
 template<typename T>
@@ -39,12 +39,13 @@ public:
 		{ std::copy(s.elem, s.elem+sz, elem); }
 	Matrix(Matrix&& s) : sz{s.sz}
 		{ elem = s.elem; s.elem = nullptr; }
-	Matrix& operator=(const Matrix&) = delete;
-	Matrix& operator=(Matrix&&) = delete;
 	~Matrix() { delete[] elem; }
 
-	T& val(int i) { return elem[i]; }
-	const T& val(int i) const { return elem[i]; }
+	Matrix& operator=(const Matrix&) = delete;
+	Matrix& operator=(Matrix&&);
+
+	T& operator()(int i) { return elem[i]; }
+	const T& operator()(int i) const { return elem[i]; }
 
 	int size() const { return sz; }
 };
@@ -67,10 +68,10 @@ public:
 	~Matrix() { delete [] elem; }
 
 	Matrix& operator=(const Matrix&) = delete;
-	Matrix& operator=(Matrix&&) = delete;
+	Matrix& operator=(Matrix&& s);
 
-	T& val(int i, int j) { return elem[i*dim2+j]; }
-	const T& val(int i, int j) const { return elem[i*dim2+j]; }
+	T& operator()(int i, int j) { return elem[i*dim2+j]; }
+	const T& operator()(int i, int j) const { return elem[i*dim2+j]; }
 	int row() const { return dim1; }
 	int col() const { return dim2; }
 };
@@ -80,18 +81,27 @@ public:
 template<typename T>
 Matrix<T,0> operator+(const Matrix<T,0>& a, const Matrix<T,0>& b)
 {
-	T res = a.val() + b.val();
+	T res = a() + b();
 	return Matrix<T,0>{res};
 }
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Matrix<T,0>& m)
 {
-	os << m.val();
+	os << m();
 	return os;
 }
 
 // implementation of Matrix<T,1>
+
+template<typename T>
+Matrix<T,1>& Matrix<T,1>::operator=(Matrix&& s)
+{
+	sz = s.sz; s.sz = 0;
+	delete [] elem;
+	elem = s.elem;
+	s.elem = nullptr;
+}
 
 template<typename T>
 Matrix<T,1> operator+(const Matrix<T,1>& a, const Matrix<T,1>& b)
@@ -100,7 +110,7 @@ Matrix<T,1> operator+(const Matrix<T,1>& a, const Matrix<T,1>& b)
 
 	Matrix<T,1> res(a.size());
 	for (int i = 0; i < a.size(); ++i)
-		res.val(i) = a.val(i) + b.val(i);
+		res(i) = a(i) + b(i);
 	return res;
 }
 
@@ -109,7 +119,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T,1>& m)
 {
 	os << "[ ";
 	for (int i = 0; i < m.size(); ++i)
-		os << m.val(i) << ' ';
+		os << m(i) << ' ';
 	os << "]";
 	return os;
 }
@@ -129,6 +139,16 @@ Matrix<T,2>::Matrix(std::initializer_list<std::initializer_list<T>> il)
 }
 
 template<typename T>
+Matrix<T,2>& Matrix<T,2>::operator=(Matrix&& s)
+{
+	dim1 = s.dim1; s.dim1 = 0;
+	dim2 = s.dim2; s.dim2 = 0;
+	delete [] elem;
+	elem = s.elem;
+	s.elem = nullptr;
+}
+
+template<typename T>
 Matrix<T,2> operator+(const Matrix<T,2>& a, const Matrix<T,2>& b)
 {
 	if (a.row()!=b.row() || a.col()!=b.col()) throw std::runtime_error("size mismatch");
@@ -136,7 +156,7 @@ Matrix<T,2> operator+(const Matrix<T,2>& a, const Matrix<T,2>& b)
 	Matrix<T,2> res(a.row(), a.col());
 	for (int i = 0; i < a.row(); ++i)
 		for (int j = 0; j < a.col(); ++j)
-			res.val(i,j) = a.val(i,j) + b.val(i,j);
+			res(i,j) = a(i,j) + b(i,j);
 	return res;
 }
 
@@ -147,7 +167,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix<T,2>& m)
 	for (int i = 0; i < m.row(); ++i) {
 		os << "\t[ ";
 		for (int j = 0 ; j < m.col(); ++j)
-			os << m.val(i,j) << ' ';
+			os << m(i,j) << ' ';
 		os << "]\n";
 	}
 	os << "]";
