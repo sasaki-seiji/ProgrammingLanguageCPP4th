@@ -90,7 +90,7 @@ inline Vector<void*>::Vector() : v{nullptr}, sz{0}
 inline Vector<void*>::Vector(size_t s) : v{new void*[s]}, sz{s}
 {
 	std::cout << "Vector<void*>::Vector(int)\n";
-	std::uninitialized_fill(v,v+s,nullptr);
+	std::fill(v,v+s,nullptr);
 }
 
 template<>
@@ -155,6 +155,13 @@ template<typename T>
 Vector<T*>::Vector()
 {
 	std::cout << "Vector<T*>::Vector()\n";
+}
+
+template<typename T>
+Vector<T*>::Vector(int i)
+	:Base(i)
+{
+	std::cout << "Vector<T*>::Vector(int)\n";
 }
 
 template<typename T>
