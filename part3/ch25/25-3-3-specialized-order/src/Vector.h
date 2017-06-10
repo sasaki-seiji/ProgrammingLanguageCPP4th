@@ -15,10 +15,11 @@
 template<typename T>
 class Vector {
 	T* v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
+	explicit Vector(size_t);
 	Vector(std::initializer_list<T>);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
@@ -43,28 +44,28 @@ Vector<T>::Vector() : v{nullptr}, sz{0}
 }
 
 template<typename T>
-Vector<T>::Vector(int s) : v{new T[s]}, sz{s}
+Vector<T>::Vector(size_t s) : v{new T[s]}, sz{s}
 {
 	std::cout << "Vector<T>::Vector(int)\n";
-	std::uninitialized_fill(v,v+s,T{});
+	std::fill(v,v+s,T{});
 }
 
 template<typename T>
 Vector<T>::Vector(std::initializer_list<T> il) : v{new T[il.size()]}, sz{il.size()}
 {
 	std::cout << "Vector<T>::Vector(std::initializer_list<T>)\n";
-	std::uninitialized_copy(il.begin(), il.end(), v);
+	std::copy(il.begin(), il.end(), v);
 }
 
 
 template<>
 class Vector<void*> {
 	void** v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
-	Vector(std::initializer_list<void*>);
+	explicit Vector(size_t);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
 
@@ -81,30 +82,61 @@ public:
 
 //template<>
 	// error: template-id 'Vector<>' for 'Vector<void*>::Vector()' does not match any template declaration
-Vector<void*>::Vector() : v{nullptr}, sz{0}
+inline Vector<void*>::Vector() : v{nullptr}, sz{0}
 {
 	std::cout << "Vector<void*>::Vector()\n";
 }
 
-Vector<void*>::Vector(int s) : v{new void*[s]}, sz{s}
+inline Vector<void*>::Vector(size_t s) : v{new void*[s]}, sz{s}
 {
 	std::cout << "Vector<void*>::Vector(int)\n";
+	std::fill(v,v+s,nullptr);
+}
+
+template<>
+class Vector<const void*> {
+	const void** v;
+	size_t sz;
+
+public:
+	Vector();
+	explicit Vector(size_t);
+	Vector(const Vector&) = delete;
+	Vector& operator=(const Vector&) = delete ;
+
+	~Vector() { delete []v; }
+
+	const void*& elem(int i) { return v[i]; }
+	const void*& operator[](int i);
+
+	void swap(Vector&);
+
+	const void** begin() { return v; }
+	const void** end() { return v+sz; }
+};
+
+//template<>
+	// error: template-id 'Vector<>' for 'Vector<void*>::Vector()' does not match any template declaration
+inline Vector<const void*>::Vector() : v{nullptr}, sz{0}
+{
+	std::cout << "Vector<const void*>::Vector()\n";
+}
+
+inline Vector<const void*>::Vector(size_t s)
+		: v{new const void*[s]}, sz{s}
+{
+	std::cout << "Vector<const void*>::Vector(int)\n";
 	std::uninitialized_fill(v,v+s,nullptr);
 }
 
-Vector<void*>::Vector(std::initializer_list<void*> il) : v{new void*[il.size()]}, sz{il.size()}
-{
-	std::cout << "Vector<void*>::Vector(std::initializer_list<void*>)\n";
-	std::uninitialized_copy(il.begin(), il.end(), v);
-}
 
 template<typename T>
 class Vector<T*> : private Vector<void*>{
 public:
 	using Base = Vector<void*>;
 
-	Vector() { std::cout << "Vector<T*>::Vector()\n";};
-	explicit Vector(int i) : Base(i) { std::cout << "Vector<T*>::Vector(int)\n"; }
+	Vector();
+	explicit Vector(int i);
 	Vector(std::initializer_list<T*> il) ;
 
 	Vector(const Vector&) = delete;
@@ -120,13 +152,60 @@ public:
 };
 
 template<typename T>
+Vector<T*>::Vector()
+{
+	std::cout << "Vector<T*>::Vector()\n";
+}
+
+template<typename T>
+Vector<T*>::Vector(int i)
+	:Base(i)
+{
+	std::cout << "Vector<T*>::Vector(int)\n";
+}
+
+template<typename T>
 Vector<T*>::Vector(std::initializer_list<T*> il)
 	:Base(il.size())
 {
 	std::cout << "Vector<T*>::Vector(std::initializer_list<T*>)\n";
-	auto it = il.begin();
-	for (int i = 0; it != il.end(); ++it, ++i)
-		Base::elem(i) = *it;
+	std::copy(il.begin(), il.end(), begin());
 }
+
+template<typename T>
+class Vector<const T*> : private Vector<const void*>{
+public:
+	using Base = Vector<const void*>;
+
+	Vector();
+	explicit Vector(int i);
+	Vector(std::initializer_list<const T*> il) ;
+
+	Vector(const Vector&) = delete;
+	Vector& operator=(const Vector&) = delete ;
+
+	const T*& elem(int i) { return reinterpret_cast<const T*&>(Base::elem(i)); }
+	const T*& operator[](int i) { return reinterpret_cast<const T*&>(Base::operator[](i)); }
+
+	void swap(Vector&);
+
+	const T** begin() { return reinterpret_cast<const T**>(Base::begin()); }
+	const T** end() { return reinterpret_cast<const T**>(Base::end()); }
+};
+
+template<typename T>
+Vector<const T*>::Vector()
+{
+	std::cout << "Vector<const T*>::Vector()\n";
+}
+
+template<typename T>
+Vector<const T*>::Vector(std::initializer_list<const T*> il)
+	:Base(il.size())
+{
+	std::cout << "Vector<const T*>::Vector(std::initializer_list<const T*>)\n";
+	std::copy(il.begin(), il.end(), begin());
+}
+
 
 #endif /* VECTOR_H_ */
