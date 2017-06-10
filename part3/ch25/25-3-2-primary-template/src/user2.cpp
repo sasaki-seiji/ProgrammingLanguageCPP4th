@@ -12,7 +12,7 @@ using namespace std;
 
 void user2()
 {
-	int v = 100;
-	List2<int*> lp{&v};
-	cout << "lp.get(): " << lp.get() << '\n';
+	int v1, v2, v3;
+	List2<int*> lp{&v1, &v2, &v3};
+	cout << "lp.size(): " << lp.size() << '\n';
 }

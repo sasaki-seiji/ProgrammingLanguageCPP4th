@@ -8,15 +8,17 @@
 #ifndef LIST2_H_
 #define LIST2_H_
 
+#include <list>
+
 template<typename T>
 class List2 ;
 
 template<typename T>
 class List2<T*> {
-	T*	p;
+	std::list<T*>	lst;
 public:
-	List2(T* pp = nullptr) :p{pp} { }
-	T* get() const { return p; }
+	List2(std::initializer_list<T*> il) :lst{il} { }
+	std::size_t size() const { return lst.size(); }
 };
 
 #endif /* LIST2_H_ */

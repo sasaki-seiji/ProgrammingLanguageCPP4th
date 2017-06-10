@@ -12,10 +12,10 @@ using namespace std;
 
 void user1()
 {
-	List1<int> list{10};
-	int	v = 100;
-	List1<int*> listp{&v};
+	List1<int> list {10,20,30};
+	int	v1,v2,v3;
+	List1<int*> listp {&v1,&v2,&v3};
 
-	cout << "list.get(): " << list.get() << '\n';
-	cout << "listp.get(): " << listp.get() << '\n';
+	cout << "list.size(): " << list.size() << '\n';
+	cout << "listp.size(): " << listp.size() << '\n';
 }

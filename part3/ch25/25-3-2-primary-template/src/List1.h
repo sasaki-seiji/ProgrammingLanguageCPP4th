@@ -8,27 +8,30 @@
 #ifndef LIST1_H_
 #define LIST1_H_
 
+#include "regular.h"
+using namespace Estd;
 
+#include <list>
 
-//template<typename T>
-//class List1<T> {
-//};
-// error: 'List1' is not a class template
+//template<typename T> class List1<T*> { };
+	// error: ‘List1’ is not a class template
 
 template<typename T>
 class List1 {
-	T val;
+	static_assert(Regular<T>(), "List1(): T must be Regular");
+
+	std::list<T> lst;
 public:
-	List1(const T& v = T{}) :val{v} {}
-	T get() const { return val; }
+	List1(std::initializer_list<T> il) :lst{il} {}
+	std::size_t size() const { return lst.size(); }
 };
 
 template<typename T>
 class List1<T*> {
-	T*	p;
+	std::list<T*> lst;
 public:
-	List1(T* pp = nullptr) :p{pp} { }
-	T* get() const { return p; }
+	List1(std::initializer_list<T*> il) :lst{il} { }
+	std::size_t size() const { return lst.size(); }
 };
 
 

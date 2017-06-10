@@ -1,0 +1,1 @@
+/home/sasaki/books/ProgrammingLanguageCPP4th/common/concept/equality_comparable.h
