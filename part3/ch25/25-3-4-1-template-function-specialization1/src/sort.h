@@ -10,7 +10,6 @@
 
 #include "Vector.h"
 #include <utility>
-using std::swap;
 
 template<typename T>
 bool less(T a, T b)
@@ -27,7 +26,7 @@ void sort(Vector<T>& v)
 		for (int i=gap; i!=n; ++i)
 			for (int j=i-gap; 0<=j; j-=gap)
 				if (less(v[j+gap],v[j]))
-					swap(v[j],v[j+gap]);
+					std::swap(v[j],v[j+gap]);
 
 }
 

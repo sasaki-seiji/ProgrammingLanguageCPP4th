@@ -15,17 +15,18 @@
 template<typename T>
 class Vector {
 	T* v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
+	explicit Vector(size_t);
 	Vector(std::initializer_list<T>);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
 
 	~Vector() { delete []v; }
 
-	int	size() const { return sz; }	// 2016.09.22 add
+	size_t	size() const { return sz; }	// 2016.09.22 add
 	T& elem(int i) { return v[i]; }
 	T& operator[](int i) { return v[i];}
 
@@ -44,17 +45,18 @@ Vector<T>::Vector() : v{nullptr}, sz{0}
 }
 
 template<typename T>
-Vector<T>::Vector(int s) : v{new T[s]}, sz{s}
+Vector<T>::Vector(size_t s) : v{new T[s]}, sz{s}
 {
-	std::cout << "Vector<T>::Vector(int)\n";
-	std::uninitialized_fill(v,v+s,T{});
+	std::cout << "Vector<T>::Vector(size_t)\n";
+	std::fill(v,v+s,T{});
 }
 
 template<typename T>
-Vector<T>::Vector(std::initializer_list<T> il) : v{new T[il.size()]}, sz{il.size()}
+Vector<T>::Vector(std::initializer_list<T> il)
+	: v{new T[il.size()]}, sz{il.size()}
 {
 	std::cout << "Vector<T>::Vector(std::initializer_list<T>)\n";
-	std::uninitialized_copy(il.begin(), il.end(), v);
+	std::copy(il.begin(), il.end(), v);
 }
 
 
@@ -72,17 +74,18 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& v)
 template<>
 class Vector<void*> {
 	void** v;
-	int sz;
+	size_t sz;
+
 public:
 	Vector();
-	explicit Vector(int);
+	explicit Vector(size_t);
 	Vector(std::initializer_list<void*>);
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
 
 	~Vector() { delete []v; }
 
-	int	size() const { return sz; }	// 2016.09.22 add
+	size_t	size() const { return sz; }	// 2016.09.22 add
 	void*& elem(int i) { return v[i]; }
 	void*& operator[](int i) { return v[i]; }
 
@@ -101,16 +104,17 @@ inline Vector<void*>::Vector() : v{nullptr}, sz{0}
 	std::cout << "Vector<void*>::Vector()\n";
 }
 
-inline Vector<void*>::Vector(int s) : v{new void*[s]}, sz{s}
+inline Vector<void*>::Vector(size_t s) : v{new void*[s]}, sz{s}
 {
-	std::cout << "Vector<void*>::Vector(int)\n";
-	std::uninitialized_fill(v,v+s,nullptr);
+	std::cout << "Vector<void*>::Vector(size_t)\n";
+	std::fill(v,v+s,nullptr);
 }
 
-inline Vector<void*>::Vector(std::initializer_list<void*> il) : v{new void*[il.size()]}, sz{il.size()}
+inline Vector<void*>::Vector(std::initializer_list<void*> il)
+		: v{new void*[il.size()]}, sz{il.size()}
 {
 	std::cout << "Vector<void*>::Vector(std::initializer_list<void*>)\n";
-	std::uninitialized_copy(il.begin(), il.end(), v);
+	std::copy(il.begin(), il.end(), v);
 }
 
 template<typename T>
@@ -121,16 +125,16 @@ public:
 	using Base = Vector<void*>;
 
 	Vector() { std::cout << "Vector<T*>::Vector()\n";};
-	explicit Vector(int i) : Base(i) { std::cout << "Vector<T*>::Vector(int)\n"; }
+	explicit Vector(size_t s) : Base(s) { std::cout << "Vector<T*>::Vector(int)\n"; }
 	Vector(std::initializer_list<T*> il) ;
 
 	Vector(const Vector&) = delete;
 	Vector& operator=(const Vector&) = delete ;
 
-	int	size() const { return Base::size(); }	// 2016.09.22 add
+	size_t	size() const { return Base::size(); }	// 2016.09.22 add
 	T*& elem(int i) // 2016.09.22 change
 	{
-		RCT*& pr = reinterpret_cast<T*&>(Base::elem(i));
+		RCT*& pr = reinterpret_cast<RCT*&>(Base::elem(i));
 		return const_cast<T*&>(pr);
 	}
 	T*& operator[](int i)// 2016.09.22 change
