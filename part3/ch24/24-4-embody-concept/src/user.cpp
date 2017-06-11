@@ -29,9 +29,14 @@ int main()
 {
 	si += 100;
 	cout << si << endl;
+
 	sp += pair<int,char>(100,'A');
 	//cout << sp << endl;
 		// error: static assertion failed: String's character not streamable
 
+	String<pair<int,char>> sp2;
+	sp2 += pair<int,char>(100,'B');
+	cout << boolalpha;
+	cout << "(100,'A') < (100,'B') ? " << (sp < sp2) << endl;
 }
 
