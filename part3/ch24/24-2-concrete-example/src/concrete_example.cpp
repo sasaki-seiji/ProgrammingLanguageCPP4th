@@ -12,7 +12,7 @@ double add_all(double* array, int n)
 {
 	double s {0};
 	for (int i = 0; i<n; ++i)
-		s = s+ array[i];
+		s = s + array[i];
 	return s;
 }
 
@@ -45,5 +45,11 @@ int main()
 	root = new Node{root, 4};
 	int i_sum = sum_element(root, nullptr);
 	cout << "i_sum: " << i_sum << '\n';
+
+	while (root) {
+		Node *p = root;
+		root = p->next;
+		delete p;
+	}
 }
 
