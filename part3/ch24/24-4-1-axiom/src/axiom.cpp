@@ -43,18 +43,19 @@ bool Move_assign_effect(T x, T& y, T& z)
 
 int main()
 {
-	cout << "Copy_equality(int) :" << Copy_equality(10) << '\n';
-	cout << "Copy_equality(string): " << Copy_equality(string{"abc"}) << '\n';
+	cout << boolalpha;
+	cout << "Copy_equality(int:10) :" << Copy_equality(10) << '\n';
+	cout << "Copy_equality(string:\"abc\"): " << Copy_equality(string{"abc"}) << '\n';
 
 	vector<int> vi{1,2,3},vo;
-	cout << "Copy_assign_equality(vector, vector&): " << Copy_assign_equality(vi, vo) << '\n';
+	cout << "Copy_assign_equality(vector:{1,2,3}, vector&): " << Copy_assign_equality(vi, vo) << '\n';
 
 	string	s1{"abc"}, s2{"abc"};
-	cout << "Move_effect(string,string&): " << Move_effect(s1,s2) << '\n';
+	cout << "Move_effect(string:\"abc\",string&:\"abc\"): " << Move_effect(s1,s2) << '\n';
 	cout << "after moved - s2: " << s2 << '\n';
 
 	string	s3, s4{"abc"}, s5{"abc"};
-	cout << "Move_assign_effect(string,string&,string&): "
+	cout << "Move_assign_effect(string,string&:\"abc\",string&:\"abc\"): "
 			<< Move_assign_effect(s3,s4,s5) << '\n';
 	cout << "after moved - s4: " << s4 << '\n';
 }
