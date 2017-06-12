@@ -5,7 +5,7 @@
  *      Author: sasaki
  */
 
-#include "concept.h"
+#include "regular.h"
 using namespace Estd;
 
 #include <iostream>
@@ -33,6 +33,8 @@ struct Buffer {
 template<typename T, int N>
 void fct()
 {
+	cout << "-- fct<T,N>() --\n";
+
 	static_assert(Stackable<T,N>(), "fct() buffer won't fit on stack");
 	Buffer<T,N> buf;
 	buf.buf[0] = T{};
@@ -43,6 +45,7 @@ void fct()
 
 int main()
 {
+	cout << boolalpha;
 	cout << "Small_size<4>(): " << Small_size<4>() << '\n';
 	cout << "Small_size<10>(): " << Small_size<10>() << '\n';
 
