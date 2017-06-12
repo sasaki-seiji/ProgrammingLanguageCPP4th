@@ -15,11 +15,11 @@
 namespace Estd {
 // Equality_comparable<>()
 
-template<typename T>
+template<typename T, typename U>
 constexpr bool Equality_comparable()
 {
-	return Has_equal<T>() && Boolean<Equal_result<T>>()
-			&& Has_not_equal<T>() && Boolean<Not_equal_result<T>>();
+	return Has_equal<T,U>() && Boolean<Equal_result<T,U>>()
+			&& Has_not_equal<U,T>() && Boolean<Not_equal_result<U,T>>();
 }
 
 }

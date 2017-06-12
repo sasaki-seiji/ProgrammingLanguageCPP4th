@@ -5,10 +5,14 @@
  *      Author: sasaki
  */
 
-#include "concept.h"
+#include "equality_comparable.h"
+#include "input_iterator.h"
+#include "iterator_traits.h"
 using namespace Estd;
 
 #include <forward_list>
+#include <iostream>
+using namespace std;
 
 template<typename Iter, typename Val>
 Iter find(Iter b, Iter e, Val x)
@@ -31,6 +35,9 @@ int main()
 	std::forward_list<int> fl{5,1,4,3,2};
 	auto it = find(fl.begin(), fl.end(), 3);
 	std::cout << "*it: " << *it << '\n';
+
+	//auto it2 = find(fl.begin(), fl.end(), "abc");
+		// error: static assertion failed: find()'s iterator and value arguments must match
 }
 
 

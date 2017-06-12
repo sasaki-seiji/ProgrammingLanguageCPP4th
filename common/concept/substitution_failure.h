@@ -8,6 +8,7 @@
 #ifndef SUBSTITUTION_FAILURE_H_
 #define SUBSTITUTION_FAILURE_H_
 
+#include <type_traits>
 
 namespace Estd {
 
