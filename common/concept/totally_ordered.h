@@ -9,10 +9,7 @@
 #define TOTALLY_ORDERED_H_
 
 #include "equality_comparable.h"
-#include "has_less.h"
-#include "has_less_equal.h"
-#include "has_greater.h"
-#include "has_greater_equal.h"
+#include "has_comparison_operator.h"
 #include "boolean.h"
 
 namespace Estd {
