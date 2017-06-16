@@ -8,8 +8,7 @@
 #ifndef EQUALITY_COMPARABLE_H_
 #define EQUALITY_COMPARABLE_H_
 
-#include "has_equal.h"
-#include "has_not_equal.h"
+#include "has_equality_operator.h"
 #include "boolean.h"
 
 namespace Estd {
