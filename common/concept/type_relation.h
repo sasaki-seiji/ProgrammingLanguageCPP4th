@@ -14,7 +14,7 @@ namespace Estd {
 // type relation
 
 template<typename X, typename Y>
-constexpr bool Is_same()
+constexpr bool Same()
 {
 	return std::is_same<X,Y>::value;
 }
