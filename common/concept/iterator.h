@@ -1,12 +1,13 @@
 /*
- * input_iterator.h
+ * iterator.h
  *
- *  Created on: 2017/05/19
+ *  Created on: 2017/06/17
  *      Author: sasaki
  */
 
-#ifndef INPUT_ITERATOR_H_
-#define INPUT_ITERATOR_H_
+#ifndef ITERATOR_H_
+#define ITERATOR_H_
+
 
 #include "type_relation.h"
 #include "type_converter.h"
@@ -40,4 +41,5 @@ constexpr bool Input_iterator()
 
 
 
-#endif /* INPUT_ITERATOR_H_ */
+
+#endif /* ITERATOR_H_ */

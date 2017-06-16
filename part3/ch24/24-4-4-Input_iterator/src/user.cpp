@@ -5,7 +5,7 @@
  *      Author: sasaki
  */
 
-#include "input_iterator.h"
+#include "iterator.h"
 using namespace Estd;
 
 #include <typeinfo>
