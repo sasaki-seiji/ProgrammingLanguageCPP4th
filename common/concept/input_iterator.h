@@ -9,19 +9,24 @@
 #define INPUT_ITERATOR_H_
 
 #include "type_relation.h"
-#include "has_iterator_category.h"
+#include "has_iterator_traits.h"
 #include "has_dereference.h"
-#include "has_pre_increment.h"
+#include "has_increment.h"
+#include "has_equality_operator.h"
 
 namespace Estd {
 
-template<typename T>
+
+template<typename Iter>
 constexpr bool Input_iterator()
 {
-	return Has_iterator_category<T>()
-		&& Convertible<Get_iterator_category<T>, std::input_iterator_tag>()
-		&& Has_dereference<T>()
-		&& Has_pre_increment<T>();
+	return Has_iterator_category<Iter>()
+		&& Convertible<Iterator_category_result<Iter>, std::input_iterator_tag>()
+		&& Has_dereference<Iter>()
+		&& Has_iterator_value_type<Iter>()
+//		&& Has_dereference_read<Iter,Iterator_value_type_result<Iter>>()
+		&& Has_pre_increment<Iter>() && Has_post_increment<Iter>()
+		&& Has_equal<Iter>() && Has_not_equal<Iter>();
 }
 
 }
