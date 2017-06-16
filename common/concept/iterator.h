@@ -36,6 +36,17 @@ constexpr bool Input_iterator()
 		&& Has_equal<Iter>() && Has_not_equal<Iter>();
 }
 
+template<typename Iter, typename Val>
+constexpr bool Output_iterator()
+{
+	return Has_iterator_category<Iter>()
+		&& Convertible<Iterator_category_result<Iter>, std::output_iterator_tag>()
+		&& Has_dereference<Iter>()
+		&& Has_iterator_value_type<Iter>()
+		&& Has_dereference_write<Iter,Val>()
+		&& Has_pre_increment<Iter>() && Has_post_increment<Iter>();
+}
+
 }
 
 
