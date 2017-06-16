@@ -6,7 +6,7 @@
  */
 
 #include "equality_comparable.h"
-#include "input_iterator.h"
+#include "iterator.h"
 #include "iterator_traits.h"
 using namespace Estd;
 
