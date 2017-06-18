@@ -90,6 +90,34 @@ template<typename T, typename U>
 using Dereference_write_result = typename get_dereference_write_result<T,U>::type;
 
 
+// x-> : arrow
+
+template<typename T>
+struct get_arrow_result {
+	template<typename X>
+		//static auto check(const X& x) -> decltype(x.operator->());
+		static auto check(X x) -> decltype(x.operator->());
+	static substitution_failure check(...);
+
+	using type = decltype(check(std::declval<T>()));
+};
+
+template<typename T>
+struct has_arrow
+		: substitution_succeeded<typename get_arrow_result<T>::type>
+{ };
+
+template<typename T>
+constexpr bool Has_arrow()
+{
+	return has_arrow<T>::value;
 }
+
+template<typename T>
+using Arrow_result = typename get_arrow_result<T>::type;
+
+
+
+} // end of Estd
 
 #endif /* HAS_DEREFERENCE_H_ */

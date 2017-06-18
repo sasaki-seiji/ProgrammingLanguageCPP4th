@@ -31,7 +31,8 @@ constexpr bool Input_iterator()
 		&& Convertible<Iterator_category_result<Iter>, std::input_iterator_tag>()
 		&& Has_dereference<Iter>()
 		&& Has_iterator_value_type<Iter>()
-		&& Has_dereference_read<Iter,Avoid_void<Iterator_value_type_result<Iter>,Dummy>>()
+		&& Has_dereference_read<Iter,
+				Avoid_void<Iterator_value_type_result<Iter>,Dummy>>()
 		&& Has_pre_increment<Iter>() && Has_post_increment<Iter>()
 		&& Has_equal<Iter>() && Has_not_equal<Iter>();
 }
