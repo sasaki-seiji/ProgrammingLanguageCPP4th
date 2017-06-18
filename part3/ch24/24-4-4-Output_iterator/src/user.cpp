@@ -5,7 +5,7 @@
  *      Author: sasaki
  */
 
-#include "iterator.h"
+#include "output_iterator.h"
 using namespace Estd;
 
 #include <iterator>
