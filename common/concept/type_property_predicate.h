@@ -44,6 +44,12 @@ constexpr bool Move_constructible()
 	return std::is_move_constructible<X>::value;
 }
 
+template<typename X, typename Y>
+constexpr bool Assignable()
+{
+	return std::is_assignable<X,Y>::value;
+}
+
 template<typename X>
 constexpr bool Copy_assignable()
 {
