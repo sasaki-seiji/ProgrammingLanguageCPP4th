@@ -36,7 +36,7 @@ constexpr bool Has_pre_increment()
 }
 
 template<typename T>
-using Get_pre_increment_result = typename get_pre_increment_result<T>::type;
+using Pre_increment_result = typename get_pre_increment_result<T>::type;
 
 
 // x++ : post_incremnt
@@ -62,7 +62,7 @@ constexpr bool Has_post_increment()
 }
 
 template<typename T>
-using Get_post_increment_result = typename get_post_increment_result<T>::type;
+using Post_increment_result = typename get_post_increment_result<T>::type;
 
 
 } // end of Estd
