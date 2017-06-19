@@ -29,7 +29,6 @@ int main()
 	bool b9 = Input_iterator<const int*>();
 	bool b10 = Input_iterator<int*>();
 
-
 	cout << boolalpha;
 	cout << "Input_iterator<istream_iterator<char>>(): " << b1 << endl;
 	cout << "Input_iterator<ostream_iterator<char>>(): " << b2 << endl;
