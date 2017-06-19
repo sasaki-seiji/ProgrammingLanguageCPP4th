@@ -18,12 +18,6 @@
 
 namespace Estd {
 
-#if 0
-template<typename T, typename Alt>
-using Avoid_void = Conditional<Same<T,void>(),Alt,T>;
-
-struct Dummy { };
-#endif
 
 template<typename Iter>
 constexpr bool Input_iterator()
