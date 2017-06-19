@@ -11,6 +11,7 @@
 
 #include "type_relation.h"
 #include "type_converter.h"
+#include "type_property_predicate.h"
 #include "has_iterator_traits.h"
 #include "has_dereference.h"
 #include "has_increment.h"
@@ -25,7 +26,7 @@ constexpr bool Output_iterator()
 //		&& Convertible<Iterator_category_result<Iter>, std::output_iterator_tag>()
 		&& Has_dereference<Iter>()
 		&& Has_iterator_value_type<Iter>()
-		&& Has_dereference_write<Iter,Val>()
+		&& Assignable<Dereference_result<Iter>,Val>()
 		&& Has_pre_increment<Iter>() && Has_post_increment<Iter>();
 }
 
