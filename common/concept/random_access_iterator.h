@@ -35,10 +35,8 @@ template<typename Iter>
 constexpr bool Random_access_iterator()
 {
 	return Const_random_access_iterator<Iter>()
-	&& Has_dereference_write<Iter,
-		Avoid_void<Iterator_value_type_result<Iter>,Dummy>>()
-	&& Assignable<Index_result<Iter,int>,
-		Avoid_void<Iterator_value_type_result<Iter>,Dummy>>();
+	&& Assignable<Dereference_result<Iter>, Iterator_value_type_result<Iter>>()
+	&& Assignable<Index_result<Iter,int>, Iterator_value_type_result<Iter>>();
 }
 
 } // end of Estd
