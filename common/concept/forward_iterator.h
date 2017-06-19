@@ -10,6 +10,7 @@
 
 #include "input_iterator.h"
 #include "primary_type_predicate.h"
+#include "type_property_predicate.h"
 
 namespace Estd {
 
@@ -26,8 +27,7 @@ template<typename Iter>
 constexpr bool Forward_iterator()
 {
 	return Const_forward_iterator<Iter>()
-		&& Has_dereference_write<Iter,
-			Avoid_void<Iterator_value_type_result<Iter>,Dummy>>();
+		&& Assignable<Dereference_result<Iter>,Iterator_value_type_result<Iter>>();
 }
 
 }

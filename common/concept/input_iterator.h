@@ -11,7 +11,6 @@
 
 #include "type_relation.h"
 #include "type_converter.h"
-#include "type_property_predicate.h"
 #include "has_iterator_traits.h"
 #include "has_dereference.h"
 #include "has_increment.h"
