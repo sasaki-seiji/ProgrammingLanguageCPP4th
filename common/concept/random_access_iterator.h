@@ -23,9 +23,12 @@ template<typename Iter>
 constexpr bool Const_random_access_iterator()
 {
 	return Const_bidirectional_iterator<Iter>()
-		&& Convertible<Iterator_category_result<Iter>, std::random_access_iterator_tag>()
+		&& Convertible<Iterator_category_result<Iter>,
+				std::random_access_iterator_tag>()
 		&& Has_addassign<Iter,int>() && Has_subassign<Iter,int>()
 		&& Has_index<Iter,int>()
+		&& Convertible<Index_result<Iter,int>,
+				Iterator_value_type_result<Iter>>()
 		&& Has_addition<Iter,int>() && Has_subtraction<Iter,int>()
 		&& Has_subtraction<Iter>()
 		&& Totally_ordered<Iter>();
@@ -35,8 +38,10 @@ template<typename Iter>
 constexpr bool Random_access_iterator()
 {
 	return Const_random_access_iterator<Iter>()
-	&& Assignable<Dereference_result<Iter>, Iterator_value_type_result<Iter>>()
-	&& Assignable<Index_result<Iter,int>, Iterator_value_type_result<Iter>>();
+	&& Assignable<Dereference_result<Iter>,
+			Iterator_value_type_result<Iter>>()
+	&& Assignable<Index_result<Iter,int>,
+			Iterator_value_type_result<Iter>>();
 }
 
 } // end of Estd
