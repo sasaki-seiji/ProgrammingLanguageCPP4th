@@ -8,7 +8,7 @@
 #ifndef SEMIREGULAR_H_
 #define SEMIREGULAR_H_
 
-#include "type_property_predicate.h"
+#include "copyable.h"
 
 namespace Estd {
 // Semiregular<>()
@@ -16,12 +16,8 @@ namespace Estd {
 template<typename T>
 constexpr bool Semiregular()
 {
-	return Destructible<T>()
-			&& Default_constructible<T>()
-			&& Move_constructible<T>()
-			&& Move_assignable<T>()
-			&& Copy_constructible<T>()
-			&& Copy_assignable<T>();
+	return Copyable<T>()
+			&& Default_constructible<T>();
 }
 
 }
