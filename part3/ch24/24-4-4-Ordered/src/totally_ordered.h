@@ -1,0 +1,1 @@
+/home/sasaki/books/ProgrammingLanguageCPP4th/common/concept/totally_ordered.h
