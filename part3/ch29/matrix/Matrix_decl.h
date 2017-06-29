@@ -54,6 +54,29 @@ public:
 	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>>
 		Matrix& operator=(initializer_list<U>) = delete;
 
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
+		operator()(Args... args);
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
+		operator()(Args... args) const;
+
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<T,N>>
+		operator()(const Args... args);
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<const T,N>>
+		operator()(const Args... args) const;
+
+	Matrix_ref<T,N-1> operator[](size_t i) { return row(i); }
+	Matrix_ref<const T,N-1> operator[](size_t i) const { return row(i); }
+
+	Matrix_ref<T,N-1> row(size_t n);
+	Matrix_ref<const T,N-1> row(size_t n) const;
+
+	Matrix_ref<T,N-1> col(size_t n);
+	Matrix_ref<const T,N-1> col(size_t n) const;
+
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return elems.size(); }
 	const Matrix_slice<N>& descriptor() const { return desc; }
