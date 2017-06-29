@@ -12,6 +12,7 @@
 using namespace std;
 
 template<typename T, size_t N> class Matrix;
+template<typename T, size_t N> class Matrix_ref;
 
 
 

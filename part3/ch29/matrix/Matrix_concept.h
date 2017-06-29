@@ -8,16 +8,53 @@
 #ifndef MATRIX_CONCEPT_H_
 #define MATRIX_CONCEPT_H_
 
+#include "type_property_predicate.h"
+#include "type_converter.h"
+#include "substitution_failure.h"
+using namespace Estd;
+
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
 using namespace std;
 
+
+// Matrix_type<M>()
+
+template<typename M>
+struct get_matrix_type_result {
+
+	template<typename T, size_t N, typename = Enable_if<(N>=1)>>
+	static bool check(const Matrix<T,N>& m);
+
+	template<typename T, size_t N, typename = Enable_if<(N>=1)>>
+	static bool check(const Matrix_ref<T,N>& m);
+
+	static substitution_failure check(...);
+
+	using type = decltype(check(std::declval<M>()));
+};
+
+template<typename T>
+struct has_matrix_type
+		: substitution_succeeded<typename get_matrix_type_result<T>::type>
+{ };
+
+template<typename M>
+constexpr bool Has_matrix_type()
+{
+	return has_matrix_type<M>::value;
+}
+
+template<typename M>
+using Matrix_type_result = typename get_matrix_type_result<M>::type;
+
 template<typename M>
 constexpr bool Matrix_type()
 {
-	return false;
+	return Has_matrix_type<M>();
 }
+
 
 namespace Matrix_impl {
 
