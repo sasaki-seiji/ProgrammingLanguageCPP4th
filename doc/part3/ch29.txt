@@ -1,3 +1,28 @@
+【29.2.1:　initilalizer_listからMatrixを構築するコンストラクタの削除】
+
+日付：　2017.06.29
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
+コメント：
+
+	template<typename U>
+		Matrix(initializer_list<U>) = delete;
+
+	によってinitializer_listから構築するコンストラクタを削除すると、
+	N==1の場合に、Matrix_initializerから構築するコンストラクトが同一の
+	引数仕様となるため、一緒に削除されてしまう
+
+	Matrix<double,1> m1 {1,2,3};
+		// error: use of deleted function ‘Matrix<T, N>::Matrix(std::initializer_list<U>) [with U = int; T = double; long unsigned int N = 1ul]’
+
+
+	この条件を避けるために、コンストラクタの削除をN>1の場合に限定する
+
+		↓
+
+	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>>
+		Matrix(initializer_list<U>) = delete;
+
+
 【29.2.1:　Matrix_refからMatrixを構築および代入するコードのバグ】
 
 日付：　2016.11.12
