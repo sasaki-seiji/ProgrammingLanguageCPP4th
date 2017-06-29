@@ -21,38 +21,42 @@ using namespace std;
 
 // Matrix_type<M>()
 
-template<typename M>
-struct get_matrix_type_result {
+namespace Matrix_impl {
 
-	template<typename T, size_t N, typename = Enable_if<(N>=1)>>
-	static bool check(const Matrix<T,N>& m);
+	template<typename M>
+	struct get_matrix_type_result {
 
-	template<typename T, size_t N, typename = Enable_if<(N>=1)>>
-	static bool check(const Matrix_ref<T,N>& m);
+		template<typename T, size_t N, typename = Enable_if<(N>=1)>>
+			static bool check(const Matrix<T,N>& m);
 
-	static substitution_failure check(...);
+		template<typename T, size_t N, typename = Enable_if<(N>=1)>>
+			static bool check(const Matrix_ref<T,N>& m);
 
-	using type = decltype(check(std::declval<M>()));
-};
+		static substitution_failure check(...);
 
-template<typename T>
-struct has_matrix_type
+		using type = decltype(check(std::declval<M>()));
+	};
+
+	template<typename T>
+	struct has_matrix_type
 		: substitution_succeeded<typename get_matrix_type_result<T>::type>
-{ };
+	{ };
 
-template<typename M>
-constexpr bool Has_matrix_type()
-{
-	return has_matrix_type<M>::value;
-}
+	template<typename M>
+	constexpr bool Has_matrix_type()
+	{
+		return has_matrix_type<M>::value;
+	}
 
-template<typename M>
-using Matrix_type_result = typename get_matrix_type_result<M>::type;
+	template<typename M>
+	using Matrix_type_result = typename get_matrix_type_result<M>::type;
+
+} // end of Matrix_impl
 
 template<typename M>
 constexpr bool Matrix_type()
 {
-	return Has_matrix_type<M>();
+	return Matrix_impl::Has_matrix_type<M>();
 }
 
 
