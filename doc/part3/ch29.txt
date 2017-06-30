@@ -310,8 +310,9 @@
 
 【29.4.5:　Matrix::rowテンプレート関数の部分特殊化】
 
-日付：　2016.11.06、2016.11.22
+日付：　2016.11.06、2016.11.22、2017.06.30
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	テンプレート関数の部分特殊化は文法上許されていない。
@@ -342,26 +343,23 @@
 		// Matrix_ref<T,N> の　N=0 の時の特殊化
 		//	Matrix<T,1>::row(size_t),　Matrix_ref<T,1>::row(size_t)のリターン値となる
 		template<typename T>
-		class Matrix_ref<T,0>
-		{
+		class Matrix_ref<T,0> {
 		public:
-			//static constexpr size_t order = 0;
+			static constexpr size_t order = 0;
 			using value_type = T;
+	
+			Matrix_ref(const Matrix_slice<0>& s, T* p) :ptr{p + s.start} {}
 
-			Matrix_ref(const Matrix_slice<0>& s, T* p) :desc{s}, ptr{p} { }
+			T& operator()() { return *ptr; };
+			const T& operator()() const { return *ptr; }
 
-			T& operator()() { return *(ptr + desc()); }
-			const T& operator()() const { return *(ptr + desc()); }
-
-			operator T&() { return *(ptr + desc()); }
-			operator const T&() const { return *(ptr + desc()); }
-
-			Matrix_ref& operator=(const T& v) { *(ptr + desc()) = v; return *this; }
+			operator T&() { return *ptr; }
+			operator const T&() const { return *ptr; }
 
 		private:
-			Matrix_slice<0> desc;
 			T* ptr;
 		};
+
 
 	ここで、Matrix_ref<T,0>::descは、startが正しいオフセット、sizeが1、
 	extentsとstridesが空の(size()が0）のstd::arrayとなるように
