@@ -40,3 +40,17 @@ void test_c_style_index()
 	cout << "m3[1][0][2]: " << m3[1][0][2] << endl;
 }
 
+void test_col()
+{
+	cout << "-- test_col() --\n";
+
+	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	cout << "m3: " << m3 << endl;
+	cout << "m3.col(1): " << m3.col(1) << endl;
+	cout << "m3.col(1).col(2): " << m3.col(1).col(2) << endl;
+
+	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	cout << "cm3: " << cm3 << endl;
+	cout << "cm3.col(1): " << cm3.col(1) << endl;
+	cout << "cm3.col(1).col(2): " << cm3.col(1).col(2) << endl;
+}

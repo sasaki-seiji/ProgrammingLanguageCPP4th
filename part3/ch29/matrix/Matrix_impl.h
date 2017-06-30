@@ -13,7 +13,7 @@
 #include "Matrix_decl.h"
 #include "Matrix_impl_impl.h"
 
-
+// construct from extents
 template<typename T, size_t N>
 template<typename... Exts>
 Matrix<T,N>::Matrix(Exts... exts)
@@ -21,6 +21,7 @@ Matrix<T,N>::Matrix(Exts... exts)
 {
 }
 
+// construct from Matrix_initializer
 template<typename T, size_t N>
 Matrix<T,N>::Matrix(Matrix_initializer<T,N> init)
 {
@@ -32,6 +33,7 @@ Matrix<T,N>::Matrix(Matrix_initializer<T,N> init)
 	assert(elems.size() == desc.size);
 }
 
+// row
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix<T,N>::row(size_t n)
 {
@@ -48,6 +50,25 @@ Matrix_ref<const T,N-1> Matrix<T,N>::row(size_t n) const
 	Matrix_slice<N-1> row;
 	Matrix_impl::slice_dim<0>(n,desc,row);
 	return {row,data()};
+}
+
+// col
+template<typename T, size_t N>
+Matrix_ref<T,N-1> Matrix<T,N>::col(size_t n)
+{
+	assert(n<cols());
+	Matrix_slice<N-1> col;
+	Matrix_impl::slice_dim<1>(n,desc,col);
+	return {col,data()};
+}
+
+template<typename T, size_t N>
+Matrix_ref<const T,N-1> Matrix<T,N>::col(size_t n) const
+{
+	assert(n<cols());
+	Matrix_slice<N-1> col;
+	Matrix_impl::slice_dim<1>(n,desc,col);
+	return {col,data()};
 }
 
 template<typename M>

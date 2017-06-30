@@ -76,6 +76,7 @@ public:
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return elems.size(); }
 	size_t rows() const { return desc.extents[0]; }
+	size_t cols() const { return desc.extents[1]; }
 
 	const Matrix_slice<N>& descriptor() const { return desc; }
 

@@ -16,18 +16,14 @@ public:
 
 	Matrix_ref(const Matrix_slice<N>& s, T* p) :desc{s}, ptr{p} {}
 
-	Matrix_ref<T,N-1> operator[](size_t i) { return row(i); }
-	Matrix_ref<const T,N-1> operator[](size_t i) const { return row(i); }
-
-	Matrix_ref<T,N-1> row(size_t n);
-	Matrix_ref<const T,N-1> row(size_t n) const;
-
-	Matrix_ref<T,N-1> col(size_t n);
-	Matrix_ref<const T,N-1> col(size_t n) const;
+	Matrix_ref<T,N-1> operator[](size_t i) const { return row(i); }
+	Matrix_ref<T,N-1> row(size_t n) const;
+	Matrix_ref<T,N-1> col(size_t n) const;
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return desc.size; }
 	size_t rows() const { return desc.extents[0]; }
+	size_t cols() const { return desc.extents[1]; }
 
 private:
 	Matrix_slice<N> desc;

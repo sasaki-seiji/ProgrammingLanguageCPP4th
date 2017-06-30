@@ -12,6 +12,7 @@ int main()
 {
 	test_row();
 	test_c_style_index();
+	test_col();
 
 }
 

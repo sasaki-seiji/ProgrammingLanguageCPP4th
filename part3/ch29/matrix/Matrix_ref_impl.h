@@ -10,9 +10,9 @@
 
 #include "Matrix_ref_desc.h"
 
-
+// row
 template<typename T, size_t N>
-Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n)
+Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n) const
 {
 	assert(n<rows());
 	Matrix_slice<N-1> row;
@@ -20,26 +20,14 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n)
 	return {row,ptr};
 }
 
+// col
 template<typename T, size_t N>
-Matrix_ref<const T,N-1> Matrix_ref<T,N>::row(size_t n) const
+Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n) const
 {
-	assert(n<rows());
-	Matrix_slice<N-1> row;
-	Matrix_impl::slice_dim<0>(n,desc,row);
-	return {row,ptr};
+	assert(n<cols());
+	Matrix_slice<N-1> col;
+	Matrix_impl::slice_dim<1>(n,desc,col);
+	return {col,ptr};
 }
-
-template<typename T, size_t N>
-Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n)
-{
-
-}
-
-template<typename T, size_t N>
-Matrix_ref<const T,N-1> Matrix_ref<T,N>::col(size_t n) const
-{
-
-}
-
 
 #endif /* MATRIX_REF_IMPL_H_ */
