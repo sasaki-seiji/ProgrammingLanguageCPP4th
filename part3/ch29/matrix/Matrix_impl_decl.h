@@ -14,6 +14,8 @@
 #include "type_converter.h"
 using namespace Estd;
 
+#include "fwd_decl.h"
+
 namespace Matrix_impl {
 
 	template<std::size_t N, typename List>
@@ -40,6 +42,9 @@ namespace Matrix_impl {
 
 	template<typename T, typename Vec>
 	void add_list(const T* first, const T* last, Vec& vec);
+
+	template<size_t I, size_t N>
+	void slice_dim(size_t offset, const Matrix_slice<N>& desc, Matrix_slice<N-1>& row);
 
 } // end of Matrix_impl
 

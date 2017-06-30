@@ -71,5 +71,21 @@ void Matrix_impl::add_list(const T* first, const T* last, Vec& vec)
 	vec.insert(vec.end(), first, last);
 }
 
+template<size_t I, size_t N>
+void Matrix_impl::slice_dim(size_t offset,
+		const Matrix_slice<N>& desc, Matrix_slice<N-1>& row)
+{
+	int j = N-2;
+	for (int i=N-1; i>=0; --i) {
+		if (i==I)
+			row.start = desc.strides[i] * offset;
+		else {
+			row.extents[j] = desc.extents[i];
+			row.strides[j] = desc.strides[i];
+			--j;
+		}
+	}
+	row.size = ::compute_size(row.extents);
+}
 
 #endif /* MATRIX_IMPL_IMPL_H_ */

@@ -13,6 +13,8 @@
 #include "substitution_failure.h"
 using namespace Estd;
 
+#include "fwd_decl.h"
+
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
@@ -58,6 +60,10 @@ constexpr bool Matrix_type()
 {
 	return Matrix_impl::Has_matrix_type<M>();
 }
+
+template<typename M>
+	Enable_if<Matrix_type<M>(), ostream&>
+operator<<(ostream& os, const M& m);
 
 // Matrix_initializer<T>
 

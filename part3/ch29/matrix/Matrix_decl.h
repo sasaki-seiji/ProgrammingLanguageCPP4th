@@ -19,10 +19,6 @@ using namespace Estd;
 #include <iostream>
 using namespace std;
 
-template<typename M>
-	Enable_if<Matrix_type<M>(), ostream&>
-operator<<(ostream& os, const M& m);
-
 template<typename T, size_t N>
 class Matrix {
 public:
@@ -79,6 +75,8 @@ public:
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return elems.size(); }
+	size_t rows() const { return desc.extents[0]; }
+
 	const Matrix_slice<N>& descriptor() const { return desc; }
 
 	T* data() { return elems.data(); }
@@ -88,4 +86,6 @@ private:
 	Matrix_slice<N> desc;
 	vector<T> elems;
 };
+
+
 #endif /* MATRIX_DECL_H_ */
