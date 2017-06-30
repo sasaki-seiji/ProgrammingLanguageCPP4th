@@ -10,6 +10,7 @@
 
 #include "type_property_predicate.h"
 #include "type_converter.h"
+#include "type_relation.h"
 #include "substitution_failure.h"
 using namespace Estd;
 
@@ -98,8 +99,19 @@ ostream& operator<<(ostream& os, initializer_list<T> il)
 
 namespace Matrix_impl {
 
+	constexpr bool All() { return true; }
+
 	template<typename... Args>
-	constexpr bool Requesting_element();
+	constexpr bool All(bool b, Args... args)
+	{
+		return b && All(args...);
+	}
+
+	template<typename... Args>
+	constexpr bool Requesting_element()
+	{
+		return All(Convertible<Args,size_t>()...);
+	}
 
 	template<typename... Args>
 	constexpr bool Requesting_slice();

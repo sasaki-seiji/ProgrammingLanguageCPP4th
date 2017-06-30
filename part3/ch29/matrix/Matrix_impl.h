@@ -84,5 +84,27 @@ Matrix_ref<const T,N-1> Matrix<T,N>::col(size_t n) const
 	return {col,data()};
 }
 
+// fortran style index access
+template<typename T, size_t N>
+template<typename... Args>
+	Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
+	Matrix<T,N>::operator()(Args... args)
+{
+	static_assert(sizeof...(Args)==N,
+			"Matrix<T,N>::operator()(size_t...): dimension mismatch");
+
+	assert(Matrix_impl::check_bounds(desc, args...));
+	return *(data() + desc(args...));
+}
+
+template<typename T, size_t N>
+template<typename... Args>
+	Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
+	Matrix<T,N>::operator()(Args... args) const
+{
+	assert(Matrix_impl::check_bounds(desc, args...));
+	return *(data() + desc(args...));
+}
+
 
 #endif /* MATRIX_IMPL_H_ */

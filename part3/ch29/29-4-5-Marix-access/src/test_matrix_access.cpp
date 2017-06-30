@@ -81,4 +81,29 @@ void test_fortran_style_index()
 {
 	cout << "-- test_fortran_style_index() --\n";
 
+	Matrix<int, 1> m1 {0,1,2,3};
+	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7} };
+	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+
+	cout << "m1: " << m1 << endl;
+	cout << "m1(2): " << m1(2) << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "m2(1,2): " << m2(1,2) << endl;
+	cout << "m3: " << m3 << endl;
+	cout << "m3(1,1,1): " << m3(1,1,1) << endl;
+	//cout << "m2(1): " << m2(1) << endl;
+		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
+	//cout << "m2(1,2,0): " << m2(1,2,0) << endl;
+		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
+
+	const Matrix<int, 1> cm1 {0,1,2,3};
+	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7} };
+	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+
+	cout << "cm1: " << cm1 << endl;
+	cout << "cm1(2): " << cm1(2) << endl;
+	cout << "cm2: " << cm2 << endl;
+	cout << "cm2(1,2): " << cm2(1,2) << endl;
+	cout << "cm3: " << cm3 << endl;
+	cout << "cm3(1,1,1): " << cm3(1,1,1) << endl;
 }

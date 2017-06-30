@@ -89,4 +89,12 @@ void Matrix_impl::slice_dim(size_t offset,
 	row.size = ::compute_size(row.extents);
 }
 
+template<size_t N, typename... Dims>
+bool Matrix_impl::check_bounds(const Matrix_slice<N>& desc, Dims... dims)
+{
+	size_t indexes[N] {size_t(dims)...};
+	return equal(indexes, indexes+N, desc.extents.begin(), less<size_t>{});
+}
+
+
 #endif /* MATRIX_IMPL_IMPL_H_ */
