@@ -19,6 +19,12 @@ using namespace Estd;
 #include <iostream>
 using namespace std;
 
+
+template<typename M>
+	Enable_if<Matrix_type<M>(), ostream&>
+operator<<(ostream& os, const M& m);
+
+
 template<typename T, size_t N>
 class Matrix {
 public:

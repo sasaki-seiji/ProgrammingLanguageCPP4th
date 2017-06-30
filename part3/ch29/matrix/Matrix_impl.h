@@ -13,6 +13,19 @@
 #include "Matrix_decl.h"
 #include "Matrix_impl_impl.h"
 
+// print Matrix, Matrix_ref
+template<typename M>
+	Enable_if<Matrix_type<M>(), ostream&>
+operator<<(ostream& os, const M& m)
+{
+	os << '{';
+	for (size_t i = 0; i!=m.rows(); ++i) {
+		os << m[i];
+		if (i+1!=m.rows()) os << ',';
+	}
+	return os << '}';
+}
+
 // construct from extents
 template<typename T, size_t N>
 template<typename... Exts>
@@ -69,18 +82,6 @@ Matrix_ref<const T,N-1> Matrix<T,N>::col(size_t n) const
 	Matrix_slice<N-1> col;
 	Matrix_impl::slice_dim<1>(n,desc,col);
 	return {col,data()};
-}
-
-template<typename M>
-	Enable_if<Matrix_type<M>(), ostream&>
-operator<<(ostream& os, const M& m)
-{
-	os << '{';
-	for (size_t i = 0; i!=m.rows(); ++i) {
-		os << m[i];
-		if (i+1!=m.rows()) os << ',';
-	}
-	return os << '}';
 }
 
 

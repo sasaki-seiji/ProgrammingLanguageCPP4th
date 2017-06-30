@@ -61,10 +61,6 @@ constexpr bool Matrix_type()
 	return Matrix_impl::Has_matrix_type<M>();
 }
 
-template<typename M>
-	Enable_if<Matrix_type<M>(), ostream&>
-operator<<(ostream& os, const M& m);
-
 // Matrix_initializer<T>
 
 namespace Matrix_impl {
@@ -87,6 +83,16 @@ namespace Matrix_impl {
 template<typename T, size_t N>
 using Matrix_initializer = typename Matrix_impl::Matrix_init<T,N>::type;
 
+// print Matrix_initializer
+template<typename T>
+ostream& operator<<(ostream& os, initializer_list<T> il)
+{
+	os << "{ ";
+	for (auto x : il)
+		os << x << ',';
+	return os << "}";
+}
+
 
 // Requesting_element<T>, Requesting_slice<T>
 
@@ -100,15 +106,6 @@ namespace Matrix_impl {
 
 } // end of Matrix_impl
 
-
-template<typename T>
-ostream& operator<<(ostream& os, initializer_list<T> il)
-{
-	os << "{ ";
-	for (auto x : il)
-		os << x << ',';
-	return os << "}";
-}
 
 
 #endif /* MATRIX_CONCEPT_H_ */

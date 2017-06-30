@@ -26,6 +26,21 @@ void test_row()
 	cout << "m2.row(1): " << m2_1 << endl;
 	cout << "m3: " << m3 << endl;
 	cout << "m3.row(1): " << m3_1 << endl;
+
+	const Matrix<int, 1> cm1 {0,1,2,3};
+	auto cm1_2 = cm1.row(2);
+	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7} };
+	auto cm2_1 = cm2.row(1);
+	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	auto cm3_1 = cm3.row(1);
+
+	cout << "cm1: " << cm1 << endl;
+	cout << "cm1.row(2): " << cm1_2 << endl;
+	cout << "cm2: " << cm2 << endl;
+	cout << "cm2.row(1): " << cm2_1 << endl;
+	cout << "cm3: " << cm3 << endl;
+	cout << "cm3.row(1): " << cm3_1 << endl;
+
 }
 
 void test_c_style_index()
@@ -38,6 +53,13 @@ void test_c_style_index()
 	cout << "m3[1]: " << m3[1] << endl;
 	cout << "m3[1][0]: " << m3[1][0] << endl;
 	cout << "m3[1][0][2]: " << m3[1][0][2] << endl;
+
+	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+
+	cout << "cm3: " << cm3 << endl;
+	cout << "cm3[1]: " << cm3[1] << endl;
+	cout << "cm3[1][0]: " << cm3[1][0] << endl;
+	cout << "cm3[1][0][2]: " << cm3[1][0][2] << endl;
 }
 
 void test_col()
@@ -53,4 +75,10 @@ void test_col()
 	cout << "cm3: " << cm3 << endl;
 	cout << "cm3.col(1): " << cm3.col(1) << endl;
 	cout << "cm3.col(1).col(2): " << cm3.col(1).col(2) << endl;
+}
+
+void test_fortran_style_index()
+{
+	cout << "-- test_fortran_style_index() --\n";
+
 }
