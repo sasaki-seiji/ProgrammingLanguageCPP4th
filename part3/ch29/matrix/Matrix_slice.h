@@ -29,12 +29,15 @@ struct Matrix_slice {
 	Matrix_slice(size_t offset, initializer_list<size_t> exts);
 	Matrix_slice(size_t offset, initializer_list<size_t> exts,
 			initializer_list<size_t> strs);
+	Matrix_slice(const array<size_t,N>& exts);
 
 	template<typename... Dims>
 		Matrix_slice(Dims... dims);
 
 	template<typename... Dims>
 		size_t operator()(Dims... dims) const;
+
+	size_t offset(const array<size_t,N>& pos) const;
 
 	size_t size;
 	size_t start;
@@ -70,6 +73,13 @@ Matrix_slice<N>::Matrix_slice(size_t offset,
 }
 
 template<size_t N>
+Matrix_slice<N>::Matrix_slice(const array<size_t,N>& exts)
+	:start{0}, extents{exts}
+{
+	size = compute_strides(extents, strides);
+}
+
+template<size_t N>
 template<typename... Dims>
 Matrix_slice<N>::Matrix_slice(Dims... dims)
 	:start{0}
@@ -92,6 +102,12 @@ size_t Matrix_slice<N>::operator()(Dims... dims) const
 
 	size_t args[N] { size_t(dims)... };
 	return start + inner_product(args, args+N, strides.begin(), size_t{0});
+}
+
+template<size_t N>
+size_t Matrix_slice<N>::offset(const array<size_t,N>& pos) const
+{
+	return start + inner_product(pos.begin(), pos.end(), strides.begin(), size_t{0});
 }
 
 template<size_t N>

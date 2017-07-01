@@ -14,6 +14,7 @@ using namespace std;
 struct slice;
 template<typename T, size_t N> class Matrix;
 template<typename T, size_t N> class Matrix_ref;
+template<typename T, size_t N> class Matrix_ref_iterator;
 
 
 

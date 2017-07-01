@@ -127,4 +127,14 @@ template<typename... Args>
 	return {d, data()};
 }
 
+// construct from Matrix_ref
+template<typename T, size_t N>
+template<typename U>
+	Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
+		:desc{x.descriptor().extents}, elems{x.begin(),x.end()}
+{
+	static_assert(Convertible<U,T>(),
+			"Matrix constructor: incompatible element types");
+}
+
 #endif /* MATRIX_IMPL_H_ */

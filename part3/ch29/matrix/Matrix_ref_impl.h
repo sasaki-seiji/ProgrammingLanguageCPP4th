@@ -10,6 +10,41 @@
 
 #include "Matrix_ref_desc.h"
 
+// Matrix_ref_iterator
+
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N> Matrix_ref_iterator<T,N>::begin(const Matrix_ref<T,N>* t)
+{
+	Matrix_ref_iterator<T,N> iter{t};
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N> Matrix_ref_iterator<T,N>::end(const Matrix_ref<T,N>* t)
+{
+	Matrix_ref_iterator<T,N> iter{t, true};
+	return iter;
+}
+
+template<typename T, size_t N>
+Matrix_ref_iterator<T,N>& Matrix_ref_iterator<T,N>::operator++()
+{
+	for (int i = N-1; i >= 0; --i) {
+		if (++pos[i] < target->descriptor().extents[i]) return *this;
+		pos[i] = 0;
+	}
+	ov = true;
+	return *this;
+}
+
+template<typename T, size_t N>
+ostream& operator<<(ostream& os, const Matrix_ref_iterator<T,N>& iter)
+{
+	os << "target: " << *iter.target << ", pos: " << iter.pos
+			<< ", ov: " << iter.ov << endl;
+	return os;
+}
+
 // row
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n) const

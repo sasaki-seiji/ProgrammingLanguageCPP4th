@@ -79,3 +79,30 @@ void Matrix_Piece()
 	cout << "board2.desc: " << board2.descriptor() << endl;
 	cout << "board2: " << board2 << endl;
 }
+
+void construct_from_matrix_ref()
+{
+	cout << "-- construct_from_matrix_ref() --\n";
+
+	Matrix<double,1> m1 {1,2,3};
+	auto m1r = m1(slice(1));
+	Matrix<double,2> m2 {{1,2},{3,4},{5,6}};
+	auto m2r = m2(slice(1),slice(0));
+	Matrix<double,3> m3 { {{1,2},{2,3}}, {{4,5},{6,7}} };
+	auto m3r = m3(slice(0),slice(0),slice(0));
+
+
+	Matrix<double,1> m1c = m1r;
+	Matrix<double,2> m2c = m2r;
+	Matrix<double,3> m3c = m3r;
+
+	cout << "m1: " << m1 << endl;
+	cout << "m1r = m1(slice(1)): " << m1r << endl;
+	cout << "m1c = m1r: " << m1c << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "m1r = m2(slice(1),slice(0)): " << m2r << endl;
+	cout << "m2c = m2r: " << m2c << endl;
+	cout << "m3: " << m3 << endl;
+	cout << "m3r = m3(slice(0),slice(0),slice(0)): " << m3r << endl;
+	cout << "m3c = m3r: " << m3c << endl;
+}
