@@ -90,8 +90,9 @@
 
 【29.2.1:　Matrix_refの反復子の追加】
 
-日付：　2016.11.12
+日付：　2016.11.12、2017.07.02
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	Matrix_refからMatrixを構築、及び、Matrix_refをMatrixに代入する際に
@@ -100,89 +101,50 @@
 	以下のように実現：
 	
 	①Matrix_refの反復子クラスを提要
-		const用（Matrix_ref_const_iterator）と、非const用（Matrix_ref_iterator）の2つのクラスを定義
-		
-	②Matrixクラスに、反復子を返すbegin()と、end()を追加
-		const用と、非const用のそれぞれ1つずつ
+	②Matrix_refクラスに、反復子を返すbegin()と、end()を追加
+		反復子は、Matrix_ref自体を変更しないのでbegin、endはconstメンバ関数とする
 
-	①の反復子クラスは以下のように定義（const用の反復子も同様）
-		
+	①の反復子クラスは以下のように定義
+	
 		template<typename T, size_t N>
-		class Matrix_ref_iterator : public std::iterator<std::input_iterator_tag, T>
-		{
+		class Matrix_ref_iterator : public iterator<forward_iterator_tag, T> {
 		public:
-			bool operator==(const Matrix_ref_iterator& other) const ;
-			bool operator!=(const Matrix_ref_iterator& other) const
-				{ return !(*this == other); }
-			Matrix_ref_iterator& operator++();
-			T& operator*();
+			static Matrix_ref_iterator begin(const Matrix_ref<T,N>* t);
+			static Matrix_ref_iterator end(const Matrix_ref<T,N>* t);
 
-			static Matrix_ref_iterator begin(Matrix_ref<T,N>* ref);
-			static Matrix_ref_iterator end(Matrix_ref<T,N>* ref);
+			Matrix_ref_iterator& operator++();
+			T& operator*()
+				{ return *(target->data() + target->descriptor().offset(pos)); }
+			bool operator!=(const Matrix_ref_iterator& o)
+				{ return !(pos == o.pos && ov == o.ov); }
 
 		private:
-			Matrix_ref_iterator(Matrix_ref<T,N>* ref);
+			Matrix_ref_iterator(const Matrix_ref<T,N>* t, bool ov = false)
+				: target{t}, ov{ov} { fill(pos.begin(), pos.end(), 0); }
 
-			Matrix_ref<T,N> *ref;
-			std::array<size_t, N> cur;
+			const Matrix_ref<T,N> *target;
+			array<size_t, N> pos;
+			bool ov;
 		};
+	
 
-	ここで、反復子は、反復対象のMatrix_refへのポインタ(ref)と、
-	今どこを反復しているかを示すarray型のインデックス（cur）を
+	ここで、反復子は、反復対象のMatrix_refへのポインタ(target)と、
+	今どこを反復しているかを示すarray型のインデックス（pos）を
 	データメンバとして保持する。
 	
-	begin()に対応するインデックスは、(0,0,...0)であり、end()のインデックスは、
-	(extents[0],0,...0)である。
-	
 	反復子の前進操作は、最下位のインデックス値から順次インクリメントする
-	そして、もし終端に到達した、終端を示すインデックス値に設定する
-	
+
 		template<typename T, size_t N>
 		Matrix_ref_iterator<T,N>& Matrix_ref_iterator<T,N>::operator++()
 		{
-			int i = N-1;
-			while (i >= 0) {
-				++cur[i];
-				if (cur[i] < ref->extent(i)) return *this;
-				cur[i] = 0;
-				--i;
+			for (int i = N-1; i >= 0; --i) {
+				if (++pos[i] < target->descriptor().extents[i]) return *this;
+				pos[i] = 0;
 			}
-
-			// reach to end
-			cur[0] = ref->extent(0);
+			ov = true;
 			return *this;
 		}
-
-	反復子の参照外し(*)は、インデックスから要素にアクセスするように、
-	Matrix_refに依頼（Matrix_refに対応するメソッドを追加）
 	
-		template<typename T, size_t N>
-		T& Matrix_ref_iterator<T,N>::operator*()
-		{
-			return ref->at(cur);
-		}
-
-	②反復子に関連するMatrix_refのメンバは以下のように定義
-
-		template<typename T, size_t N>
-		class Matrix_ref {
-		public:
-				・・・
-			using iterator = Matrix_ref_iterator<T,N>;
-			using const_iterator = Matrix_ref_const_iterator<T,N>;
-				・・・
-			iterator begin() { return iterator::begin(this); }
-			const_iterator begin() const { return const_iterator::begin(this); }
-			iterator end() { return iterator::end(this); }
-			const_iterator end() const { return const_iterator::end(this); }
-				・・・
-			T& at(std::array<size_t,N>& i) { return *(ptr + desc.at(i)); }
-			const T& at(std::array<size_t,N>& i) const 	{ return *(ptr + desc.at(i)); }
-
-		private:
-			Matrix_slice<N> desc;
-			T* ptr;
-		};
 
 【29.2.2:　Matrix_initializerからMatrix_refへの代入演算が必要】
 
