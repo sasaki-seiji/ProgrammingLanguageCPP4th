@@ -107,6 +107,14 @@ namespace Matrix_impl {
 		return b && All(args...);
 	}
 
+	constexpr bool Some() { return false; }
+
+	template<typename... Args>
+	constexpr bool Some(bool b, Args... args)
+	{
+		return b || Some(args...);
+	}
+
 	template<typename... Args>
 	constexpr bool Requesting_element()
 	{
@@ -114,7 +122,11 @@ namespace Matrix_impl {
 	}
 
 	template<typename... Args>
-	constexpr bool Requesting_slice();
+	constexpr bool Requesting_slice()
+	{
+		return All((Convertible<Args,size_t>() || Same<Args,slice>())...)
+				&& Some(Same<Args,slice>()...);
+	}
 
 } // end of Matrix_impl
 

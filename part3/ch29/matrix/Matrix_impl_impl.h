@@ -96,5 +96,45 @@ bool Matrix_impl::check_bounds(const Matrix_slice<N>& desc, Dims... dims)
 	return equal(indexes, indexes+N, desc.extents.begin(), less<size_t>{});
 }
 
+// impl for m(slice...)
+
+template<size_t N, typename T, typename... Args>
+size_t Matrix_impl::do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+		const T& s, const Args&... args)
+{
+	size_t m = do_slice_dim<sizeof...(Args)+1>(os,ns,s);
+	size_t n = do_slice(os,ns,args...);
+	return m+n;
+}
+
+template<size_t N>
+size_t Matrix_impl::do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns)
+{
+	return 0;
+}
+
+template<size_t NRest, size_t N>
+size_t Matrix_impl::do_slice_dim
+	(const Matrix_slice<N>& os, Matrix_slice<N>& ns, size_t s)
+{
+	size_t i = N-NRest;
+	ns.strides[i] = os.strides[i];
+	ns.extents[i] = 1;
+	return s * ns.strides[i];
+}
+
+template<size_t NRest, size_t N>
+size_t Matrix_impl::do_slice_dim
+	(const Matrix_slice<N>& os, Matrix_slice<N>& ns, slice s)
+{
+	size_t i = N-NRest;
+	ns.strides[i] = s.stride * os.strides[i];
+	ns.extents[i] = (s.length == size_t(-1)) ?
+						(os.extents[i] - s.start + s.stride-1)/s.stride
+					: s.length;
+	return s.start * os.strides[i];
+}
+
+
 
 #endif /* MATRIX_IMPL_IMPL_H_ */

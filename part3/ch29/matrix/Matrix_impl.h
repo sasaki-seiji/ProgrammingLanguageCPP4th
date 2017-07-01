@@ -106,5 +106,25 @@ template<typename... Args>
 	return *(data() + desc(args...));
 }
 
+// m(slice...)
+template<typename T, size_t N>
+template<typename... Args>
+	Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<T,N>>
+	Matrix<T,N>::operator()(const Args... args)
+{
+	Matrix_slice<N> d;
+	d.start = Matrix_impl::do_slice(desc, d, args...);
+	return {d, data()};
+}
+
+template<typename T, size_t N>
+template<typename... Args>
+	Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<const T,N>>
+	Matrix<T,N>::operator()(const Args... args) const
+{
+	Matrix_slice<N> d;
+	d.start = Matrix_impl::do_slice(desc, d, args...);
+	return {d, data()};
+}
 
 #endif /* MATRIX_IMPL_H_ */

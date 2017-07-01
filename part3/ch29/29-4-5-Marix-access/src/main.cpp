@@ -14,6 +14,7 @@ int main()
 	test_c_style_index();
 	test_col();
 	test_fortran_style_index();
+	test_slice_index();
 
 }
 

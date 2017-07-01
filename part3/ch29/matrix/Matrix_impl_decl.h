@@ -49,6 +49,21 @@ namespace Matrix_impl {
 	template<size_t N, typename... Dims>
 	bool check_bounds(const Matrix_slice<N>& desc, Dims... dims);
 
+	template<size_t N, typename T, typename... Args>
+	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			const T& s, const Args&... args);
+
+	template<size_t N>
+	size_t do_slice(const Matrix_slice<N>& os, Matrix_slice<N>& ns);
+
+	template<size_t NRest, size_t N>
+	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			size_t s);
+
+	template<size_t NRest, size_t N>
+	size_t do_slice_dim(const Matrix_slice<N>& os, Matrix_slice<N>& ns,
+			slice s);
+
 } // end of Matrix_impl
 
 
