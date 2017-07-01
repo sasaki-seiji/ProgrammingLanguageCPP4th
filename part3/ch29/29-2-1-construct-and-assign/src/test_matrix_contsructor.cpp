@@ -32,21 +32,34 @@ void construct_from_extents()
 
 void construct_from_matrix_initializer()
 {
-	cout << "-- construct_from_extents() --\n";
+	cout << "-- construct_from_matrix_initializer() --\n";
 
-	//Matrix<double,0> m0;
+	Matrix<double,0> m0;
 	Matrix<double,1> m1 {1,2,3};
-		// error: use of deleted function ‘Matrix<T, N>::Matrix(std::initializer_list<U>) [with U = int; T = double; long unsigned int N = 1ul]’
 	Matrix<double,2> m2 {{1,2},{3,4},{5,6}};
 	Matrix<double,3> m3 { {{1,2},{2,3}}, {{4,5},{6,7}} };
 
-	//cout << "m0.desc: " << m0.descriptor() << endl;
-	cout << "m1(3).desc: " << m1.descriptor() << endl;
-	cout << "m2(3,4).desc: " << m2.descriptor() << endl;
-	cout << "m3(3,4,5).desc: " << m3.descriptor() << endl;
+	cout << "m0.desc: " << m0.descriptor() << endl;
+	cout << "m0: " << m0 << endl;
+	cout << "m1.desc: " << m1.descriptor() << endl;
+	cout << "m1: " << m1 << endl;
+	cout << "m2.desc: " << m2.descriptor() << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "m3.desc: " << m3.descriptor() << endl;
+	cout << "m3: " << m3 << endl;
 }
 
 enum class Piece { none, cross, naght };
+ostream& operator<<(ostream& os, Piece piece)
+{
+	switch (piece) {
+	case Piece::none: os << "none"; break;
+	case Piece::cross: os << "cross"; break;
+	case Piece::naght: os << "naght"; break;
+	}
+
+	return os;
+}
 
 void Matrix_Piece()
 {
@@ -62,5 +75,7 @@ void Matrix_Piece()
 		//error: use of deleted function ‘Matrix<T, N>::Matrix(std::initializer_list<U>) [with U = int; long unsigned int NN = 2ul; <template-parameter-2-3> = void; T = Piece; long unsigned int N = 2ul]’
 
 	cout << "board1.desc: " << board1.descriptor() << endl;
+	cout << "board1: " << board1 << endl;
 	cout << "board2.desc: " << board2.descriptor() << endl;
+	cout << "board2: " << board2 << endl;
 }
