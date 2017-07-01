@@ -76,7 +76,7 @@ void Matrix_impl::slice_dim(size_t offset,
 		const Matrix_slice<N>& desc, Matrix_slice<N-1>& row)
 {
 	row.start = desc.start;
-	int j = N-2;
+	int j = (int)N-2;
 	for (int i=N-1; i>=0; --i) {
 		if (i==I)
 			row.start += desc.strides[i] * offset;

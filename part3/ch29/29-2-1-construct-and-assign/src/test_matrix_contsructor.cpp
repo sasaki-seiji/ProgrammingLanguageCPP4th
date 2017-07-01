@@ -86,10 +86,10 @@ void construct_from_matrix_ref()
 
 	Matrix<double,1> m1 {1,2,3};
 	auto m1r = m1(slice(1));
-	Matrix<double,2> m2 {{1,2},{3,4},{5,6}};
-	auto m2r = m2(slice(1),slice(0));
-	Matrix<double,3> m3 { {{1,2},{2,3}}, {{4,5},{6,7}} };
-	auto m3r = m3(slice(0),slice(0),slice(0));
+	Matrix<double,2> m2 {{1,2,3},{4,5,6},{7,8,9}};
+	auto m2r = m2(slice(1),slice(0,2));
+	Matrix<double,3> m3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} };
+	auto m3r = m3(slice(0),slice(0,2),slice(0));
 
 
 	Matrix<double,1> m1c = m1r;
@@ -97,12 +97,43 @@ void construct_from_matrix_ref()
 	Matrix<double,3> m3c = m3r;
 
 	cout << "m1: " << m1 << endl;
-	cout << "m1r = m1(slice(1)): " << m1r << endl;
-	cout << "m1c = m1r: " << m1c << endl;
+	cout << "auto m1r = m1(slice(1)): " << m1r << endl;
+	cout << "auto m1c = m1r: " << m1c << endl;
 	cout << "m2: " << m2 << endl;
-	cout << "m1r = m2(slice(1),slice(0)): " << m2r << endl;
-	cout << "m2c = m2r: " << m2c << endl;
+	cout << "auto m1r = m2(slice(1),slice(0,2)): " << m2r << endl;
+	cout << "auto m2c = m2r: " << m2c << endl;
 	cout << "m3: " << m3 << endl;
-	cout << "m3r = m3(slice(0),slice(0),slice(0)): " << m3r << endl;
-	cout << "m3c = m3r: " << m3c << endl;
+	cout << "auto m3r = m3(slice(0),slice(0,2),slice(0)): " << m3r << endl;
+	cout << "auto m3c = m3r: " << m3c << endl;
+}
+
+void assign_from_matrix_ref()
+{
+	cout << "-- assign_from_matrix_ref() --\n";
+
+	Matrix<double,1> m1 {1,2,3};
+	auto m1r = m1(slice(1));
+	Matrix<double,2> m2 {{1,2,3},{4,5,6},{7,8,9}};
+	auto m2r = m2(slice(1),slice(0,2));
+	Matrix<double,3> m3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} };
+	auto m3r = m3(slice(0),slice(0,2),slice(0));
+
+
+	Matrix<double,1> m1a(3);
+	Matrix<double,2> m2a(3,3);
+	Matrix<double,3> m3a(2,3,2);
+
+	m1a = m1r;
+	m2a = m2r;
+	m3a = m3r;
+
+	cout << "m1: " << m1 << endl;
+	cout << "auto m1r = m1(slice(1)): " << m1r << endl;
+	cout << "m1a = m1r: " << m1a << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "auto m1r = m2(slice(1),slice(0,2)): " << m2r << endl;
+	cout << "m2a = m2r: " << m2a << endl;
+	cout << "m3: " << m3 << endl;
+	cout << "auto m3r = m3(slice(0),slice(0,2),slice(0)): " << m3r << endl;
+	cout << "m3a = m3r: " << m3a << endl;
 }

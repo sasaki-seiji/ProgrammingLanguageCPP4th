@@ -137,4 +137,17 @@ template<typename U>
 			"Matrix constructor: incompatible element types");
 }
 
+// assign from Matrix_ref
+template<typename T, size_t N>
+template<typename U>
+	Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
+{
+	static_assert(Convertible<U,T>(),
+			"Matrix =: incompatible element types");
+
+	desc = x.descriptor().extents;
+	elems.assign(x.begin(), x.end());
+	return *this;
+}
+
 #endif /* MATRIX_IMPL_H_ */
