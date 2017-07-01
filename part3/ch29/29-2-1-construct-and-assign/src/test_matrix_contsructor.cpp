@@ -6,23 +6,28 @@
  */
 
 #include "Matrix_impl.h"
-
+#include "Matrix_ref_impl.h"
 
 void construct_from_extents()
 {
 	cout << "-- construct_from_extents() --\n";
 
-	//Matrix<double,0> m0;
+	Matrix<double,0> m0;
 	Matrix<double,1> m1(3);
 	Matrix<double,2> m2(3,4);
 	Matrix<double,3> m3(3,4,5);
 
-	//cout << "m0.desc: " << m0.descriptor() << endl;
+	cout << "m0.desc: " << m0.descriptor() << endl;
+	cout << "m0: " << m0 << endl;
+
 	cout << "m1(3).desc: " << m1.descriptor() << endl;
-//	cout << "m1(3): " << m1 << endl;
+	cout << "m1(3): " << m1 << endl;
 
 	cout << "m2(3,4).desc: " << m2.descriptor() << endl;
+	cout << "m2(3,4): " << m2 << endl;
+
 	cout << "m3(3,4,5).desc: " << m3.descriptor() << endl;
+	cout << "m3(3,4,5): " << m3 << endl;
 }
 
 void construct_from_matrix_initializer()
