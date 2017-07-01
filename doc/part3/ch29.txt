@@ -25,7 +25,8 @@
 
 【29.2.1:　Matrix_refからMatrixを構築および代入するコードのバグ】
 
-日付：　2016.11.12
+日付：　2016.11.12、2017.07.02
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
 コメント：
 
@@ -42,23 +43,20 @@
 	①x.descはMatrix_refのprivateメンバのため、Matrixからアクセスできない
 	②Matrix_refは要素が連続配置されていないため、desc(Matrix_slice)を
 	　単純にコピーできない（新規に作成されるMatrixは要素を連続的に配置する）
-	　
+	③Matrix_refにbegin()、end()メンバ関数が必要（後述）
+　
 	この問題を対策するため、以下のように変更した
 	
 	template<typename T, size_t N>
 		template<typename U>
 		Matrix<T,N>::Matrix(const Matrix_ref<U,N>& x)
-		// 2016.11.08, 2016.11.12 change
-			//:desc{x.desc}, elems{x.begin(),x.end()}
-			:desc{x.descriptor()}, elems(x.begin(),x.end())
+			:desc{x.descriptor().extents}, elems{x.begin(),x.end()}
 		{
-			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
-
-			// 2016.11.12 add
-			desc.start = 0;
-			desc.extents = x.descriptor().extents;
-			Matrix_impl::compute_strides(desc);
+			static_assert(Convertible<U,T>(),
+					"Matrix constructor: incompatible element types");
 		}
+
+	ここで、Matrix_slice<T,N>にarray<size_t,N>を引数に取るコンストラクタを追加
 
 ・Matrix_refをMatrixに代入する処理にも同様な問題がある
 	以下のように変更
@@ -76,19 +74,15 @@
 
 		↓
 		
-	// Matrix: assign Matrix_ref
 	template<typename T, size_t N>
 		template<typename U>
 		Matrix<T,N>& Matrix<T,N>::operator=(const Matrix_ref<U,N>& x)
 		{
-			static_assert(Convertible<U,T>(), "Matrix constructor: incompatible element types");
-
-			std::vector<T> nv{x.begin(), x.end()};	// exception safe
-
-			desc.start = 0;
-			desc.extents = x.descriptor().extents;
-			Matrix_impl::compute_strides(desc);
-			elems = nv;
+			static_assert(Convertible<U,T>(),
+					"Matrix =: incompatible element types");
+	
+			desc = x.descriptor().extents;
+			elems.assign(x.begin(), x.end());
 			return *this;
 		}
 
