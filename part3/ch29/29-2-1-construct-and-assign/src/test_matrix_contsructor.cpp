@@ -119,9 +119,9 @@ void assign_from_matrix_ref()
 	auto m3r = m3(slice(0),slice(0,2),slice(0));
 
 
-	Matrix<double,1> m1a(3);
-	Matrix<double,2> m2a(3,3);
-	Matrix<double,3> m3a(2,3,2);
+	Matrix<double,1> m1a;
+	Matrix<double,2> m2a;
+	Matrix<double,3> m3a;
 
 	m1a = m1r;
 	m2a = m2r;
