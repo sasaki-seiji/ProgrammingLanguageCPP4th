@@ -41,3 +41,17 @@ void succesive_apply()
 	m.apply([](double& x){ x = abs(x); }).apply([](double& x){ x = sqrt(x); });
 	cout << "after sqrt(abs(m)), m: " << m << endl;
 }
+
+void matrix_scalar_operator()
+{
+	cout << "-- matrix_scalar_operator() --\n";
+
+	Matrix<int, 2> m { {1,2,3}, {4,5,6}, {7,8,9} };
+
+	cout << "initially, m: " << m << endl;
+	cout << "m + 3: " << m + 3 << endl;
+	cout << "m - 2: " << m - 2 << endl;
+	cout << "m * 2: " << m * 2 << endl;
+	cout << "m / 2: " << m / 2 << endl;
+	cout << "m % 4: " << m % 4 << endl;
+}

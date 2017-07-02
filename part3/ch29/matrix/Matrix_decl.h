@@ -112,6 +112,22 @@ private:
 	vector<T> elems;
 };
 
+template<typename T, size_t N>
+Matrix<T,N> operator+(const Matrix<T,N>& m, const T& val);
+
+template<typename T, size_t N>
+Matrix<T,N> operator-(const Matrix<T,N>& m, const T& val);
+
+template<typename T, size_t N>
+Matrix<T,N> operator*(const Matrix<T,N>& m, const T& val);
+
+template<typename T, size_t N>
+Matrix<T,N> operator/(const Matrix<T,N>& m, const T& val);
+
+template<typename T, size_t N>
+Matrix<T,N> operator%(const Matrix<T,N>& m, const T& val);
+
+
 template<typename T>
 class Matrix<T,0> {
 public:
