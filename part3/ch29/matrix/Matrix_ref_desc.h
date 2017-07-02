@@ -37,6 +37,7 @@ private:
 	friend ostream& operator<<(ostream& os, const Matrix_ref_iterator<U,NN>& iter);
 };
 
+
 // primary template for Matrix_ref
 
 template<typename T, size_t N>
@@ -44,8 +45,10 @@ class Matrix_ref {
 public:
 	static constexpr size_t order = N;
 	using value_type = T;
+	using iterator = Matrix_ref_iterator<T,N>;
 
 	Matrix_ref(const Matrix_slice<N>& s, T* p) :desc{s}, ptr{p} {}
+	Matrix_ref& operator=(Matrix_initializer<T,N> init);
 
 	Matrix_ref<T,N-1> operator[](size_t i) const { return row(i); }
 	Matrix_ref<T,N-1> row(size_t n) const;
@@ -59,8 +62,8 @@ public:
 
 	T* data() const { return ptr; }
 
-	Matrix_ref_iterator<T,N> begin() const { return Matrix_ref_iterator<T,N>::begin(this); }
-	Matrix_ref_iterator<T,N> end() const { return Matrix_ref_iterator<T,N>::end(this); }
+	iterator begin() const { return Matrix_ref_iterator<T,N>::begin(this); }
+	iterator end() const { return Matrix_ref_iterator<T,N>::end(this); }
 
 private:
 	Matrix_slice<N> desc;

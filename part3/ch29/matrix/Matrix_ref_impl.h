@@ -45,7 +45,21 @@ ostream& operator<<(ostream& os, const Matrix_ref_iterator<T,N>& iter)
 	return os;
 }
 
+// assign from Matrix_initializer
+template<typename T, size_t N>
+Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
+{
+	array<size_t, N> extents = Matrix_impl::derive_extents<N>(init);
+	assert(extents == desc.extents);
+
+	iterator it = begin();
+	Matrix_impl::copy_flat(init, it);
+
+	return *this;
+}
+
 // row
+
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n) const
 {
@@ -56,6 +70,7 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::row(size_t n) const
 }
 
 // col
+
 template<typename T, size_t N>
 Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n) const
 {

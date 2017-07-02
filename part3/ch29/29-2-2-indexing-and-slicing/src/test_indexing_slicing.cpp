@@ -47,12 +47,13 @@ void access_by_slice_index()
 void assign_to_sliced_matrix()
 {
 	cout << "-- assig_to_sliced_matrix() --\n";
-#if 0
+
 	m2(slice{1,2},slice{0,3}) = {
 			{111,112,113},
 			{121,122,123}
 	};
-#endif
+
+	cout << "after assign to m2(slice{1,2},slice(0,3}), m2: " << m2 << endl;
 }
 
 Matrix<int,2> m3 {

@@ -43,6 +43,16 @@ namespace Matrix_impl {
 	template<typename T, typename Vec>
 	void add_list(const T* first, const T* last, Vec& vec);
 
+	template<typename T, typename Iter>
+	void copy_flat(initializer_list<T> list, Iter& it);
+
+	template<typename T, typename Iter>
+	void copy_list(const initializer_list<T>* first,
+			const initializer_list<T>* last, Iter& it);
+
+	template<typename T, typename Iter>
+	void copy_list(const T* first, const T* last, Iter& it);
+
 	template<size_t I, size_t N>
 	void slice_dim(size_t offset, const Matrix_slice<N>& desc, Matrix_slice<N-1>& row);
 

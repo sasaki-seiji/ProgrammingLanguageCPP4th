@@ -71,6 +71,27 @@ void Matrix_impl::add_list(const T* first, const T* last, Vec& vec)
 	vec.insert(vec.end(), first, last);
 }
 
+template<typename T, typename Iter>
+void Matrix_impl::copy_flat(initializer_list<T> list, Iter& it)
+{
+	copy_list(list.begin(), list.end(), it);
+}
+
+template<typename T, typename Iter>
+void Matrix_impl::copy_list
+(const initializer_list<T>* first, const initializer_list<T>* last, Iter& it)
+{
+	for ( ; first != last; ++first)
+		copy_list(first->begin(), first->end(), it);
+}
+
+template<typename T, typename Iter>
+void Matrix_impl::copy_list(const T* first, const T* last, Iter& it)
+{
+	it = copy(first, last, it);
+}
+
+
 template<size_t I, size_t N>
 void Matrix_impl::slice_dim(size_t offset,
 		const Matrix_slice<N>& desc, Matrix_slice<N-1>& row)
