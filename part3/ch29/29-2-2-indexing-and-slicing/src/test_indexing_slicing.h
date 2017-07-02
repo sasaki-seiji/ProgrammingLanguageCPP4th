@@ -12,6 +12,7 @@
 void access_by_int_index();
 void access_by_slice_index();
 void assign_to_sliced_matrix();
+void access_by_slice_and_int_index();
 
 
 

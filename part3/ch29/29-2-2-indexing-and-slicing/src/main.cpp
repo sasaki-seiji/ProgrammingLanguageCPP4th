@@ -12,5 +12,6 @@ int main()
 	access_by_int_index();
 	access_by_slice_index();
 	assign_to_sliced_matrix();
+	access_by_slice_and_int_index();
 
 }

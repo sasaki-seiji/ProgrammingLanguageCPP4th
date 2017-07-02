@@ -46,7 +46,7 @@ void access_by_slice_index()
 
 void assign_to_sliced_matrix()
 {
-	cout << "-- assig_to_sliced_matrix() --\n";
+	cout << "-- assign_to_sliced_matrix() --\n";
 
 	m2(slice{1,2},slice{0,3}) = {
 			{111,112,113},
@@ -62,8 +62,16 @@ Matrix<int,2> m3 {
 	{21,22,23}
 };
 
-#if 0
 auto m31 = m3(slice{1,2},1);
 auto m32 = m3(slice{1,2},0);
 auto x = m3(1,2);
-#endif
+
+void access_by_slice_and_int_index()
+{
+	cout << "-- access_by_slice_and_int_index() --\n";
+
+	cout << "m3: " << m3 << endl;
+	cout << "auto m31 = m3(slice{1,2},1); m31: " << m31 << endl;
+	cout << "auto m32 = m3(slice{1,2},0); m32: " << m32 << endl;
+	cout << "auto x = m3(1,2); x: " << x << endl;
+}
