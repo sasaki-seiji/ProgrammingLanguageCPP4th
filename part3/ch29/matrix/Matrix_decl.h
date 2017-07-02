@@ -37,7 +37,7 @@ public:
 	Matrix(Matrix&&) = default;
 	Matrix& operator=(Matrix&&) = default;
 	Matrix(const Matrix&) = default;
-	Matrix& operator=(Matrix&) = default;
+	Matrix& operator=(const Matrix&) = default;
 	~Matrix() = default;
 
 	template<typename U>
@@ -78,6 +78,24 @@ public:
 
 	Matrix_ref<T,N-1> col(size_t n);
 	Matrix_ref<const T,N-1> col(size_t n) const;
+
+	template<typename F>
+		Matrix& apply(F f);
+
+	template<typename M, typename F>
+		Enable_if<Matrix_type<M>(), Matrix&> apply(const M& m, F f);
+
+	Matrix& operator=(const T& value);
+	Matrix& operator+=(const T& value);
+	Matrix& operator-=(const T& value);
+	Matrix& operator*=(const T& value);
+	Matrix& operator/=(const T& value);
+	Matrix& operator%=(const T& value);
+
+	template<typename M>
+		Enable_if<Matrix_type<M>(), Matrix&> operator+=(const M& x);
+	template<typename M>
+		Enable_if<Matrix_type<M>(), Matrix&> operator-=(const M& x);
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return elems.size(); }
