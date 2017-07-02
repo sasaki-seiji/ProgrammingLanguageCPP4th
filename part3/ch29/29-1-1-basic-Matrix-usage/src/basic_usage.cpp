@@ -50,7 +50,6 @@ void various_element_type()
 	cout << "typeid(ms): " << typeid(ms).name() << endl;
 }
 
-#if 0
 Matrix<Matrix<int,2>,2> mm {
 	{
 		{{1,2}, {3,4}},
@@ -65,7 +64,13 @@ Matrix<Matrix<int,2>,2> mm {
 		{{4,5}, {6,7}}
 	}
 };
-#endif
+
+void matrix_of_matrix()
+{
+	cout << "-- matrix_of_matrix() --\n";
+	cout << "mm.desc: " << mm.descriptor() << endl;
+	cout << "mm: " << mm << endl;
+}
 
 //Matrix<char,2> mc1(2,3,4);
 	// error: static assertion failed: Matrix_slice<N>::Matrix_slice(Dims...): dimension mismatch

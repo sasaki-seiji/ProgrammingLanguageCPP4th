@@ -11,6 +11,7 @@
 void initialize_from_matrix_initializer();
 void initialize_from_sizes();
 void various_element_type();
+void matrix_of_matrix();
 void check_dimension();
 void order_and_extent();
 void index_access();
