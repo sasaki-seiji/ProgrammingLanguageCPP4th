@@ -150,4 +150,43 @@ template<typename U>
 	return *this;
 }
 
+template<typename T, size_t N>
+template<typename F>
+Matrix<T,N>& Matrix<T,N>::apply(F f)
+{
+	for (auto& x : elems) f(x);
+	return *this;
+}
+
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
+{
+
+}
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
+{
+	return apply([&](T& a) { a+= val; });
+}
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator-=(const T& val)
+{
+	return apply([&](T& a) { a-= val; });
+}
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator*=(const T& val)
+{
+	return apply([&](T& a) { a*= val; });
+}
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator/=(const T& val)
+{
+	return apply([&](T& a) { a/= val; });
+}
+template<typename T, size_t N>
+Matrix<T,N>& Matrix<T,N>::operator%=(const T& val)
+{
+	return apply([&](T& a) { a%= val; });
+}
+
 #endif /* MATRIX_IMPL_H_ */
