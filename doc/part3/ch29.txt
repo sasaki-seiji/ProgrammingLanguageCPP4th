@@ -148,8 +148,9 @@
 
 【29.2.2:　Matrix_initializerからMatrix_refへの代入演算が必要】
 
-日付：　2016.11.10、2016.11.20
+日付：　2016.11.10、2016.11.20、2017.07.02
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	29.2.2「添え字演算とスライシング」　の例題
@@ -172,7 +173,7 @@
 		template<typename T, size_t N>
 		Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 		{
-			std::array<size_t, N> extents = Matrix_impl::derive_extents<N>(init);
+			array<size_t, N> extents = Matrix_impl::derive_extents<N>(init);
 			assert(extents == desc.extents);
 
 			iterator it = begin();
@@ -187,28 +188,31 @@
 	各要素を、Matrix_refの要素としてコピーする
 	
 	copy_flatは以下のようにして実装する
-	
+
 		template<typename T, typename Iter>
-		void copy_flat(std::initializer_list<T> init, Iter& it)
+		void Matrix_impl::copy_flat(initializer_list<T> list, Iter& it)
 		{
-			for (auto& elem : init)
-			copy_flat(elem, it);
+			copy_list(list.begin(), list.end(), it);
 		}
 
-	copy_flatは、Matrix_initializerをinitializer_lilstとして受け取り、
-	その各要素に対して、より低次元のcopy_flatを呼び出す。
-	そして、initializer_listではない末端の要素に到達すると、
-	以下のテンプレート多重関数が呼び出される
-	
 		template<typename T, typename Iter>
-		void copy_flat(const T& v, Iter& it)
+		void Matrix_impl::copy_list
+		(const initializer_list<T>* first, const initializer_list<T>* last, Iter& it)
 		{
-			*it = v;
-			++it;
+			for ( ; first != last; ++first)
+				copy_list(first->begin(), first->end(), it);
 		}
 
-	ここでは各要素を反復子が指す位置に代入してから、反復子をインクリメントする。
-	反復子は、Matrix_refが用意した反復子であり、ストライド計算を適切に行う	
+		template<typename T, typename Iter>
+		void Matrix_impl::copy_list(const T* first, const T* last, Iter& it)
+		{
+			it = copy(first, last, it);
+		}
+
+	
+	copy_flatが呼び出すcopy_listは、ネストしたinitializer_listを再帰的に処理する
+	initializer_listが末端要素に到達すれば、多重定義したcopy_listが、
+	it（Matrix_ref_iteratorのインスタンス）を通じて、Matrixに要素を順次代入する
 
 
 【29.3.2:　Matrixの混合演算の関数テンプレート宣言の誤り】
