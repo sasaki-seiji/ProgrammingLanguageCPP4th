@@ -8,11 +8,8 @@
 #ifndef MATRIX_H_
 #define MATRIX_H_
 
-#include "fwd_decl.h"
-#include "Matrix_concept.h"
-#include "Matrix_decl.h"
-
 #include "Matrix_impl.h"
-
+#include "Matrix_ref_impl.h"
+#include "Matrix_impl_impl.h"
 
 #endif /* MATRIX_H_ */
