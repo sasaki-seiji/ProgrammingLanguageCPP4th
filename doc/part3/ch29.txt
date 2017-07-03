@@ -146,7 +146,7 @@
 		}
 	
 
-【29.2.2:　Matrix_initializerからMatrix_refへの代入演算が必要】
+【29.2.2:　Matrix_initializerからMatrix_refへの代入演算】
 
 日付：　2016.11.10、2016.11.20、2017.07.02
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
@@ -217,8 +217,9 @@
 
 【29.3.2:　Matrixの混合演算の関数テンプレート宣言の誤り】
 
-日付：　2016.11.11、2016.11.18
+日付：　2016.11.11、2016.11.18、2017.07.03
 バージョン：　gcc (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.3.0
+バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
 	Matrixの混合演算関数テンプレート関数の宣言に誤りがある
