@@ -45,6 +45,11 @@ struct Matrix_slice {
 	array<size_t,N> strides;
 };
 
+template<size_t N>
+bool same_extents(const Matrix_slice<N>& a, const Matrix_slice<N>& b)
+{
+	return a.extents == b.extents;
+}
 
 template<size_t N>
 Matrix_slice<N>::Matrix_slice()

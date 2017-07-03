@@ -131,5 +131,10 @@ namespace Matrix_impl {
 } // end of Matrix_impl
 
 
+// Value_type<C>
+
+template<typename C>
+using Value_type = typename C::value_type;
+
 
 #endif /* MATRIX_CONCEPT_H_ */

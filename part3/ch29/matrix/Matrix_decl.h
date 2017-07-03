@@ -82,15 +82,15 @@ public:
 	template<typename F>
 		Matrix& apply(F f);
 
-	template<typename M, typename F>
-		Enable_if<Matrix_type<M>(), Matrix&> apply(const M& m, F f);
-
 	Matrix& operator=(const T& value);
 	Matrix& operator+=(const T& value);
 	Matrix& operator-=(const T& value);
 	Matrix& operator*=(const T& value);
 	Matrix& operator/=(const T& value);
 	Matrix& operator%=(const T& value);
+
+	template<typename M, typename F>
+		Enable_if<Matrix_type<M>(), Matrix&> apply(const M& m, F f);
 
 	template<typename M>
 		Enable_if<Matrix_type<M>(), Matrix&> operator+=(const M& x);
@@ -104,8 +104,14 @@ public:
 
 	const Matrix_slice<N>& descriptor() const { return desc; }
 
+
 	T* data() { return elems.data(); }
 	const T* data() const { return elems.data(); }
+
+	iterator begin() { return elems.begin(); }
+	const_iterator begin() const { return elems.cbegin(); }
+	iterator end() { return elems.end(); }
+	const_iterator end() const { return elems.cend(); }
 
 private:
 	Matrix_slice<N> desc;
