@@ -26,6 +26,24 @@ operator<<(ostream& os, const M& m)
 	return os << '}';
 }
 
+// construct from other type Matrix
+template<typename T, size_t N>
+template<typename U>
+Matrix<T,N>::Matrix(const Matrix<U,N>& o)
+	: desc{o.descriptor()}, elems{o.begin(), o.end()}
+{
+}
+
+// assign from other type Matrix
+template<typename T, size_t N>
+template<typename U>
+Matrix<T,N>& Matrix<T,N>::operator=(const Matrix<U,N>& o)
+{
+	desc = o.descritor();
+	elems.assign(o.begin(), o.end());
+	return *this;
+}
+
 // construct from extents
 template<typename T, size_t N>
 template<typename... Exts>
@@ -163,7 +181,7 @@ Matrix<T,N>& Matrix<T,N>::apply(F f)
 template<typename T, size_t N>
 Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
 {
-
+	return apply([&](T& a) { a = val; });
 }
 template<typename T, size_t N>
 Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
@@ -268,5 +286,46 @@ Enable_if<Matrix_type<M>(), Matrix<T,N>&> Matrix<T,N>::operator-=(const M& m)
 
 	return apply(m, [](T& a, const Value_type<M>& b){ a -= b; });
 }
+
+// matrix + matrix
+template<typename T, size_t N>
+Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res += b;
+	return res;
+}
+
+// matrix - matrix
+template<typename T, size_t N>
+Matrix<T,N> operator-(const Matrix<T,N>& a, const Matrix<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res -= b;
+	return res;
+}
+
+// matrix<T> + matrix<T2>
+template<typename T, typename T2, size_t N,
+	typename RT = Common_type<T,T2>>
+Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b)
+{
+	Matrix<RT,N> res = a;
+	res += b;
+	return res;
+}
+
+// matrix<T> - matrix<T2>
+template<typename T, typename T2, size_t N,
+	typename RT = Common_type<T,T2>>
+Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b)
+{
+	Matrix<RT,N> res = a;
+	res -= b;
+	return res;
+}
+
+
+
 
 #endif /* MATRIX_IMPL_H_ */

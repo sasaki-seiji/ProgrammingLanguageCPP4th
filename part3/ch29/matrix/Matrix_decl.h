@@ -9,6 +9,7 @@
 #define MATRIX_DECL_H_
 
 #include "type_converter.h"
+#include "common.h"
 using namespace Estd;
 
 #include "fwd_decl.h"
@@ -39,6 +40,11 @@ public:
 	Matrix(const Matrix&) = default;
 	Matrix& operator=(const Matrix&) = default;
 	~Matrix() = default;
+
+	template<typename U>
+		Matrix(const Matrix<U,N>&);
+	template<typename U>
+		Matrix& operator=(const Matrix<U,N>&);
 
 	template<typename U>
 		Matrix(const Matrix_ref<U,N>&);
@@ -132,6 +138,20 @@ Matrix<T,N> operator/(const Matrix<T,N>& m, const T& val);
 
 template<typename T, size_t N>
 Matrix<T,N> operator%(const Matrix<T,N>& m, const T& val);
+
+template<typename T, size_t N>
+Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b);
+
+template<typename T, size_t N>
+Matrix<T,N> operator-(const Matrix<T,N>& a, const Matrix<T,N>& b);
+
+template<typename T, typename T2, size_t N,
+	typename RT = Common_type<T,T2>>
+Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b);
+
+template<typename T, typename T2, size_t N,
+	typename RT = Common_type<T,T2>>
+Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b);
 
 
 template<typename T>

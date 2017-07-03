@@ -10,6 +10,8 @@
 
 int main()
 {
-	matrix_addition();
+	add_assign_matrix();
+	matrix_add_matrix();
+	matrixT_add_matrixT2();
 }
 
