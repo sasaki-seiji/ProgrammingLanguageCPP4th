@@ -55,12 +55,20 @@ void matrixT_add_matrixT2()
 	cout << "-- matrixT_add_matrixT2() --\n";
 
 	Matrix<double, 2> md { { 1.1, 2.2 }, { 3.3, 4.4 } };
-	Matrix<long double, 2> mc { {-1.0, 2.0}, { -3.0, 4.0 } };
+	Matrix<long double, 2> mld { {-1.0, 2.0}, { -3.0, 4.0 } };
 
 	cout << "md: " << md << endl;
-	cout << "mc: " << mc << endl;
+	cout << "mld: " << mld << endl;
 
+	cout << "md + mld: " << md+mld << endl;
+	cout << "mld - md: " << mld-md << endl;
+
+	Matrix<complex<double>, 2> mc {
+		{ {-1.0, 0}, {0, 2.0} },
+		{ {-3.0, 0}, {0, 4.0} }
+	};
+	cout << "mc.desc: " << mc.descriptor() << endl;
+	cout << "mc: " << mc << endl;
 	cout << "md + mc: " << md+mc << endl;
 	cout << "mc - md: " << mc-md << endl;
-
 }

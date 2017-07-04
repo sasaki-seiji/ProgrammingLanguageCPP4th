@@ -19,7 +19,7 @@ template<typename T, typename U>
 struct get_common_result {
 private:
 	template<typename X, typename Y>
-		static auto check(const X& x, const Y& y) -> decltype(true?x:y);
+		static auto check(X x, Y y) -> decltype(true?x:y);
 	static substitution_failure check(...);
 public:
 	using type = decltype(check(std::declval<T>(),std::declval<U>()));

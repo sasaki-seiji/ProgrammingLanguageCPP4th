@@ -25,6 +25,11 @@ template<typename M>
 	Enable_if<Matrix_type<M>(), ostream&>
 operator<<(ostream& os, const M& m);
 
+template<typename T>
+ostream& operator<<(ostream& os, const Matrix<T,0>& m0);
+
+template<typename T>
+ostream& operator<<(ostream& os, const Matrix_ref<T,0>& mr0);
 
 template<typename T, size_t N>
 class Matrix {

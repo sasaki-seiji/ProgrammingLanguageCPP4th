@@ -9,6 +9,15 @@
 #define MATRIX_REF_IMPL_H_
 
 #include "Matrix_ref_desc.h"
+#include <iostream>
+using namespace std;
+
+template<typename T>
+ostream& operator<<(ostream& os, const Matrix_ref<T,0>& mr0)
+{
+	return os << (const T&)mr0;
+}
+
 
 // Matrix_ref_iterator
 

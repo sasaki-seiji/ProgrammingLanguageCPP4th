@@ -26,6 +26,13 @@ operator<<(ostream& os, const M& m)
 	return os << '}';
 }
 
+template<typename T>
+ostream& operator<<(ostream& os, const Matrix<T,0>& m0)
+{
+	return os << (const T&)m0;
+}
+
+
 // construct from other type Matrix
 template<typename T, size_t N>
 template<typename U>
