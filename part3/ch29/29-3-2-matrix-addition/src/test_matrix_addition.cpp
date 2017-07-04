@@ -72,3 +72,27 @@ void matrixT_add_matrixT2()
 	cout << "md + mc: " << md+mc << endl;
 	cout << "mc - md: " << mc-md << endl;
 }
+
+struct Quad {
+	long double ld;
+	Quad(long double ld) : ld{ld} { }
+	Quad& operator+=(Quad a) { ld += a.ld; return *this; }
+	Quad& operator-=(Quad a) { ld -= a.ld; return *this; }
+};
+Quad operator+(Quad a, Quad b) { Quad res{a}; res += b; return res; }
+Quad operator-(Quad a, Quad b) { Quad res{a}; res -= b; return res; }
+ostream& operator<<(ostream& os, Quad q) { 	return os << q.ld; }
+
+void matrixld_add_matrixQuad()
+{
+	cout << "-- matrixld_add_matrixQuad() --\n";
+
+	Matrix<long double, 2> mld { {-1.0, 2.0}, { -3.0, 4.0 } };
+	Matrix<Quad, 2> mq { {1.1, 2.2}, {3.3, 4.4} };
+
+	cout << "mld: " << mld << endl;
+	cout << "mq: " << mq << endl;
+
+	cout << "mld + mq: " << mld+mq << endl;
+	cout << "mq - mld: " << mq-mld << endl;
+}
