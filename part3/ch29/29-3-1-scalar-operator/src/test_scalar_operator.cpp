@@ -23,12 +23,14 @@ void assign_scalar()
 	cout << "after m *= 1.5; m: " << m << endl;
 	m /= 1.5;
 	cout << "after m /= 1.5; m: " << m << endl;
+	m = 2.3;
+	cout << "after m = 2.3; m: " << m << endl;
 
 	Matrix<int, 2> mi { {1,2,3}, {4,5,6}, {7,8,9} };
 
 	cout << "initially, mi: " << mi << endl;
 	mi %= 4;
-	cout << "after mi %= 2; mi: " << mi << endl;
+	cout << "after mi %= 4; mi: " << mi << endl;
 
 }
 
