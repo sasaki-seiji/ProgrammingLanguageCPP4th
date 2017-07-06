@@ -161,6 +161,9 @@ Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b);
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v);
 
+template<typename T>
+Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v);
+
 
 template<typename T>
 class Matrix<T,0> {

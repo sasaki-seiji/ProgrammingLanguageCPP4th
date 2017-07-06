@@ -345,5 +345,19 @@ Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
 	return res;
 }
 
+// Matrix<T,2> * Matrix<T,1>
+template<typename T>
+Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
+{
+	assert(m.extent(1) == v.extent(0));
+	const size_t nr = m.extent(0);
+	const size_t nc = m.extent(1);
+	Matrix<T,1> res(nr);
+	for (size_t i = 0; i!=nr; ++i)
+		for (size_t j = 0; j!=nc; ++j)
+			res(i) += m(i,j)*v(j);
+	return res;
+}
+
 
 #endif /* MATRIX_IMPL_H_ */

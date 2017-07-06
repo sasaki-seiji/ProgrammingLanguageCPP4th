@@ -11,6 +11,7 @@
 int main()
 {
 	test_marix1_x_matrix1();
+	test_marix2_x_matrix1();
 
 }
 
