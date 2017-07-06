@@ -158,6 +158,9 @@ template<typename T, typename T2, size_t N,
 	typename RT = Common_type<T,T2>>
 Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b);
 
+template<typename T>
+Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v);
+
 
 template<typename T>
 class Matrix<T,0> {

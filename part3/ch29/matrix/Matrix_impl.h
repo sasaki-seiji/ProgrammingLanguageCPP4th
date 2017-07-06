@@ -332,7 +332,18 @@ Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b)
 	return res;
 }
 
-
+// Matrix<T,1> * Matrix<T,1>
+template<typename T>
+Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
+{
+	const size_t n = u.extent(0);
+	const size_t m = v.extent(0);
+	Matrix<T,2> res(n,m);
+	for (size_t i = 0; i!=n; ++i)
+		for (size_t j = 0; j!=m; ++j)
+			res(i,j) = u[i]*v[j];
+	return res;
+}
 
 
 #endif /* MATRIX_IMPL_H_ */
