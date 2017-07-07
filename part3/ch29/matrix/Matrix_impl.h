@@ -359,5 +359,21 @@ Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
 	return res;
 }
 
+// Matrix<T,2> * Matrix<T,2>
+template<typename T>
+Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
+{
+	const size_t nr = m1.extent(0);
+	const size_t nc = m1.extent(1);
+	assert(nc==m2.extent(0));
+	const size_t p = m2.extent(1);
+	Matrix<T,2> res(nr,p);
+	for (size_t i = 0; i!=nr; ++i)
+		for (size_t j = 0; j!=p; ++j)
+			for (size_t k = 0; k!=nc; ++k)
+				res(i,j) += m1(i,k)*m2(k,j);
+	return res;
+}
+
 
 #endif /* MATRIX_IMPL_H_ */

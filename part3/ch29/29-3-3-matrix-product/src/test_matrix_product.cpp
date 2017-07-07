@@ -33,3 +33,16 @@ void test_marix2_x_matrix1()
 	cout << "m*v: " << m*v << endl;
 
 }
+
+void test_marix2_x_matrix2()
+{
+	cout << "-- test_matrix2_x_matrix2() --\n";
+
+	Matrix<double,2> m1 { {1, 2, 3}, {4, 5, 6} };
+	Matrix<double,2> m2 { {1,1}, {2,2}, {3,3}};
+
+	cout << "m1: " << m1 << endl;
+	cout << "m2: " << m2 << endl;
+	cout << "m1*m2: " << m1*m2 << endl;
+
+}
