@@ -145,3 +145,15 @@ void index_access()
 	cout << "Matrix<double,1> mr1 = m[1]; " << mr1 << endl;
 	cout << "double v3 = mr1[2]; " << v3 << endl;
 }
+
+void basic_usage_all()
+{
+	initialize_from_matrix_initializer();
+	initialize_from_sizes();
+	various_element_type();
+	matrix_of_matrix();
+	check_dimension();
+	order_and_extent();
+	index_access();
+}
+

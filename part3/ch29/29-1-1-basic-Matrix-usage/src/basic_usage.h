@@ -15,6 +15,7 @@ void matrix_of_matrix();
 void check_dimension();
 void order_and_extent();
 void index_access();
+void basic_usage_all();
 
 
 
