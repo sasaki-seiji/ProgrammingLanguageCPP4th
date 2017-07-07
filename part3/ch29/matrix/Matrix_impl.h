@@ -11,6 +11,7 @@
 #include "Matrix_concept.h"
 #include "slice.h"
 #include "Matrix_decl.h"
+#include "Matrix_ref_decl.h"
 #include "Matrix_impl_impl.h"
 
 // print Matrix, Matrix_ref
@@ -370,8 +371,12 @@ Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2)
 	Matrix<T,2> res(nr,p);
 	for (size_t i = 0; i!=nr; ++i)
 		for (size_t j = 0; j!=p; ++j)
+#if 0
 			for (size_t k = 0; k!=nc; ++k)
 				res(i,j) += m1(i,k)*m2(k,j);
+#else
+		res(i,j) = dot_product(m1[i],m2.col(j));
+#endif
 	return res;
 }
 

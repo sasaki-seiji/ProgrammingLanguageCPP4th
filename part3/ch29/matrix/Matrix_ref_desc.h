@@ -37,7 +37,6 @@ private:
 	friend ostream& operator<<(ostream& os, const Matrix_ref_iterator<U,NN>& iter);
 };
 
-
 // primary template for Matrix_ref
 
 template<typename T, size_t N>
@@ -69,6 +68,9 @@ private:
 	Matrix_slice<N> desc;
 	T* ptr;
 };
+
+template<typename T>
+T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b);
 
 
 // specialized template for Matrix_ref<T,0>

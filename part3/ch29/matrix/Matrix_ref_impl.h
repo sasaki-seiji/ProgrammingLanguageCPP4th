@@ -8,7 +8,7 @@
 #ifndef MATRIX_REF_IMPL_H_
 #define MATRIX_REF_IMPL_H_
 
-#include "Matrix_ref_desc.h"
+#include "Matrix_ref_decl.h"
 #include <iostream>
 using namespace std;
 
@@ -88,5 +88,13 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n) const
 	Matrix_impl::slice_dim<1>(n,desc,col);
 	return {col,ptr};
 }
+
+// inner product
+template<typename T>
+T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
+{
+	return inner_product(a.begin(), a.end(), b.begin(), T{});
+}
+
 
 #endif /* MATRIX_REF_IMPL_H_ */
