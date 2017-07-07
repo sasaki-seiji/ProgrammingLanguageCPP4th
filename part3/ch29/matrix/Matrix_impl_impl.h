@@ -8,6 +8,7 @@
 #ifndef MATRIX_IMPL_IMPL_H_
 #define MATRIX_IMPL_IMPL_H_
 
+#include "slice.h"
 #include "Matrix_impl_decl.h"
 #include "Matrix_slice.h"
 #include <cassert>
