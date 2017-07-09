@@ -10,9 +10,5 @@
 
 int main()
 {
-	construct_from_extents();
-	construct_from_matrix_initializer();
-	Matrix_Piece();
-	construct_from_matrix_ref();
-	assign_from_matrix_ref();
+	test_matrix_constructor_all();
 }

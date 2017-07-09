@@ -14,6 +14,7 @@ void construct_from_matrix_initializer();
 void Matrix_Piece();
 void construct_from_matrix_ref();
 void assign_from_matrix_ref();
+void test_matrix_constructor_all();
 
 
 
