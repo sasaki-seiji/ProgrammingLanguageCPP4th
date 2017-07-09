@@ -62,9 +62,11 @@ public:
 	Matrix(Matrix_initializer<T,N>);
 	Matrix& operator=(Matrix_initializer<T,N>);
 
-	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>>
+	template<typename U, size_t NN=N, 	typename =Enable_if<(NN>1)>,
+			typename =Enable_if<Convertible<U,size_t>()>>
 		Matrix(initializer_list<U>) = delete;
-	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>>
+	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>,
+			typename =Enable_if<Convertible<U,size_t>()>>
 		Matrix& operator=(initializer_list<U>) = delete;
 
 	template<typename... Args>

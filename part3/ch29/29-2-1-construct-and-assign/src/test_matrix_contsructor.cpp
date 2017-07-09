@@ -60,6 +60,68 @@ void construct_from_matrix_initializer()
 	cout << "  m3: " << m3 << endl;
 }
 
+void copy_constructor()
+{
+	cout << "-- copy_constructor() --\n";
+
+	Matrix<double,0> m0 {1};
+	Matrix<double,1> m1 {1,2,3};
+	Matrix<double,2> m2 {{1,2},{3,4},{5,6}};
+	Matrix<double,3> m3 { {{1,2},{2,3}}, {{4,5},{6,7}} };
+
+	Matrix<double,0> m0_1 {m0};
+	Matrix<double,0> m0_2 (m0);
+	Matrix<double,0> m0_3 = m0;
+
+	Matrix<double,1> m1_1 {m1};
+	Matrix<double,1> m1_2 (m1);
+	Matrix<double,1> m1_3 = m1;
+
+	Matrix<double,2> m2_1 {m2};
+	Matrix<double,2> m2_2 (m2);
+	Matrix<double,2> m2_3 = m2;
+
+	Matrix<double,3> m3_1 {m3};
+	Matrix<double,3> m3_2 (m3);
+	Matrix<double,3> m3_3 = m3;
+
+	cout << "Matrix<double,0> m0 {1};\n";
+	cout << "Matrix<double,0> m0_1 {m0};\n";
+	cout << "Matrix<double,0> m0_2 (m0);\n";
+	cout << "Matrix<double,0> m0_3 = m0;\n";
+	cout << "  m0: " << m0 << endl;
+	cout << "  m0_1: " << m0_1 << endl;
+	cout << "  m0_2: " << m0_2 << endl;
+	cout << "  m0_3: " << m0_3 << endl;
+
+	cout << "Matrix<double,1> m1 {1,2,3};\n";
+	cout << "Matrix<double,1> m1_1 {m1};\n";
+	cout << "Matrix<double,1> m1_2 (m1);\n";
+	cout << "Matrix<double,1> m1_3 = m1;\n";
+	cout << "  m1: " << m1 << endl;
+	cout << "  m1_1: " << m1_1 << endl;
+	cout << "  m1_2: " << m1_2 << endl;
+	cout << "  m1_3: " << m1_3 << endl;
+
+	cout << "Matrix<double,2> m2 {{1,2},{3,4},{5,6}};\n";
+	cout << "Matrix<double,2> m2_1 {m2};\n";
+	cout << "Matrix<double,2> m2_2 (m2);\n";
+	cout << "Matrix<double,2> m2_3 = m2;\n";
+	cout << "  m2: " << m2 << endl;
+	cout << "  m2_1: " << m2_1 << endl;
+	cout << "  m2_2: " << m2_2 << endl;
+	cout << "  m2_3: " << m2_3 << endl;
+
+	cout << "Matrix<double,3> m3 { {{1,2},{2,3}}, {{4,5},{6,7}} };\n";
+	cout << "Matrix<double,3> m3_1 {m3};\n";
+	cout << "Matrix<double,3> m3_2 (m3);\n";
+	cout << "Matrix<double,3> m3_3 = m3;\n";
+	cout << "  m3: " << m3 << endl;
+	cout << "  m3_1: " << m3_1 << endl;
+	cout << "  m3_2: " << m3_2 << endl;
+	cout << "  m3_3: " << m3_3 << endl;
+}
+
 enum class Piece { none, cross, naght };
 ostream& operator<<(ostream& os, Piece piece)
 {
@@ -171,6 +233,7 @@ void test_matrix_constructor_all()
 
 	construct_from_extents();
 	construct_from_matrix_initializer();
+	copy_constructor();
 	Matrix_Piece();
 	construct_from_matrix_ref();
 	assign_from_matrix_ref();

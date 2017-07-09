@@ -11,6 +11,7 @@
 
 void construct_from_extents();
 void construct_from_matrix_initializer();
+void copy_constructor();
 void Matrix_Piece();
 void construct_from_matrix_ref();
 void assign_from_matrix_ref();
