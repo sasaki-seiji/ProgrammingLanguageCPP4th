@@ -1,6 +1,6 @@
 【29.2.1:　initilalizer_listからMatrixを構築するコンストラクタの削除】
 
-日付：　2017.06.29
+日付：　2017.06.29、2017.07.09
 バージョン：　g++ (Ubuntu 5.4.0-6ubuntu1~16.04.4) 5.4.0 20160609
 コメント：
 
@@ -20,6 +20,18 @@
 		↓
 
 	template<typename U, size_t NN=N, typename =Enable_if<(NN>1)>>
+		Matrix(initializer_list<U>) = delete;
+
+コメント（2017.07.09追記）：
+
+	上記でも、｛｝を使用したコピーコンストラクタの場合にも、コンストラクタ
+	がdeleteされてしまう。
+　　deleteしたいのは、サイズ並びのコンストラクタの場合だけなので、
+	更に、以下のように変更
+
+
+	template<typename U, size_t NN=N, 	typename =Enable_if<(NN>1)>,
+			typename =Enable_if<Convertible<U,size_t>()>>
 		Matrix(initializer_list<U>) = delete;
 
 
