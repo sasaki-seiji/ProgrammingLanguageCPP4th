@@ -25,7 +25,7 @@ void access_by_int_index()
 	//auto d2 = m(1,2,3);
 		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
 
-	cout << "after m(1,2) = 99; m: " << m << endl;
+	cout << "m(1,2) = 99; m: " << m << endl;
 }
 
 Matrix<int,2> m2 {
@@ -53,7 +53,8 @@ void assign_to_sliced_matrix()
 			{121,122,123}
 	};
 
-	cout << "after assign to m2(slice{1,2},slice(0,3}), m2: " << m2 << endl;
+	cout << "m2(slice{1,2},slice(0,3}) = {{111,112,113},{121,122,123}};\n";
+	cout << "m2: " << m2 << endl;
 }
 
 Matrix<int,2> m3 {
@@ -74,4 +75,15 @@ void access_by_slice_and_int_index()
 	cout << "auto m31 = m3(slice{1,2},1); m31: " << m31 << endl;
 	cout << "auto m32 = m3(slice{1,2},0); m32: " << m32 << endl;
 	cout << "auto x = m3(1,2); x: " << x << endl;
+}
+
+void indexing_and_slicing_all()
+{
+	cout << "29.2.2 indexing_and_slicing\n";
+
+	access_by_int_index();
+	access_by_slice_index();
+	assign_to_sliced_matrix();
+	access_by_slice_and_int_index();
+
 }
