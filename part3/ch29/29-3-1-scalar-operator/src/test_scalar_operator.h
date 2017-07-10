@@ -12,6 +12,7 @@
 void assign_scalar();
 void succesive_apply();
 void matrix_scalar_operator();
+void scalar_operator_all();
 
 
 

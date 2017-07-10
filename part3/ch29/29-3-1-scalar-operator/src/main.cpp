@@ -10,8 +10,6 @@
 
 int main()
 {
-	assign_scalar();
-	succesive_apply();
-	matrix_scalar_operator();
+	scalar_operator_all();
 }
 
