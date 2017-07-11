@@ -99,6 +99,8 @@ void matrixld_add_matrixQuad()
 
 void matrix_addition_all()
 {
+	cout << "@@ 29.4.2. matrix addtion @@\n";
+
 	add_assign_matrix();
 	matrix_add_matrix();
 	matrixT_add_matrixT2();
