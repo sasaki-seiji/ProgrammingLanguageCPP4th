@@ -19,9 +19,9 @@ void add_assign_matrix()
 	Matrix<double, 2> md2 { {-1.0, 2.0 }, {-3.0, 4.0} };
 	Matrix<int, 2> mi1 { {-1,2}, {-3,4} };
 
-	cout << "md1: " << md1 << endl;
-	cout << "md2: " << md2 << endl;
-	cout << "mi1: " << mi1 << endl;
+	cout << "Matrix<double, 2> md1: " << md1 << endl;
+	cout << "Matrix<double, 2> md2: " << md2 << endl;
+	cout << "Matrix<int, 2> mi1: " << mi1 << endl;
 
 	md1 += md2;
 	cout << "md1 += md2; md1: " << md1 << endl;
@@ -43,8 +43,8 @@ void matrix_add_matrix()
 	Matrix<double, 2> md1 { { 1.1, 2.2 }, { 3.3, 4.4 } };
 	Matrix<double, 2> md2 { {-1.0, 2.0 }, {-3.0, 4.0} };
 
-	cout << "md1: " << md1 << endl;
-	cout << "md2: " << md2 << endl;
+	cout << "Matrix<double, 2> md1: " << md1 << endl;
+	cout << "Matrix<double, 2> md2: " << md2 << endl;
 
 	cout << "md1 + md2: " << md1+md2 << endl;
 	cout << "md1 - md2: " << md1-md2 << endl;
@@ -57,8 +57,8 @@ void matrixT_add_matrixT2()
 	Matrix<double, 2> md { { 1.1, 2.2 }, { 3.3, 4.4 } };
 	Matrix<long double, 2> mld { {-1.0, 2.0}, { -3.0, 4.0 } };
 
-	cout << "md: " << md << endl;
-	cout << "mld: " << mld << endl;
+	cout << "Matrix<double, 2> md: " << md << endl;
+	cout << "Matrix<long double, 2> mld: " << mld << endl;
 
 	cout << "md + mld: " << md+mld << endl;
 	cout << "mld - md: " << mld-md << endl;
@@ -67,8 +67,8 @@ void matrixT_add_matrixT2()
 		{ {-1.0, 0}, {0, 2.0} },
 		{ {-3.0, 0}, {0, 4.0} }
 	};
+	cout << "Matrix<complex<double>, 2> mc: " << mc << endl;
 	cout << "mc.desc: " << mc.descriptor() << endl;
-	cout << "mc: " << mc << endl;
 	cout << "md + mc: " << md+mc << endl;
 	cout << "mc - md: " << mc-md << endl;
 }
@@ -90,9 +90,18 @@ void matrixld_add_matrixQuad()
 	Matrix<long double, 2> mld { {-1.0, 2.0}, { -3.0, 4.0 } };
 	Matrix<Quad, 2> mq { {1.1, 2.2}, {3.3, 4.4} };
 
-	cout << "mld: " << mld << endl;
-	cout << "mq: " << mq << endl;
+	cout << "Matrix<long double, 2> mld: " << mld << endl;
+	cout << "Matrix<Quad, 2> mq: " << mq << endl;
 
 	cout << "mld + mq: " << mld+mq << endl;
 	cout << "mq - mld: " << mq-mld << endl;
 }
+
+void matrix_addition_all()
+{
+	add_assign_matrix();
+	matrix_add_matrix();
+	matrixT_add_matrixT2();
+	matrixld_add_matrixQuad();
+}
+

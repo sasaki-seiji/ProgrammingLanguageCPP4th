@@ -13,6 +13,7 @@ void add_assign_matrix();
 void matrix_add_matrix();
 void matrixT_add_matrixT2();
 void matrixld_add_matrixQuad();
+void matrix_addition_all();
 
 
 
