@@ -9,6 +9,7 @@
 #include "test_matrix_constructor.h"
 #include "test_indexing_slicing.h"
 #include "test_scalar_operator.h"
+#include "test_matrix_addition.h"
 
 int main()
 {
@@ -16,5 +17,6 @@ int main()
 	test_matrix_constructor_all();
 	indexing_and_slicing_all();
 	scalar_operator_all();
+	matrix_addition_all();
 }
 
