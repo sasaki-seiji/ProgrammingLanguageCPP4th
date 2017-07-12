@@ -12,6 +12,7 @@
 void test_scalar_multiply();
 void test_matrix_addition();
 void test_matrix_product();
+void matrix_numeration_all();
 
 
 

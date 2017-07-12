@@ -9,9 +9,6 @@
 
 int main()
 {
-	test_scalar_multiply();
-	test_matrix_addition();
-	test_matrix_product();
-
+	matrix_numeration_all();
 }
 
