@@ -12,6 +12,7 @@
 void test_marix1_x_matrix1();
 void test_marix2_x_matrix1();
 void test_marix2_x_matrix2();
+void matrix_product_all();
 
 
 

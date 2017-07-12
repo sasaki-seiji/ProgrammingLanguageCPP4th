@@ -1,1 +1,1 @@
-/home/sasaki/books/ProgrammingLanguageCPP4th/part3/ch29/matrix/Matrix_ref_desc.h
+/home/sasaki/books/ProgrammingLanguageCPP4th/part3/ch29/matrix/Matrix_ref_decl.h
