@@ -11,6 +11,7 @@
 #include "test_scalar_operator.h"
 #include "test_matrix_addition.h"
 #include "test_matrix_product.h"
+#include "test_matrix_numeration.h"
 
 
 int main()
@@ -21,5 +22,6 @@ int main()
 	scalar_operator_all();
 	matrix_addition_all();
 	matrix_product_all();
+	matrix_numeration_all();
 }
 
