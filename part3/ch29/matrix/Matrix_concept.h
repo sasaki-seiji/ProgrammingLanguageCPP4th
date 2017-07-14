@@ -136,5 +136,12 @@ namespace Matrix_impl {
 template<typename C>
 using Value_type = typename C::value_type;
 
+// Dimensional_Matrix_type
+
+template<template<typename,size_t> class M, typename T, size_t N>
+constexpr bool Dimensional_Matrix_type()
+{
+	return Same<M<T,N>,Matrix<T,N>>() || Same<M<T,N>,Matrix_ref<T,N>>();
+}
 
 #endif /* MATRIX_CONCEPT_H_ */

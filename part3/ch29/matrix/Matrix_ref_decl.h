@@ -53,6 +53,10 @@ public:
 	Matrix_ref<T,N-1> row(size_t n) const;
 	Matrix_ref<T,N-1> col(size_t n) const;
 
+	template<typename F>
+		Matrix_ref& apply(F f);
+	Matrix_ref& operator=(const T& value);
+
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return desc.size; }
 	size_t rows() const { return desc.extents[0]; }

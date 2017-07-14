@@ -96,5 +96,21 @@ T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 	return inner_product(a.begin(), a.end(), b.begin(), T{});
 }
 
+// apply
+template<typename T,size_t N>
+template<typename F>
+Matrix_ref<T,N>& Matrix_ref<T,N>::apply(F f)
+{
+	for (auto& x : *this) f(x);
+	return *this;
+}
+
+// assign scalar
+template<typename T, size_t N>
+Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(const T& value)
+{
+	for (auto& x : *this) x = value;
+	return *this;
+}
 
 #endif /* MATRIX_REF_IMPL_H_ */

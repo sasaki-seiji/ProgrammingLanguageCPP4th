@@ -10,6 +10,7 @@
 
 #include "Matrix_impl.h"
 #include "Matrix_ref_impl.h"
+#include "Matrix_numeric_impl.h"
 #include "Matrix_impl_impl.h"
 
 #endif /* MATRIX_H_ */

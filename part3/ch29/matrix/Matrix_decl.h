@@ -94,13 +94,7 @@ public:
 
 	template<typename F>
 		Matrix& apply(F f);
-
 	Matrix& operator=(const T& value);
-	Matrix& operator+=(const T& value);
-	Matrix& operator-=(const T& value);
-	Matrix& operator*=(const T& value);
-	Matrix& operator/=(const T& value);
-	Matrix& operator%=(const T& value);
 
 	template<typename M, typename F>
 		Enable_if<Matrix_type<M>(), Matrix&> apply(const M& m, F f);

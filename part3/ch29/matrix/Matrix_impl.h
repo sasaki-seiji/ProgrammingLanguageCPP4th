@@ -191,31 +191,7 @@ Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
 {
 	return apply([&](T& a) { a = val; });
 }
-template<typename T, size_t N>
-Matrix<T,N>& Matrix<T,N>::operator+=(const T& val)
-{
-	return apply([&](T& a) { a+= val; });
-}
-template<typename T, size_t N>
-Matrix<T,N>& Matrix<T,N>::operator-=(const T& val)
-{
-	return apply([&](T& a) { a-= val; });
-}
-template<typename T, size_t N>
-Matrix<T,N>& Matrix<T,N>::operator*=(const T& val)
-{
-	return apply([&](T& a) { a*= val; });
-}
-template<typename T, size_t N>
-Matrix<T,N>& Matrix<T,N>::operator/=(const T& val)
-{
-	return apply([&](T& a) { a/= val; });
-}
-template<typename T, size_t N>
-Matrix<T,N>& Matrix<T,N>::operator%=(const T& val)
-{
-	return apply([&](T& a) { a%= val; });
-}
+
 
 // matrix and scalar
 
