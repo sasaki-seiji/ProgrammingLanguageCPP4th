@@ -13,6 +13,7 @@ void assign_scalar();
 void assign_scalar_to_ref();
 void succesive_apply();
 void matrix_scalar_operator();
+void matrix_ref_scalar_operator();
 void scalar_operator_all();
 
 

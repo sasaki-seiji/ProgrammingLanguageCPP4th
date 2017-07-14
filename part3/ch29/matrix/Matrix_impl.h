@@ -193,48 +193,6 @@ Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
 }
 
 
-// matrix and scalar
-
-template<typename T, size_t N>
-Matrix<T,N> operator+(const Matrix<T,N>& m, const T& val)
-{
-	Matrix<T,N> res = m;
-	res += val;
-	return res;
-}
-
-template<typename T, size_t N>
-Matrix<T,N> operator-(const Matrix<T,N>& m, const T& val)
-{
-	Matrix<T,N> res = m;
-	res -= val;
-	return res;
-}
-
-template<typename T, size_t N>
-Matrix<T,N> operator*(const Matrix<T,N>& m, const T& val)
-{
-	Matrix<T,N> res = m;
-	res *= val;
-	return res;
-}
-
-template<typename T, size_t N>
-Matrix<T,N> operator/(const Matrix<T,N>& m, const T& val)
-{
-	Matrix<T,N> res = m;
-	res /= val;
-	return res;
-}
-
-template<typename T, size_t N>
-Matrix<T,N> operator%(const Matrix<T,N>& m, const T& val)
-{
-	Matrix<T,N> res = m;
-	res %= val;
-	return res;
-}
-
 // matrix += matrix
 
 template<typename T, size_t N>

@@ -109,6 +109,25 @@ void matrix_scalar_operator()
 	cout << "m % 4: " << m % 4 << endl;
 }
 
+void matrix_ref_scalar_operator()
+{
+	cout << "-- matrix_ref_scalar_operator() --\n";
+
+	Matrix<int, 2> m { {1,2,3}, {4,5,6}, {7,8,9} };
+	Matrix_ref<int, 2> mr = m(slice(1),slice(1));
+
+	cout << "Matrix<int, 2> m { {1,2,3}, {4,5,6}, {7,8,9} };\n";
+	cout << "Matrix_ref<int, 2> mr = m(slice(1),slice(1));\n";
+
+	cout << "m: " << m << endl;
+	cout << "mr: " << mr << endl;
+	cout << "mr + 3: " << mr + 3 << endl;
+	cout << "mr - 2: " << mr - 2 << endl;
+	cout << "mr * 2: " << mr * 2 << endl;
+	cout << "mr / 2: " << mr / 2 << endl;
+	cout << "mr % 4: " << mr % 4 << endl;
+}
+
 void scalar_operator_all()
 {
 	cout << "@@ 29.3.1. scalar operator @@\n";
@@ -117,6 +136,7 @@ void scalar_operator_all()
 	assign_scalar_to_ref();
 	succesive_apply();
 	matrix_scalar_operator();
+	matrix_ref_scalar_operator();
 }
 
 

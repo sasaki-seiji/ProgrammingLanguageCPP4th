@@ -12,6 +12,8 @@
 #include "fwd_decl.h"
 #include "Matrix_concept.h"
 
+// matrix op= scalar
+
 template<template<typename,size_t> class M, typename T, size_t N,
 	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
 M<T,N>& operator+=(M<T,N>& m, const T& val);
@@ -31,5 +33,27 @@ M<T,N>& operator/=(M<T,N>& m, const T& val);
 template<template<typename,size_t> class M, typename T, size_t N,
 	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
 M<T,N>& operator%=(M<T,N>& m, const T& val);
+
+// matrix op scalar
+
+template<template<typename,size_t> class M, typename T, size_t N,
+	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
+Matrix<T,N> operator+(const M<T,N>& m, const T& val);
+
+template<template<typename,size_t> class M, typename T, size_t N,
+	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
+Matrix<T,N> operator-(const M<T,N>& m, const T& val);
+
+template<template<typename,size_t> class M, typename T, size_t N,
+	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
+Matrix<T,N> operator*(const M<T,N>& m, const T& val);
+
+template<template<typename,size_t> class M, typename T, size_t N,
+	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
+Matrix<T,N> operator/(const M<T,N>& m, const T& val);
+
+template<template<typename,size_t> class M, typename T, size_t N,
+	typename =Enable_if<Dimensional_Matrix_type<M,T,N>()>>
+Matrix<T,N> operator%(const M<T,N>& m, const T& val);
 
 #endif /* MATRIX_NUMERIC_DECL_H_ */
