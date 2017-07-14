@@ -57,6 +57,10 @@ public:
 		Matrix_ref& apply(F f);
 	Matrix_ref& operator=(const T& value);
 
+	template<template<typename,size_t> class M, typename T2, typename F,
+		typename =Enable_if<Dimensional_Matrix_type<M,T2,N>()>>
+	Matrix_ref& apply(const M<T2,N>& m, F f);
+
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return desc.size; }
 	size_t rows() const { return desc.extents[0]; }

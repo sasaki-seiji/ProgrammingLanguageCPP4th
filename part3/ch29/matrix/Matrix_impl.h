@@ -193,41 +193,17 @@ Matrix<T,N>& Matrix<T,N>::operator=(const T& val)
 }
 
 
-// matrix += matrix
-
-template<typename T, size_t N>
-template<typename M>
-Enable_if<Matrix_type<M>(), Matrix<T,N>&> Matrix<T,N>::operator+=(const M& m)
-{
-	static_assert(m.order==N, "+=: mismatched Matrix dimensions");
-	assert(same_extents(desc, m.descriptor()));
-
-	return apply(m, [](T& a, const Value_type<M>& b){ a += b; });
-}
-
-
 // apply function to *this and matrix
 template<typename T, size_t N>
-template<typename M, typename F>
-Enable_if<Matrix_type<M>(), Matrix<T,N>&> Matrix<T,N>::apply(const M& m, F f)
+template<template<typename,size_t> class M, typename T2, typename F,
+	typename>
+	Matrix<T,N>& Matrix<T,N>::apply(const M<T2,N>& m, F f)
 {
-	assert(same_extents(desc, m.descriptor()));
 	for (auto i = begin(), j = m.begin(); i!=end(); ++i, ++j)
 		f(*i,*j);
 	return *this;
 }
 
-
-// matrix -= matrix
-template<typename T, size_t N>
-template<typename M>
-Enable_if<Matrix_type<M>(), Matrix<T,N>&> Matrix<T,N>::operator-=(const M& m)
-{
-	static_assert(m.order==N, "-=: mismatched Matrix dimensions");
-	assert(same_extents(desc, m.descriptor()));
-
-	return apply(m, [](T& a, const Value_type<M>& b){ a -= b; });
-}
 
 // matrix + matrix
 template<typename T, size_t N>

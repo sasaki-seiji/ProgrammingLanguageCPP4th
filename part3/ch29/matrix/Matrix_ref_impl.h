@@ -113,4 +113,16 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(const T& value)
 	return *this;
 }
 
+// apply with other matrix
+template<typename T, size_t N>
+template<template<typename,size_t> class M, typename T2, typename F,
+	typename>
+Matrix_ref<T,N>& Matrix_ref<T,N>::apply(const M<T2,N>& m, F f)
+{
+	for (auto i = begin(), j = m.begin(); i!=end(); ++i, ++j)
+		f(*i,*j);
+	return *this;
+}
+
+
 #endif /* MATRIX_REF_IMPL_H_ */

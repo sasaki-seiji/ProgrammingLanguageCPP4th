@@ -95,5 +95,25 @@ Matrix<T,N> operator%(const M<T,N>& m, const T& val)
 	return res;
 }
 
+// matrix op= matrix
+
+template<template<typename,size_t> class M1, typename T1, size_t N,
+	template<typename,size_t> class M2, typename T2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T1,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T2,N>()>>
+M1<T1,N>& operator+=(M1<T1,N>& m1, const M2<T2,N>& m2)
+{
+	return m1.apply(m2, [](T1& a, const T2& b){ a += b; });
+}
+
+template<template<typename,size_t> class M1, typename T1, size_t N,
+	template<typename,size_t> class M2, typename T2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T1,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T2,N>()>>
+M1<T1,N>& operator-=(M1<T1,N>& m1, const M2<T2,N>& m2)
+{
+	return m1.apply(m2, [](T1& a, const T2& b){ a -= b; });
+}
+
 
 #endif /* MATRIX_NUMERIC_IMPL_H_ */

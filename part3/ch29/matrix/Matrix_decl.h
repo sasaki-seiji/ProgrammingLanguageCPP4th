@@ -96,13 +96,9 @@ public:
 		Matrix& apply(F f);
 	Matrix& operator=(const T& value);
 
-	template<typename M, typename F>
-		Enable_if<Matrix_type<M>(), Matrix&> apply(const M& m, F f);
-
-	template<typename M>
-		Enable_if<Matrix_type<M>(), Matrix&> operator+=(const M& x);
-	template<typename M>
-		Enable_if<Matrix_type<M>(), Matrix&> operator-=(const M& x);
+	template<template<typename,size_t> class M, typename T2, typename F,
+		typename =Enable_if<Dimensional_Matrix_type<M,T2,N>()>>
+		Matrix& apply(const M<T2,N>& m, F f);
 
 	size_t extent(size_t n) const { return desc.extents[n]; }
 	size_t size() const{ return elems.size(); }
