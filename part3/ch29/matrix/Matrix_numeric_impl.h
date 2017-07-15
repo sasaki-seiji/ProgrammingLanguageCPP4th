@@ -139,5 +139,35 @@ Matrix<T,N> operator-(const M1<T,N>& a, const M2<T,N>& b)
 	return res;
 }
 
+// matrix<T1,N> + matrix<T2,N>, matrix<T1,N> - matrix<T2,N>
+
+template<template<typename, size_t> class M1, typename T1, size_t N,
+	template<typename,size_t> class M2, typename T2,
+	typename RT = Common_type<T1,T2>,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T1,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T2,N>()>>
+Matrix<RT,N> operator+(const M1<T1,N>& a, const M2<T2,N>& b)
+{
+	Matrix<RT,N> res = a;
+	res += b;
+	return res;
+}
+
+
+template<template<typename, size_t> class M1, typename T1, size_t N,
+	template<typename,size_t> class M2, typename T2,
+	typename RT = Common_type<T1,T2>,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T1,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T2,N>()>>
+Matrix<RT,N> operator-(const M1<T1,N>& a, const M2<T2,N>& b)
+{
+	Matrix<RT,N> res = a;
+	res -= b;
+	return res;
+}
+
+
+
+
 
 #endif /* MATRIX_NUMERIC_IMPL_H_ */

@@ -144,20 +144,60 @@ void matrixT_add_matrixT2()
 
 	cout << "Matrix<double, 2> md: " << md << endl;
 	cout << "Matrix<long double, 2> mld: " << mld << endl;
-#if 0
 	cout << "md + mld: " << md+mld << endl;
 	cout << "mld - md: " << mld-md << endl;
-#endif
+
 	Matrix<complex<double>, 2> mc {
 		{ {-1.0, 0}, {0, 2.0} },
 		{ {-3.0, 0}, {0, 4.0} }
 	};
 	cout << "Matrix<complex<double>, 2> mc: " << mc << endl;
 	cout << "mc.desc: " << mc.descriptor() << endl;
-#if 0
 	cout << "md + mc: " << md+mc << endl;
 	cout << "mc - md: " << mc-md << endl;
-#endif
+}
+
+void matrixT_add_matrixT2_ref()
+{
+	cout << "-- matrixT_add_matrixT2_ref() --\n";
+
+	Matrix<double, 2> md { { 1.1, 2.2 }, { 3.3, 4.4 } };
+	Matrix<long double, 2> mld { {-1.0, 2.0, -3.0}, { 4.0, -5.0, 6.0 } };
+	Matrix_ref<long double, 2> mldr = mld(slice(0),slice(1));
+
+	cout << "Matrix<double, 2> md: " << md << endl;
+	cout << "Matrix_ref<long double, 2> mldr: " << mldr << endl;
+	cout << "md + mldr: " << md+mldr << endl;
+	cout << "md - mldr: " << md-mldr << endl;
+}
+
+void matrixT_ref_add_matrixT2()
+{
+	cout << "-- matrixT_ref_add_matrixT2() --\n";
+
+	Matrix<double, 2> md { { 1.1, 2.2, 3.3 }, { 4.4, 5.5, 6.6 } };
+	Matrix_ref<double, 2> mdr = md(slice(0),slice(1));
+	Matrix<long double, 2> mld { {-1.0, 2.0}, { -3.0, 4.0 } };
+
+	cout << "Matrix_ref<double, 2> mdr: " << mdr << endl;
+	cout << "Matrix<long double, 2> mld: " << mld << endl;
+	cout << "mdr + mld: " << mdr+mld << endl;
+	cout << "mdr - mld: " << mdr-mld << endl;
+}
+
+void matrixT_ref_add_matrixT2_ref()
+{
+	cout << "-- matrixT_ref_add_matrixT2_ref() --\n";
+
+	Matrix<double, 2> md { { 1.1, 2.2, 3.3 }, { 4.4, 5.5, 6.6 } };
+	Matrix_ref<double, 2> mdr = md(slice(0),slice(1));
+	Matrix<long double, 2> mld { {-1.0, 2.0, -3.0}, {4.0, -5.0, 6.0} };
+	Matrix_ref<long double, 2> mldr = mld(slice(0),slice(1));
+
+	cout << "Matrix_ref<double, 2> mdr: " << mdr << endl;
+	cout << "Matrix_ref<long double, 2> mldr: " << mldr << endl;
+	cout << "mdr + mldr: " << mdr+mldr << endl;
+	cout << "mdr - mldr: " << mdr-mldr << endl;
 }
 
 struct Quad {
@@ -197,6 +237,9 @@ void matrix_addition_all()
 	matrix_ref_add_matrix();
 	matrix_ref_add_matrix_ref();
 	matrixT_add_matrixT2();
+	matrixT_add_matrixT2_ref();
+	matrixT_ref_add_matrixT2();
+	matrixT_ref_add_matrixT2_ref();
 	matrixld_add_matrixQuad();
 }
 

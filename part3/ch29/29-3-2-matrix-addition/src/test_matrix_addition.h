@@ -16,6 +16,9 @@ void matrix_add_matrix_ref();
 void matrix_ref_add_matrix();
 void matrix_ref_add_matrix_ref();
 void matrixT_add_matrixT2();
+void matrixT_add_matrixT2_ref();
+void matrixT_ref_add_matrixT2();
+void matrixT_ref_add_matrixT2_ref();
 void matrixld_add_matrixQuad();
 void matrix_addition_all();
 

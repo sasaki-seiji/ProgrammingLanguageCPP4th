@@ -205,48 +205,6 @@ template<template<typename,size_t> class M, typename T2, typename F,
 }
 
 
-#if 0
-// matrix + matrix
-template<typename T, size_t N>
-Matrix<T,N> operator+(const Matrix<T,N>& a, const Matrix<T,N>& b)
-{
-	Matrix<T,N> res = a;
-	res += b;
-	return res;
-}
-
-// matrix - matrix
-template<typename T, size_t N>
-Matrix<T,N> operator-(const Matrix<T,N>& a, const Matrix<T,N>& b)
-{
-	Matrix<T,N> res = a;
-	res -= b;
-	return res;
-}
-#endif
-
-#if 0
-// matrix<T> + matrix<T2>
-template<typename T, typename T2, size_t N,
-	typename RT = Common_type<T,T2>>
-Matrix<RT,N> operator+(const Matrix<T,N>& a, const Matrix<T2,N>& b)
-{
-	Matrix<RT,N> res = a;
-	res += b;
-	return res;
-}
-
-// matrix<T> - matrix<T2>
-template<typename T, typename T2, size_t N,
-	typename RT = Common_type<T,T2>>
-Matrix<RT,N> operator-(const Matrix<T,N>& a, const Matrix<T2,N>& b)
-{
-	Matrix<RT,N> res = a;
-	res -= b;
-	return res;
-}
-#endif
-
 // Matrix<T,1> * Matrix<T,1>
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
