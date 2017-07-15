@@ -10,7 +10,13 @@
 
 
 void test_marix1_x_matrix1();
+void test_marix1_x_matrix1_ref();
+void test_marix1_ref_x_matrix1();
+void test_marix1_ref_x_matrix1_ref();
 void test_marix2_x_matrix1();
+void test_marix2_x_matrix1_ref();
+void test_marix2_ref_x_matrix1();
+void test_marix2_ref_x_matrix1_ref();
 void test_marix2_x_matrix2();
 void matrix_product_all();
 

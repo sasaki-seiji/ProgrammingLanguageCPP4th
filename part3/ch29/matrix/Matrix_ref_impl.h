@@ -67,6 +67,30 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 	return *this;
 }
 
+template<typename T, size_t N>
+template<typename... Args>
+Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
+Matrix_ref<T,N>::operator()(Args... args)
+{
+	static_assert(sizeof...(Args)==N,
+			"Matrix_ref<T,N>::operator()(size_t...): dimension mismatch");
+	assert(Matrix_impl::check_bounds(desc, args...));
+	return *(data() + desc(args...));
+}
+
+
+template<typename T, size_t N>
+template<typename... Args>
+Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
+Matrix_ref<T,N>::operator()(Args... args) const
+{
+	static_assert(sizeof...(Args)==N,
+			"Matrix_ref<T,N>::operator()(size_t...): dimension mismatch");
+	assert(Matrix_impl::check_bounds(desc, args...));
+	return *(data() + desc(args...));
+}
+
+
 // row
 
 template<typename T, size_t N>

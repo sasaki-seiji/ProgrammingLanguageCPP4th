@@ -204,7 +204,7 @@ template<template<typename,size_t> class M, typename T2, typename F,
 	return *this;
 }
 
-
+#if 0
 // Matrix<T,1> * Matrix<T,1>
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
@@ -217,7 +217,9 @@ Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v)
 			res(i,j) = u[i]*v[j];
 	return res;
 }
+#endif
 
+#if 0
 // Matrix<T,2> * Matrix<T,1>
 template<typename T>
 Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
@@ -231,6 +233,7 @@ Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v)
 			res(i) += m(i,j)*v(j);
 	return res;
 }
+#endif
 
 // Matrix<T,2> * Matrix<T,2>
 template<typename T>

@@ -121,12 +121,13 @@ private:
 	vector<T> elems;
 };
 
-
+#if 0
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,1>& u, const Matrix<T,1>& v);
 
 template<typename T>
 Matrix<T,1> operator*(const Matrix<T,2>& m, const Matrix<T,1>& v);
+#endif
 
 template<typename T>
 Matrix<T,2> operator*(const Matrix<T,2>& m1, const Matrix<T,2>& m2);

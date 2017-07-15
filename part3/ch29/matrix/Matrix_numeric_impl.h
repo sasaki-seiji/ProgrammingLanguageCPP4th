@@ -167,6 +167,44 @@ Matrix<RT,N> operator-(const M1<T1,N>& a, const M2<T2,N>& b)
 }
 
 
+// matrix<1> * matrix<1>
+
+template<template<typename,size_t> class M1, typename T,
+	template<typename,size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,1>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,1>()>>
+Matrix<T,2> operator*(const M1<T,1>& u, const M2<T,1>& v)
+{
+	const size_t n = u.extent(0);
+	const size_t m = v.extent(0);
+	Matrix<T,2> res(n,m);
+	for (size_t i = 0; i!=n; ++i)
+		for (size_t j = 0; j!=m; ++j)
+			res(i,j) = u[i]*v[j];
+	return res;
+}
+
+
+// matrix<2> * matrix<1>
+
+template<template<typename,size_t> class M1, typename T,
+	template<typename,size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,2>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,1>()>>
+Matrix<T,1> operator*(const M1<T,2>& m, const M2<T,1>& v)
+{
+	assert(m.extent(1) == v.extent(0));
+	const size_t nr = m.extent(0);
+	const size_t nc = m.extent(1);
+	Matrix<T,1> res(nr);
+	for (size_t i = 0; i!=nr; ++i)
+		for (size_t j = 0; j!=nc; ++j)
+			res(i) += m(i,j)*v(j);
+	return res;
+}
+
+
+
 
 
 

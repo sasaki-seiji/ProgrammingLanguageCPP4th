@@ -49,6 +49,13 @@ public:
 	Matrix_ref(const Matrix_slice<N>& s, T* p) :desc{s}, ptr{p} {}
 	Matrix_ref& operator=(Matrix_initializer<T,N> init);
 
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
+		operator()(Args... args);
+	template<typename... Args>
+		Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
+		operator()(Args... args) const;
+
 	Matrix_ref<T,N-1> operator[](size_t i) const { return row(i); }
 	Matrix_ref<T,N-1> row(size_t n) const;
 	Matrix_ref<T,N-1> col(size_t n) const;

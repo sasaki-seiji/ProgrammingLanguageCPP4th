@@ -101,4 +101,21 @@ template<template<typename, size_t> class M1, typename T1, size_t N,
 	typename =Enable_if<Dimensional_Matrix_type<M2,T2,N>()>>
 Matrix<RT,N> operator-(const M1<T1,N>& a, const M2<T2,N>& b);
 
+
+// matrix<1> * matrix<1>
+
+template<template<typename,size_t> class M1, typename T,
+	template<typename,size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,1>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,1>()>>
+Matrix<T,2> operator*(const M1<T,1>& u, const M2<T,1>& v);
+
+// matrix<2> * matrix<1>
+
+template<template<typename,size_t> class M1, typename T,
+	template<typename,size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,2>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,1>()>>
+Matrix<T,1> operator*(const M1<T,2>& m, const M2<T,1>& v);
+
 #endif /* MATRIX_NUMERIC_DECL_H_ */
