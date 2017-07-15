@@ -9,9 +9,6 @@
 
 int main()
 {
-	test_matrix_initializer();
-	test_derive_extents();
-	test_compute_strides();
-	test_insert_flat();
+	test_matrix_initializer_all();
 }
 

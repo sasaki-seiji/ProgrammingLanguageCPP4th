@@ -13,6 +13,7 @@ void test_matrix_initializer();
 void test_derive_extents();
 void test_compute_strides();
 void test_insert_flat();
+void test_matrix_initializer_all();
 
 
 #endif /* TEST_MATRIX_INITIALIZER_H_ */

@@ -28,7 +28,7 @@ Matrix_initializer<int,3> mi3 {
 
 void test_matrix_initializer()
 {
-	cout << "-- test_derive_initializer() --\n";
+	cout << "-- test_matrix_initializer() --\n";
 
 	cout << "mi1: " << mi1 << endl;
 	cout << "mi2: " << mi2 << endl;
@@ -53,7 +53,7 @@ void test_derive_extents()
 
 void test_compute_strides()
 {
-	cout << "-- test_compute_extents() --\n";
+	cout << "-- test_compute_strides() --\n";
 
 	Matrix_initializer<int,1> mi1 {1,2,3};
 	Matrix_slice<1> ms1;
@@ -104,3 +104,15 @@ void test_insert_flat()
 	cout << "mi2: " << mi2 << " -> v2: " << v2 << endl;
 	cout << "mi3: " << mi3 << " -> v3: " << v3 << endl;
 }
+
+void test_matrix_initializer_all()
+{
+	cout << "@@ 29.4.4. initialize Matrix from initializer_list @@\n";
+
+	test_matrix_initializer();
+	test_derive_extents();
+	test_compute_strides();
+	test_insert_flat();
+}
+
+
