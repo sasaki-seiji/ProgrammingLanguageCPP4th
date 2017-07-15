@@ -10,7 +10,5 @@
 
 int main()
 {
-	test_slice_ctor();
-	test_slice_call();
-
+	test_slice_all();
 }

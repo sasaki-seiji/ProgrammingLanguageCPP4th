@@ -11,6 +11,7 @@
 
 void test_slice_ctor();
 void test_slice_call();
+void test_slice_all();
 
 
 #endif /* TEST_SLICE_H_ */

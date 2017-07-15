@@ -35,3 +35,10 @@ void test_slice_call()
 	cout << "s(0): " << s(0) << endl;
 	cout << "s(5): " << s(5) << endl;
 }
+
+void test_slice_all()
+{
+	test_slice_ctor();
+	test_slice_call();
+
+}
