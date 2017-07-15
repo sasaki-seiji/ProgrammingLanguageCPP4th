@@ -43,3 +43,11 @@ void test_matrix_slice_index()
 
 }
 
+void test_matrix_slice_all()
+{
+	cout << "@@ 29.4.2. slice of Matrix @@\n";
+
+	test_matrix_slice_ctor();
+	test_matrix_slice_index();
+}
+

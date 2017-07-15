@@ -11,6 +11,7 @@
 
 void test_matrix_slice_ctor();
 void test_matrix_slice_index();
+void test_matrix_slice_all();
 
 
 

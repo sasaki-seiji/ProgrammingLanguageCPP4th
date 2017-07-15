@@ -9,7 +9,6 @@
 
 int main()
 {
-	test_matrix_slice_ctor();
-	test_matrix_slice_index();
+	test_matrix_slice_all();
 }
 
