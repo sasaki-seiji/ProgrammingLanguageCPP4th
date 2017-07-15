@@ -38,6 +38,8 @@ void test_slice_call()
 
 void test_slice_all()
 {
+	cout << "@@ 29.4.1 slice @@\n";
+
 	test_slice_ctor();
 	test_slice_call();
 
