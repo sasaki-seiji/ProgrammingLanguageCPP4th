@@ -12,7 +12,7 @@
 #include "test_matrix_addition.h"
 #include "test_matrix_product.h"
 #include "test_matrix_numeration.h"
-
+#include "test_slice.h"
 
 int main()
 {
@@ -23,5 +23,6 @@ int main()
 	matrix_addition_all();
 	matrix_product_all();
 	matrix_numeration_all();
+	test_slice_all();
 }
 
