@@ -115,5 +115,29 @@ M1<T1,N>& operator-=(M1<T1,N>& m1, const M2<T2,N>& m2)
 	return m1.apply(m2, [](T1& a, const T2& b){ a -= b; });
 }
 
+// matrix + matrix
+
+template<template<typename, size_t> class M1, typename T, size_t N,
+	template<typename, size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,N>()>>
+Matrix<T,N> operator+(const M1<T,N>& a, const M2<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res += b;
+	return res;
+}
+
+template<template<typename, size_t> class M1, typename T, size_t N,
+	template<typename, size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,N>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,N>()>>
+Matrix<T,N> operator-(const M1<T,N>& a, const M2<T,N>& b)
+{
+	Matrix<T,N> res = a;
+	res -= b;
+	return res;
+}
+
 
 #endif /* MATRIX_NUMERIC_IMPL_H_ */

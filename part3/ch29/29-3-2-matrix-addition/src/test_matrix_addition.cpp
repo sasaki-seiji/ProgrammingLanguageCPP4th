@@ -89,6 +89,52 @@ void matrix_add_matrix()
 	cout << "md1 - md2: " << md1-md2 << endl;
 }
 
+void matrix_add_matrix_ref()
+{
+	cout << "-- matrix_add_matrix_ref() --\n";
+
+	Matrix<double, 2> md1 { { 1.1, 2.2 }, { 3.3, 4.4 } };
+	Matrix<double, 2> md2 { {-1.0, 2.0, -3.0 }, { 4.0, -5.0, 6.0} };
+	Matrix_ref<double, 2> mdr2 = md2(slice(0),slice(1));
+
+	cout << "Matrix<double, 2> md1: " << md1 << endl;
+	cout << "Matrix_ref<double, 2> mdr2: " << mdr2 << endl;
+
+	cout << "md1 + mdr2: " << md1+mdr2 << endl;
+	cout << "md1 - mdr2: " << md1-mdr2 << endl;
+}
+
+void matrix_ref_add_matrix()
+{
+	cout << "-- matrix_ref_add_matrix() --\n";
+
+	Matrix<double, 2> md1 { { 1.1, 2.2, 3.3 }, { 4.4, 5.5, 6.6 } };
+	Matrix_ref<double, 2> mdr1 = md1(slice(0),slice(1));
+	Matrix<double, 2> md2 { {-1.0, 2.0}, { -3.0, 4.0} };
+
+	cout << "Matrix_ref<double, 2> mdr1: " << mdr1 << endl;
+	cout << "Matrix<double, 2> md2: " << md2 << endl;
+
+	cout << "mdr1 + md2: " << mdr1+md2 << endl;
+	cout << "mdr1 - md2: " << mdr1-md2 << endl;
+}
+
+void matrix_ref_add_matrix_ref()
+{
+	cout << "-- matrix_ref_add_matrix_ref() --\n";
+
+	Matrix<double, 2> md1 { { 1.1, 2.2, 3.3 }, { 4.4, 5.5, 6.6 } };
+	Matrix_ref<double, 2> mdr1 = md1(slice(0),slice(1));
+	Matrix<double, 2> md2 { {-1.0, 2.0, -3.0}, { 4.0, -5.0, 6.0} };
+	Matrix_ref<double, 2> mdr2 = md2(slice(0),slice(1));
+
+	cout << "Matrix_ref<double, 2> mdr1: " << mdr1 << endl;
+	cout << "Matrix_ref<double, 2> mdr2: " << mdr2 << endl;
+
+	cout << "mdr1 + mdr2: " << mdr1+mdr2 << endl;
+	cout << "mdr1 - mdr2: " << mdr1-mdr2 << endl;
+}
+
 void matrixT_add_matrixT2()
 {
 	cout << "-- matrixT_add_matrixT2() --\n";
@@ -98,18 +144,20 @@ void matrixT_add_matrixT2()
 
 	cout << "Matrix<double, 2> md: " << md << endl;
 	cout << "Matrix<long double, 2> mld: " << mld << endl;
-
+#if 0
 	cout << "md + mld: " << md+mld << endl;
 	cout << "mld - md: " << mld-md << endl;
-
+#endif
 	Matrix<complex<double>, 2> mc {
 		{ {-1.0, 0}, {0, 2.0} },
 		{ {-3.0, 0}, {0, 4.0} }
 	};
 	cout << "Matrix<complex<double>, 2> mc: " << mc << endl;
 	cout << "mc.desc: " << mc.descriptor() << endl;
+#if 0
 	cout << "md + mc: " << md+mc << endl;
 	cout << "mc - md: " << mc-md << endl;
+#endif
 }
 
 struct Quad {
@@ -132,8 +180,10 @@ void matrixld_add_matrixQuad()
 	cout << "Matrix<long double, 2> mld: " << mld << endl;
 	cout << "Matrix<Quad, 2> mq: " << mq << endl;
 
+#if 0
 	cout << "mld + mq: " << mld+mq << endl;
 	cout << "mq - mld: " << mq-mld << endl;
+#endif
 }
 
 void matrix_addition_all()
@@ -143,6 +193,9 @@ void matrix_addition_all()
 	add_assign_matrix();
 	add_assign_matrix_ref();
 	matrix_add_matrix();
+	matrix_add_matrix_ref();
+	matrix_ref_add_matrix();
+	matrix_ref_add_matrix_ref();
 	matrixT_add_matrixT2();
 	matrixld_add_matrixQuad();
 }
