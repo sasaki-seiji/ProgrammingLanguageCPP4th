@@ -10,6 +10,7 @@
 
 
 #include "Matrix_numeric_decl.h"
+#include "Matrix_ref_decl.h"
 
 // matrix op= scalar
 
@@ -203,6 +204,28 @@ Matrix<T,1> operator*(const M1<T,2>& m, const M2<T,1>& v)
 	return res;
 }
 
+
+template<template<typename,size_t> class M1, typename T,
+	template<typename,size_t> class M2,
+	typename =Enable_if<Dimensional_Matrix_type<M1,T,2>()>,
+	typename =Enable_if<Dimensional_Matrix_type<M2,T,1>()>>
+Matrix<T,2> operator*(const M1<T,2>& m1, const M2<T,2>& m2)
+{
+	const size_t nr = m1.extent(0);
+	const size_t nc = m1.extent(1);
+	assert(nc==m2.extent(0));
+	const size_t p = m2.extent(1);
+	Matrix<T,2> res(nr,p);
+	for (size_t i = 0; i!=nr; ++i)
+		for (size_t j = 0; j!=p; ++j)
+#if 1
+			for (size_t k = 0; k!=nc; ++k)
+				res(i,j) += m1(i,k)*m2(k,j);
+#else
+		res(i,j) = dot_product(m1[i],m2.col(j));
+#endif
+	return res;
+}
 
 
 

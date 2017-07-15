@@ -133,6 +133,50 @@ void test_marix2_x_matrix2()
 
 }
 
+void test_marix2_x_matrix2_ref()
+{
+	cout << "-- test_matrix2_x_matrix2_ref() --\n";
+
+	Matrix<double,2> m1 { {1, 2}, {4, 5} };
+	Matrix<double,2> m2 { {1,1}, {2,2}, {3,3}};
+	Matrix_ref<double,2> mr2 = m2(slice(1),slice(0));
+
+	cout << "Matrix<double,2> m1: " << m1 << endl;
+	cout << "Matrix_ref<double,2> mr2: " << mr2 << endl;
+	cout << "m1*mr2: " << m1*mr2 << endl;
+
+}
+
+void test_marix2_ref_x_matrix2()
+{
+	cout << "-- test_matrix2_ref_x_matrix2() --\n";
+
+	Matrix<double,2> m1 { {1, 2, 3}, {4, 5, 6} };
+	Matrix_ref<double,2> mr1 = m1(slice(0),slice(1));
+	Matrix<double,2> m2 { {1,1}, {2,2}};
+
+	cout << "Matrix_ref<double,2> mr1: " << mr1 << endl;
+	cout << "Matrix<double,2> m2: " << m2 << endl;
+	cout << "mr1*m2: " << mr1*m2 << endl;
+
+}
+
+void test_marix2_ref_x_matrix2_ref()
+{
+	cout << "-- test_matrix2_ref_x_matrix2_ref() --\n";
+
+	Matrix<double,2> m1 { {1, 2, 3}, {4, 5, 6} };
+	Matrix_ref<double,2> mr1 = m1(slice(0),slice(1));
+	Matrix<double,2> m2 { {1,1}, {2,2}, {3,3} };
+	Matrix_ref<double,2> mr2 = m2(slice(1),slice(0));
+
+	cout << "Matrix_ref<double,2> mr1: " << mr1 << endl;
+	cout << "Matrix_ref<double,2> mr2: " << mr2 << endl;
+	cout << "mr1*mr2: " << mr1*mr2 << endl;
+
+}
+
+
 void matrix_product_all()
 {
 	cout << "@@ 29.3.3. matrix product @@\n";
@@ -146,5 +190,8 @@ void matrix_product_all()
 	test_marix2_ref_x_matrix1();
 	test_marix2_ref_x_matrix1_ref();
 	test_marix2_x_matrix2();
+	test_marix2_x_matrix2_ref();
+	test_marix2_ref_x_matrix2();
+	test_marix2_ref_x_matrix2_ref();
 }
 
