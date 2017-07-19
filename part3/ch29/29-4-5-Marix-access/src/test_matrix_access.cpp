@@ -20,11 +20,11 @@ void test_row()
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 	auto m3_1 = m3.row(1);
 
-	cout << "m1: " << m1 << endl;
+	cout << "Matrix<int, 1> m1: " << m1 << endl;
 	cout << "m1.row(2): " << m1_2 << endl;
-	cout << "m2: " << m2 << endl;
+	cout << "Matrix<int, 2> m2: " << m2 << endl;
 	cout << "m2.row(1): " << m2_1 << endl;
-	cout << "m3: " << m3 << endl;
+	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3.row(1): " << m3_1 << endl;
 
 	const Matrix<int, 1> cm1 {0,1,2,3};
@@ -34,11 +34,11 @@ void test_row()
 	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 	auto cm3_1 = cm3.row(1);
 
-	cout << "cm1: " << cm1 << endl;
+	cout << "const Matrix<int, 1> cm1: " << cm1 << endl;
 	cout << "cm1.row(2): " << cm1_2 << endl;
-	cout << "cm2: " << cm2 << endl;
+	cout << "const Matrix<int, 2> cm2: " << cm2 << endl;
 	cout << "cm2.row(1): " << cm2_1 << endl;
-	cout << "cm3: " << cm3 << endl;
+	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3.row(1): " << cm3_1 << endl;
 
 }
@@ -49,14 +49,14 @@ void test_c_style_index()
 
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "m3: " << m3 << endl;
+	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3[1]: " << m3[1] << endl;
 	cout << "m3[1][0]: " << m3[1][0] << endl;
 	cout << "m3[1][0][2]: " << m3[1][0][2] << endl;
 
 	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "cm3: " << cm3 << endl;
+	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3[1]: " << cm3[1] << endl;
 	cout << "cm3[1][0]: " << cm3[1][0] << endl;
 	cout << "cm3[1][0][2]: " << cm3[1][0][2] << endl;
@@ -67,12 +67,12 @@ void test_col()
 	cout << "-- test_col() --\n";
 
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
-	cout << "m3: " << m3 << endl;
+	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3.col(1): " << m3.col(1) << endl;
 	cout << "m3.col(1).col(2): " << m3.col(1).col(2) << endl;
 
 	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
-	cout << "cm3: " << cm3 << endl;
+	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3.col(1): " << cm3.col(1) << endl;
 	cout << "cm3.col(1).col(2): " << cm3.col(1).col(2) << endl;
 }
@@ -85,11 +85,11 @@ void test_fortran_style_index()
 	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7} };
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "m1: " << m1 << endl;
+	cout << "Matrix<int, 1> m1: " << m1 << endl;
 	cout << "m1(2): " << m1(2) << endl;
-	cout << "m2: " << m2 << endl;
+	cout << "Matrix<int, 2> m2: " << m2 << endl;
 	cout << "m2(1,2): " << m2(1,2) << endl;
-	cout << "m3: " << m3 << endl;
+	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3(1,1,1): " << m3(1,1,1) << endl;
 	//cout << "m2(1): " << m2(1) << endl;
 		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
@@ -100,11 +100,11 @@ void test_fortran_style_index()
 	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7} };
 	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "cm1: " << cm1 << endl;
+	cout << "const Matrix<int, 1> cm1: " << cm1 << endl;
 	cout << "cm1(2): " << cm1(2) << endl;
-	cout << "cm2: " << cm2 << endl;
+	cout << "const Matrix<int, 2> cm2: " << cm2 << endl;
 	cout << "cm2(1,2): " << cm2(1,2) << endl;
-	cout << "cm3: " << cm3 << endl;
+	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3(1,1,1): " << cm3(1,1,1) << endl;
 }
 
@@ -116,25 +116,38 @@ void test_slice_index()
 	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7}, {8,9,0,1} };
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "m1: " << m1 << endl;
+	cout << "Matrix<int, 1> m1: " << m1 << endl;
 	cout << "m1(slice(2)): " << m1(slice(2)) << endl;
-	cout << "m2: " << m2 << endl;
+	cout << "Matrix<int, 2> m2: " << m2 << endl;
 	cout << "m2(slice(1,2),slice(1,2,2)): " << m2(slice(1,2),slice(1,2,2)) << endl;
 	cout << "m2(2,slice(0,3)): " << m2(2,slice(0,3)) << endl;
 	cout << "m2(slice(1),2): " << m2(slice(1),2) << endl;
-	cout << "m3: " << m3 << endl;
+	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3(slice(1),1,slice(1)): " << m3(slice(1),1,slice(1)) << endl;
 
 	const Matrix<int, 1> cm1 {0,1,2,3};
 	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7}, {8,9,0,1} };
 	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 
-	cout << "cm1: " << cm1 << endl;
+	cout << "const Matrix<int, 1> cm1: " << cm1 << endl;
 	cout << "cm1(slice(2)): " << cm1(slice(2)) << endl;
-	cout << "cm2: " << cm2 << endl;
+	cout << "const Matrix<int, 2> cm2: " << cm2 << endl;
 	cout << "cm2(slice(1,2),slice(1,2,2)): " << cm2(slice(1,2),slice(1,2,2)) << endl;
 	cout << "cm2(2,slice(0,3)): " << cm2(2,slice(0,3)) << endl;
 	cout << "cm2(slice(1),2): " << cm2(slice(1),2) << endl;
-	cout << "cm3: " << cm3 << endl;
+	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3(slice(1),1,slice(1)): " << cm3(slice(1),1,slice(1)) << endl;
 }
+
+void test_matrix_access_all()
+{
+	cout << "@@ 29.4.5 Matrix access @@\n";
+
+	test_row();
+	test_c_style_index();
+	test_col();
+	test_fortran_style_index();
+	test_slice_index();
+
+}
+

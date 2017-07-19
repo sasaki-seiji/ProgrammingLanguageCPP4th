@@ -14,6 +14,7 @@ void test_c_style_index();
 void test_col();
 void test_fortran_style_index();
 void test_slice_index();
+void test_matrix_access_all();
 
 
 
