@@ -14,6 +14,7 @@
 #include "test_matrix_numeration.h"
 #include "test_slice.h"
 #include "test_matrix_slice.h"
+#include "test_matrix_initializer.h"
 
 int main()
 {
@@ -26,5 +27,6 @@ int main()
 	matrix_numeration_all();
 	test_slice_all();
 	test_matrix_slice_all();
+	test_matrix_initializer_all();
 }
 
