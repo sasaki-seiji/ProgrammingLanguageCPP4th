@@ -15,6 +15,7 @@
 #include "test_slice.h"
 #include "test_matrix_slice.h"
 #include "test_matrix_initializer.h"
+#include "test_matrix_access.h"
 
 int main()
 {
@@ -28,5 +29,6 @@ int main()
 	test_slice_all();
 	test_matrix_slice_all();
 	test_matrix_initializer_all();
+	test_matrix_access_all();
 }
 
