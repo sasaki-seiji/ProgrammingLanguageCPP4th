@@ -16,16 +16,29 @@ void access_by_int_index()
 		{01,02,03},
 		{11,12,13}
 	};
-
-	cout << "m: " << m << endl;
-
+	cout << "Matrix<int,2> m: " << m << endl;
 	m(1,2) = 99;
 	//auto d1 = m(1);
 		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
 	//auto d2 = m(1,2,3);
 		// error: static assertion failed: Matrix<T,N>::operator()(size_t...): dimension mismatch
-
 	cout << "m(1,2) = 99; m: " << m << endl;
+
+	const Matrix<int,2> mc {
+		{01,02,03},
+		{11,12,13}
+	};
+	cout << "const Matrix<int,2> mc: " << mc << endl;
+	cout << "mc(1,2): " << mc(1,2) << endl;
+
+	Matrix<int,0> m0 {10};
+	cout << "Matrix<int,0> m0: " << m0 << endl;
+	m0() = 101;
+	cout << "m() = 101; m0: " << m0 << endl;
+
+	const Matrix<int,0> mc0 {10};
+	cout << "const Matrix<int,0> mc0: " << mc0 << endl;
+	cout << "mc0(): " << mc0() << endl;
 }
 
 void access_by_slice_index()
@@ -40,8 +53,19 @@ void access_by_slice_index()
 
 	auto m22 = m2(slice{1,2},slice{0,3});
 
-	cout << "m2: " << m2 << endl;
+	cout << "Matrix<int,2> m2: " << m2 << endl;
 	cout << "auto m22 = m2(slice{1,2},slice{0,3}); " << m22 << endl;
+
+	const Matrix<int,2> mc2 {
+		{01,02,03},
+		{11,12,13},
+		{21,22,23}
+	};
+
+	auto mc22 = mc2(slice{1,2},slice{0,3});
+
+	cout << "const Matrix<int,2> mc2: " << mc2 << endl;
+	cout << "auto mc22 = mc2(slice{1,2},slice{0,3}); " << mc22 << endl;
 }
 
 void assign_to_sliced_matrix()
