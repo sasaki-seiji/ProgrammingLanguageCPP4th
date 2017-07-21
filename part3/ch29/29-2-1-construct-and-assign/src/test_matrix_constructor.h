@@ -15,6 +15,8 @@ void copy_constructor();
 void Matrix_Piece();
 void construct_from_matrix_ref();
 void assign_from_matrix_ref();
+void construct_from_other_type_matrix();
+void assign_from_other_type_matrix();
 void test_matrix_constructor_all();
 
 

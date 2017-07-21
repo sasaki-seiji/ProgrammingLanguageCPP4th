@@ -227,6 +227,53 @@ void assign_from_matrix_ref()
 	cout << "  m3a = m3r; " << m3a << endl;
 }
 
+void construct_from_other_type_matrix()
+{
+	cout << "-- construct_from_other_type_matrix() --\n";
+
+	Matrix<int,1> mi1 {1,2,3};
+	Matrix<double,1> md1 {mi1};
+	Matrix<int,2> mi2 {{1,2,3},{4,5,6},{7,8,9}};
+	Matrix<double,2> md2 {mi2};
+	Matrix<int,3> mi3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} };
+	Matrix<double,3> md3 {mi3};
+
+	cout << "Matrix<int,1> mi1: " << mi1 << endl;
+	cout << "Matrix<double,1> md1 {mi1}: " << md1 << endl;
+	cout << "Matrix<int,2> mi2 {{1,2,3},{4,5,6},{7,8,9}}: " << mi2 << endl;
+	cout << "Matrix<double,2> md2 {mi2}: " << md2 << endl;
+	cout << "Matrix<int,3> mi3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} }: " << mi3 << endl;
+	cout << "Matrix<double,3> md3 {mi3}: " << md3 << endl;
+}
+
+void assign_from_other_type_matrix()
+{
+	cout << "-- assign_from_other_type_matrix() --\n";
+
+	Matrix<int,1> mi1 {1,2,3};
+	Matrix<double,1> md1;
+	Matrix<int,2> mi2 {{1,2,3},{4,5,6},{7,8,9}};
+	Matrix<double,2> md2;
+	Matrix<int,3> mi3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} };
+	Matrix<double,3> md3;
+
+	cout << "Matrix<int,1> mi1: " << mi1 << endl;
+	cout << "Matrix<double,1> md1: " << md1 << endl;
+	cout << "Matrix<int,2> mi2 {{1,2,3},{4,5,6},{7,8,9}}: " << mi2 << endl;
+	cout << "Matrix<double,2> md2: " << md2 << endl;
+	cout << "Matrix<int,3> mi3 { {{1,2},{3,4},{5,6}}, {{7,8},{9,0},{1,2}} }: " << mi3 << endl;
+	cout << "Matrix<double,3> md3: " << md3 << endl;
+
+	md1 = mi1;
+	md2 = mi2;
+	md3 = mi3;
+
+	cout << "md1 = mi1; " << md1 << endl;
+	cout << "md2 = mi2; " << md2 << endl;
+	cout << "md3 = mi3; " << md3 << endl;
+
+}
+
 void test_matrix_constructor_all()
 {
 	cout << "@@ 29.2.1 construct_and_assign @@\n";
@@ -237,4 +284,6 @@ void test_matrix_constructor_all()
 	Matrix_Piece();
 	construct_from_matrix_ref();
 	assign_from_matrix_ref();
+	construct_from_other_type_matrix();
+	assign_from_other_type_matrix();
 }

@@ -47,7 +47,7 @@ template<typename T, size_t N>
 template<typename U>
 Matrix<T,N>& Matrix<T,N>::operator=(const Matrix<U,N>& o)
 {
-	desc = o.descritor();
+	desc = o.descriptor();
 	elems.assign(o.begin(), o.end());
 	return *this;
 }
