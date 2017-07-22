@@ -69,13 +69,23 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 
 template<typename T, size_t N>
 template<typename... Args>
-Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
+Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
 Matrix_ref<T,N>::operator()(Args... args) const
 {
 	static_assert(sizeof...(Args)==N,
 			"Matrix_ref<T,N>::operator()(size_t...): dimension mismatch");
 	assert(Matrix_impl::check_bounds(desc, args...));
 	return *(data() + desc(args...));
+}
+
+template<typename T, size_t N>
+template<typename... Args>
+Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<T,N>>
+Matrix_ref<T,N>::operator()(const Args... args) const
+{
+	Matrix_slice<N> d;
+	d.start = Matrix_impl::do_slice(desc, d, args...);
+	return {d, data()};
 }
 
 

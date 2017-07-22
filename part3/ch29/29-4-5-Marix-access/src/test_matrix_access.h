@@ -16,6 +16,7 @@ void test_fortran_style_index();
 void test_slice_index();
 void test_ref_row();
 void test_ref_fortran_index();
+void test_ref_slice_index();
 
 void test_matrix_access_all();
 
