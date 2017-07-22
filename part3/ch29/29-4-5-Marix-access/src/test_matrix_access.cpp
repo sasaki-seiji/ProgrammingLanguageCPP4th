@@ -139,6 +139,29 @@ void test_slice_index()
 	cout << "cm3(slice(1),1,slice(1)): " << cm3(slice(1),1,slice(1)) << endl;
 }
 
+void test_ref_row()
+{
+	cout << "-- test_ref_row() --\n";
+
+	Matrix<int, 1> m1 {0,1,2,3};
+	Matrix_ref<int,1> mr1 = m1(slice::all);
+	auto mr1_2 = mr1.row(2);
+	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7} };
+	Matrix_ref<int,2> mr2 = m2(slice::all,slice::all);
+	auto mr2_1 = mr2.row(1);
+	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	Matrix_ref<int,3> mr3 = m3(slice::all,slice::all,slice::all);
+	auto mr3_1 = mr3.row(1);
+
+	cout << "Matrix_ref<int,1> mr1: " << mr1 << endl;
+	cout << "mr1.row(2): " << mr1_2 << endl;
+	cout << "Matrix_ref<int,2> mr2: " << mr2 << endl;
+	cout << "mr2.row(1): " << mr2_1 << endl;
+	cout << "Matrix_ref<int,3> mr3: " << mr3 << endl;
+	cout << "mr3.row(1): " << mr3_1 << endl;
+}
+
+
 void test_matrix_access_all()
 {
 	cout << "@@ 29.4.5 Matrix access @@\n";
@@ -148,6 +171,7 @@ void test_matrix_access_all()
 	test_col();
 	test_fortran_style_index();
 	test_slice_index();
+	test_ref_row();
 
 }
 
