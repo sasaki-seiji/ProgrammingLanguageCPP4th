@@ -50,9 +50,6 @@ public:
 	Matrix_ref& operator=(Matrix_initializer<T,N> init);
 
 	template<typename... Args>
-		Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
-		operator()(Args... args);
-	template<typename... Args>
 		Enable_if<Matrix_impl::Requesting_element<Args...>(), const T&>
 		operator()(Args... args) const;
 

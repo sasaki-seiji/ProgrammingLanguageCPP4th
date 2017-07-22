@@ -162,6 +162,40 @@ void test_ref_row()
 }
 
 
+void test_ref_fortran_index()
+{
+	cout << "-- test_ref_fortran_index() --\n";
+
+	Matrix<int, 1> m1 {0,1,2,3};
+	Matrix_ref<int,1> mr1 = m1(slice::all);
+	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7} };
+	Matrix_ref<int,2> mr2 = m2(slice::all,slice::all);
+	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	Matrix_ref<int,3> mr3 = m3(slice::all,slice::all,slice::all);
+
+	cout << "Matrix_ref<int,1> mr1 : " << mr1 << endl;
+	cout << "mr1(2): " << mr1(2) << endl;
+	cout << "Matrix_ref<int,2> mr2: " << mr2 << endl;
+	cout << "mr2(1,2): " << mr2(1,2) << endl;
+	cout << "Matrix_ref<int,3> mr3: " << mr3 << endl;
+	cout << "mr3(1,1,1): " << mr3(1,1,1) << endl;
+
+	const Matrix<int, 1> cm1 {0,1,2,3};
+	Matrix_ref<const int, 1> cmr1 = cm1(slice::all);
+	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7} };
+	Matrix_ref<const int, 2> cmr2 = cm2(slice::all,slice::all);
+	const Matrix<int, 3> cm3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
+	Matrix_ref<const int, 3> cmr3 = cm3(slice::all,slice::all,slice::all);
+
+	cout << "Matrix_ref<const int, 1> cmr1: " << cmr1 << endl;
+	cout << "cmr1(2): " << cmr1(2) << endl;
+	cout << "Matrix_ref<const int, 2> cmr2: " << cmr2 << endl;
+	cout << "cmr2(1,2): " << cmr2(1,2) << endl;
+	cout << "Matrix_ref<const int, 3> cmr3: " << cmr3 << endl;
+	cout << "cmr3(1,1,1): " << cmr3(1,1,1) << endl;
+}
+
+
 void test_matrix_access_all()
 {
 	cout << "@@ 29.4.5 Matrix access @@\n";
@@ -172,6 +206,7 @@ void test_matrix_access_all()
 	test_fortran_style_index();
 	test_slice_index();
 	test_ref_row();
+	test_ref_fortran_index();
 
 }
 
