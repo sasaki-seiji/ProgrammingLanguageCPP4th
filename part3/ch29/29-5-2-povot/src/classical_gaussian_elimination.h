@@ -9,7 +9,6 @@
 #define CLASSICAL_GAUSSIAN_ELIMINATION_H_
 
 #include "Matrix.h"
-#include "Matrix_multiply.h"
 #include <exception>
 #include <string>
 using namespace std;
