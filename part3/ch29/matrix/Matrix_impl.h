@@ -140,6 +140,7 @@ template<typename... Args>
 {
 	Matrix_slice<N> d;
 	d.start = Matrix_impl::do_slice(desc, d, args...);
+	d.size = compute_size(d.extents);
 	return {d, data()};
 }
 
@@ -150,6 +151,7 @@ template<typename... Args>
 {
 	Matrix_slice<N> d;
 	d.start = Matrix_impl::do_slice(desc, d, args...);
+	d.size = compute_size(d.extents);
 	return {d, data()};
 }
 

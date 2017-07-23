@@ -9,6 +9,7 @@
 #define MATRIX_REF_IMPL_H_
 
 #include "Matrix_ref_decl.h"
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -61,9 +62,19 @@ Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(Matrix_initializer<T,N> init)
 	array<size_t, N> extents = Matrix_impl::derive_extents<N>(init);
 	assert(extents == desc.extents);
 
-	iterator it = begin();
+	auto it = begin();
 	Matrix_impl::copy_flat(init, it);
+	return *this;
+}
 
+// assign from other type Matrix
+template<typename T, size_t N>
+template<typename U>
+Matrix_ref<T,N>& Matrix_ref<T,N>::operator=(const Matrix<U,N>& m)
+{
+	assert(desc.extents == m.descriptor().extents);
+
+	copy(m.begin(), m.end(), begin());
 	return *this;
 }
 
@@ -84,7 +95,8 @@ Enable_if<Matrix_impl::Requesting_slice<Args...>(), Matrix_ref<T,N>>
 Matrix_ref<T,N>::operator()(const Args... args) const
 {
 	Matrix_slice<N> d;
-	d.start = Matrix_impl::do_slice(desc, d, args...);
+	d.start = desc.start + Matrix_impl::do_slice(desc, d, args...);
+	d.size = compute_size(d.extents);
 	return {d, data()};
 }
 
@@ -112,11 +124,31 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n) const
 }
 
 // inner product
+#if 0
 template<typename T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
 {
 	return inner_product(a.begin(), a.end(), b.begin(), T{});
 }
+#else
+template<typename T, typename U=T>
+T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<U,1>& b)
+{
+	return inner_product(a.begin(), a.end(), b.begin(), T{});
+}
+#endif
+
+#if 0
+// for 29.5.1 classical gaussian ellimination
+template<typename T>
+Matrix<T,1> scale_and_add(const Matrix_ref<T,1>& u, const T& s, const Matrix_ref<T,1>& v)
+{
+	Matrix<T,1> res = u;
+	res *= s;
+	res += v;
+	return res;
+}
+#endif
 
 // apply
 template<typename T,size_t N>

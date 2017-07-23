@@ -49,6 +49,9 @@ public:
 	Matrix_ref(const Matrix_slice<N>& s, T* p) :desc{s}, ptr{p} {}
 	Matrix_ref& operator=(Matrix_initializer<T,N> init);
 
+	template<typename U>
+		Matrix_ref& operator=(const Matrix<U,N>&);
+
 	template<typename... Args>
 		Enable_if<Matrix_impl::Requesting_element<Args...>(), T&>
 		operator()(Args... args) const;
@@ -84,9 +87,14 @@ private:
 	T* ptr;
 };
 
-template<typename T>
-T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b);
+template<typename T, typename U=T>
+T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<U,1>& b);
 
+#if 0
+// for 29.5.1 classical gaussian ellimination
+template<typename T>
+Matrix<T,1> scale_and_add(const Matrix_ref<T,1>& u, const T& s, const Matrix_ref<T,1>& v);
+#endif
 
 // specialized template for Matrix_ref<T,0>
 

@@ -118,12 +118,19 @@ void test_slice_index()
 
 	cout << "Matrix<int, 1> m1: " << m1 << endl;
 	cout << "m1(slice(2)): " << m1(slice(2)) << endl;
+	cout << "m1(slice(2)).desc: " << m1(slice(2)).descriptor() << endl;
+
 	cout << "Matrix<int, 2> m2: " << m2 << endl;
 	cout << "m2(slice(1,2),slice(1,2,2)): " << m2(slice(1,2),slice(1,2,2)) << endl;
+	cout << "m2(slice(1,2),slice(1,2,2)).desc: " << m2(slice(1,2),slice(1,2,2)).descriptor() << endl;
 	cout << "m2(2,slice(0,3)): " << m2(2,slice(0,3)) << endl;
+	cout << "m2(2,slice(0,3)).desc: " << m2(2,slice(0,3)).descriptor() << endl;
 	cout << "m2(slice(1),2): " << m2(slice(1),2) << endl;
+	cout << "m2(slice(1),2).desc: " << m2(slice(1),2).descriptor() << endl;
+
 	cout << "Matrix<int, 3> m3: " << m3 << endl;
 	cout << "m3(slice(1),1,slice(1)): " << m3(slice(1),1,slice(1)) << endl;
+	cout << "m3(slice(1),1,slice(1)).desc: " << m3(slice(1),1,slice(1)).descriptor() << endl;
 
 	const Matrix<int, 1> cm1 {0,1,2,3};
 	const Matrix<int, 2> cm2 { {0,1,2,3}, {4,5,6,7}, {8,9,0,1} };
@@ -131,12 +138,19 @@ void test_slice_index()
 
 	cout << "const Matrix<int, 1> cm1: " << cm1 << endl;
 	cout << "cm1(slice(2)): " << cm1(slice(2)) << endl;
+	cout << "cm1(slice(2)).desc: " << cm1(slice(2)).descriptor() << endl;
+
 	cout << "const Matrix<int, 2> cm2: " << cm2 << endl;
 	cout << "cm2(slice(1,2),slice(1,2,2)): " << cm2(slice(1,2),slice(1,2,2)) << endl;
+	cout << "cm2(slice(1,2),slice(1,2,2)).desc: " << cm2(slice(1,2),slice(1,2,2)).descriptor() << endl;
 	cout << "cm2(2,slice(0,3)): " << cm2(2,slice(0,3)) << endl;
+	cout << "cm2(2,slice(0,3)).desc: " << cm2(2,slice(0,3)).descriptor() << endl;
 	cout << "cm2(slice(1),2): " << cm2(slice(1),2) << endl;
+	cout << "cm2(slice(1),2).desc: " << cm2(slice(1),2).descriptor() << endl;
+
 	cout << "const Matrix<int, 3> cm3: " << cm3 << endl;
 	cout << "cm3(slice(1),1,slice(1)): " << cm3(slice(1),1,slice(1)) << endl;
+	cout << "cm3(slice(1),1,slice(1)).desc: " << cm3(slice(1),1,slice(1)).descriptor() << endl;
 }
 
 void test_ref_row()
@@ -202,18 +216,32 @@ void test_ref_slice_index()
 	Matrix<int, 1> m1 {0,1,2,3};
 	Matrix_ref<int,1> mr1 = m1(slice::all);
 	Matrix<int, 2> m2 { {0,1,2,3}, {4,5,6,7}, {8,9,0,1} };
-	Matrix_ref<int,2> mr2 = m2(slice::all,slice::all);
+	Matrix_ref<int,2> mr2 = m2(slice(1),slice::all);
 	Matrix<int, 3> m3 { { {0,1,2}, {3,4,5} }, { {6,7,8}, {9,0,1} } };
 	Matrix_ref<int,3> mr3 = m3(slice::all,slice::all,slice::all);
 
 	cout << "Matrix_ref<int,1> mr1: " << mr1 << endl;
+	cout << "mr1.desc: " << mr1.descriptor() << endl;
 	cout << "mr1(slice(2)): " << mr1(slice(2)) << endl;
+	cout << "mr1(slice(2)).desc: " << mr1(slice(2)).descriptor() << endl;
+	mr1(slice(2)) = {12,13};
+	cout << "mr1(slice(2)) = {12,13}; m1: " << m1 <<endl;
+	mr1(slice(2)) = Matrix<int,1>{22,23};
+	cout << "mr1(slice(2)) = Matrix<int,1>{22,23}; m1: " << m1 << endl;
+
 	cout << "Matrix_ref<int,2> mr2: " << mr2 << endl;
-	cout << "mr2(slice(1,2),slice(1,2,2)): " << mr2(slice(1,2),slice(1,2,2)) << endl;
-	cout << "mr2(2,slice(0,3)): " << mr2(2,slice(0,3)) << endl;
+	cout << "mr2.desc: " << mr2.descriptor() << endl;
+	cout << "mr2(slice(1),slice(1,2,2)): " << mr2(slice(1),slice(1,2,2)) << endl;
+	cout << "mr2(slice(1),slice(1,2,2)).desc: " << mr2(slice(1),slice(1,2,2)).descriptor() << endl;
+	cout << "mr2(1,slice(0,3)): " << mr2(1,slice(0,3)) << endl;
+	cout << "mr2(1,slice(0,3)).desc: " << mr2(1,slice(0,3)).descriptor() << endl;
 	cout << "mr2(slice(1),2): " << mr2(slice(1),2) << endl;
+	cout << "mr2(slice(1),2).desc: " << mr2(slice(1),2).descriptor() << endl;
+
 	cout << "Matrix_ref<int,3> mr3: " << mr3 << endl;
+	cout << "mr3.desc: " << mr3.descriptor() << endl;
 	cout << "mr3(slice(1),1,slice(1)): " << mr3(slice(1),1,slice(1)) << endl;
+	cout << "mr3(slice(1),1,slice(1)).desc: " << mr3(slice(1),1,slice(1)).descriptor() << endl;
 }
 
 
