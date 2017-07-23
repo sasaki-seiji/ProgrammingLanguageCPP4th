@@ -9,7 +9,7 @@
 #define CLASSICAL_GAUSSIAN_ELIMINATION_H_
 
 #include "Matrix.h"
-#include "Matrix_multiply.h"
+//#include "Matrix_multiply.h"
 #include <exception>
 #include <string>
 using namespace std;
@@ -21,14 +21,14 @@ struct Elim_failure : public exception {
 	int row;
 	Elim_failure(int r) : row(r) { }
 	const char* what() const noexcept
-		{ return (string("elimination failure at ") + to_string(row)).c_str(); }
+		{ return "elimination failure"; }
 };
 
 struct Back_subst_failure : public exception {
 	int row;
 	Back_subst_failure(int r) : row(r) { }
 	const char* what() const noexcept
-		{ return (string("back substitution failure at ") + to_string(row)).c_str(); }
+		{ return "back substitution failure"; }
 };
 
 Vec classical_gaussian_elimination(Mat2d A, Vec b);

@@ -46,7 +46,9 @@ void solve_system(const Mat2d& A, const Vec& b)
 		cout << "A * x = " << v << '\n';
 	}
 	catch(const exception& e) {
-		cerr << e.what() << '\n';
+		//cerr << e.what() << '\n';
+		cout << "caught error:\n";
+		cout << e.what() << '\n';
 	}
 }
 
@@ -63,12 +65,21 @@ int main()
 	cout << "--- random test ---\n";
 	solve_random_system(3);
 
+	Vec b = { 1, 2, 3 };
+
+	cout << "--- diagonal matrix ---\n";
+	Mat2d Diag = { {1,0,0}, {0,2,0}, {0,0,3} };
+	solve_system(Diag,b);
+
+	cout << "--- triagle matrix --\n";
+	Mat2d Tri = {{1,2,3},{0,2,3},{0,0,3}};
+	solve_system(Tri,b);
+
 	cout << "--- zero diagonal ---\n";
 	Mat2d A = {
 			{ 0, 1, 0 },
 			{ 0, 0, 1 },
 			{ 1, 0, 0 }
 	};
-	Vec b = { 1, 2, 3 };
 	solve_system(A,b);
 }
