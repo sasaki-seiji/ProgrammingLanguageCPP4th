@@ -52,9 +52,6 @@ template<>
 class Matrix<double,1>
 {
 public:
-	using iterator = typename std::vector<double>::iterator;
-	using const_iterator = typename std::vector<double>::const_iterator;
-
 	explicit Matrix(size_t n) : elems(n) { }
 
 	Matrix(const MVmulVadd& m)
@@ -76,10 +73,6 @@ public:
 	}
 
 	size_t size() const { return elems.size(); }
-	iterator begin() { return elems.begin(); }
-	const_iterator begin() const { return elems.begin(); }
-	iterator end() { return elems.end(); }
-	const_iterator end() const { return elems.end(); }
 	double& operator()(size_t i) { return elems[i]; }
 	double operator()(size_t i) const { return elems[i]; }
 
