@@ -386,7 +386,7 @@ error: no matching function for call to 'dot_product(Estd::Enable_if<true, Matri
 		template<typename T1, typename T2, typename RT=Common_type<T1,T2>>
 		RT dot_product(const Matrix_ref<T1,1>& a, const Matrix_ref<T2,1>& b)
 		{
-			return std::inner_product(a.begin(),a.end(),b.begin(),0.0);
+			return std::inner_product(a.begin(),a.end(),b.begin(),RT{});
 		}
 
 

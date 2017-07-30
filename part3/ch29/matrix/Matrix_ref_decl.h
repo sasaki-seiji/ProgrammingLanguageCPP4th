@@ -100,11 +100,8 @@ public:
 
 	Matrix_ref(const Matrix_slice<0>& s, T* p) :ptr{p + s.start} {}
 
-	T& operator()() { return *ptr; };
-	const T& operator()() const { return *ptr; }
-
-	operator T&() { return *ptr; }
-	operator const T&() const { return *ptr; }
+	T& operator()() const { return *ptr; };
+	operator T&() const { return *ptr; }
 
 private:
 	T* ptr;
