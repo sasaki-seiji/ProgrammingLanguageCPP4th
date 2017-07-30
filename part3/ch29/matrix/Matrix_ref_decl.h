@@ -90,12 +90,6 @@ private:
 template<typename T, typename U=T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<U,1>& b);
 
-#if 0
-// for 29.5.1 classical gaussian ellimination
-template<typename T>
-Matrix<T,1> scale_and_add(const Matrix_ref<T,1>& u, const T& s, const Matrix_ref<T,1>& v);
-#endif
-
 // specialized template for Matrix_ref<T,0>
 
 template<typename T>

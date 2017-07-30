@@ -138,17 +138,6 @@ T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<U,1>& b)
 }
 #endif
 
-#if 0
-// for 29.5.1 classical gaussian ellimination
-template<typename T>
-Matrix<T,1> scale_and_add(const Matrix_ref<T,1>& u, const T& s, const Matrix_ref<T,1>& v)
-{
-	Matrix<T,1> res = u;
-	res *= s;
-	res += v;
-	return res;
-}
-#endif
 
 // apply
 template<typename T,size_t N>
