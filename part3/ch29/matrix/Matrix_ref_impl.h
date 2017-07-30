@@ -124,19 +124,11 @@ Matrix_ref<T,N-1> Matrix_ref<T,N>::col(size_t n) const
 }
 
 // inner product
-#if 0
-template<typename T>
-T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<T,1>& b)
-{
-	return inner_product(a.begin(), a.end(), b.begin(), T{});
-}
-#else
 template<typename T, typename U=T>
 T dot_product(const Matrix_ref<T,1>& a, const Matrix_ref<U,1>& b)
 {
 	return inner_product(a.begin(), a.end(), b.begin(), T{});
 }
-#endif
 
 
 // apply

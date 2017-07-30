@@ -218,7 +218,7 @@ Matrix<T,2> operator*(const M1<T,2>& m1, const M2<T,2>& m2)
 	Matrix<T,2> res(nr,p);
 	for (size_t i = 0; i!=nr; ++i)
 		for (size_t j = 0; j!=p; ++j)
-#if 1
+#if 0
 			for (size_t k = 0; k!=nc; ++k)
 				res(i,j) += m1(i,k)*m2(k,j);
 #else
