@@ -20,6 +20,12 @@ constexpr bool Same()
 }
 
 template<typename X, typename Y>
+constexpr bool Is_base_of()
+{
+	return std::is_base_of<X,Y>::value;
+}
+
+template<typename X, typename Y>
 constexpr bool Convertible()
 {
 	return std::is_convertible<X,Y>::value;
