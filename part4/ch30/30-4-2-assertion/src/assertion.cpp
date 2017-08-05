@@ -12,6 +12,7 @@ using namespace Estd;
 #include "smiley.h"
 #include <cassert>
 #include <vector>
+#include <memory>
 using namespace std;
 
 template<typename T>
@@ -27,10 +28,11 @@ void draw_all(vector<T*>& v)
 
 int main()
 {
-	Shape *circle = new Circle(Point{10,-10},3);
-	Smiley* smiley = new Smiley(Point{0,0}, 10);
+	unique_ptr<Shape> circle(new Circle(Point{10,-10},3));
+	unique_ptr<Smiley> smiley(new Smiley(Point{0,0}, 10));
 	smiley->set_mouth(new Circle(Point{0,-3}, 2));
-	vector<Shape*> vs { circle, smiley, nullptr };
+	//vector<Shape*> vs { circle.get(), smiley.get() };
+	vector<Shape*> vs { circle.get(), smiley.get(), nullptr };
 	draw_all(vs);
 
 #if 0
